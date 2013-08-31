@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[Box findMatchedArray:forValue:]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Box scanSwapMatch]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Box scanMaxLineAtRow:]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Box repairSingleColumn:]:Box.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "kStartX">
+            </PersistentString>
+            <PersistentString
+               value = "tile.pixPositon.x">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Box check]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[AI findOneMatchWithOrder:]:AI.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Box findSwapMatchAtColumnIndex:]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer changeWithTileA:TileB:]:PlayLayer.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer ccTouchesBegan:withEvent:]:PlayLayer.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Box findSwapMatchAtRowIndex:]:Box.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "oriTile.value">
+            </PersistentString>
+            <PersistentString
+               value = "destTile.value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Box setObjectAtX:Y:withTile:]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Box removeAndRepair]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Box initWithSize:factor:]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Tile update]:Tile.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self.ccSequnce isDone]">
+            </PersistentString>
+            <PersistentString
+               value = "self.sprite.numberOfRunningActions">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer update:]:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.updating">
+            </PersistentString>
+            <PersistentString
+               value = "self.swapCount">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Box swapWithTile:B:]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Tile trade:]:Tile.m">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

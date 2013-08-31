@@ -9,6 +9,7 @@
 
 // Import the interfaces
 #import "HelloWorldLayer.h"
+#import "const.h"
 #import "PlayLayer.h"
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
@@ -42,7 +43,17 @@
 	if( (self=[super init]) ) {
 		
 		// create and initialize a Label
-       PlayLayer  *layer = [PlayLayer node];
+        
+        float kStartX=1.0*(self.contentSize.width-kBoxWidth*kTileSize)/2;
+        float kStartY=1.0*(self.contentSize.height-kBoxHeight*kTileSize)/2;
+//        float kStartX=0.0;
+//        float kStartY=0.0;
+        [[consts sharedManager] setKStartX:kStartX];
+        [[consts sharedManager] setKStartY:kStartY];
+
+        PlayLayer  *layer = [PlayLayer node];
+        
+
         
         // add layer as a child to scene
         [self addChild: layer];

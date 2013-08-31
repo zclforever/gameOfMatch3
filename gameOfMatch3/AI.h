@@ -13,4 +13,6 @@
 }
 @property (strong,nonatomic) Box* box;
 -(id) initWithBox: (Box*) box;
+-(NSArray*)thinkAndFindTile;
+-(NSArray*)findOneMatchWithOrder:(NSArray*)order;
 @end

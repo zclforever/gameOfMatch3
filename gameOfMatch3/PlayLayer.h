@@ -9,11 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Box.h"
+#import "AI.h"
 @interface PlayLayer : CCLayer {
 	Box *box;
 	Tile *selectedTile;
 	Tile *firstOne;
+    AI *ai;
 }
--(void) changeWithTileA: (Tile *) a TileB: (Tile *) b sel : (SEL) sel;
--(void) check: (id) sender data: (id) data;
+
+-(void) changeWithTileA: (Tile *) a TileB: (Tile *) b;
+//-(void) check: (id) sender data: (id) data;
 @end

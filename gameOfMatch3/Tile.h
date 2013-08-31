@@ -16,9 +16,16 @@
 	CCSprite *sprite;
 }
 -(id) initWithX: (int) posX Y: (int) posY;
-@property (nonatomic, readonly) int x, y;
+@property (nonatomic) int x, y;
 @property (nonatomic) int value;
 @property (nonatomic, retain) CCSprite *sprite;
+@property (nonatomic,strong) NSMutableArray* actionSequence;
+@property (nonatomic,strong)  CCSequence* ccSequnce2;
+@property (nonatomic) bool isActionDone;
+
+
+
+-(void)scaleToTileSize;
 -(BOOL) nearTile: (Tile *)othertile;
 -(void) trade:(Tile *)otherTile;
 -(CGPoint) pixPosition;
