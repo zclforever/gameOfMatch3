@@ -8,7 +8,7 @@
 
 #import "Tile.h"
 @interface Tile()
-@property (nonatomic,strong)  CCSequence* ccSequnce;
+
 
 @property (nonatomic,strong)  CCSpawn* ccSpawn;
 @property (nonatomic,strong)  NSMutableArray* cache;
@@ -31,9 +31,11 @@
 	return self;
 }
 
-
+-(void)dealloc{
+    int a=1;
+}
 -(void)update{
-    int interval=0.01;
+    int interval=0.1;
      //NSLog(@"tile update sequence count is %d",1);
     int count=self.actionSequence.count;
 
@@ -50,18 +52,16 @@
     }
 //    //NSLog(@"tile update sequence count is %d",count);
     self.isActionDone=NO;
-
+    self.ccSequnce=nil;
     [self.cache removeAllObjects];
     for(int i=0;i<count;i++){
-        CCFiniteTimeAction* action=self.actionSequence[0];
-        if(x==1&&y==1){
-            NSLog(@"action added:%@", [action debugDescription]);
-        }
-        if (!self.ccSequnce) {
-            self.ccSequnce=[CCSequence actions:action, nil];
-        }else{
-            self.ccSequnce=[CCSequence actionOne:self.ccSequnce two:action];
-        }
+//        CCFiniteTimeAction* action=self.actionSequence[0];
+//
+//        if (!self.ccSequnce) {
+//            self.ccSequnce=[CCSequence actions:action, nil];
+//        }else{
+//            self.ccSequnce=[CCSequence actionOne:self.ccSequnce two:action];
+//        }
         [self.cache addObject:self.actionSequence[0]];
         [self.actionSequence removeObjectAtIndex:0];
         //[self.sprite runAction:self.cache[0]];
@@ -69,13 +69,22 @@
         
         
     }
+
+    
     CCFiniteTimeAction* actionEnd=[CCCallBlock actionWithBlock:^{
         //NSLog(@"tile update in block");
         self.ccSequnce=nil;
         self.isActionDone=YES;
         [self performSelector:@selector(update) withObject:nil afterDelay:interval];
     }];
-    self.ccSequnce=[CCSequence actionOne:self.ccSequnce two:actionEnd];
+
+    [self.cache addObject:actionEnd];
+    self.ccSequnce=[CCSequence actionWithArray:self.cache];
+    
+    //self.ccSequnce=[CCSequence actionOne:self.ccSequnce two:actionEnd];
+    
+    //[self performSelector:@selector(update) withObject:nil afterDelay:interval];
+    //[self.sprite runAction:self.ccSequnce];
 //    [self.cache addObject:[CCCallBlock actionWithBlock:^{
 //        NSLog(@"tile update in block");
 //           
@@ -85,12 +94,12 @@
 //     ];
     
 //    self.ccSequnce=[CCSequence actionWithArray:self.cache];
-//    [self.sprite runAction:self.ccSequnce];
+    [self.sprite runAction:self.ccSequnce];
    // [self.actionSequence removeAllObjects];
 
     //[self.sprite runAction:[CCSequence actionWithArray:self.cache]];
-    CCAction* final=[CCSpawn actions:self.ccSequnce,self.ccSequnce2,nil];
-    [self.sprite runAction:final];
+    //CCAction* final=[CCSpawn actions:self.ccSequnce,self.ccSequnce2,nil];
+    //[self.sprite runAction:final];
 
 }
 -(void)scaleToTileSize{

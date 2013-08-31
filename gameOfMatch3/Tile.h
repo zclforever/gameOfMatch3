@@ -20,6 +20,7 @@
 @property (nonatomic) int value;
 @property (nonatomic, retain) CCSprite *sprite;
 @property (nonatomic,strong) NSMutableArray* actionSequence;
+@property (nonatomic,strong)  CCSequence* ccSequnce;
 @property (nonatomic,strong)  CCSequence* ccSequnce2;
 @property (nonatomic) bool isActionDone;
 

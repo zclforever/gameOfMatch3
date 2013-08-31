@@ -122,22 +122,24 @@
 		if (tile.sprite) {
 			CCAction *action = [CCSequence actions:[CCScaleTo actionWithDuration:0.3f scale:0.0f],
                                 [CCCallBlockN actionWithBlock:^(CCNode* node){
-                                       //NSLog(@"in clear block");
+                                       NSLog(@"in clear block %@",[node debugDescription]);
                                         [node removeFromParentAndCleanup:YES];
-                                    	//[layer removeChild: node cleanup:YES];
+                                       if(node)NSLog(@"in clear block deleted %d",[node numberOfRunningActions]);
+                                    	[layer removeChild: node cleanup:YES];
 
 
                                 }],
 								nil];
-            [tile.actionSequence addObject:action];
-			//[tile.sprite runAction: action];
+            //if(tile.ccSequnce)[tile.ccSequnce stop];
+            //[tile.actionSequence addObject:action];
+			[tile.sprite runAction: action];
 		}
         [self.readyToRemoveTiles removeObject:tile];
          
 	}
 
 
-        int maxCount = [self repair];
+         [self repair];
 
         //[self.readyToRemoveTiles removeAllObjects];
         
@@ -206,15 +208,15 @@
             CGPoint pos=[tile pixPosition];
             [self swapWithTile:tile B:destTile];
             CCSequence *action = [CCSequence actions:
-                                  //[CCMoveBy actionWithDuration:kMoveTileTime*extension position:ccp(0,-kTileSize*extension)],
-                                  [CCMoveTo actionWithDuration:kMoveTileTime*extension position:ccp(pos.x,pos.y-kTileSize*extension)],
+                                  [CCMoveBy actionWithDuration:kMoveTileTime*extension position:ccp(0,-kTileSize*extension)],
+                                  //[CCMoveTo actionWithDuration:kMoveTileTime*extension position:ccp(pos.x,pos.y-kTileSize*extension)],
                                   nil];
             
-            //[tile.sprite runAction: action];
+            [tile.sprite runAction: action];
             
 //            destTile.value = tile.value;
 //            destTile.sprite = tile.sprite;
-            [tile.actionSequence addObject:action];
+            //[tile.actionSequence addObject:action];
             
         }
 	}
@@ -232,14 +234,15 @@
 
 		sprite.position = ccp(kStartX + columnIndex * kTileSize + kTileSize/2, kStartY + (kBoxHeight + i) * kTileSize + kTileSize/2);
 		CCSequence *action = [CCSequence actions:
-							  [CCMoveTo actionWithDuration:kMoveTileTime*extension position:ccp(sprite.position.x,sprite.position.y-kTileSize*extension)],
+                              [CCMoveBy actionWithDuration:kMoveTileTime*extension position:ccp(0,-kTileSize*extension)],
+							  //[CCMoveTo actionWithDuration:kMoveTileTime*extension position:ccp(sprite.position.x,sprite.position.y-kTileSize*extension)],
 							  nil];
-		
+		//action=[CCEaseInOut actionWithAction:action rate:2];
         [layer addChild: sprite];
-		//[sprite runAction: action];
+		[sprite runAction: action];
 		destTile.value = value;
 		destTile.sprite = sprite;
-        [destTile.actionSequence addObject:action];
+        //[destTile.actionSequence addObject:action];
 	}
 	return extension;
 }

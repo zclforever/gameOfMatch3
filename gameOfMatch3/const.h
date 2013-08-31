@@ -15,8 +15,8 @@
 
 #define kTileSize 35.0f
 #define kMoveTileTime 0.2f
-#define kBoxWidth 8
-#define kBoxHeight 8
+#define kBoxWidth 5
+#define kBoxHeight 5
 
 #define kMaxLevelNo 10
 #define kMaxRecordCount 15

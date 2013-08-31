@@ -35,7 +35,7 @@
     [bg setScaleX: winSize.width/bg.contentSize.width];
     [bg setScaleY: winSize.height/bg.contentSize.height];
 	bg.position = ccp(winSize.width/2,winSize.height/2);
-	[self addChild: bg z:0];
+	//[self addChild: bg z:0];
 	
 	box = [[Box alloc] initWithSize:CGSizeMake(kBoxWidth,kBoxHeight) factor:6];
 	box.layer = self;
@@ -119,6 +119,7 @@
     [label setString:[NSString stringWithFormat:@"%d",value]];
 }
 -(void)update:(ccTime)delta{
+
     self.whosTurn=Turn_Player;
     if (self.updating||!(self.swapCount<=0)) {
         return;
@@ -138,14 +139,14 @@
     Person* nextPerson=self.turnOfPersons[(self.whosTurn+1) % 2];
 
     if(ret){
-        NSLog(@"in check is value 5");
-//        NSArray* tmp=[box.readyToRemoveTiles allObjects];
-//        matchedArray=[box findMatchedArray:tmp forValue:5];
-//        if (matchedArray) {
-//            nextPerson.curHP-=10;
-//        }
+        //NSLog(@"in check is value 5");
+        NSArray* tmp=[box.readyToRemoveTiles allObjects];
+        matchedArray=[box findMatchedArray:tmp forValue:5];
+        if (matchedArray) {
+            nextPerson.curHP-=10;
+        }
         [box removeAndRepair];
-        NSLog(@"in check is value 5 finished");
+        //NSLog(@"in check is value 5 finished");
 
     }
 //    if(box.allMoveDone&&!box.lock){
@@ -179,7 +180,7 @@
 -(void) onEnterTransitionDidFinish{
 	//[box check];
 }
--(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+-(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
 
     UITouch  *touch = [touches anyObject];
     CGPoint  location = [touch locationInView:[touch view]];
@@ -220,6 +221,7 @@
 	if (selectedTile && [selectedTile nearTile:tile]) {
 		[box setLock:YES];
 		[self changeWithTileA: selectedTile TileB: tile];
+        [selectedTile scaleToTileSize];
 		selectedTile = nil;
         self.whosTurn=(self.whosTurn+1) % 2;
 	}else {
@@ -264,7 +266,8 @@
                    nil];
         NSArray* ret=[box findMatchedArray:matched forValue:a.value];
         if(!ret){unRemoveTile=a;unRemoveAction=actionA;}else{unRemoveTile=b;unRemoveAction=actionB;}
-        [unRemoveTile.actionSequence addObject:unRemoveAction];
+        //[unRemoveTile.actionSequence addObject:unRemoveAction];
+        [unRemoveTile.sprite runAction:unRemoveAction];
 //        [a.actionSequence addObject:actionA];
 //        [b.actionSequence addObject:actionB];
         //[a.sprite runAction:actionA];
