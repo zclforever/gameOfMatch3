@@ -12,7 +12,7 @@
 #import "AI.h"
 @interface PlayLayer : CCLayer {
 	Box *box;
-	Tile *selectedTile;
+	//Tile *selectedTile;
 	Tile *firstOne;
     AI *ai;
 }

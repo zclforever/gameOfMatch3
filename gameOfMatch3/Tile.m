@@ -12,6 +12,8 @@
 
 @property (nonatomic,strong)  CCSpawn* ccSpawn;
 @property (nonatomic,strong)  NSMutableArray* cache;
+@property bool updating;
+@property  bool locking;
 @end
 @implementation Tile
 
@@ -25,48 +27,64 @@
     self.actionSequence=[[NSMutableArray alloc]init];
     self.cache=[[NSMutableArray alloc]init];
     self.isActionDone=YES;
+    self.updating=NO;
     self.ccSequnce2=nil;
-    [self update];
+    self.readyToEnd=NO;
+    //[self update];
 
+    [[[CCDirector sharedDirector] scheduler] scheduleSelector:@selector(update) forTarget:self interval:0.1 repeat:kCCRepeatForever delay:0 paused:NO] ;
 	return self;
 }
 
--(void)dealloc{
-    int a=1;
-}
+
 -(void)update{
-    int interval=0.1;
-     //NSLog(@"tile update sequence count is %d",1);
+    if(self.locking)return;
+    if(self.updating)return;
+    if(self.readyToEnd){
+        [self lock];
+        CCAction *disappearAction = [CCSequence actions:[CCScaleTo actionWithDuration:0.3f scale:0.0f],
+                            [CCCallBlockN actionWithBlock:^(CCNode* node){
+                                    [self scaleToNone];
+                                    [node removeFromParentAndCleanup:YES];
+                                    }],
+                            nil];
+        
+        [sprite stopAllActions];
+        while(sprite.numberOfRunningActions>0){        [sprite stopAllActions];};
+        [sprite runAction:disappearAction];
+      return;  
+    }
     int count=self.actionSequence.count;
 
    if (count==0||!sprite) {
-        [self performSelector:@selector(update) withObject:nil afterDelay:interval];
         return;
     }
-//    //if(![self.ccSequnce isDone]){return;}
-    if(self.sprite.numberOfRunningActions>0){[self performSelector:@selector(update) withObject:nil afterDelay:interval];return;}
-    if(!self.isActionDone){
-                //NSLog(@"tile update action running");
-        [self performSelector:@selector(update) withObject:nil afterDelay:interval];
-        return;
-    }
-//    //NSLog(@"tile update sequence count is %d",count);
+    //if(self.sprite.numberOfRunningActions>0){return;}
+    if(!self.isActionDone)return;
+
+
     self.isActionDone=NO;
+    self.updating=YES;
     self.ccSequnce=nil;
     [self.cache removeAllObjects];
+    int removeCount=count-2;
     for(int i=0;i<count;i++){
-//        CCFiniteTimeAction* action=self.actionSequence[0];
-//
-//        if (!self.ccSequnce) {
-//            self.ccSequnce=[CCSequence actions:action, nil];
-//        }else{
-//            self.ccSequnce=[CCSequence actionOne:self.ccSequnce two:action];
-//        }
-        [self.cache addObject:self.actionSequence[0]];
-        [self.actionSequence removeObjectAtIndex:0];
-        //[self.sprite runAction:self.cache[0]];
-
         
+        if(removeCount>0){
+            [self.actionSequence removeObjectAtIndex:0];
+            removeCount--;
+            continue;
+        }
+        
+        CCFiniteTimeAction* action=self.actionSequence[0];
+
+        if (!self.ccSequnce) {
+            self.ccSequnce=[CCSequence actions:action, nil];
+        }else{
+            self.ccSequnce=[CCSequence actionOne:self.ccSequnce two:action];
+        }
+        [self.actionSequence removeObjectAtIndex:0];
+    
         
     }
 
@@ -75,32 +93,16 @@
         //NSLog(@"tile update in block");
         self.ccSequnce=nil;
         self.isActionDone=YES;
-        [self performSelector:@selector(update) withObject:nil afterDelay:interval];
     }];
-
-    [self.cache addObject:actionEnd];
-    self.ccSequnce=[CCSequence actionWithArray:self.cache];
     
-    //self.ccSequnce=[CCSequence actionOne:self.ccSequnce two:actionEnd];
-    
-    //[self performSelector:@selector(update) withObject:nil afterDelay:interval];
-    //[self.sprite runAction:self.ccSequnce];
-//    [self.cache addObject:[CCCallBlock actionWithBlock:^{
-//        NSLog(@"tile update in block");
-//           
-//        self.isActionDone=YES;
-//         [self performSelector:@selector(update) withObject:nil afterDelay:.1];
-//    }]
-//     ];
-    
-//    self.ccSequnce=[CCSequence actionWithArray:self.cache];
+    self.ccSequnce=[CCSequence actionOne:self.ccSequnce two:actionEnd];
     [self.sprite runAction:self.ccSequnce];
-   // [self.actionSequence removeAllObjects];
 
-    //[self.sprite runAction:[CCSequence actionWithArray:self.cache]];
-    //CCAction* final=[CCSpawn actions:self.ccSequnce,self.ccSequnce2,nil];
-    //[self.sprite runAction:final];
-
+    self.updating=NO;
+}
+-(void)scaleToNone{
+    [sprite setScaleX: 0];
+    [sprite setScaleY: 0];
 }
 -(void)scaleToTileSize{
     [sprite setScaleX: kTileSize/sprite.contentSize.width];
@@ -131,7 +133,22 @@
     y=tmpY;
 
 }
-
+-(void)lock{
+    while(self.updating){
+    };
+    self.locking=YES;
+}
+-(void)unlock{
+    while(self.updating){};
+    self.locking=NO;
+}
+-(Tile*)copyTile{
+    Tile* tmpTile=[[Tile alloc]initWithX:x Y:y];
+    tmpTile.value=value;
+    NSString *name = [NSString stringWithFormat:@"block_%d.png",value];
+    tmpTile.sprite=[CCSprite spriteWithFile:name];
+    return tmpTile;
+}
 -(CGPoint) pixPosition{
     float kStartX=[[consts sharedManager] kStartX];
     float kStartY=[[consts sharedManager] kStartY];

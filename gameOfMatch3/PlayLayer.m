@@ -20,13 +20,15 @@
 @property (strong,nonatomic) Person* player;
 @property (strong,nonatomic) Person* enemy;
 @property (strong,nonatomic) NSArray* turnOfPersons;
+@property (strong,nonatomic) Tile *selectedTile;
 @property  int swapCount;
 @property  bool updating;
+@property  bool locking;
 -(void)afterTurn: (id) node;
 @end
 
 @implementation PlayLayer
-
+@synthesize selectedTile=_selectedTile;
 -(id) init{
 	self = [super init];
 	
@@ -112,6 +114,7 @@
 	//[self schedule:@selector(changeTurn:) interval:.3];
     self.updating=NO;
     self.swapCount=0;
+    self.locking=NO;
     [self schedule:@selector(update:)];
 	return self;
 }
@@ -119,7 +122,9 @@
     [label setString:[NSString stringWithFormat:@"%d",value]];
 }
 -(void)update:(ccTime)delta{
-
+    if (self.locking) {
+        return;
+    }
     self.whosTurn=Turn_Player;
     if (self.updating||!(self.swapCount<=0)) {
         return;
@@ -163,16 +168,16 @@
 -(void)computerAIgo{
     //NSLog(@"computerAIgo");
     NSArray* ret=[ai thinkAndFindTile];
-    selectedTile=ret[0];
+    self.selectedTile=ret[0];
     Tile* tile=ret[1];
     if(ret){
 		[box setLock:YES];
         
-        [self performSelector:@selector(changeWithTileArray:) withObject:[NSArray arrayWithObjects:selectedTile,tile, nil] afterDelay:.8 ];
+        [self performSelector:@selector(changeWithTileArray:) withObject:[NSArray arrayWithObjects:self.selectedTile,tile, nil] afterDelay:.8 ];
 
 
-		//[self changeWithTileA: selectedTile TileB: tile];
-		selectedTile = nil;
+		//[self changeWithTileA: self.selectedTile TileB: tile];
+		self.selectedTile = nil;
         //self.player.curHP-=10;
 
     }
@@ -200,6 +205,9 @@
 //        return;
 //    }
 //    if(!box.allMoveDone) return;
+
+    
+    
 	UITouch* touch = [touches anyObject];
 	CGPoint location = [touch locationInView: touch.view];
 	location = [[CCDirector sharedDirector] convertToGL: location];
@@ -210,23 +218,23 @@
 	int y = (location.y -kStartY) / kTileSize;
 	
 	
-	if (selectedTile && selectedTile.x ==x && selectedTile.y == y) {
+	if (self.selectedTile && self.selectedTile.x ==x && self.selectedTile.y == y) {
 		return;
 	}
 	
 	Tile *tile = [box objectAtX:x Y:y];
-    
+    [box pushTilesToRemoveForValue:tile.value];
 	if(!tile.isActionDone)return;
     
-	if (selectedTile && [selectedTile nearTile:tile]) {
+	if (self.selectedTile && [self.selectedTile nearTile:tile]) {
 		[box setLock:YES];
-		[self changeWithTileA: selectedTile TileB: tile];
-        [selectedTile scaleToTileSize];
-		selectedTile = nil;
+		[self changeWithTileA: self.selectedTile TileB: tile];
+        [self.selectedTile scaleToTileSize];
+		self.selectedTile = nil;
         self.whosTurn=(self.whosTurn+1) % 2;
 	}else {
-        [selectedTile scaleToTileSize];
-		selectedTile = tile;
+        [self.selectedTile scaleToTileSize];
+		self.selectedTile = tile;
 		[self afterTurn:tile.sprite];
 	}
 }
@@ -266,13 +274,15 @@
                    nil];
         NSArray* ret=[box findMatchedArray:matched forValue:a.value];
         if(!ret){unRemoveTile=a;unRemoveAction=actionA;}else{unRemoveTile=b;unRemoveAction=actionB;}
-        //[unRemoveTile.actionSequence addObject:unRemoveAction];
-        [unRemoveTile.sprite runAction:unRemoveAction];
+        [unRemoveTile.actionSequence addObject:unRemoveAction];
+        //[unRemoveTile.sprite runAction:unRemoveAction];
 //        [a.actionSequence addObject:actionA];
 //        [b.actionSequence addObject:actionB];
-        //[a.sprite runAction:actionA];
-        //[b.sprite runAction:actionB];
+        [a.sprite runAction:actionA];
+        [b.sprite runAction:actionB];
+        [self lock];
         [box swapWithTile:a B:b];
+        [self unlock];
         NSLog(@"in changeWithTile finished");
     }else{
         actionA = [CCSequence actions:
@@ -286,22 +296,39 @@
                    [CCMoveTo actionWithDuration:moveTime position:[b pixPosition]],
                    nil
                    ];
-        //[a.actionSequence addObject:actionA];
-        //[b.actionSequence addObject:actionB];
-        [a.sprite runAction:actionA];
-        [b.sprite runAction:actionB];
+        [a.actionSequence addObject:actionA];
+        [b.actionSequence addObject:actionB];
+        //[a.sprite runAction:actionA];
+        //[b.sprite runAction:actionB];
     }
 
 }
-
-
+-(void)lock{
+    while(self.updating){};
+    self.locking=YES;
+}
+-(void)unlock{
+    while(self.updating){};
+    self.locking=NO;
+}
+-(void)setSelectedTile:(Tile *)selectedTile{
+    Tile* lastTile=_selectedTile;
+    if(lastTile==selectedTile)return;
+    [lastTile scaleToTileSize];
+    if (lastTile.readyToEnd) {
+        [lastTile scaleToNone];
+    }
+        _selectedTile=selectedTile;
+}
 -(void)afterTurn: (id) node{
     CCSprite *sprite = (CCSprite *)node;
-	if (selectedTile && node == selectedTile.sprite) {
-        [sprite setScaleX: kTileSize/sprite.contentSize.width];
-        [sprite setScaleY: kTileSize/sprite.contentSize.height];
+	if (self.selectedTile && node == self.selectedTile.sprite) {
+        if (self.selectedTile.readyToEnd) {
+            return;
+        }
+
         if([box readyToRemoveTiles].count>0||sprite.numberOfRunningActions>1){
-            
+            //[self.selectedTile scaleToTileSize];
             return;
         }
 		CCAction* runningAction=[sprite getActionByTag:1];
@@ -312,7 +339,7 @@
 								  [CCCallFuncN actionWithTarget:self selector:@selector(afterTurn:)],
 								  nil];
         someAction.tag=1;
-		//selectedTile.ccSequnce2=someAction;
+		//self.selectedTile.ccSequnce2=someAction;
 		[sprite runAction:someAction];
 	}
 }

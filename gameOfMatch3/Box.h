@@ -36,6 +36,9 @@
 -(void) afterAllMoveDone;
 
 
+-(void) pushTilesToRemoveForValue:(int)value;  //magic
+
+
 -(void) swapWithTile:(Tile*)a B:(Tile*)b;
 -(NSMutableArray*) findMatchWithSwap:(Tile*)A B:(Tile*)B;
 -(NSMutableArray*) scanSwapMatch;

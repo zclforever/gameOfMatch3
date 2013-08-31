@@ -23,9 +23,12 @@
 @property (nonatomic,strong)  CCSequence* ccSequnce;
 @property (nonatomic,strong)  CCSequence* ccSequnce2;
 @property (nonatomic) bool isActionDone;
+@property bool readyToEnd;
 
-
-
+-(void)lock;
+-(void)unlock;
+-(Tile*)copyTile;
+-(void)scaleToNone;
 -(void)scaleToTileSize;
 -(BOOL) nearTile: (Tile *)othertile;
 -(void) trade:(Tile *)otherTile;
