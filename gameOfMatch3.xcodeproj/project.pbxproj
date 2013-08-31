@@ -137,7 +137,6 @@
 		02B175A217C5C6D90057DA00 /* vec2.c in Sources */ = {isa = PBXBuildFile; fileRef = 02B175A117C5C6D90057DA00 /* vec2.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		02B175A417C5C6D90057DA00 /* vec3.c in Sources */ = {isa = PBXBuildFile; fileRef = 02B175A317C5C6D90057DA00 /* vec3.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		02B175A617C5C6D90057DA00 /* vec4.c in Sources */ = {isa = PBXBuildFile; fileRef = 02B175A517C5C6D90057DA00 /* vec4.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		02B175AB17C5C6D90057DA00 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175AA17C5C6D90057DA00 /* main.m */; };
 		02B175AE17C5C6D90057DA00 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175AD17C5C6D90057DA00 /* AppDelegate.m */; };
 		02B175B117C5C6D90057DA00 /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175B017C5C6D90057DA00 /* HelloWorldLayer.m */; };
 		02B175B417C5C6D90057DA00 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175B317C5C6D90057DA00 /* IntroLayer.m */; };
@@ -151,7 +150,7 @@
 		02B175CD17C5DC8B0057DA00 /* block_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 02B175C817C5DC8B0057DA00 /* block_4.png */; };
 		02B175CF17C5DD010057DA00 /* block_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 02B175CE17C5DD010057DA00 /* block_5.png */; };
 		02B175D217C5F3F70057DA00 /* AI.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175D117C5F3F70057DA00 /* AI.m */; };
-		75866D6417D2550E00AAB4F7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75866D6317D2550E00AAB4F7 /* main.m */; };
+		759A82BE17D2701E00C39090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 759A82BD17D2701E00C39090 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -429,7 +428,6 @@
 		02B175A517C5C6D90057DA00 /* vec4.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = vec4.c; path = libs/kazmath/src/vec4.c; sourceTree = "<group>"; };
 		02B175A717C5C6D90057DA00 /* LICENSE_Kazmath.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE_Kazmath.txt; path = libs/LICENSE_Kazmath.txt; sourceTree = "<group>"; };
 		02B175A917C5C6D90057DA00 /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
-		02B175AA17C5C6D90057DA00 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		02B175AC17C5C6D90057DA00 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		02B175AD17C5C6D90057DA00 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		02B175AF17C5C6D90057DA00 /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
@@ -451,7 +449,21 @@
 		02B175CE17C5DD010057DA00 /* block_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_5.png; sourceTree = "<group>"; };
 		02B175D017C5F3F60057DA00 /* AI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AI.h; sourceTree = "<group>"; };
 		02B175D117C5F3F70057DA00 /* AI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AI.m; sourceTree = "<group>"; };
-		75866D6317D2550E00AAB4F7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		759A82BD17D2701E00C39090 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		759A82C017D270C600C39090 /* Merge-AI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Merge-AI.h"; sourceTree = "<group>"; };
+		759A82C117D270D700C39090 /* Merge-AI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Merge-AI.m"; sourceTree = "<group>"; };
+		759A82C217D270D700C39090 /* Merge-Box.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Merge-Box.h"; sourceTree = "<group>"; };
+		759A82C317D270D700C39090 /* Merge-Box.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Merge-Box.m"; sourceTree = "<group>"; };
+		759A82C417D270D700C39090 /* Merge-const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Merge-const.h"; sourceTree = "<group>"; };
+		759A82C517D270D700C39090 /* Merge-const.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Merge-const.m"; sourceTree = "<group>"; };
+		759A82C617D270D700C39090 /* Merge-HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Merge-HelloWorldLayer.h"; sourceTree = "<group>"; };
+		759A82C717D270D700C39090 /* Merge-HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Merge-HelloWorldLayer.m"; sourceTree = "<group>"; };
+		759A82C817D270D700C39090 /* Merge-Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Merge-Person.h"; sourceTree = "<group>"; };
+		759A82C917D270D700C39090 /* Merge-Person.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Merge-Person.m"; sourceTree = "<group>"; };
+		759A82CA17D270D700C39090 /* Merge-PlayLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Merge-PlayLayer.h"; sourceTree = "<group>"; };
+		759A82CB17D270D700C39090 /* Merge-PlayLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Merge-PlayLayer.m"; sourceTree = "<group>"; };
+		759A82CC17D270D700C39090 /* Merge-Tile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Merge-Tile.h"; sourceTree = "<group>"; };
+		759A82CD17D270D700C39090 /* Merge-Tile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Merge-Tile.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -516,7 +528,6 @@
 				02B175AD17C5C6D90057DA00 /* AppDelegate.m */,
 				02B175BD17C5CA140057DA00 /* const.h */,
 				02B175BA17C5C9C40057DA00 /* Tile.h */,
-				75866D6317D2550E00AAB4F7 /* main.m */,
 				02B175BB17C5C9C40057DA00 /* Tile.m */,
 				02B175BE17C5CD780057DA00 /* Box.h */,
 				02B175BF17C5CD780057DA00 /* Box.m */,
@@ -564,6 +575,7 @@
 			isa = PBXGroup;
 			children = (
 				02B1755F17C5C6D80057DA00 /* LICENSE_cocos2d.txt */,
+				759A82BF17D270B500C39090 /* Merge */,
 				02B1757517C5C6D90057DA00 /* LICENSE_CocosDenshion.txt */,
 				02B175A717C5C6D90057DA00 /* LICENSE_Kazmath.txt */,
 				02B1743517C5C6D60057DA00 /* cocos2d */,
@@ -917,9 +929,30 @@
 			isa = PBXGroup;
 			children = (
 				02B175A917C5C6D90057DA00 /* Prefix.pch */,
-				02B175AA17C5C6D90057DA00 /* main.m */,
+				759A82BD17D2701E00C39090 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		759A82BF17D270B500C39090 /* Merge */ = {
+			isa = PBXGroup;
+			children = (
+				759A82C117D270D700C39090 /* Merge-AI.m */,
+				759A82C217D270D700C39090 /* Merge-Box.h */,
+				759A82C317D270D700C39090 /* Merge-Box.m */,
+				759A82C417D270D700C39090 /* Merge-const.h */,
+				759A82C517D270D700C39090 /* Merge-const.m */,
+				759A82C617D270D700C39090 /* Merge-HelloWorldLayer.h */,
+				759A82C717D270D700C39090 /* Merge-HelloWorldLayer.m */,
+				759A82C817D270D700C39090 /* Merge-Person.h */,
+				759A82C917D270D700C39090 /* Merge-Person.m */,
+				759A82CA17D270D700C39090 /* Merge-PlayLayer.h */,
+				759A82CB17D270D700C39090 /* Merge-PlayLayer.m */,
+				759A82CC17D270D700C39090 /* Merge-Tile.h */,
+				759A82CD17D270D700C39090 /* Merge-Tile.m */,
+				759A82C017D270C600C39090 /* Merge-AI.h */,
+			);
+			name = Merge;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1109,7 +1142,6 @@
 				02B175A217C5C6D90057DA00 /* vec2.c in Sources */,
 				02B175A417C5C6D90057DA00 /* vec3.c in Sources */,
 				02B175A617C5C6D90057DA00 /* vec4.c in Sources */,
-				02B175AB17C5C6D90057DA00 /* main.m in Sources */,
 				02B175AE17C5C6D90057DA00 /* AppDelegate.m in Sources */,
 				02B175B117C5C6D90057DA00 /* HelloWorldLayer.m in Sources */,
 				02B175B417C5C6D90057DA00 /* IntroLayer.m in Sources */,
@@ -1117,7 +1149,7 @@
 				02B175C017C5CD780057DA00 /* Box.m in Sources */,
 				02B175C317C5DA6B0057DA00 /* PlayLayer.m in Sources */,
 				02B175D217C5F3F70057DA00 /* AI.m in Sources */,
-				75866D6417D2550E00AAB4F7 /* main.m in Sources */,
+				759A82BE17D2701E00C39090 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

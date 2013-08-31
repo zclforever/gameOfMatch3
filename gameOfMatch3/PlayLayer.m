@@ -8,6 +8,7 @@
 
 #import "PlayLayer.h"
 @interface PlayLayer()
+@property bool updating;
 -(void)afterTurn: (id) node;
 @end
 
@@ -27,12 +28,29 @@
 	box.lock = YES;
 	
 	self.isTouchEnabled = YES;
-	
+    self.updating=NO;
+    [self schedule:@selector(update:)];
 	return self;
+}
+-(void)update:(ccTime)delta{
+    
+
+    if (self.updating) {
+        return;
+    }
+//    if (!box.readyToRemoveTiles) {
+//        return;
+//    }
+    self.updating=YES;
+    //NSLog(@"in update");
+
+    [box check];
+
+    self.updating=NO;
 }
 
 -(void) onEnterTransitionDidFinish{
-	[box check];
+	//[box check];
 }
 
 - (void)ccTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event{
