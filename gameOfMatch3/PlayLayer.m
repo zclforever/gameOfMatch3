@@ -7,7 +7,7 @@
 //
 
 #import "PlayLayer.h"
-
+#import "GameOverLayer.h"
 #import "Person.h"
 @interface PlayLayer()
 @property  int whosTurn;
@@ -21,6 +21,7 @@
 @property (strong,nonatomic) Person* enemy;
 @property (strong,nonatomic) NSArray* turnOfPersons;
 @property (strong,nonatomic) Tile *selectedTile;
+@property (strong,nonatomic)  CCMotionStreak* touchStreak;
 @property  int swapCount;
 @property  bool updating;
 @property  bool locking;
@@ -38,7 +39,16 @@
     [bg setScaleY: winSize.height/bg.contentSize.height];
 	bg.position = ccp(winSize.width/2,winSize.height/2);
 	[self addChild: bg z:0];
-	
+
+//    CCSprite *touchSprite= [CCSprite spriteWithFile: @"fire.png"];
+//    [touchSprite setScaleX: 32/touchSprite.contentSize.width];
+//    [touchSprite setScaleY: 32/touchSprite.contentSize.height];
+//	touchSprite.position = ccp(winSize.width/2,winSize.height/2);
+//	[self addChild: touchSprite z:0];
+    
+
+    
+    
 	box = [[Box alloc] initWithSize:CGSizeMake(kBoxWidth,kBoxHeight) factor:6];
 	box.layer = self;
 	box.lock = YES;
@@ -52,61 +62,9 @@
     self.enemy=[[Person alloc]init];
     self.enemy.curHP=100;
     self.enemy.maxHP=100;
-
-    self.turnOfPersons=[NSArray arrayWithObjects:self.player, self.enemy, nil];
-    self.lifeBarOfPlayer=[CCSprite spriteWithFile:@"lifeBar.png" ];
-    [self.lifeBarOfPlayer setScaleY:15.0/self.lifeBarOfPlayer.contentSize.height];
-    self.lifeBarOfPlayer.position=ccp(5,300);
-    self.lifeBarOfPlayer.anchorPoint=ccp(0,0);
-    [self addChild:self.lifeBarOfPlayer];
-
     
-    CCLabelTTF * label = [CCLabelTTF labelWithString:@"/" fontName:@"Georgia-Bold" fontSize:14];
-    label.color = ccc3(255,255,255);
-    label.position = ccp(self.lifeBarOfPlayer.position.x+self.lifeBarOfPlayer.contentSize.width/2-label.contentSize.width/2, self.lifeBarOfPlayer.position.y+self.lifeBarOfPlayer.contentSize.height/2);
-    [self addChild:label];
-    
-    self.curHPOfPlayer=[CCLabelTTF labelWithString:@"0" fontName:@"Georgia-Bold" fontSize:14];
-    self.curHPOfPlayer.color = ccc3(255,255,255);
-    self.curHPOfPlayer.position = ccp(self.lifeBarOfPlayer.position.x+self.lifeBarOfPlayer.contentSize.width/3-self.curHPOfPlayer.contentSize.width/2, self.lifeBarOfPlayer.position.y+self.lifeBarOfPlayer.contentSize.height/2);
-    [self addChild:self.curHPOfPlayer];
-    
-    self.maxHPOfPlayer=[CCLabelTTF labelWithString:@"0" fontName:@"Georgia-Bold" fontSize:14];
-    self.maxHPOfPlayer.color = ccc3(255,255,255);
-    self.maxHPOfPlayer.position = ccp(self.lifeBarOfPlayer.position.x+self.lifeBarOfPlayer.contentSize.width*2/3-self.maxHPOfPlayer.contentSize.width/2, self.lifeBarOfPlayer.position.y+self.maxHPOfPlayer.contentSize.height/2);
-    [self addChild:self.maxHPOfPlayer];
-    
-    [self setLabelString:self.curHPOfPlayer withInt:self.player.curHP];
-    [self setLabelString:self.maxHPOfPlayer withInt:self.player.maxHP];
-    
-    
-    
-    self.lifeBarOfEnemy=[CCSprite spriteWithFile:@"lifeBar.png" ];
-    [self.lifeBarOfEnemy setScaleY:15.0/self.lifeBarOfEnemy.contentSize.height];
-    self.lifeBarOfEnemy.position=ccp(winSize.width/2+kBoxWidth*kTileSize/2,300);
-    self.lifeBarOfEnemy.anchorPoint=ccp(0,0);
-    [self addChild:self.lifeBarOfEnemy];
-    
-    //init Enemy
-    CCLabelTTF * label2 = [CCLabelTTF labelWithString:@"/" fontName:@"Georgia-Bold" fontSize:14];
-    label2.color = ccc3(255,255,255);
-    label2.position = ccp(self.lifeBarOfEnemy.position.x+self.lifeBarOfEnemy.contentSize.width/2-label.contentSize.width/2, self.lifeBarOfEnemy.position.y+self.lifeBarOfEnemy.contentSize.height/2);
-    [self addChild:label2];
-    
-    self.curHPOfEnemy=[CCLabelTTF labelWithString:@"0" fontName:@"Georgia-Bold" fontSize:14];
-    self.curHPOfEnemy.color = ccc3(255,255,255);
-    self.curHPOfEnemy.position = ccp(self.lifeBarOfEnemy.position.x+self.lifeBarOfEnemy.contentSize.width/3-self.curHPOfEnemy.contentSize.width/2, self.lifeBarOfEnemy.position.y+self.lifeBarOfEnemy.contentSize.height/2);
-    [self addChild:self.curHPOfEnemy];
-    
-
-    self.maxHPOfEnemy=[CCLabelTTF labelWithString:@"0" fontName:@"Georgia-Bold" fontSize:14];
-    self.maxHPOfEnemy.color = ccc3(255,255,255);
-    self.maxHPOfEnemy.position = ccp(self.lifeBarOfEnemy.position.x+self.lifeBarOfEnemy.contentSize.width*2/3-self.maxHPOfEnemy.contentSize.width/2, self.lifeBarOfEnemy.position.y+self.lifeBarOfEnemy.contentSize.height/2);
-    [self addChild:self.maxHPOfEnemy];
-    
-    [self setLabelString:self.curHPOfEnemy withInt:self.enemy.curHP];
-    [self setLabelString:self.maxHPOfEnemy withInt:self.enemy.maxHP];
-    
+    [self updateStatePanel];
+    //self.turnOfPersons=[NSArray arrayWithObjects:self.player, self.enemy, nil];
     
 	self.isTouchEnabled = YES;
     self.whosTurn=Turn_Player;
@@ -123,17 +81,24 @@
     [self addChild:[CCParticleGalaxy node]];
     [self addChild:[CCParticleRain node]];
     //[self addChild:[CCParticleSnow node]];
-    //[self addChild:[CCParticleSum node]];
+    //[self addChild:[CCParticleSun node]];
     //[self addChild:[CCParticleMeteor node]];
+    
+    
+        self.touchStreak=[[CCMotionStreak alloc]initWithFade:.99f minSeg:8 width:64 color:ccc3(255,0,255) textureFilename:@"fire.png"];
+    [self addChild:self.touchStreak];
+    
+    
 	return self;
 }
--(void)setLabelString:(CCLabelTTF*)label withInt:(int)value{
-    [label setString:[NSString stringWithFormat:@"%d",value]];
-}
+
 -(void)update:(ccTime)delta{
     if (self.locking) {
         return;
     }
+    
+
+    [self updateStatePanel];
     self.whosTurn=Turn_Player;
     if (self.updating||!(self.swapCount<=0)) {
         return;
@@ -142,11 +107,8 @@
         return;
     }
     self.updating=YES;
-    //NSLog(@"in update");
-    [self.lifeBarOfPlayer setScaleX:self.player.curHP/self.lifeBarOfPlayer.contentSize.width];
-    [self setLabelString:self.curHPOfPlayer withInt:self.player.curHP];
-    [self.lifeBarOfEnemy setScaleX:self.player.curHP/self.lifeBarOfEnemy.contentSize.width];
-    [self setLabelString:self.curHPOfEnemy withInt:self.player.curHP];
+
+
 
     bool ret=[box check];
     NSArray* matchedArray;
@@ -158,6 +120,11 @@
         matchedArray=[box findMatchedArray:tmp forValue:5];
         if (matchedArray) {
             nextPerson.curHP-=10;
+            
+            self.enemy.curHP-=10;//testing
+            if (self.enemy.curHP<=0) {
+                [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:YES]];
+            }
         }
         [box removeAndRepair];
         //NSLog(@"in check is value 5 finished");
@@ -172,6 +139,13 @@
 //        
 //    }
     self.updating=NO;
+}
+-(void)updateStatePanel{
+    self.statePanelLayer.curHP=[NSString stringWithFormat:@"%d",self.player.curHP];
+    self.statePanelLayer.maxHP=[NSString stringWithFormat:@"%d",self.player.maxHP];
+    self.statePanelLayerEnemy.curHP=[NSString stringWithFormat:@"%d",self.enemy.curHP];
+    self.statePanelLayerEnemy.maxHP=[NSString stringWithFormat:@"%d",self.enemy.maxHP];
+    
 }
 
 -(void)computerAIgo{
@@ -192,6 +166,7 @@
     }
 }
 -(void) onEnterTransitionDidFinish{
+    [self updateStatePanel];
 	[self lock];
         [box check];
     while(box.readyToRemoveTiles.count>0){
@@ -201,11 +176,13 @@
     }
     [self unlock];
 }
--(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
 
-    UITouch  *touch = [touches anyObject];
-    CGPoint  location = [touch locationInView:[touch view]];
-    location = [[CCDirector sharedDirector] convertToGL:location];
+-(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch* touch = [touches anyObject];
+	CGPoint location = [touch locationInView: touch.view];
+	location = [[CCDirector sharedDirector] convertToGL: location];
+    self.touchStreak.position=location;
+    
     [self ccTouchesBegan:touches withEvent:event];
     
 

@@ -11,6 +11,7 @@
 #import "HelloWorldLayer.h"
 #import "const.h"
 #import "PlayLayer.h"
+#import "StatePanelLayer.h"
 // Needed to obtain the Navigation Controller
 #import "AppDelegate.h"
 
@@ -51,13 +52,19 @@
         [[consts sharedManager] setKStartX:kStartX];
         [[consts sharedManager] setKStartY:kStartY];
 
-        PlayLayer  *layer = [PlayLayer node];
+        
+        StatePanelLayer *statePanelLayer=[[StatePanelLayer alloc]initWithPositon:ccp(0,0)];
+        [self addChild:statePanelLayer z:2];
         
 
-        
-        // add layer as a child to scene
-        [self addChild: layer];
+        StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
+        [self addChild:statePanelLayerEnemy z:3];
 
+        PlayLayer  *playLayer = [PlayLayer node];
+        playLayer.statePanelLayer=statePanelLayer;
+        playLayer.statePanelLayerEnemy=statePanelLayerEnemy;
+        [self addChild: playLayer z:0];
+        
 	}
 	return self;
 }

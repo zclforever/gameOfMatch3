@@ -153,6 +153,8 @@
 		02B175D217C5F3F70057DA00 /* AI.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175D117C5F3F70057DA00 /* AI.m */; };
 		752979AE17D357CC009B8B95 /* GameStartLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 752979AD17D357CC009B8B95 /* GameStartLayer.m */; };
 		752979B017D38AE3009B8B95 /* fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 752979AF17D38AE3009B8B95 /* fire.png */; };
+		752979B317D3ABA7009B8B95 /* StatePanelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 752979B217D3ABA7009B8B95 /* StatePanelLayer.m */; };
+		752979B617D3C89F009B8B95 /* GameOverLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 752979B517D3C89E009B8B95 /* GameOverLayer.m */; };
 		753731AB17CFACED00B0BEDF /* lifeBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 753731AA17CFACED00B0BEDF /* lifeBar.png */; };
 		753731AE17CFAFB800B0BEDF /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 753731AD17CFAFB800B0BEDF /* Person.m */; };
 		75C908D217C6755000068714 /* const.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C908D117C6755000068714 /* const.m */; };
@@ -458,6 +460,10 @@
 		752979AC17D357CC009B8B95 /* GameStartLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStartLayer.h; sourceTree = "<group>"; };
 		752979AD17D357CC009B8B95 /* GameStartLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStartLayer.m; sourceTree = "<group>"; };
 		752979AF17D38AE3009B8B95 /* fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire.png; sourceTree = "<group>"; };
+		752979B117D3ABA7009B8B95 /* StatePanelLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatePanelLayer.h; sourceTree = "<group>"; };
+		752979B217D3ABA7009B8B95 /* StatePanelLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatePanelLayer.m; sourceTree = "<group>"; };
+		752979B417D3C89E009B8B95 /* GameOverLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverLayer.h; sourceTree = "<group>"; };
+		752979B517D3C89E009B8B95 /* GameOverLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverLayer.m; sourceTree = "<group>"; };
 		753731AA17CFACED00B0BEDF /* lifeBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lifeBar.png; sourceTree = "<group>"; };
 		753731AC17CFAFB700B0BEDF /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		753731AD17CFAFB800B0BEDF /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
@@ -526,6 +532,8 @@
 				02B175AD17C5C6D90057DA00 /* AppDelegate.m */,
 				02B175BD17C5CA140057DA00 /* const.h */,
 				75C908D117C6755000068714 /* const.m */,
+				752979B117D3ABA7009B8B95 /* StatePanelLayer.h */,
+				752979B217D3ABA7009B8B95 /* StatePanelLayer.m */,
 				02B175BA17C5C9C40057DA00 /* Tile.h */,
 				02B175BB17C5C9C40057DA00 /* Tile.m */,
 				02B175BE17C5CD780057DA00 /* Box.h */,
@@ -536,6 +544,8 @@
 				02B175D117C5F3F70057DA00 /* AI.m */,
 				02B175C117C5DA6B0057DA00 /* PlayLayer.h */,
 				02B175C217C5DA6B0057DA00 /* PlayLayer.m */,
+				752979B417D3C89E009B8B95 /* GameOverLayer.h */,
+				752979B517D3C89E009B8B95 /* GameOverLayer.m */,
 				752979AC17D357CC009B8B95 /* GameStartLayer.h */,
 				752979AD17D357CC009B8B95 /* GameStartLayer.m */,
 				02B175AF17C5C6D90057DA00 /* HelloWorldLayer.h */,
@@ -1138,6 +1148,8 @@
 				75C908D217C6755000068714 /* const.m in Sources */,
 				753731AE17CFAFB800B0BEDF /* Person.m in Sources */,
 				752979AE17D357CC009B8B95 /* GameStartLayer.m in Sources */,
+				752979B317D3ABA7009B8B95 /* StatePanelLayer.m in Sources */,
+				752979B617D3C89F009B8B95 /* GameOverLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,6 +28,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[StatePanelLayer update:]:StatePanelLayer.m">
+      </ContextState>
+      <ContextState
          contextName = "-[Box scanSwapMatch]:Box.m">
       </ContextState>
       <ContextState
@@ -77,6 +80,14 @@
          contextName = "-[Box removeAndRepair]:Box.m">
       </ContextState>
       <ContextState
+         contextName = "-[HelloWorldLayer init]:HelloWorldLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.contentSize.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[AI findOneMatchWithOrder:]:AI.m">
       </ContextState>
       <ContextState
@@ -92,6 +103,20 @@
       </ContextState>
       <ContextState
          contextName = "-[PlayLayer ccTouchesBegan:withEvent:]:PlayLayer.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[StatePanelLayer initWithPositon:]:StatePanelLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.lifeBar.position">
+            </PersistentString>
+            <PersistentString
+               value = "self.position.x+zStatePanel_LifeBarMarginLeft">
+            </PersistentString>
+            <PersistentString
+               value = "self.lifeBar.scaleY">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[Box setObjectAtX:Y:withTile:]:Box.m">

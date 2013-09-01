@@ -9,6 +9,11 @@
 #ifndef gameOfMatch3_const_h
 #define gameOfMatch3_const_h
 
+#define zStatePanelWidth 100
+#define zStatePanel_LifeBarWidth 90.0f
+#define zStatePanel_LifeBarHeight 15.0f
+#define zStatePanel_LifeBarMarginLeft 5.0f
+#define zStatePanel_LifeBarMarginTop 20.0f
 
 #define Turn_Player 0
 #define Turn_Enemy 1
