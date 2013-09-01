@@ -37,7 +37,7 @@
     [bg setScaleX: winSize.width/bg.contentSize.width];
     [bg setScaleY: winSize.height/bg.contentSize.height];
 	bg.position = ccp(winSize.width/2,winSize.height/2);
-	//[self addChild: bg z:0];
+	[self addChild: bg z:0];
 	
 	box = [[Box alloc] initWithSize:CGSizeMake(kBoxWidth,kBoxHeight) factor:6];
 	box.layer = self;
@@ -116,6 +116,15 @@
     self.swapCount=0;
     self.locking=NO;
     [self schedule:@selector(update:) interval:0 repeat:kCCRepeatForever delay:3];
+    //system=[CCParticleRain node];
+
+    //[self addChild:[CCParticleFire node]];
+    //[self addChild:[CCParticleFlower node]];
+    [self addChild:[CCParticleGalaxy node]];
+    [self addChild:[CCParticleRain node]];
+    //[self addChild:[CCParticleSnow node]];
+    //[self addChild:[CCParticleSum node]];
+    //[self addChild:[CCParticleMeteor node]];
 	return self;
 }
 -(void)setLabelString:(CCLabelTTF*)label withInt:(int)value{

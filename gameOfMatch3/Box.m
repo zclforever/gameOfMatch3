@@ -259,7 +259,7 @@
                               //[CCMoveBy actionWithDuration:kMoveTileTime*extension position:ccp(0,-kTileSize*extension)],
 							  [CCMoveTo actionWithDuration:moveTime position:[destTile pixPosition]],
 							  nil];
-		action=[CCEaseInOut actionWithAction:action rate:2];
+		//action=[CCEaseInOut actionWithAction:action rate:2];
         [layer addChild: sprite];
 		//[sprite runAction: action];
 		destTile.value = value;
