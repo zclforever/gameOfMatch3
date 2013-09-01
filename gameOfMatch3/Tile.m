@@ -67,7 +67,7 @@
     self.updating=YES;
     self.ccSequnce=nil;
     [self.cache removeAllObjects];
-    int removeCount=count-2;
+    int removeCount=count-zTileMaxAction;
     for(int i=0;i<count;i++){
         
         if(removeCount>0){

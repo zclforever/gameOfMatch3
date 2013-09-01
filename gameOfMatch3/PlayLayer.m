@@ -115,7 +115,7 @@
     self.updating=NO;
     self.swapCount=0;
     self.locking=NO;
-    [self schedule:@selector(update:)];
+    [self schedule:@selector(update:) interval:0 repeat:kCCRepeatForever delay:3];
 	return self;
 }
 -(void)setLabelString:(CCLabelTTF*)label withInt:(int)value{
@@ -183,7 +183,14 @@
     }
 }
 -(void) onEnterTransitionDidFinish{
-	//[box check];
+	[self lock];
+        [box check];
+    while(box.readyToRemoveTiles.count>0){
+
+    [box removeAndRepair];
+            [box check];
+    }
+    [self unlock];
 }
 -(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
 
@@ -223,13 +230,20 @@
 	}
 	
 	Tile *tile = [box objectAtX:x Y:y];
-    [box pushTilesToRemoveForValue:tile.value];
-	if(!tile.isActionDone)return;
+    //tile=[box objectAtX:3 Y:3];
+    //self.selectedTile=[box objectAtX:3 Y:4];
     
-	if (self.selectedTile && [self.selectedTile nearTile:tile]) {
+    //[box pushTilesToRemoveForValue:tile.value];  //magic
+	
+    if(!tile.isActionDone)return;
+    if(tile.value==0)return;
+	if (self.selectedTile && [self.selectedTile nearTile:tile]&&self.selectedTile.value!=0) {
+//        if([box findMatchWithSwap:tile B:self.selectedTile]){
+//            int a=1;
+//        }
 		[box setLock:YES];
 		[self changeWithTileA: self.selectedTile TileB: tile];
-        [self.selectedTile scaleToTileSize];
+        //[self.selectedTile scaleToTileSize];
 		self.selectedTile = nil;
         self.whosTurn=(self.whosTurn+1) % 2;
 	}else {
@@ -278,8 +292,8 @@
         //[unRemoveTile.sprite runAction:unRemoveAction];
 //        [a.actionSequence addObject:actionA];
 //        [b.actionSequence addObject:actionB];
-        [a.sprite runAction:actionA];
-        [b.sprite runAction:actionB];
+        //[a.sprite runAction:actionA];
+        //[b.sprite runAction:actionB];
         [self lock];
         [box swapWithTile:a B:b];
         [self unlock];

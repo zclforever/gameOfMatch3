@@ -12,7 +12,7 @@
 
 #define Turn_Player 0
 #define Turn_Enemy 1
-#define zTileMaxAction 2;
+#define zTileMaxAction 3;
 
 #define kTileSize 35.0f
 #define kMoveTileTime 0.2f
@@ -21,7 +21,7 @@
 
 #define kMaxLevelNo 10
 #define kMaxRecordCount 15
-#define kKindCount 4
+#define kKindCount 5
 
 enum Orientation{
 	OrientationHori,

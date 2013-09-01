@@ -40,7 +40,13 @@
          contextName = "-[Box repairSingleColumn:]:Box.m">
          <PersistentStrings>
             <PersistentString
+               value = "kTileSize/kMoveTileTime">
+            </PersistentString>
+            <PersistentString
                value = "kStartX">
+            </PersistentString>
+            <PersistentString
+               value = "ccpDistance(sprite.position, destTile.pixPosition)">
             </PersistentString>
             <PersistentString
                value = "tile.pixPositon.x">
@@ -82,6 +88,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[Box addColumnExtensionAtIndex:withValue:]:Box.m">
+      </ContextState>
+      <ContextState
          contextName = "-[PlayLayer ccTouchesBegan:withEvent:]:PlayLayer.m">
       </ContextState>
       <ContextState
@@ -98,6 +107,14 @@
             </PersistentString>
             <PersistentString
                value = "self.swapCount">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__26-[Box repairSingleColumn:]_block_invoke:Box.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "extension">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
