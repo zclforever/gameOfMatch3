@@ -8,11 +8,11 @@
 
 #import "StatePanelLayer.h"
 #import "const.h"
-
+#import "Magic.h"
 @interface StatePanelLayer()
 @property (strong,nonatomic) CCSprite* lifeBar;
 @property (strong,nonatomic) CCLabelTTF* HPLabel;
-@property (strong,nonatomic) CCLabelTTF* maxHPLabel;
+@property (strong,nonatomic) NSMutableArray* magicArray;
 @property (strong,nonatomic) CCSprite* magic;
 @end
 
@@ -72,6 +72,10 @@
     sprite.scaleY=24.0f/sprite.contentSize.height;
     [self addChild:sprite];
     self.magic=sprite;
+}
+-(CCLayer*) makeMagicLayerWithName:(NSString*)name atRowIndex:(int)index{
+    Magic* magic=[magic initWithName:name forValue:index];
+    
 }
 -(void)update:(ccTime)delta{
     if(self.curHP&&self.maxHP){

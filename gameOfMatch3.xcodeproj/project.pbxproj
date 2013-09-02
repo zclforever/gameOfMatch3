@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0279080417D48C8100CF5ED4 /* Magic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0279080317D48C8100CF5ED4 /* Magic.m */; };
 		02B1740817C5C6D60057DA00 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B1740717C5C6D60057DA00 /* QuartzCore.framework */; };
 		02B1740A17C5C6D60057DA00 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B1740917C5C6D60057DA00 /* OpenGLES.framework */; };
 		02B1740C17C5C6D60057DA00 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B1740B17C5C6D60057DA00 /* OpenAL.framework */; };
@@ -161,6 +162,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0279080217D48C8100CF5ED4 /* Magic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Magic.h; sourceTree = "<group>"; };
+		0279080317D48C8100CF5ED4 /* Magic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Magic.m; sourceTree = "<group>"; };
 		02B1740417C5C6D60057DA00 /* gameOfMatch3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gameOfMatch3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02B1740717C5C6D60057DA00 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		02B1740917C5C6D60057DA00 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -532,6 +535,8 @@
 				02B175AD17C5C6D90057DA00 /* AppDelegate.m */,
 				02B175BD17C5CA140057DA00 /* const.h */,
 				75C908D117C6755000068714 /* const.m */,
+				0279080217D48C8100CF5ED4 /* Magic.h */,
+				0279080317D48C8100CF5ED4 /* Magic.m */,
 				752979B117D3ABA7009B8B95 /* StatePanelLayer.h */,
 				752979B217D3ABA7009B8B95 /* StatePanelLayer.m */,
 				02B175BA17C5C9C40057DA00 /* Tile.h */,
@@ -1150,6 +1155,7 @@
 				752979AE17D357CC009B8B95 /* GameStartLayer.m in Sources */,
 				752979B317D3ABA7009B8B95 /* StatePanelLayer.m in Sources */,
 				752979B617D3C89F009B8B95 /* GameOverLayer.m in Sources */,
+				0279080417D48C8100CF5ED4 /* Magic.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
