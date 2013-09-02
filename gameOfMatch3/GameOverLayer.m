@@ -22,15 +22,21 @@
         
         NSString * message;
         if (won) {
-            message = @"You Won!";
+            message = @"Perfect!";
+            [self addChild:[CCParticleFireworks node]];
+            //[self addChild:[CCParticleMeteor node]];
+            [self addChild:[CCParticleExplosion node]];
         } else {
-            message = @"You Lose :[";
+            message = @"You Lose...";
+            [self setColor:ccc3(0,0,0)];
+            [self addChild:[CCParticleFire node]];
+            //[self addChild:[CCParticleSmoke node]];
         }
         
         CGSize winSize = [[CCDirector sharedDirector] winSize];
-        CCLabelTTF * label = [CCLabelTTF labelWithString:message fontName:@"Arial" fontSize:32];
+        CCLabelTTF * label = [CCLabelTTF labelWithString:message fontName:@"Arial" fontSize:28];
         label.color = ccc3(0,0,0);
-        label.position = ccp(winSize.width/2, winSize.height/2-20);
+        label.position = ccp(winSize.width/2+10, winSize.height/2-20);
         [self addChild:label];
         
         [self runAction:
@@ -41,9 +47,7 @@
          }],
           nil]];
         
-        [self addChild:[CCParticleFireworks node]];
-        //[self addChild:[CCParticleMeteor node]];
-        [self addChild:[CCParticleExplosion node]];
+
     }
     return self;
 }

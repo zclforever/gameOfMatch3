@@ -11,6 +11,7 @@
 #import "Person.h"
 @interface PlayLayer()
 @property  int whosTurn;
+@property (strong,nonatomic) CCLabelTTF *testLabel;
 @property (strong,nonatomic) CCSprite* lifeBarOfPlayer;
 @property (strong,nonatomic) CCSprite* lifeBarOfEnemy;
 @property (strong,nonatomic) CCLabelTTF *curHPOfPlayer;
@@ -25,6 +26,11 @@
 @property  int swapCount;
 @property  bool updating;
 @property  bool locking;
+@property bool lockTouch;
+@property int timeCount;
+@property bool isStarting;
+
+@property bool usingMagic;
 -(void)afterTurn: (id) node;
 @end
 
@@ -39,20 +45,20 @@
     [bg setScaleY: winSize.height/bg.contentSize.height];
 	bg.position = ccp(winSize.width/2,winSize.height/2);
 	[self addChild: bg z:0];
-
-//    CCSprite *touchSprite= [CCSprite spriteWithFile: @"fire.png"];
-//    [touchSprite setScaleX: 32/touchSprite.contentSize.width];
-//    [touchSprite setScaleY: 32/touchSprite.contentSize.height];
-//	touchSprite.position = ccp(winSize.width/2,winSize.height/2);
-//	[self addChild: touchSprite z:0];
     
-
+    //    CCSprite *touchSprite= [CCSprite spriteWithFile: @"fire.png"];
+    //    [touchSprite setScaleX: 32/touchSprite.contentSize.width];
+    //    [touchSprite setScaleY: 32/touchSprite.contentSize.height];
+    //	touchSprite.position = ccp(winSize.width/2,winSize.height/2);
+    //	[self addChild: touchSprite z:0];
+    
+    
     
     
 	box = [[Box alloc] initWithSize:CGSizeMake(kBoxWidth,kBoxHeight) factor:6];
 	box.layer = self;
 	box.lock = YES;
-
+    
     ai=[[AI alloc]initWithBox:box];
     
     self.player=[[Person alloc]init];
@@ -64,18 +70,23 @@
     self.enemy.maxHP=100;
     
     [self updateStatePanel];
-    //self.turnOfPersons=[NSArray arrayWithObjects:self.player, self.enemy, nil];
+    self.turnOfPersons=[NSArray arrayWithObjects:self.player, self.enemy, nil];
+    self.whosTurn=Turn_Enemy;
+    self.lockTouch=YES;
+    self.isStarting=NO;
+    self.updating=NO;
     
 	self.isTouchEnabled = YES;
-    self.whosTurn=Turn_Player;
+    
     
 	//[self schedule:@selector(changeTurn:) interval:.3];
     self.updating=NO;
     self.swapCount=0;
     self.locking=NO;
     [self schedule:@selector(update:) interval:0 repeat:kCCRepeatForever delay:3];
+    
     //system=[CCParticleRain node];
-
+    
     //[self addChild:[CCParticleFire node]];
     //[self addChild:[CCParticleFlower node]];
     [self addChild:[CCParticleGalaxy node]];
@@ -85,11 +96,106 @@
     //[self addChild:[CCParticleMeteor node]];
     
     
-        self.touchStreak=[[CCMotionStreak alloc]initWithFade:.99f minSeg:8 width:64 color:ccc3(255,0,255) textureFilename:@"fire.png"];
+    self.touchStreak=[[CCMotionStreak alloc]initWithFade:.99f minSeg:8 width:64 color:ccc3(255,0,255) textureFilename:@"fire.png"];
     [self addChild:self.touchStreak];
     
     
+    [self setTimeOut:0.0f];
+    
+    CCLabelTTF * label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:16];
+    label.color = ccc3(255,255,255);
+    label.anchorPoint=ccp(0,0);
+    label.position = ccp(10,150);
+    [self addChild:label];
+    
+    self.testLabel=label;
 	return self;
+}
+-(void)addReadyGo{
+    CGSize size=[CCDirector sharedDirector].winSize;
+    CCLabelTTF * ready = [CCLabelTTF labelWithString:@"Ready" fontName:@"Arial" fontSize:72];
+    ready.color = ccc3(255,0,255);
+    //label.anchorPoint=ccp(0,0);
+    ready.position = ccp(size.width/2,size.height/2);
+    [self addChild:ready z:4];
+    
+    CCLabelTTF * go = [CCLabelTTF labelWithString:@"Go" fontName:@"Arial" fontSize:72];
+    go.color = ccc3(255,0,255);
+    //label.anchorPoint=ccp(0,0);
+    go.position = ccp(size.width/2,size.height/2);
+    [self addChild:go z:4];
+    
+    
+    ready.scale=0;
+    go.scale=0;
+    
+    [ready runAction:[CCSequence actions:
+                      [CCDelayTime actionWithDuration:0.0f],
+                      [CCScaleTo actionWithDuration:.5f scale:.5f],
+                      [CCScaleTo actionWithDuration:3.0f scale:1.5f],
+                      [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+    }],
+                      nil]];
+    [go runAction:[CCSequence actions:
+                   [CCDelayTime actionWithDuration:3.5f],
+                   [CCScaleTo actionWithDuration:0.0f scale:1.5f],
+                   [CCScaleTo actionWithDuration:0.5f scale:4.0f],
+                   [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+    }],
+                   nil]];
+}
+-(void)handleTimeOut{
+    if(self.timeCount<5&&!self.isStarting){
+        self.isStarting=YES;
+        //addMagic
+        [self.statePanelLayerPlayer addMagic];
+        
+        //readyGO
+        [self addReadyGo];
+        [self setTimeOut:3.7f];
+        return;
+
+    }
+    
+
+    //changeTurn
+    if (self.timeCount%5==0) {
+        self.whosTurn=(self.whosTurn+1) % 2;
+        
+    }
+    if(self.whosTurn==Turn_Enemy){
+        self.lockTouch=YES;
+        [self computerAIgo];
+        
+        
+    }else{
+        self.lockTouch=NO;
+    }
+    
+    // setLabel
+    NSString* message=[NSString stringWithFormat:@"EnemyTurn"];
+    if (self.whosTurn==Turn_Player) {
+        message=@"PlayerTurn";
+    }
+    message=[message stringByAppendingFormat:@" %d",5-self.timeCount%5];
+    NSLog(@"%@",message);
+    NSArray* pos=[NSArray arrayWithObjects:@0,@380, nil];
+    [self.testLabel setString:message];
+    self.testLabel.position=ccp([pos[self.whosTurn] intValue],self.testLabel.position.y);
+
+    self.timeCount++;
+    [self setTimeOut:1.0f];
+}
+
+-(void)setTimeOut:(float)timeOut{
+    [self runAction:
+     [CCSequence actions:
+      [CCDelayTime actionWithDuration:timeOut],
+      [CCCallFunc actionWithTarget:self selector:@selector(handleTimeOut)],
+      
+      nil]];
 }
 
 -(void)update:(ccTime)delta{
@@ -97,9 +203,9 @@
         return;
     }
     
-
+    
     [self updateStatePanel];
-    self.whosTurn=Turn_Player;
+    
     if (self.updating||!(self.swapCount<=0)) {
         return;
     }
@@ -107,13 +213,13 @@
         return;
     }
     self.updating=YES;
-
-
-
+    
+    
+    
     bool ret=[box check];
     NSArray* matchedArray;
     Person* nextPerson=self.turnOfPersons[(self.whosTurn+1) % 2];
-
+    
     if(ret){
         //NSLog(@"in check is value 5");
         NSArray* tmp=[box.readyToRemoveTiles allObjects];
@@ -121,28 +227,23 @@
         if (matchedArray) {
             nextPerson.curHP-=10;
             
-            self.enemy.curHP-=10;//testing
             if (self.enemy.curHP<=0) {
                 [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:YES]];
+            }
+            if (self.player.curHP<=0) {
+                [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:NO]];
             }
         }
         [box removeAndRepair];
         //NSLog(@"in check is value 5 finished");
-
+        
     }
-//    if(box.allMoveDone&&!box.lock){
-//        
-//        if(self.whosTurn==Turn_Enemy){
-//            [self computerAIgo];
-//            self.whosTurn=(self.whosTurn+1) % 2;
-//        }
-//        
-//    }
+    
     self.updating=NO;
 }
 -(void)updateStatePanel{
-    self.statePanelLayer.curHP=[NSString stringWithFormat:@"%d",self.player.curHP];
-    self.statePanelLayer.maxHP=[NSString stringWithFormat:@"%d",self.player.maxHP];
+    self.statePanelLayerPlayer.curHP=[NSString stringWithFormat:@"%d",self.player.curHP];
+    self.statePanelLayerPlayer.maxHP=[NSString stringWithFormat:@"%d",self.player.maxHP];
     self.statePanelLayerEnemy.curHP=[NSString stringWithFormat:@"%d",self.enemy.curHP];
     self.statePanelLayerEnemy.maxHP=[NSString stringWithFormat:@"%d",self.enemy.maxHP];
     
@@ -156,23 +257,21 @@
     if(ret){
 		[box setLock:YES];
         
-        [self performSelector:@selector(changeWithTileArray:) withObject:[NSArray arrayWithObjects:self.selectedTile,tile, nil] afterDelay:.8 ];
-
-
-		//[self changeWithTileA: self.selectedTile TileB: tile];
+		[self changeWithTileA: self.selectedTile TileB: tile];
 		self.selectedTile = nil;
         //self.player.curHP-=10;
-
+        
     }
 }
 -(void) onEnterTransitionDidFinish{
     [self updateStatePanel];
+    
 	[self lock];
-        [box check];
+    [box check];
     while(box.readyToRemoveTiles.count>0){
-
-    [box removeAndRepair];
-            [box check];
+        
+        [box removeAndRepair];
+        [box check];
     }
     [self unlock];
 }
@@ -185,25 +284,32 @@
     
     [self ccTouchesBegan:touches withEvent:event];
     
-
+    
 }
 - (void)ccTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event{
 	//NSLog(@"ccTouchesBegan");
 	
-//	if ([box lock]) {
-//        NSLog(@"locked return");
-//		return;
-//	}
-//	if(!self.whosTurn==Turn_Player){
-//        return;
-//    }
-//    if(!box.allMoveDone) return;
-
+    //	if ([box lock]) {
+    //        NSLog(@"locked return");
+    //		return;
+    //	}
+    //    if(!box.allMoveDone) return;
     
+ 	if (self.lockTouch) {
+        return;
+    }
     
 	UITouch* touch = [touches anyObject];
 	CGPoint location = [touch locationInView: touch.view];
 	location = [[CCDirector sharedDirector] convertToGL: location];
+    
+    CGPoint statePlayerPos=[self.statePanelLayerPlayer convertTouchToNodeSpace:touch];
+    bool ret=[self.statePanelLayerPlayer checkMagicTouched:statePlayerPos];
+    if(ret){
+        //self.usingMagic=YES;  // 这种是要点棋盘，
+         [box pushTilesToRemoveForValue:3];
+        return;
+    }
 	
     float kStartX=[[consts sharedManager] kStartX];
     float kStartY=[[consts sharedManager] kStartY];
@@ -219,19 +325,25 @@
     //tile=[box objectAtX:3 Y:3];
     //self.selectedTile=[box objectAtX:3 Y:4];
     
-    //[box pushTilesToRemoveForValue:tile.value];  //magic
+   
 	
     if(!tile.isActionDone)return;
     if(tile.value==0)return;
+    
+//    if(self.usingMagic){
+//        [box pushTilesToRemoveForValue:tile.value];  //magic
+//        self.usingMagic=NO;
+//    }
+    
 	if (self.selectedTile && [self.selectedTile nearTile:tile]&&self.selectedTile.value!=0) {
-//        if([box findMatchWithSwap:tile B:self.selectedTile]){
-//            int a=1;
-//        }
+        //        if([box findMatchWithSwap:tile B:self.selectedTile]){
+        //            int a=1;
+        //        }
 		[box setLock:YES];
 		[self changeWithTileA: self.selectedTile TileB: tile];
         //[self.selectedTile scaleToTileSize];
 		self.selectedTile = nil;
-        self.whosTurn=(self.whosTurn+1) % 2;
+        //self.whosTurn=(self.whosTurn+1) % 2;
 	}else {
         [self.selectedTile scaleToTileSize];
 		self.selectedTile = tile;
@@ -245,7 +357,7 @@
     [self changeWithTileA:a TileB:b];
 }
 -(void) changeWithTileA: (Tile *) a TileB: (Tile *) b{
-
+    
     float moveTime=kMoveTileTime;
     if (self.whosTurn==Turn_Enemy) {
         //moveTime=moveTime*4;
@@ -256,12 +368,12 @@
     if(matched){
         Tile* unRemoveTile;
         CCAction* unRemoveAction;
-
+        
         NSLog(@"in changeWithTile ready to swap a b ");
         self.swapCount=0;
         CCAction* actionEnd=[CCCallBlock actionWithBlock:^{
             self.swapCount--;
-
+            
         }];
         CCAction* actionEnd2=[CCCallBlock actionWithBlock:^{
             self.swapCount--;
@@ -276,8 +388,8 @@
         if(!ret){unRemoveTile=a;unRemoveAction=actionA;}else{unRemoveTile=b;unRemoveAction=actionB;}
         [unRemoveTile.actionSequence addObject:unRemoveAction];
         //[unRemoveTile.sprite runAction:unRemoveAction];
-//        [a.actionSequence addObject:actionA];
-//        [b.actionSequence addObject:actionB];
+        //        [a.actionSequence addObject:actionA];
+        //        [b.actionSequence addObject:actionB];
         //[a.sprite runAction:actionA];
         //[b.sprite runAction:actionB];
         [self lock];
@@ -301,7 +413,7 @@
         //[a.sprite runAction:actionA];
         //[b.sprite runAction:actionB];
     }
-
+    
 }
 -(void)lock{
     while(self.updating){};
@@ -318,7 +430,7 @@
     if (lastTile.readyToEnd) {
         [lastTile scaleToNone];
     }
-        _selectedTile=selectedTile;
+    _selectedTile=selectedTile;
 }
 -(void)afterTurn: (id) node{
     CCSprite *sprite = (CCSprite *)node;
@@ -326,7 +438,7 @@
         if (self.selectedTile.readyToEnd) {
             return;
         }
-
+        
         if([box readyToRemoveTiles].count>0||sprite.numberOfRunningActions>1){
             //[self.selectedTile scaleToTileSize];
             return;

@@ -61,7 +61,7 @@
         [self addChild:statePanelLayerEnemy z:3];
 
         PlayLayer  *playLayer = [PlayLayer node];
-        playLayer.statePanelLayer=statePanelLayer;
+        playLayer.statePanelLayerPlayer=statePanelLayer;
         playLayer.statePanelLayerEnemy=statePanelLayerEnemy;
         [self addChild: playLayer z:0];
         

@@ -17,5 +17,6 @@
 @property (strong,nonatomic) NSString* maxHP;
 
 -(id)initWithPositon:(CGPoint)pos;
-
+-(void)addMagic;
+-(bool)checkMagicTouched:(CGPoint)pos;
 @end

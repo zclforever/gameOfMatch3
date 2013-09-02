@@ -11,8 +11,9 @@
 
 @interface StatePanelLayer()
 @property (strong,nonatomic) CCSprite* lifeBar;
-@property (strong,nonatomic) CCLabelTTF* curHPLabel;
+@property (strong,nonatomic) CCLabelTTF* HPLabel;
 @property (strong,nonatomic) CCLabelTTF* maxHPLabel;
+@property (strong,nonatomic) CCSprite* magic;
 @end
 
 
@@ -34,50 +35,48 @@
     [self addChild:self.lifeBar];
     
     
-    //init "/"
+    //init LifeBarLabel
     
     int fontSize=10;
-    int fontWidth=20;
-    
-    float lifeBarFixY=self.lifeBar.position.y;//缩放修正过
+
+   
     //float lifeBarFixY=self.lifeBar.position.y;//缩放修正过
+    float lifeBarFixY=self.lifeBar.position.y+zStatePanel_LifeBarHeight/2;
     
     
-    CCLabelTTF * label = [CCLabelTTF labelWithString:@"/" fontName:@"Arial" fontSize:fontSize];
+    CCLabelTTF * label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:fontSize];
     label.color = ccc3(255,255,255);
-    label.anchorPoint=ccp(0,0);
+    //label.anchorPoint=ccp(0,0);
     label.position = ccp(self.lifeBar.position.x+zStatePanel_LifeBarWidth/2,lifeBarFixY);
     [self addChild:label];
     
-    
-    //init curHPLabel
-    self.curHPLabel=[CCLabelTTF labelWithString:@"0" fontName:@"Arial" fontSize:fontSize];
-    self.curHPLabel.color = ccc3(255,255,255);
-    self.curHPLabel.position = ccp(label.position.x-fontWidth, lifeBarFixY);
-    self.curHPLabel.anchorPoint=ccp(0,0);
-    [self addChild:self.curHPLabel];
-    
-    //init maxHPLabel
-    self.maxHPLabel=[CCLabelTTF labelWithString:@"0" fontName:@"Arial" fontSize:fontSize];
-    self.maxHPLabel.color = ccc3(255,255,255);
-    self.maxHPLabel.anchorPoint=ccp(0,0);
-    self.maxHPLabel.position = ccp(label.position.x+fontWidth/2, lifeBarFixY);
-    [self addChild:self.maxHPLabel];
+    self.HPLabel=label;
     
     
-    //    [self setLabelString:self.curHPLabelOfPlayer withInt:self.player.curHPLabel];
-    //    [self setLabelString:self.maxHPLabelOfPlayer withInt:self.player.maxHPLabel];
-    
-    
+
     
     [self schedule:@selector(update:)];
     
     return self;
 }
+-(bool)checkMagicTouched:(CGPoint)pos{
+    return CGRectContainsPoint(self.magic.boundingBox, pos);
+
+    
+}
+-(void)addMagic{
+    //magic
+    CCSprite* sprite=[CCSprite spriteWithFile:@"block_3.png"];
+    sprite.position=ccp(zStatePanel_LifeBarWidth/2,self.contentSize.height/2+50);
+    sprite.scaleX=24.0f/sprite.contentSize.width;
+    sprite.scaleY=24.0f/sprite.contentSize.height;
+    [self addChild:sprite];
+    self.magic=sprite;
+}
 -(void)update:(ccTime)delta{
     if(self.curHP&&self.maxHP){
-        [self.curHPLabel setString:self.curHP];
-        [self.maxHPLabel setString:self.maxHP];
+        [self.HPLabel setString:[NSString stringWithFormat:@"%@/%@",self.curHP,self.maxHP]];
+
         self.lifeBar.scaleX=[self.curHP floatValue]/[self.maxHP floatValue]*zStatePanel_LifeBarWidth/self.lifeBar.contentSize.width;
     }
 }
