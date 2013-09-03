@@ -36,7 +36,7 @@
 -(void) afterAllMoveDone;
 
 
--(void) pushTilesToRemoveForValue:(int)value;  //magic
+-(int) pushTilesToRemoveForValue:(int)value;  //magic
 
 
 -(void) swapWithTile:(Tile*)a B:(Tile*)b;

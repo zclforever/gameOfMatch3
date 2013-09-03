@@ -26,22 +26,22 @@
         self.type=@"removeValue";
         if(value==1)
         {
-            self.showName=@"帽子失踪";
+            self.showName=@"绿迷";
             self.manaCostArray=[NSMutableArray arrayWithObjects:@3,@1,@0,@3, nil];
         }
         if(value==2)
         {
-            self.showName=@"绿之消亡";
+            self.showName=@"红移";
             self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@3,@4,@3, nil];
         }
         if(value==3)
         {
-            self.showName=@"紫气东去";
+            self.showName=@"黄闪";
             self.manaCostArray=[NSMutableArray arrayWithObjects:@4,@1,@2,@3, nil];
         }
         if(value==4)
         {
-            self.showName=@"宝石私逃";
+            self.showName=@"蓝心";
             self.manaCostArray=[NSMutableArray arrayWithObjects:@0,@2,@3,@2, nil];
         }
     }

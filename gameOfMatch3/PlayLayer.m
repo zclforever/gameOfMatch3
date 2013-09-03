@@ -102,8 +102,9 @@
     
     [self setTimeOut:0.0f];
     
-    CCLabelTTF * label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:48];
-    label.color = ccc3(255,255,0);
+    CCLabelTTF * label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:64];
+    label.opacity=75;
+    label.color = ccc3(255,255,230);
     label.anchorPoint=ccp(0,0);
     label.position = ccp(10,150);
     [self addChild:label z:4];
@@ -147,7 +148,9 @@
                    nil]];
 }
 -(void)handleTimeOut{
-    if(self.timeCount<5&&!self.isStarting){
+    int CD=8.0f;
+    
+    if(self.timeCount<CD&&!self.isStarting){
         self.isStarting=YES;
         //addMagic
         [self.statePanelLayerPlayer addMagicLayerWithMagicName:@"removeValue_3"];
@@ -162,7 +165,7 @@
     
     
     //changeTurn
-    if (self.timeCount%5==0) {
+    if (self.timeCount%CD==0) {
         self.whosTurn=(self.whosTurn+1) % 2;
         
     }
@@ -176,24 +179,25 @@
     }
     
     // setLabel
-    NSString* message=[NSString stringWithFormat:@"PlayerTurn"];
+    NSString* message=[NSString stringWithFormat:@"玩家回合"];
     if (self.whosTurn==Turn_Player) {
-        message=[message stringByAppendingFormat:@"  %d",5-self.timeCount%5];
-
+        message=[message stringByAppendingFormat:@"  %d",CD-self.timeCount%CD];
+    [self.testLabel setString:message];
         self.testLabel.scale=100/self.testLabel.contentSize.width;
         
         self.testLabel.position=ccp(0,150);
     }
     if (self.whosTurn==Turn_Enemy) {
-        message=@"EnemyTurn";
-        message=[message stringByAppendingFormat:@"  %d",5-self.timeCount%5];
+        message=@"敌方行动";
+        message=[message stringByAppendingFormat:@"  %d",CD-self.timeCount%CD];
+        [self.testLabel setString:message];
         self.testLabel.position=ccp(self.contentSize.width/2-140,self.contentSize.height/2);
         //self.testLabel.scale=300.0f/self.testLabel.contentSize.width;
         self.testLabel.scale=1;
     }
     
-    NSLog(@"font pos %f %f",self.testLabel.contentSize.width,self.testLabel.contentSize.height);
-    [self.testLabel setString:message];
+    //NSLog(@"font pos %f %f",self.testLabel.contentSize.width,self.testLabel.contentSize.height);
+
 
     
     self.timeCount++;
@@ -297,86 +301,6 @@
     
     
 }
-- (void)ccTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event{
-	//NSLog(@"ccTouchesBegan");
-	
-    //	if ([box lock]) {
-    //        NSLog(@"locked return");
-    //		return;
-    //	}
-    //    if(!box.allMoveDone) return;
-    
- 	if (self.lockTouch) {
-        return;
-    }
-    
-	UITouch* touch = [touches anyObject];
-	CGPoint location = [touch locationInView: touch.view];
-	location = [[CCDirector sharedDirector] convertToGL: location];
-    
-    
-    //是否按下魔法
-    CGPoint statePlayerPos=[self.statePanelLayerPlayer convertTouchToNodeSpace:touch];
-    int index=[self.statePanelLayerPlayer findMagicTouchedIndex:statePlayerPos];
-    
-    if(index>=0){
-        MagicLayer* magicLayer=self.statePanelLayerPlayer.magicLayerArray[index];
-        if(magicLayer&&magicLayer.magicEnabled){
-            //self.usingMagic=YES;  // 这种是要点棋盘，
-            [self.statePanelLayerPlayer setMagicState:NO atIndex:index];
-            [box pushTilesToRemoveForValue:magicLayer.magic.value];
-            [self.statePanelLayerPlayer runAction:
-             [CCSequence actions:
-              [CCDelayTime actionWithDuration:12.0f],
-              [CCCallBlockN actionWithBlock:^(CCNode *node) {
-                 [(StatePanelLayer*)node setMagicState:YES atIndex:index];
-             }],
-              
-              nil]];
-            
-        }
-        return;
-    }
-	
-    float kStartX=[[consts sharedManager] kStartX];
-    float kStartY=[[consts sharedManager] kStartY];
-	int x = (location.x -kStartX) / kTileSize;
-	int y = (location.y -kStartY) / kTileSize;
-	
-	
-	if (self.selectedTile && self.selectedTile.x ==x && self.selectedTile.y == y) {
-		return;
-	}
-	
-	Tile *tile = [box objectAtX:x Y:y];
-    //tile=[box objectAtX:3 Y:3];
-    //self.selectedTile=[box objectAtX:3 Y:4];
-    
-    
-	
-    if(!tile.isActionDone)return;
-    if(tile.value==0)return;
-    
-    //    if(self.usingMagic){
-    //        [box pushTilesToRemoveForValue:tile.value];  //magic
-    //        self.usingMagic=NO;
-    //    }
-    
-	if (self.selectedTile && [self.selectedTile nearTile:tile]&&self.selectedTile.value!=0) {
-        //        if([box findMatchWithSwap:tile B:self.selectedTile]){
-        //            int a=1;
-        //        }
-		[box setLock:YES];
-		[self changeWithTileA: self.selectedTile TileB: tile];
-        //[self.selectedTile scaleToTileSize];
-		self.selectedTile = nil;
-        //self.whosTurn=(self.whosTurn+1) % 2;
-	}else {
-        [self.selectedTile scaleToTileSize];
-		self.selectedTile = tile;
-		[self afterTurn:tile.sprite];
-	}
-}
 
 -(void) changeWithTileArray:(NSArray*)tiles{
     Tile* a=tiles[0];
@@ -396,7 +320,7 @@
         Tile* unRemoveTile;
         CCAction* unRemoveAction;
         
-        NSLog(@"in changeWithTile ready to swap a b ");
+        //NSLog(@"in changeWithTile ready to swap a b ");
         self.swapCount=0;
         CCAction* actionEnd=[CCCallBlock actionWithBlock:^{
             self.swapCount--;
@@ -422,7 +346,7 @@
         [self lock];
         [box swapWithTile:a B:b];
         [self unlock];
-        NSLog(@"in changeWithTile finished");
+        //NSLog(@"in changeWithTile finished");
     }else{
         actionA = [CCSequence actions:
                    [CCMoveTo actionWithDuration:moveTime position:[b pixPosition]],
@@ -482,4 +406,87 @@
 		[sprite runAction:someAction];
 	}
 }
+- (void)ccTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event{
+	//NSLog(@"ccTouchesBegan");
+	
+    //	if ([box lock]) {
+    //        NSLog(@"locked return");
+    //		return;
+    //	}
+    //    if(!box.allMoveDone) return;
+    
+ 	if (self.lockTouch) {
+        return;
+    }
+    
+	UITouch* touch = [touches anyObject];
+	CGPoint location = [touch locationInView: touch.view];
+	location = [[CCDirector sharedDirector] convertToGL: location];
+    
+    
+    //是否按下魔法
+    CGPoint statePlayerPos=[self.statePanelLayerPlayer convertTouchToNodeSpace:touch];
+    int index=[self.statePanelLayerPlayer findMagicTouchedIndex:statePlayerPos];
+    
+    if(index>=0){
+        MagicLayer* magicLayer=self.statePanelLayerPlayer.magicLayerArray[index];
+        if(magicLayer&&magicLayer.magicEnabled){
+            //self.usingMagic=YES;  // 这种是要点棋盘，
+            [self.statePanelLayerPlayer setMagicState:NO atIndex:index];
+
+            int count=[box pushTilesToRemoveForValue:magicLayer.magic.value];
+            
+            [self.statePanelLayerPlayer runAction:
+             [CCSequence actions:
+              [CCDelayTime actionWithDuration:12.0f],
+              [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                 [(StatePanelLayer*)node setMagicState:YES atIndex:index];
+             }],
+              
+              nil]];
+            
+        }
+        return;
+    }
+	
+    float kStartX=[[consts sharedManager] kStartX];
+    float kStartY=[[consts sharedManager] kStartY];
+	int x = (location.x -kStartX) / kTileSize;
+	int y = (location.y -kStartY) / kTileSize;
+	
+	
+	if (self.selectedTile && self.selectedTile.x ==x && self.selectedTile.y == y) {
+		return;
+	}
+	
+	Tile *tile = [box objectAtX:x Y:y];
+    //tile=[box objectAtX:3 Y:3];
+    //self.selectedTile=[box objectAtX:3 Y:4];
+    
+    
+	
+    if(!tile.isActionDone)return;
+    if(tile.value==0)return;
+    
+    //    if(self.usingMagic){
+    //        [box pushTilesToRemoveForValue:tile.value];  //magic
+    //        self.usingMagic=NO;
+    //    }
+    
+	if (self.selectedTile && [self.selectedTile nearTile:tile]&&self.selectedTile.value!=0) {
+        //        if([box findMatchWithSwap:tile B:self.selectedTile]){
+        //            int a=1;
+        //        }
+		[box setLock:YES];
+		[self changeWithTileA: self.selectedTile TileB: tile];
+        //[self.selectedTile scaleToTileSize];
+		self.selectedTile = nil;
+        //self.whosTurn=(self.whosTurn+1) % 2;
+	}else {
+        [self.selectedTile scaleToTileSize];
+		self.selectedTile = tile;
+		[self afterTurn:tile.sprite];
+	}
+}
+
 @end

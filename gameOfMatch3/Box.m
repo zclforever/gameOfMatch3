@@ -549,13 +549,17 @@
     return ret;
 }
 
--(void) pushTilesToRemoveForValue:(int)value{
+-(int) pushTilesToRemoveForValue:(int)value{
+    int count=0;
 	for (int x=0; x<self.size.width; x++) {
         for (int y=0; y<self.size.height; y++) {
             Tile* tile=[self objectAtX:x Y:y];
-            if(tile.value==value){[self.readyToRemoveTiles addObject:tile];}
+            if(tile.value==value){
+                [self.readyToRemoveTiles addObject:tile];count++;
+            }
 		}
 	}
+    return count;
 }
 /*
 -(NSMutableArray*) scanSingleRow: (int) rowIndex{
