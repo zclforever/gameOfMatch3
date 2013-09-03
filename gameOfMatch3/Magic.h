@@ -11,7 +11,10 @@
 @interface Magic : NSObject
 @property (strong,nonatomic)  CCSprite* sprite;
 @property (strong,nonatomic) NSMutableArray* manaCostArray;
-@property (strong,nonatomic) NSString* name;
+@property (strong,nonatomic) NSString* name; //用途
+@property (strong,nonatomic) NSString* showName; //展示
+@property (strong,nonatomic) NSString* type;
 @property  int value;
--(Magic*)initWithName:(NSString*)name forValue:(int)value;
+
+-(Magic*)initWithName:(NSString*)name;
 @end

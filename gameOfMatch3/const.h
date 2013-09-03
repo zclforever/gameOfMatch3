@@ -14,6 +14,9 @@
 #define zStatePanel_LifeBarHeight 15.0f
 #define zStatePanel_LifeBarMarginLeft 5.0f
 #define zStatePanel_LifeBarMarginTop 20.0f
+#define zStatePanel_MagicLayerMarginTop 50.0f
+#define zStatePanel_MagicLayerHeight 40.0f
+#define zStatePanel_MagicLayerSpace 5.0f
 
 #define Turn_Player 0
 #define Turn_Enemy 1

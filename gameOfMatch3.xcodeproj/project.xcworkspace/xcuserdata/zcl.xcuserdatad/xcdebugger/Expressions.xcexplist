@@ -6,7 +6,7 @@
          contextName = "-[Box check]:Box.m">
       </ContextState>
       <ContextState
-         contextName = "-[Box swapWithTile:B:]:Box.m">
+         contextName = "-[StatePanelLayer update:]:StatePanelLayer.m">
       </ContextState>
       <ContextState
          contextName = "__22-[Box removeAndRepair]_block_invoke:Box.m">
@@ -15,6 +15,9 @@
                value = "node">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Box swapWithTile:B:]:Box.m">
       </ContextState>
       <ContextState
          contextName = "-[Tile update]:Tile.m">
@@ -28,7 +31,12 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[StatePanelLayer update:]:StatePanelLayer.m">
+         contextName = "-[StatePanelLayer magicLayerTouchedAtIndex:]:StatePanelLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "node.position">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[Box scanSwapMatch]:Box.m">
@@ -43,7 +51,7 @@
          contextName = "-[Box repairSingleColumn:]:Box.m">
          <PersistentStrings>
             <PersistentString
-               value = "kTileSize/kMoveTileTime">
+               value = "tile.pixPositon.x">
             </PersistentString>
             <PersistentString
                value = "kStartX">
@@ -52,7 +60,7 @@
                value = "ccpDistance(sprite.position, destTile.pixPosition)">
             </PersistentString>
             <PersistentString
-               value = "tile.pixPositon.x">
+               value = "kTileSize/kMoveTileTime">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -69,6 +77,14 @@
       </ContextState>
       <ContextState
          contextName = "-[Box findSwapMatchAtColumnIndex:]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[StatePanelLayer findMagicTouchedIndex:]:StatePanelLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[Tile trade:]:Tile.m">
@@ -145,6 +161,20 @@
       </ContextState>
       <ContextState
          contextName = "-[Box findMatchedArray:forValue:]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[StatePanelLayer addMagicLayerWithMagicName:]:StatePanelLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "nameLabel.position">
+            </PersistentString>
+            <PersistentString
+               value = "magicIconSize+magicIconBottom*2">
+            </PersistentString>
+            <PersistentString
+               value = "(40- magicIconSize-magicIconBottom*2)-nameLabel.contentSize.height*nameLabel.scaleY)">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

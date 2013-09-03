@@ -102,25 +102,25 @@
     
     [self setTimeOut:0.0f];
     
-    CCLabelTTF * label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:16];
-    label.color = ccc3(255,255,255);
+    CCLabelTTF * label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:48];
+    label.color = ccc3(255,255,0);
     label.anchorPoint=ccp(0,0);
     label.position = ccp(10,150);
-    [self addChild:label];
+    [self addChild:label z:4];
     
     self.testLabel=label;
 	return self;
 }
 -(void)addReadyGo{
     CGSize size=[CCDirector sharedDirector].winSize;
-    CCLabelTTF * ready = [CCLabelTTF labelWithString:@"Ready" fontName:@"Arial" fontSize:72];
-    ready.color = ccc3(255,0,255);
+    CCLabelTTF * ready = [CCLabelTTF labelWithString:@"Ready" fontName:@"AYummyApology" fontSize:72];
+    ready.color = ccc3(255,255,255);
     //label.anchorPoint=ccp(0,0);
     ready.position = ccp(size.width/2,size.height/2);
     [self addChild:ready z:4];
     
-    CCLabelTTF * go = [CCLabelTTF labelWithString:@"Go" fontName:@"Arial" fontSize:72];
-    go.color = ccc3(255,0,255);
+    CCLabelTTF * go = [CCLabelTTF labelWithString:@"Go" fontName:@"AYummyApology" fontSize:72];
+    go.color = ccc3(255,255,255);
     //label.anchorPoint=ccp(0,0);
     go.position = ccp(size.width/2,size.height/2);
     [self addChild:go z:4];
@@ -140,7 +140,7 @@
     [go runAction:[CCSequence actions:
                    [CCDelayTime actionWithDuration:3.5f],
                    [CCScaleTo actionWithDuration:0.0f scale:1.5f],
-                   [CCScaleTo actionWithDuration:0.5f scale:4.0f],
+                   [CCScaleTo actionWithDuration:0.3f scale:4.0f],
                    [CCCallBlockN actionWithBlock:^(CCNode *node) {
         [node removeFromParentAndCleanup:YES];
     }],
@@ -150,16 +150,17 @@
     if(self.timeCount<5&&!self.isStarting){
         self.isStarting=YES;
         //addMagic
-        [self.statePanelLayerPlayer addMagic];
+        [self.statePanelLayerPlayer addMagicLayerWithMagicName:@"removeValue_3"];
+        [self.statePanelLayerPlayer addMagicLayerWithMagicName:@"removeValue_2"];
         
         //readyGO
         [self addReadyGo];
         [self setTimeOut:3.7f];
         return;
-
+        
     }
     
-
+    
     //changeTurn
     if (self.timeCount%5==0) {
         self.whosTurn=(self.whosTurn+1) % 2;
@@ -175,16 +176,26 @@
     }
     
     // setLabel
-    NSString* message=[NSString stringWithFormat:@"EnemyTurn"];
+    NSString* message=[NSString stringWithFormat:@"PlayerTurn"];
     if (self.whosTurn==Turn_Player) {
-        message=@"PlayerTurn";
-    }
-    message=[message stringByAppendingFormat:@" %d",5-self.timeCount%5];
-    NSLog(@"%@",message);
-    NSArray* pos=[NSArray arrayWithObjects:@0,@380, nil];
-    [self.testLabel setString:message];
-    self.testLabel.position=ccp([pos[self.whosTurn] intValue],self.testLabel.position.y);
+        message=[message stringByAppendingFormat:@"  %d",5-self.timeCount%5];
 
+        self.testLabel.scale=100/self.testLabel.contentSize.width;
+        
+        self.testLabel.position=ccp(0,150);
+    }
+    if (self.whosTurn==Turn_Enemy) {
+        message=@"EnemyTurn";
+        message=[message stringByAppendingFormat:@"  %d",5-self.timeCount%5];
+        self.testLabel.position=ccp(self.contentSize.width/2-140,self.contentSize.height/2);
+        //self.testLabel.scale=300.0f/self.testLabel.contentSize.width;
+        self.testLabel.scale=1;
+    }
+    
+    NSLog(@"font pos %f %f",self.testLabel.contentSize.width,self.testLabel.contentSize.height);
+    [self.testLabel setString:message];
+
+    
     self.timeCount++;
     [self setTimeOut:1.0f];
 }
@@ -303,11 +314,27 @@
 	CGPoint location = [touch locationInView: touch.view];
 	location = [[CCDirector sharedDirector] convertToGL: location];
     
+    
+    //是否按下魔法
     CGPoint statePlayerPos=[self.statePanelLayerPlayer convertTouchToNodeSpace:touch];
-    bool ret=[self.statePanelLayerPlayer checkMagicTouched:statePlayerPos];
-    if(ret){
-        //self.usingMagic=YES;  // 这种是要点棋盘，
-         [box pushTilesToRemoveForValue:3];
+    int index=[self.statePanelLayerPlayer findMagicTouchedIndex:statePlayerPos];
+    
+    if(index>=0){
+        MagicLayer* magicLayer=self.statePanelLayerPlayer.magicLayerArray[index];
+        if(magicLayer&&magicLayer.magicEnabled){
+            //self.usingMagic=YES;  // 这种是要点棋盘，
+            [self.statePanelLayerPlayer setMagicState:NO atIndex:index];
+            [box pushTilesToRemoveForValue:magicLayer.magic.value];
+            [self.statePanelLayerPlayer runAction:
+             [CCSequence actions:
+              [CCDelayTime actionWithDuration:12.0f],
+              [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                 [(StatePanelLayer*)node setMagicState:YES atIndex:index];
+             }],
+              
+              nil]];
+            
+        }
         return;
     }
 	
@@ -325,15 +352,15 @@
     //tile=[box objectAtX:3 Y:3];
     //self.selectedTile=[box objectAtX:3 Y:4];
     
-   
+    
 	
     if(!tile.isActionDone)return;
     if(tile.value==0)return;
     
-//    if(self.usingMagic){
-//        [box pushTilesToRemoveForValue:tile.value];  //magic
-//        self.usingMagic=NO;
-//    }
+    //    if(self.usingMagic){
+    //        [box pushTilesToRemoveForValue:tile.value];  //magic
+    //        self.usingMagic=NO;
+    //    }
     
 	if (self.selectedTile && [self.selectedTile nearTile:tile]&&self.selectedTile.value!=0) {
         //        if([box findMatchWithSwap:tile B:self.selectedTile]){

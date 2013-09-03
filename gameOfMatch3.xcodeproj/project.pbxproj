@@ -158,6 +158,9 @@
 		752979B617D3C89F009B8B95 /* GameOverLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 752979B517D3C89E009B8B95 /* GameOverLayer.m */; };
 		753731AB17CFACED00B0BEDF /* lifeBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 753731AA17CFACED00B0BEDF /* lifeBar.png */; };
 		753731AE17CFAFB800B0BEDF /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 753731AD17CFAFB800B0BEDF /* Person.m */; };
+		753972E817D535E8008EA3A0 /* MagicLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 753972E717D535E8008EA3A0 /* MagicLayer.m */; };
+		753972EE17D55855008EA3A0 /* AYummyApology.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 753972ED17D5580E008EA3A0 /* AYummyApology.ttf */; };
+		753972EF17D55873008EA3A0 /* Paint-Boy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 753972EB17D5557E008EA3A0 /* Paint-Boy.ttf */; };
 		75C908D217C6755000068714 /* const.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C908D117C6755000068714 /* const.m */; };
 /* End PBXBuildFile section */
 
@@ -470,6 +473,10 @@
 		753731AA17CFACED00B0BEDF /* lifeBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lifeBar.png; sourceTree = "<group>"; };
 		753731AC17CFAFB700B0BEDF /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		753731AD17CFAFB800B0BEDF /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		753972E617D535E8008EA3A0 /* MagicLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicLayer.h; sourceTree = "<group>"; };
+		753972E717D535E8008EA3A0 /* MagicLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicLayer.m; sourceTree = "<group>"; };
+		753972EB17D5557E008EA3A0 /* Paint-Boy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Paint-Boy.ttf"; sourceTree = "<group>"; };
+		753972ED17D5580E008EA3A0 /* AYummyApology.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AYummyApology.ttf; sourceTree = "<group>"; };
 		75C908D117C6755000068714 /* const.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = const.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -537,6 +544,8 @@
 				75C908D117C6755000068714 /* const.m */,
 				0279080217D48C8100CF5ED4 /* Magic.h */,
 				0279080317D48C8100CF5ED4 /* Magic.m */,
+				753972E617D535E8008EA3A0 /* MagicLayer.h */,
+				753972E717D535E8008EA3A0 /* MagicLayer.m */,
 				752979B117D3ABA7009B8B95 /* StatePanelLayer.h */,
 				752979B217D3ABA7009B8B95 /* StatePanelLayer.m */,
 				02B175BA17C5C9C40057DA00 /* Tile.h */,
@@ -569,7 +578,9 @@
 			children = (
 				02B1741D17C5C6D60057DA00 /* Default.png */,
 				752979AF17D38AE3009B8B95 /* fire.png */,
+				753972ED17D5580E008EA3A0 /* AYummyApology.ttf */,
 				02B1741F17C5C6D60057DA00 /* Default@2x.png */,
+				753972EB17D5557E008EA3A0 /* Paint-Boy.ttf */,
 				02B1742117C5C6D60057DA00 /* Default-568h@2x.png */,
 				02B175C417C5DC8B0057DA00 /* playLayer.jpg */,
 				753731AA17CFACED00B0BEDF /* lifeBar.png */,
@@ -1024,6 +1035,8 @@
 				02B175CF17C5DD010057DA00 /* block_5.png in Resources */,
 				753731AB17CFACED00B0BEDF /* lifeBar.png in Resources */,
 				752979B017D38AE3009B8B95 /* fire.png in Resources */,
+				753972EE17D55855008EA3A0 /* AYummyApology.ttf in Resources */,
+				753972EF17D55873008EA3A0 /* Paint-Boy.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1156,6 +1169,7 @@
 				752979B317D3ABA7009B8B95 /* StatePanelLayer.m in Sources */,
 				752979B617D3C89F009B8B95 /* GameOverLayer.m in Sources */,
 				0279080417D48C8100CF5ED4 /* Magic.m in Sources */,
+				753972E817D535E8008EA3A0 /* MagicLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
