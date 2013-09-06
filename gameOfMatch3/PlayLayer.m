@@ -103,7 +103,6 @@
     [self setTimeOut:0.0f];
     
     CCLabelTTF * label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:64];
-    label.opacity=75;
     label.color = ccc3(255,255,230);
     label.anchorPoint=ccp(0,0);
     label.position = ccp(10,150);
@@ -148,8 +147,9 @@
                    nil]];
 }
 -(void)handleTimeOut{
-    int CD=8.0f;
+    int CD=9.0f;
     
+    CD+=1.0f;
     if(self.timeCount<CD&&!self.isStarting){
         self.isStarting=YES;
         //addMagic
@@ -165,10 +165,25 @@
     
     
     //changeTurn
+    NSString* message;
+    NSArray* buf=[NSArray arrayWithObjects:@"玩家回合",@"敌方行动", nil];
+    
     if (self.timeCount%CD==0) {
         self.whosTurn=(self.whosTurn+1) % 2;
+        message=buf[self.whosTurn];
+        if(self.whosTurn==Turn_Enemy)self.lockTouch=YES;
+        self.testLabel.opacity=1000.0f;
+        [self.testLabel setString:message];
+        self.testLabel.position=ccp(self.contentSize.width/2-140,self.contentSize.height/2);
+        //self.testLabel.scale=300.0f/self.testLabel.contentSize.width;
+        self.testLabel.scale=1;
         
+        
+        self.timeCount++;
+        [self setTimeOut:2.0f];
+        return;
     }
+
     if(self.whosTurn==Turn_Enemy){
         self.lockTouch=YES;
         [self computerAIgo];
@@ -178,25 +193,32 @@
         self.lockTouch=NO;
     }
     
-    // setLabel
-    NSString* message=[NSString stringWithFormat:@"玩家回合"];
-    if (self.whosTurn==Turn_Player) {
-        message=[message stringByAppendingFormat:@"  %d",CD-self.timeCount%CD];
+ //setLabel
+    message=buf[self.whosTurn];
+    message=[NSString stringWithFormat:@" %d",CD-self.timeCount%CD];
     [self.testLabel setString:message];
-        self.testLabel.scale=100/self.testLabel.contentSize.width;
-        
-        self.testLabel.position=ccp(0,150);
-    }
-    if (self.whosTurn==Turn_Enemy) {
-        message=@"敌方行动";
-        message=[message stringByAppendingFormat:@"  %d",CD-self.timeCount%CD];
-        [self.testLabel setString:message];
-        self.testLabel.position=ccp(self.contentSize.width/2-140,self.contentSize.height/2);
-        //self.testLabel.scale=300.0f/self.testLabel.contentSize.width;
-        self.testLabel.scale=1;
-    }
-    
+
+    self.testLabel.position=ccp(self.contentSize.width/2+kTileSize*kBoxWidth/2,self.contentSize.height/2);
+    //self.testLabel.scale=300.0f/self.testLabel.contentSize.width;
+    self.testLabel.scale=1;
+
     //NSLog(@"font pos %f %f",self.testLabel.contentSize.width,self.testLabel.contentSize.height);
+
+//    message=buf[self.whosTurn];
+//    message=[message stringByAppendingFormat:@"  %d",CD-self.timeCount%CD];
+//    [self.testLabel setString:message];
+//    
+//    if (self.whosTurn==Turn_Player) {
+//        self.testLabel.scale=100/self.testLabel.contentSize.width;
+//        self.testLabel.position=ccp(0,150);
+//    }
+//    if (self.whosTurn==Turn_Enemy) {
+//        self.testLabel.position=ccp(self.contentSize.width/2-140,self.contentSize.height/2);
+//        //self.testLabel.scale=300.0f/self.testLabel.contentSize.width;
+//        self.testLabel.scale=1;
+//    }
+//    
+//    //NSLog(@"font pos %f %f",self.testLabel.contentSize.width,self.testLabel.contentSize.height);
 
 
     
