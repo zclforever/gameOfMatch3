@@ -24,10 +24,11 @@
         self.sprite=sprite;
         self.value=value;
         self.type=@"removeValue";
+        self.CD=12.0f;
         if(value==1)
         {
             self.showName=@"绿迷";
-            self.manaCostArray=[NSMutableArray arrayWithObjects:@3,@1,@0,@3, nil];
+            self.manaCostArray=[NSMutableArray arrayWithObjects:@3,@1,@0,@1, nil];
         }
         if(value==2)
         {
@@ -46,7 +47,16 @@
         }
     }
     
-    
+    if ([name isEqualToString:@"magicAttackType_1"]) {
+        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"block_%d.png",6]];
+        self.sprite=sprite;
+        self.value=value;
+        self.type=@"magicAttack";
+        self.CD=12.0f;
+        self.showName=@"魔法集齐自动攻击";
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@3,@1,@1,@1, nil];
+
+    }
     //    range=[name rangeOfString:@"removeValue_"];
     //    if (range.location!=NSNotFound) {
     //        value=[name substringFromIndex:range.length];

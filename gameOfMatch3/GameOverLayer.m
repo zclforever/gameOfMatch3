@@ -28,7 +28,7 @@
             //[self addChild:[CCParticleMeteor node]];
             [self addChild:[CCParticleExplosion node]];
         } else {
-            message = @"你翘了..";
+            message = @"你翘了  ";
             [self setColor:ccc3(0,0,0)];
             [self addChild:[CCParticleFire node]];
             //[self addChild:[CCParticleSmoke node]];

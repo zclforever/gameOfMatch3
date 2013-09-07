@@ -13,10 +13,16 @@
 #define zStatePanel_LifeBarWidth 90.0f
 #define zStatePanel_LifeBarHeight 40.0f
 #define zStatePanel_LifeBarMarginLeft 5.0f
-#define zStatePanel_LifeBarMarginTop 40.0f
-#define zStatePanel_MagicLayerMarginTop 50.0f
+#define zStatePanel_LifeBarMarginTop 10.0f
+
+#define zStatePanel_MagicLayerMarginTop 200.0f
 #define zStatePanel_MagicLayerHeight 40.0f
 #define zStatePanel_MagicLayerSpace 5.0f
+
+#define zStatePanel_ManaLayerHeight 50.0f
+#define zStatePanel_ManaLayerMarginTop 100.0f
+
+
 
 #define Turn_Player 0
 #define Turn_Enemy 1
@@ -29,7 +35,7 @@
 
 #define kMaxLevelNo 10
 #define kMaxRecordCount 15
-#define kKindCount 7
+#define kKindCount 6
 
 enum Orientation{
 	OrientationHori,

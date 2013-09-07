@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "MagicLayer.h"
+#import "ManaLayer.h"
 @interface StatePanelLayer : CCLayerColor {
     
 }
@@ -21,8 +22,11 @@
 -(CCLayer*) addMagicLayerWithMagicName:(NSString*)name;
 -(int)findMagicTouchedIndex:(CGPoint)pos;
 -(bool)checkMagicTouched:(CGPoint)pos;
+-(int)findManaTouchedIndex:(CGPoint)pos;
 
 @property (strong,nonatomic) NSMutableArray* magicArray; //add Magic Class
 @property (strong,nonatomic) NSMutableArray* magicLayerArray; //add MagicLayer
+@property (strong,nonatomic) ManaLayer* manaLayer;
+@property (strong,nonatomic) NSMutableArray* manaArray;
 -(void)setMagicState:(bool)state atIndex:(int)index;
 @end

@@ -46,9 +46,9 @@
 		// create and initialize a Label
         
         float kStartX=1.0*(self.contentSize.width-kBoxWidth*kTileSize)/2;
-        float kStartY=1.0*(self.contentSize.height-kBoxHeight*kTileSize)/2;
+//        float kStartY=1.0*(self.contentSize.height-kBoxHeight*kTileSize)/2;
 //        float kStartX=0.0;
-//        float kStartY=0.0;
+        float kStartY=5.0;
         [[consts sharedManager] setKStartX:kStartX];
         [[consts sharedManager] setKStartY:kStartY];
 

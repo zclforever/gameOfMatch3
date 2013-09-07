@@ -15,6 +15,6 @@
 @property (strong,nonatomic) NSString* showName; //展示
 @property (strong,nonatomic) NSString* type;
 @property  int value;
-
+@property  float CD;
 -(Magic*)initWithName:(NSString*)name;
 @end

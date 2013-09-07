@@ -19,6 +19,6 @@
 }
 @property (strong,nonatomic) StatePanelLayer* statePanelLayerPlayer;
 @property (strong,nonatomic) StatePanelLayer* statePanelLayerEnemy;
--(void) changeWithTileA: (Tile *) a TileB: (Tile *) b;
+-(bool) changeWithTileA: (Tile *) a TileB: (Tile *) b;
 //-(void) check: (id) sender data: (id) data;
 @end

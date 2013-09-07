@@ -11,5 +11,6 @@
 @interface Person : NSObject
 @property int curHP;
 @property int maxHP;
-
+@property int curStep;
+@property int maxStep;
 @end

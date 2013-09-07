@@ -193,6 +193,7 @@
 		7539734D17D61759008EA3A0 /* Star Purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 7539734817D61759008EA3A0 /* Star Purple.png */; };
 		7539734E17D61759008EA3A0 /* yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7539734917D61759008EA3A0 /* yellow.png */; };
 		7539735017D61810008EA3A0 /* lifeBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7539734F17D61810008EA3A0 /* lifeBar.png */; };
+		7556385417D6791700506DBC /* ManaLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7556385317D6791700506DBC /* ManaLayer.m */; };
 		75C908D217C6755000068714 /* const.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C908D117C6755000068714 /* const.m */; };
 /* End PBXBuildFile section */
 
@@ -541,6 +542,8 @@
 		7539734817D61759008EA3A0 /* Star Purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star Purple.png"; sourceTree = "<group>"; };
 		7539734917D61759008EA3A0 /* yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellow.png; sourceTree = "<group>"; };
 		7539734F17D61810008EA3A0 /* lifeBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lifeBar.png; sourceTree = "<group>"; };
+		7556385217D6791700506DBC /* ManaLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManaLayer.h; sourceTree = "<group>"; };
+		7556385317D6791700506DBC /* ManaLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManaLayer.m; sourceTree = "<group>"; };
 		75C908D117C6755000068714 /* const.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = const.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -608,6 +611,8 @@
 				75C908D117C6755000068714 /* const.m */,
 				0279080217D48C8100CF5ED4 /* Magic.h */,
 				0279080317D48C8100CF5ED4 /* Magic.m */,
+				7556385217D6791700506DBC /* ManaLayer.h */,
+				7556385317D6791700506DBC /* ManaLayer.m */,
 				753972E617D535E8008EA3A0 /* MagicLayer.h */,
 				753972E717D535E8008EA3A0 /* MagicLayer.m */,
 				752979B117D3ABA7009B8B95 /* StatePanelLayer.h */,
@@ -1306,6 +1311,7 @@
 				752979B617D3C89F009B8B95 /* GameOverLayer.m in Sources */,
 				0279080417D48C8100CF5ED4 /* Magic.m in Sources */,
 				753972E817D535E8008EA3A0 /* MagicLayer.m in Sources */,
+				7556385417D6791700506DBC /* ManaLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

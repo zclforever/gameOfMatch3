@@ -9,6 +9,7 @@
 #import "StatePanelLayer.h"
 #import "const.h"
 #import "Magic.h"
+
 @interface StatePanelLayer()
 @property (strong,nonatomic) CCSprite* lifeBar;
 @property (strong,nonatomic) CCLabelTTF* HPLabel;
@@ -31,11 +32,10 @@
     
     //init LifeBar
     self.lifeBar=[CCSprite spriteWithFile:@"lifeBar.png" ];
-    
-    self.lifeBar.position=ccp(zStatePanel_LifeBarMarginLeft,self.position.y+self.contentSize.height-zStatePanel_LifeBarMarginTop);
-    self.lifeBar.anchorPoint=ccp(0,0);
+       self.lifeBar.anchorPoint=ccp(0,0);
     self.lifeBar.scaleY=zStatePanel_LifeBarHeight/self.lifeBar.contentSize.height;
     self.lifeBar.scaleX=zStatePanel_LifeBarWidth/self.lifeBar.contentSize.width;
+    self.lifeBar.position=ccp(zStatePanel_LifeBarMarginLeft,self.position.y+self.contentSize.height-zStatePanel_LifeBarMarginTop-zStatePanel_LifeBarHeight);
     [self addChild:self.lifeBar];
     
     
@@ -56,6 +56,12 @@
     
     self.HPLabel=label;
     
+    //init manaLayer
+    
+    self.manaLayer=[[ManaLayer alloc]initWithWidth:self.contentSize.width withHeight:zStatePanel_ManaLayerHeight];
+    self.manaLayer.position=ccp(0,self.contentSize.height-zStatePanel_ManaLayerMarginTop);
+    [self addChild:self.manaLayer];
+    self.manaArray=self.manaLayer.manaArray;
     
     self.magicArray=[[NSMutableArray alloc]init];
     self.magicLayerArray=[[NSMutableArray alloc]init];
@@ -83,9 +89,21 @@
     return -1; //not find
     
 }
+-(int)findManaTouchedIndex:(CGPoint)pos{
+    
+    for(int i=0;i<self.manaLayer.spriteArray.count;i++){
+        CCSprite* sprite=self.manaLayer.spriteArray[i];
+        if(CGRectContainsPoint(sprite.boundingBox,  pos)){return i;}
+    }
+    return -1; //not find
+    
+}
+
 -(void)setMagicState:(bool)state atIndex:(int)index{
     [self.magicLayerArray[index] setMagicEnabled:state];
 }
+
+
 
 -(CCLayer*) addMagicLayerWithMagicName:(NSString*)name{
     int index=self.magicLayerArray.count;

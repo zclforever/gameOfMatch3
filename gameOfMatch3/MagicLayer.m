@@ -34,8 +34,8 @@
         CCLabelTTF* costLabel;
         
         float magicIconSize=height*7/24;  //定义
-        float magicIconBottom=height/12;  //定义 这个也是vertical space
-        float magicNameSpace=width/8;  //定义
+        float magicIconBottom=height/16;  //定义 这个也是vertical space
+        float magicNameSpace=width/24;  //定义
         
         
         float magicIconSpace=(width-magicIconSize*2*4)/7;
@@ -44,7 +44,9 @@
         
         float magicNameMaxWidth=(width-magicHeadSize-magicNameSpace*2); // 以下都为自动
         float magicNameMaxHeight=(height- magicIconSize-magicIconBottom*2)-magicIconSpace;
-        
+//        float magicNameMaxWidth=(width-magicHeadSize-magicNameSpace/2); // 以下都为自动
+//        float magicNameMaxHeight=(height- magicIconSize-magicIconBottom*2);
+    
         for(int i=1;i<5;i++){
             //add manaCostSprite
             sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"block_%d.png",i]];
