@@ -35,7 +35,7 @@
 
 #define kMaxLevelNo 10
 #define kMaxRecordCount 15
-#define kKindCount 6
+#define kKindCount 7
 
 enum Orientation{
 	OrientationHori,

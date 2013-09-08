@@ -27,7 +27,9 @@
 @property bool lockUpdate;
 @property bool lockTouch;
 @property int timeCount;
+@property int updateCount;
 @property bool isStarting;
+@property bool moveSuccessReady;
 
 @property bool usingMagic;
 -(void)afterTurn: (id) node;
@@ -40,7 +42,9 @@
     
     self.effectOn=NO;
     self.effectOn=YES;
-	
+
+
+    //init BG
 	CCSprite *bg = [CCSprite spriteWithFile: @"playLayer.jpg"];
     CGSize winSize = [CCDirector sharedDirector].winSize;
     [bg setScaleX: winSize.width/bg.contentSize.width];
@@ -48,7 +52,19 @@
 	bg.position = ccp(winSize.width/2,winSize.height/2);
 	[self addChild: bg z:0];
     
+    //init StateLayer
+    float kStartX=1.0*(self.contentSize.width-kBoxWidth*kTileSize)/2;
     
+    StatePanelLayer *statePanelLayer=[[StatePanelLayer alloc]initWithPositon:ccp(0,0)];
+    [self addChild:statePanelLayer z:2];
+    
+    StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
+    [self addChild:statePanelLayerEnemy z:2];
+    
+    self.statePanelLayerPlayer=statePanelLayer;
+    self.statePanelLayerEnemy=statePanelLayerEnemy;
+    
+    //init Box
 	box = [[Box alloc] initWithSize:CGSizeMake(kBoxWidth,kBoxHeight) factor:6];
 	box.layer = self;
 	box.lock = YES;
@@ -75,7 +91,7 @@
     self.lockTouch=NO;
     self.isStarting=NO;
     self.updating=NO;
-    
+    self.updateCount=0;
     self.magicCastArray=[[NSMutableArray alloc]init];
     
 	self.isTouchEnabled = YES;
@@ -85,6 +101,7 @@
     self.updating=NO;
     self.swapCount=0;
     self.lockUpdate=NO;
+    self.moveSuccessReady=NO;
     [self schedule:@selector(update:) interval:0 repeat:kCCRepeatForever delay:3];
     
     //system=[CCParticleRain node];
@@ -234,7 +251,7 @@
       
       nil]];
 }
--(void)update:(ccTime)delta{   //.update
+-(void)update:(ccTime)delta{   //.update.
     if (self.lockUpdate) {
         return;
     }
@@ -249,12 +266,12 @@
         return;
     }
     self.updating=YES;
+    self.updateCount++;
     
     
-    
-    bool ret=[box check];
+    [box check];
     NSArray* matchedArray;
-    Person* nextPerson=self.turnOfPersons[(self.whosTurn+1) % 2];
+    //Person* nextPerson=self.turnOfPersons[(self.whosTurn+1) % 2];
     
     //checkMagic
     int countOfMagicCastArray=self.magicCastArray.count;
@@ -297,24 +314,21 @@
             
             
         }
-        
-        
-        //        NSArray* tmp=[box.readyToRemoveTiles allObjects];
-        //        matchedArray=[box findMatchedArray:tmp forValue:5];
-        //        if (matchedArray) {
-        //            nextPerson.curHP-=matchedArray.count;
-        //
-        //            if (self.enemy.curHP<=0) {
-        //                [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:YES]];
-        //            }
-        //            if (self.player.curHP<=0) {
-        //                [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:NO]];
-        //            }
-        //        }
+
         [box removeAndRepair];
+        if(self.moveSuccessReady){
+            [self setTimeOut:0.1 withSelect:@selector(moveSuccess)];
+            self.moveSuccessReady=NO;
+        }
         //NSLog(@"in check is value 5 finished");
         
+    }else{
+        NSMutableArray* ret=[box scanSwapMatch];
+        if (ret.count<=0) {
+            [self noMoves];
+        }
     }
+    
     
     self.updating=NO;
 }
@@ -465,9 +479,27 @@
 		[sprite runAction:someAction];
 	}
 }
+-(void)noMoves{
+    self.player.curHP-=10;
+    [box pushTilesToRemoveForValue:1];
+    [box pushTilesToRemoveForValue:2];
+    [box pushTilesToRemoveForValue:3];
+    [box pushTilesToRemoveForValue:4];
+    [box pushTilesToRemoveForValue:5];
+    [box pushTilesToRemoveForValue:6];
+    for(int i=0;i<4;i++){
+        [self.statePanelLayerPlayer.manaLayer setManaArrayAtIndex:i withValue:0];
+    }
+}
+-(void)moveFailed{
+    return;
+    self.player.curHP-=5;
+    [self moveSuccess];
+}
 -(void)moveSuccess{
+
     int finalDam=0;
-    int enemy_dam=10;
+    int enemy_dam=13;
     
     self.player.curStep--;
     if(self.player.curStep<=0){   //turnFinished
@@ -477,15 +509,114 @@
         for(int i=0;i<4;i++){
             int value=[self.statePanelLayerPlayer.manaArray[i] intValue];
             
-            if(value<[magic.manaCostArray[i] intValue]){magicAttack=NO;break;}
+            if(value<[magic.manaCostArray[i] intValue]){
+                magicAttack=NO;
+                break;
+            }
         }
         
         finalDam=5;
         if(magicAttack){
             finalDam+=20;
         }
-        self.enemy.curHP-=finalDam;
-        self.player.curHP-=enemy_dam;
+        //来个动画
+        CCLayerColor* animationLayer=[[CCLayerColor alloc]initWithColor:ccc4(0, 0, 0, 200)];
+        [self addChild:animationLayer z:10];
+        
+        CCSprite* playerSprite=[CCSprite spriteWithFile:@"player.png"];
+        playerSprite.position=ccp(50,150);
+        CCSprite* enemySprite=[CCSprite spriteWithFile:@"enemy.png"];
+        enemySprite.position=ccp(380,150);
+        
+        [self addChild:playerSprite z:11];
+        [self addChild:enemySprite z:11];
+        
+        CCLabelTTF* playerDamageLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"-%d",finalDam] fontName:@"Arial" fontSize:28];
+        playerDamageLabel.scale=0;
+        playerDamageLabel.position=ccp(350,280);
+        CCLabelTTF* enemyDamageLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"-%d",enemy_dam] fontName:@"Arial" fontSize:28];
+        enemyDamageLabel.scale=0;
+        enemyDamageLabel.position=ccp(70,280);
+        
+        [self addChild:playerDamageLabel z:11];
+        [self addChild:enemyDamageLabel z:11];
+        
+        [playerDamageLabel runAction:[CCSequence actions:
+                                 [CCDelayTime actionWithDuration:2.5],
+                                 [CCScaleTo actionWithDuration:1.0 scale:1.0],
+                                 //[CCMoveTo actionWithDuration:1.0 position:ccp(360,150)],
+                                 //[CCMoveTo actionWithDuration:1.0 position:ccp(50,150)],
+                                 [CCDelayTime actionWithDuration:4.0],
+                                 [CCCallBlockN actionWithBlock:^(CCNode *node) {
+            [node removeFromParentAndCleanup:YES];
+        }], nil]];
+        
+        [enemyDamageLabel runAction:[CCSequence actions:
+                                      [CCDelayTime actionWithDuration:5.5],
+                                      [CCScaleTo actionWithDuration:0.5 scale:1.0],
+                                      //[CCMoveTo actionWithDuration:1.0 position:ccp(360,150)],
+                                      //[CCMoveTo actionWithDuration:1.0 position:ccp(50,150)],
+                                      [CCDelayTime actionWithDuration:1.5],
+                                      [CCCallBlockN actionWithBlock:^(CCNode *node) {
+            [node removeFromParentAndCleanup:YES];
+        }], nil]];
+        
+        [playerSprite runAction:[CCSequence actions:
+                                 [CCDelayTime actionWithDuration:1.0],
+                                 [CCMoveTo actionWithDuration:0.5 position:ccp(280,300)],
+                                 [CCMoveTo actionWithDuration:0.5 position:ccp(340,200)],
+                                 
+                                 [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
+                                 [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
+                                 [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
+                                 [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
+                                 [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
+                                 [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
+                                 [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
+                                 [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
+                                 [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
+                                 [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
+                                 
+                                 [CCMoveTo actionWithDuration:0.5 position:ccp(50,150)],
+                                 [CCDelayTime actionWithDuration:4.0],
+                                 [CCCallBlockN actionWithBlock:^(CCNode *node) {
+            self.player.curHP-=enemy_dam;
+            [node removeFromParentAndCleanup:YES];
+        }], nil]];
+        //Person* player=(Person*)object;
+        //player.curHP-=enemy_dam;
+        
+        //[self removeFromParentAndCleanup:YES];
+        
+        
+        [enemySprite runAction:[CCSequence actions:
+                                [CCDelayTime actionWithDuration:4.0],
+                                [CCMoveTo actionWithDuration:0.5 position:ccp(50,300)],
+                                [CCMoveTo actionWithDuration:0.5 position:ccp(50,150)],
+                                [CCMoveTo actionWithDuration:0.5 position:ccp(50,250)],
+                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
+                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
+                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
+                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
+                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
+                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
+                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
+                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
+                                [CCMoveTo actionWithDuration:1.0 position:ccp(380,150)],
+                                [CCDelayTime actionWithDuration:0.1],
+                                [CCCallBlockN actionWithBlock:^(CCNode *node) {
+            self.enemy.curHP-=finalDam;
+            [node removeFromParentAndCleanup:YES];
+        }], nil]];
+        
+        [animationLayer runAction:[CCSequence actions:[CCDelayTime actionWithDuration:8.0],
+                                [CCCallBlockN actionWithBlock:^(CCNode *node) {
+            //self.enemy.curHP-=finalDam;
+            [node removeFromParentAndCleanup:YES];
+        }], nil]];        
+        
+//        self.enemy.curHP-=finalDam;
+//        self.player.curHP-=enemy_dam;
         
         if (self.enemy.curHP<=0) {
             [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:YES]];
@@ -495,10 +626,19 @@
             
         }
         
-        [self setTimeOut:3.0 withSelect:@selector(battleFinish)];
-        
+        [self setTimeOut:8.0 withSelect:@selector(battleFinish)];
+        return;
+    }else{
+        if (self.enemy.curHP<=0) {
+            [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:YES]];
+        }
+        else if (self.player.curHP<=0){
+            [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:NO]];
+            
+        }
     }
 }
+
 -(void)battleFinish{
     self.player.curStep=self.player.maxStep;
     self.lockTouch=NO;
@@ -607,7 +747,11 @@
 		bool ret=[self changeWithTileA: self.selectedTile TileB: tile];
         //[self.selectedTile scaleToTileSize];
 		self.selectedTile = nil;
-        if(ret)[self moveSuccess];
+        if(ret)
+        {self.moveSuccessReady=YES;}
+        else{
+            [self moveFailed];
+        }
 	}else {
         [self.selectedTile scaleToTileSize];
 		self.selectedTile = tile;

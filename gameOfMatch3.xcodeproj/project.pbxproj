@@ -195,6 +195,8 @@
 		7539735017D61810008EA3A0 /* lifeBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7539734F17D61810008EA3A0 /* lifeBar.png */; };
 		7556385417D6791700506DBC /* ManaLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7556385317D6791700506DBC /* ManaLayer.m */; };
 		75C908D217C6755000068714 /* const.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C908D117C6755000068714 /* const.m */; };
+		75CF2A3917DCD82500A877E1 /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CF2A3717DCD82500A877E1 /* player.png */; };
+		75CF2A3A17DCD82500A877E1 /* enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CF2A3817DCD82500A877E1 /* enemy.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -545,6 +547,8 @@
 		7556385217D6791700506DBC /* ManaLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManaLayer.h; sourceTree = "<group>"; };
 		7556385317D6791700506DBC /* ManaLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManaLayer.m; sourceTree = "<group>"; };
 		75C908D117C6755000068714 /* const.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = const.m; sourceTree = "<group>"; };
+		75CF2A3717DCD82500A877E1 /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
+		75CF2A3817DCD82500A877E1 /* enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1045,6 +1049,8 @@
 		7539734417D616E1008EA3A0 /* blocks */ = {
 			isa = PBXGroup;
 			children = (
+				75CF2A3717DCD82500A877E1 /* player.png */,
+				75CF2A3817DCD82500A877E1 /* enemy.png */,
 				7539730217D5F80A008EA3A0 /* block_21.png */,
 				02B175C617C5DC8B0057DA00 /* block_22.png */,
 				753972FA17D5F2BD008EA3A0 /* block_23.png */,
@@ -1178,6 +1184,8 @@
 				7539734D17D61759008EA3A0 /* Star Purple.png in Resources */,
 				7539734E17D61759008EA3A0 /* yellow.png in Resources */,
 				7539735017D61810008EA3A0 /* lifeBar.png in Resources */,
+				75CF2A3917DCD82500A877E1 /* player.png in Resources */,
+				75CF2A3A17DCD82500A877E1 /* enemy.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

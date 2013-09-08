@@ -54,7 +54,7 @@
         self.type=@"magicAttack";
         self.CD=12.0f;
         self.showName=@"魔法集齐自动攻击";
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@3,@1,@1,@1, nil];
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@4,@1,@1,@1, nil];
 
     }
     //    range=[name rangeOfString:@"removeValue_"];

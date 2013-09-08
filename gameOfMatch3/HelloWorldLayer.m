@@ -53,16 +53,16 @@
         [[consts sharedManager] setKStartY:kStartY];
 
         
-        StatePanelLayer *statePanelLayer=[[StatePanelLayer alloc]initWithPositon:ccp(0,0)];
-        [self addChild:statePanelLayer z:2];
-        
-
-        StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
-        [self addChild:statePanelLayerEnemy z:3];
+//        StatePanelLayer *statePanelLayer=[[StatePanelLayer alloc]initWithPositon:ccp(0,0)];
+//        [self addChild:statePanelLayer z:2];
+//        
+//
+//        StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
+//        [self addChild:statePanelLayerEnemy z:3];
 
         PlayLayer  *playLayer = [PlayLayer node];
-        playLayer.statePanelLayerPlayer=statePanelLayer;
-        playLayer.statePanelLayerEnemy=statePanelLayerEnemy;
+//        playLayer.statePanelLayerPlayer=statePanelLayer;
+//        playLayer.statePanelLayerEnemy=statePanelLayerEnemy;
         [self addChild: playLayer z:0];
         
 	}
