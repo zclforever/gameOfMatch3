@@ -13,4 +13,11 @@
 @property int maxHP;
 @property int curStep;
 @property int maxStep;
+@property int damage;
+@property int magicDamage;
+@property (strong,nonatomic) NSString* spriteName;
+
++(Person*)enemyWithLevel:(int)level;
++(Person*)defaultPlayer;
++(Person*)defaultEnemy;
 @end

@@ -56,12 +56,7 @@
     
     self.HPLabel=label;
     
-    //init manaLayer
-    
-    self.manaLayer=[[ManaLayer alloc]initWithWidth:self.contentSize.width withHeight:zStatePanel_ManaLayerHeight];
-    self.manaLayer.position=ccp(0,self.contentSize.height-zStatePanel_ManaLayerMarginTop);
-    [self addChild:self.manaLayer];
-    self.manaArray=self.manaLayer.manaArray;
+
     
     self.magicArray=[[NSMutableArray alloc]init];
     self.magicLayerArray=[[NSMutableArray alloc]init];
@@ -104,7 +99,14 @@
 }
 
 
-
+-(void)addManaLayer{
+    //init manaLayer
+    
+    self.manaLayer=[[ManaLayer alloc]initWithWidth:self.contentSize.width withHeight:zStatePanel_ManaLayerHeight];
+    self.manaLayer.position=ccp(0,self.contentSize.height-zStatePanel_ManaLayerMarginTop);
+    [self addChild:self.manaLayer];
+    self.manaArray=self.manaLayer.manaArray;
+}
 -(CCLayer*) addMagicLayerWithMagicName:(NSString*)name{
     int index=self.magicLayerArray.count;
     

@@ -7,7 +7,8 @@
 //
 
 #import "GameOverLayer.h"
-#import "HelloWorldLayer.h"
+#import "BattleLayer.h"
+#import "GameLevelLayer.h"
 
 @implementation GameOverLayer
 +(CCScene *) sceneWithWon:(BOOL)won {
@@ -20,6 +21,7 @@
 - (id)initWithWon:(BOOL)won {
     if ((self = [super initWithColor:ccc4(255, 255, 255, 255)])) {
         
+        float duration=8.0f;
         NSString * message;
         if (won) {
             message = @"龙哥的小伙伴们都惊呆了";
@@ -32,6 +34,7 @@
             [self setColor:ccc3(0,0,0)];
             [self addChild:[CCParticleFire node]];
             //[self addChild:[CCParticleSmoke node]];
+            duration=4.0f;
         }
         
         CGSize winSize = [[CCDirector sharedDirector] winSize];
@@ -42,9 +45,9 @@
         
         [self runAction:
          [CCSequence actions:
-          [CCDelayTime actionWithDuration:8],
+          [CCDelayTime actionWithDuration:duration],
           [CCCallBlockN actionWithBlock:^(CCNode *node) {
-             [[CCDirector sharedDirector] replaceScene:[HelloWorldLayer scene]];
+             [[CCDirector sharedDirector] replaceScene:[GameLevelLayer scene]];
          }],
           nil]];
         

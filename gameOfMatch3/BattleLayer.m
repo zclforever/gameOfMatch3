@@ -8,7 +8,7 @@
 
 
 // Import the interfaces
-#import "HelloWorldLayer.h"
+#import "BattleLayer.h"
 #import "const.h"
 #import "PlayLayer.h"
 #import "StatePanelLayer.h"
@@ -18,16 +18,16 @@
 #pragma mark - HelloWorldLayer
 
 // HelloWorldLayer implementation
-@implementation HelloWorldLayer
+@implementation BattleLayer
 
 // Helper class method that creates a Scene with the HelloWorldLayer as the only child.
-+(CCScene *) scene
++(CCScene *) sceneWithLevel:(int)level
 {
 	// 'scene' is an autorelease object.
 	CCScene *scene = [CCScene node];
 	
 	// 'layer' is an autorelease object.
-	HelloWorldLayer *layer = [HelloWorldLayer node];
+	BattleLayer *layer = [[BattleLayer alloc]initWithLevel:level];
 	
 	// add layer as a child to scene
 	[scene addChild: layer];
@@ -37,7 +37,7 @@
 }
 
 // on "init" you need to initialize your instance
--(id) init
+-(id) initWithLevel:(int)level
 {
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
@@ -45,7 +45,7 @@
 		
 		// create and initialize a Label
         
-        float kStartX=1.0*(self.contentSize.width-kBoxWidth*kTileSize)/2;
+        float kStartX=1.0*(self.contentSize.width-kBoxWidth*kTileSize)-10;
 //        float kStartY=1.0*(self.contentSize.height-kBoxHeight*kTileSize)/2;
 //        float kStartX=0.0;
         float kStartY=5.0;
@@ -60,7 +60,8 @@
 //        StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
 //        [self addChild:statePanelLayerEnemy z:3];
 
-        PlayLayer  *playLayer = [PlayLayer node];
+        Person* enemy=[Person enemyWithLevel:level];
+        PlayLayer  *playLayer = [[PlayLayer alloc]initWithPlayer:nil withEnemy:enemy];
 //        playLayer.statePanelLayerPlayer=statePanelLayer;
 //        playLayer.statePanelLayerEnemy=statePanelLayerEnemy;
         [self addChild: playLayer z:0];

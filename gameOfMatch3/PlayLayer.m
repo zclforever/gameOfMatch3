@@ -7,12 +7,12 @@
 //
 
 #import "PlayLayer.h"
-#import "GameOverLayer.h"
-#import "Person.h"
-#import "ManaLayer.h"
+
+
 @interface PlayLayer()
 @property  int whosTurn;
 @property bool effectOn;
+@property int level;
 @property (strong,nonatomic) CCLabelTTF *testLabel;
 @property (strong,nonatomic) CCLabelTTF *stepLabel;
 @property (strong,nonatomic) Person* player;
@@ -37,29 +37,34 @@
 
 @implementation PlayLayer
 @synthesize selectedTile=_selectedTile;
--(id) init{
+
+-(id)initWithPlayer:(Person*)player withEnemy:(Person*)enemy{
 	self = [super init];
+    
+    
     
     self.effectOn=NO;
     self.effectOn=YES;
-
-
+    
+    
     //init BG
 	CCSprite *bg = [CCSprite spriteWithFile: @"playLayer.jpg"];
     CGSize winSize = [CCDirector sharedDirector].winSize;
     [bg setScaleX: winSize.width/bg.contentSize.width];
     [bg setScaleY: winSize.height/bg.contentSize.height];
 	bg.position = ccp(winSize.width/2,winSize.height/2);
-	[self addChild: bg z:0];
+	//[self addChild: bg z:-2];
     
     //init StateLayer
-    float kStartX=1.0*(self.contentSize.width-kBoxWidth*kTileSize)/2;
+    //float kStartX=[[consts sharedManager] kStartX];
     
     StatePanelLayer *statePanelLayer=[[StatePanelLayer alloc]initWithPositon:ccp(0,0)];
+    [statePanelLayer addManaLayer];
     [self addChild:statePanelLayer z:2];
     
-    StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
-    [self addChild:statePanelLayerEnemy z:2];
+    //StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
+    StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(zStatePanel_LifeBarWidth+10,0)];
+    [self addChild:statePanelLayerEnemy z:-1];
     
     self.statePanelLayerPlayer=statePanelLayer;
     self.statePanelLayerEnemy=statePanelLayerEnemy;
@@ -70,16 +75,28 @@
 	box.lock = YES;
     
     ai=[[AI alloc]initWithBox:box];
+    self.player=player;
+    self.enemy=enemy;
     
-    self.player=[[Person alloc]init];
-    self.player.curHP=100;
-    self.player.maxHP=100;
-    self.player.maxStep=5;
-    self.player.curStep=self.player.maxStep;
-    
-    self.enemy=[[Person alloc]init];
-    self.enemy.curHP=100;
-    self.enemy.maxHP=100;
+    if (!player) {
+        self.player=[Person defaultPlayer];
+//        self.player=[[Person alloc]init];
+//        self.player.curHP=100;
+//        self.player.maxHP=100;
+//        self.player.maxStep=5;
+//        self.player.curStep=self.player.maxStep;
+//        self.player.damage=5;
+//        self.player.magicDamage=20;
+    }
+
+    if(!enemy){
+        self.enemy=[Person defaultEnemy];
+//        self.enemy=[[Person alloc]init];
+//        self.enemy.damage=13;
+//        self.enemy.curHP=100;
+//        self.enemy.maxHP=100;
+    }
+
     
     
     
@@ -132,13 +149,25 @@
     
     
     label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:18];
-    label.opacity=100;
+    label.opacity=250;
     label.color = ccc3(255,255,230);
     label.anchorPoint=ccp(0,0);
     label.position = ccp(10,150);
     [self addChild:label z:4];
-    
     self.stepLabel=label;
+    
+    label = [CCLabelTTF labelWithString:@"返回" fontName:@"Arial" fontSize:18];
+    label.opacity=250;
+    label.color = ccc3(255,255,230);
+    CCMenuItemLabel* menuLabel=[CCMenuItemLabel itemWithLabel:label block:^(id sender) {
+        [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:NO]];
+    }];
+    
+    CCMenu* backMenu=[CCMenu menuWithItems:menuLabel, nil];
+    backMenu.anchorPoint=ccp(0,0);
+    backMenu.position = ccp(100,30);
+    [self addChild:backMenu z:4];
+
     
 	return self;
 }
@@ -499,7 +528,7 @@
 -(void)moveSuccess{
 
     int finalDam=0;
-    int enemy_dam=13;
+    int enemy_dam=self.enemy.damage;
     
     self.player.curStep--;
     if(self.player.curStep<=0){   //turnFinished
@@ -515,17 +544,17 @@
             }
         }
         
-        finalDam=5;
+        finalDam=self.player.damage;
         if(magicAttack){
-            finalDam+=20;
+            finalDam+=self.player.magicDamage;
         }
         //来个动画
         CCLayerColor* animationLayer=[[CCLayerColor alloc]initWithColor:ccc4(0, 0, 0, 200)];
         [self addChild:animationLayer z:10];
         
-        CCSprite* playerSprite=[CCSprite spriteWithFile:@"player.png"];
+        CCSprite* playerSprite=[CCSprite spriteWithFile:self.player.spriteName];
         playerSprite.position=ccp(50,150);
-        CCSprite* enemySprite=[CCSprite spriteWithFile:@"enemy.png"];
+        CCSprite* enemySprite=[CCSprite spriteWithFile:self.enemy.spriteName];
         enemySprite.position=ccp(380,150);
         
         [self addChild:playerSprite z:11];
@@ -618,13 +647,7 @@
 //        self.enemy.curHP-=finalDam;
 //        self.player.curHP-=enemy_dam;
         
-        if (self.enemy.curHP<=0) {
-            [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:YES]];
-        }
-        else if (self.player.curHP<=0){
-            [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:NO]];
-            
-        }
+
         
         [self setTimeOut:8.0 withSelect:@selector(battleFinish)];
         return;
@@ -640,6 +663,15 @@
 }
 
 -(void)battleFinish{
+    if (self.enemy.curHP<=0) {
+        [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:YES]];
+    }
+    else if (self.player.curHP<=0){
+        [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:NO]];
+        
+    }
+    
+    
     self.player.curStep=self.player.maxStep;
     self.lockTouch=NO;
     for(int i=0;i<4;i++){

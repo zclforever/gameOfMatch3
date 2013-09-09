@@ -9,14 +9,14 @@
 #ifndef gameOfMatch3_const_h
 #define gameOfMatch3_const_h
 
-#define zStatePanelWidth 100
+#define zStatePanelWidth 180.0f
 #define zStatePanel_LifeBarWidth 90.0f
 #define zStatePanel_LifeBarHeight 40.0f
 #define zStatePanel_LifeBarMarginLeft 5.0f
 #define zStatePanel_LifeBarMarginTop 10.0f
 
 #define zStatePanel_MagicLayerMarginTop 200.0f
-#define zStatePanel_MagicLayerHeight 40.0f
+#define zStatePanel_MagicLayerHeight 60.0f
 #define zStatePanel_MagicLayerSpace 5.0f
 
 #define zStatePanel_ManaLayerHeight 50.0f

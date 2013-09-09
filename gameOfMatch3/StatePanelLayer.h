@@ -19,6 +19,7 @@
 
 -(id)initWithPositon:(CGPoint)pos;
 
+-(void)addManaLayer;
 -(CCLayer*) addMagicLayerWithMagicName:(NSString*)name;
 -(int)findMagicTouchedIndex:(CGPoint)pos;
 -(bool)checkMagicTouched:(CGPoint)pos;

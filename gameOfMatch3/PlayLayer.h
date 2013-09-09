@@ -11,14 +11,20 @@
 #import "Box.h"
 #import "AI.h"
 #import "StatePanelLayer.h"
+#import "GameOverLayer.h"
+#import "Person.h"
+#import "ManaLayer.h"
 @interface PlayLayer : CCLayer {
 	Box *box;
 	//Tile *selectedTile;
 	Tile *firstOne;
     AI *ai;
 }
+
 @property (strong,nonatomic) StatePanelLayer* statePanelLayerPlayer;
 @property (strong,nonatomic) StatePanelLayer* statePanelLayerEnemy;
 -(bool) changeWithTileA: (Tile *) a TileB: (Tile *) b;
 //-(void) check: (id) sender data: (id) data;
+
+-(id)initWithPlayer:(Person*)player withEnemy:(Person*)enemy;
 @end

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0259BBD717DDB02D0033F345 /* GameLevelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259BBD617DDB02D0033F345 /* GameLevelLayer.m */; };
+		0259BBDB17DDB25D0033F345 /* enemy_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD817DDB25D0033F345 /* enemy_1.png */; };
+		0259BBDC17DDB25D0033F345 /* enemy_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD917DDB25D0033F345 /* enemy_2.png */; };
+		0259BBDD17DDB25D0033F345 /* enemy_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBDA17DDB25D0033F345 /* enemy_3.png */; };
 		0279080417D48C8100CF5ED4 /* Magic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0279080317D48C8100CF5ED4 /* Magic.m */; };
 		02B1740817C5C6D60057DA00 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B1740717C5C6D60057DA00 /* QuartzCore.framework */; };
 		02B1740A17C5C6D60057DA00 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B1740917C5C6D60057DA00 /* OpenGLES.framework */; };
@@ -140,7 +144,7 @@
 		02B175A617C5C6D90057DA00 /* vec4.c in Sources */ = {isa = PBXBuildFile; fileRef = 02B175A517C5C6D90057DA00 /* vec4.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		02B175AB17C5C6D90057DA00 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175AA17C5C6D90057DA00 /* main.m */; };
 		02B175AE17C5C6D90057DA00 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175AD17C5C6D90057DA00 /* AppDelegate.m */; };
-		02B175B117C5C6D90057DA00 /* HelloWorldLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175B017C5C6D90057DA00 /* HelloWorldLayer.m */; };
+		02B175B117C5C6D90057DA00 /* BattleLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175B017C5C6D90057DA00 /* BattleLayer.m */; };
 		02B175B417C5C6D90057DA00 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175B317C5C6D90057DA00 /* IntroLayer.m */; };
 		02B175BC17C5C9C40057DA00 /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175BB17C5C9C40057DA00 /* Tile.m */; };
 		02B175C017C5CD780057DA00 /* Box.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175BF17C5CD780057DA00 /* Box.m */; };
@@ -196,10 +200,15 @@
 		7556385417D6791700506DBC /* ManaLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7556385317D6791700506DBC /* ManaLayer.m */; };
 		75C908D217C6755000068714 /* const.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C908D117C6755000068714 /* const.m */; };
 		75CF2A3917DCD82500A877E1 /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CF2A3717DCD82500A877E1 /* player.png */; };
-		75CF2A3A17DCD82500A877E1 /* enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CF2A3817DCD82500A877E1 /* enemy.png */; };
+		75CF2A3A17DCD82500A877E1 /* enemy_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CF2A3817DCD82500A877E1 /* enemy_4.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0259BBD517DDB02D0033F345 /* GameLevelLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLevelLayer.h; sourceTree = "<group>"; };
+		0259BBD617DDB02D0033F345 /* GameLevelLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLevelLayer.m; sourceTree = "<group>"; };
+		0259BBD817DDB25D0033F345 /* enemy_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_1.png; sourceTree = "<group>"; };
+		0259BBD917DDB25D0033F345 /* enemy_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_2.png; sourceTree = "<group>"; };
+		0259BBDA17DDB25D0033F345 /* enemy_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_3.png; sourceTree = "<group>"; };
 		0279080217D48C8100CF5ED4 /* Magic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Magic.h; sourceTree = "<group>"; };
 		0279080317D48C8100CF5ED4 /* Magic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Magic.m; sourceTree = "<group>"; };
 		02B1740417C5C6D60057DA00 /* gameOfMatch3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gameOfMatch3.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -479,8 +488,8 @@
 		02B175AA17C5C6D90057DA00 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		02B175AC17C5C6D90057DA00 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		02B175AD17C5C6D90057DA00 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		02B175AF17C5C6D90057DA00 /* HelloWorldLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorldLayer.h; sourceTree = "<group>"; };
-		02B175B017C5C6D90057DA00 /* HelloWorldLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorldLayer.m; sourceTree = "<group>"; };
+		02B175AF17C5C6D90057DA00 /* BattleLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BattleLayer.h; sourceTree = "<group>"; };
+		02B175B017C5C6D90057DA00 /* BattleLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BattleLayer.m; sourceTree = "<group>"; };
 		02B175B217C5C6D90057DA00 /* IntroLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		02B175B317C5C6D90057DA00 /* IntroLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
 		02B175BA17C5C9C40057DA00 /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
@@ -548,7 +557,7 @@
 		7556385317D6791700506DBC /* ManaLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManaLayer.m; sourceTree = "<group>"; };
 		75C908D117C6755000068714 /* const.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = const.m; sourceTree = "<group>"; };
 		75CF2A3717DCD82500A877E1 /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
-		75CF2A3817DCD82500A877E1 /* enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy.png; sourceTree = "<group>"; };
+		75CF2A3817DCD82500A877E1 /* enemy_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_4.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -572,6 +581,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0259BBDE17DDB28C0033F345 /* persons */ = {
+			isa = PBXGroup;
+			children = (
+				75CF2A3717DCD82500A877E1 /* player.png */,
+				0259BBD817DDB25D0033F345 /* enemy_1.png */,
+				0259BBD917DDB25D0033F345 /* enemy_2.png */,
+				0259BBDA17DDB25D0033F345 /* enemy_3.png */,
+				75CF2A3817DCD82500A877E1 /* enemy_4.png */,
+			);
+			name = persons;
+			sourceTree = "<group>";
+		};
 		02B173FB17C5C6D60057DA00 = {
 			isa = PBXGroup;
 			children = (
@@ -633,10 +654,12 @@
 				02B175C217C5DA6B0057DA00 /* PlayLayer.m */,
 				752979B417D3C89E009B8B95 /* GameOverLayer.h */,
 				752979B517D3C89E009B8B95 /* GameOverLayer.m */,
+				0259BBD517DDB02D0033F345 /* GameLevelLayer.h */,
+				0259BBD617DDB02D0033F345 /* GameLevelLayer.m */,
 				752979AC17D357CC009B8B95 /* GameStartLayer.h */,
 				752979AD17D357CC009B8B95 /* GameStartLayer.m */,
-				02B175AF17C5C6D90057DA00 /* HelloWorldLayer.h */,
-				02B175B017C5C6D90057DA00 /* HelloWorldLayer.m */,
+				02B175AF17C5C6D90057DA00 /* BattleLayer.h */,
+				02B175B017C5C6D90057DA00 /* BattleLayer.m */,
 				02B175B217C5C6D90057DA00 /* IntroLayer.h */,
 				02B175B317C5C6D90057DA00 /* IntroLayer.m */,
 				02B1741C17C5C6D60057DA00 /* Resources */,
@@ -649,16 +672,11 @@
 		02B1741C17C5C6D60057DA00 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				7539733A17D616B2008EA3A0 /* 1378228834_Star Purple.png */,
-				7539733B17D616B3008EA3A0 /* 1378229013_bullet-yellow.png */,
-				7539733C17D616B4008EA3A0 /* 1378229035_bullet-red.png */,
-				7539733D17D616B5008EA3A0 /* 1378229038_bullet-green.png */,
-				7539733E17D616B5008EA3A0 /* 1378229039_bullet-blue.png */,
 				02B1741D17C5C6D60057DA00 /* Default.png */,
 				752979AF17D38AE3009B8B95 /* fire.png */,
 				753972ED17D5580E008EA3A0 /* AYummyApology.ttf */,
-				02B1741F17C5C6D60057DA00 /* Default@2x.png */,
 				753972EB17D5557E008EA3A0 /* Paint-Boy.ttf */,
+				02B1741F17C5C6D60057DA00 /* Default@2x.png */,
 				7539734F17D61810008EA3A0 /* lifeBar.png */,
 				02B1742117C5C6D60057DA00 /* Default-568h@2x.png */,
 				02B175C417C5DC8B0057DA00 /* playLayer.jpg */,
@@ -670,6 +688,7 @@
 				7539733017D60A0A008EA3A0 /* block_5.png */,
 				7539733717D60B55008EA3A0 /* block_6.png */,
 				753972F217D5E719008EA3A0 /* block_7.png */,
+				0259BBDE17DDB28C0033F345 /* persons */,
 				7539734417D616E1008EA3A0 /* blocks */,
 				02B1742317C5C6D60057DA00 /* Default-Landscape~ipad.png */,
 				02B1742517C5C6D60057DA00 /* Icon-72.png */,
@@ -1049,8 +1068,11 @@
 		7539734417D616E1008EA3A0 /* blocks */ = {
 			isa = PBXGroup;
 			children = (
-				75CF2A3717DCD82500A877E1 /* player.png */,
-				75CF2A3817DCD82500A877E1 /* enemy.png */,
+				7539733A17D616B2008EA3A0 /* 1378228834_Star Purple.png */,
+				7539733B17D616B3008EA3A0 /* 1378229013_bullet-yellow.png */,
+				7539733C17D616B4008EA3A0 /* 1378229035_bullet-red.png */,
+				7539733D17D616B5008EA3A0 /* 1378229038_bullet-green.png */,
+				7539733E17D616B5008EA3A0 /* 1378229039_bullet-blue.png */,
 				7539730217D5F80A008EA3A0 /* block_21.png */,
 				02B175C617C5DC8B0057DA00 /* block_22.png */,
 				753972FA17D5F2BD008EA3A0 /* block_23.png */,
@@ -1185,7 +1207,10 @@
 				7539734E17D61759008EA3A0 /* yellow.png in Resources */,
 				7539735017D61810008EA3A0 /* lifeBar.png in Resources */,
 				75CF2A3917DCD82500A877E1 /* player.png in Resources */,
-				75CF2A3A17DCD82500A877E1 /* enemy.png in Resources */,
+				75CF2A3A17DCD82500A877E1 /* enemy_4.png in Resources */,
+				0259BBDB17DDB25D0033F345 /* enemy_1.png in Resources */,
+				0259BBDC17DDB25D0033F345 /* enemy_2.png in Resources */,
+				0259BBDD17DDB25D0033F345 /* enemy_3.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1306,7 +1331,7 @@
 				02B175A617C5C6D90057DA00 /* vec4.c in Sources */,
 				02B175AB17C5C6D90057DA00 /* main.m in Sources */,
 				02B175AE17C5C6D90057DA00 /* AppDelegate.m in Sources */,
-				02B175B117C5C6D90057DA00 /* HelloWorldLayer.m in Sources */,
+				02B175B117C5C6D90057DA00 /* BattleLayer.m in Sources */,
 				02B175B417C5C6D90057DA00 /* IntroLayer.m in Sources */,
 				02B175BC17C5C9C40057DA00 /* Tile.m in Sources */,
 				02B175C017C5CD780057DA00 /* Box.m in Sources */,
@@ -1320,6 +1345,7 @@
 				0279080417D48C8100CF5ED4 /* Magic.m in Sources */,
 				753972E817D535E8008EA3A0 /* MagicLayer.m in Sources */,
 				7556385417D6791700506DBC /* ManaLayer.m in Sources */,
+				0259BBD717DDB02D0033F345 /* GameLevelLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
