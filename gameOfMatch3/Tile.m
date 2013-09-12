@@ -150,8 +150,8 @@
     return tmpTile;
 }
 -(CGPoint) pixPosition{
-    float kStartX=[[consts sharedManager] kStartX];
-    float kStartY=[[consts sharedManager] kStartY];
+    float kStartX=[[Global sharedManager] kStartX];
+    float kStartY=[[Global sharedManager] kStartY];
 	return ccp(kStartX + x * kTileSize +kTileSize/2.0f,kStartY + y * kTileSize +kTileSize/2.0f);
 }
 @end

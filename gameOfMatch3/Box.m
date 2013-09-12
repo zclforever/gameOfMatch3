@@ -194,8 +194,8 @@
 }
 
 -(int) repairSingleColumn: (int) columnIndex{
-    float kStartX=[[consts sharedManager] kStartX];
-    float kStartY=[[consts sharedManager] kStartY];
+    float kStartX=[[Global sharedManager] kStartX];
+    float kStartY=[[Global sharedManager] kStartY];
 	int extension = 0;
     Tile* topTile;
 	for (int y=0; y<size.height; y++) {
@@ -542,8 +542,8 @@
 
 -(CGPoint) getLocalPosition:(CGPoint) location{
     CGPoint ret;
-    float kStartX=[[consts sharedManager] kStartX];
-    float kStartY=[[consts sharedManager] kStartY];
+    float kStartX=[[Global sharedManager] kStartX];
+    float kStartY=[[Global sharedManager] kStartY];
 	ret.x = (location.x -kStartX) / kTileSize;
 	ret.y = (location.y -kStartY) / kTileSize;
     return ret;

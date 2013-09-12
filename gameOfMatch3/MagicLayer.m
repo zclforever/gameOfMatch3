@@ -8,7 +8,7 @@
 
 #import "MagicLayer.h"
 #import "Magic.h"
-#import "const.h"
+#import "Global.h"
 
 @implementation MagicLayer
 -(id)initWithMagicName:(NSString *)name withWidth:(float)width withHeight:(float)height{

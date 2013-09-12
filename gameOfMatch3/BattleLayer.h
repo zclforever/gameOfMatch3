@@ -11,7 +11,7 @@
 
 // When you import this file, you import all the cocos2d classes
 #import "cocos2d.h"
-
+#import "Person.h"
 // HelloWorldLayer
 @interface BattleLayer : CCLayer <GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate>
 {
@@ -19,5 +19,5 @@
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) sceneWithLevel:(int)level;
-
++(CCScene *) sceneWithPlayer:(Person*)player withEnemy:(Person*)enemy;
 @end

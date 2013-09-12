@@ -7,7 +7,7 @@
 //
 
 #import "Magic.h"
-#import "const.h"
+#import "Global.h"
 @implementation Magic
 
 -(Magic*)initWithName:(NSString*)name{

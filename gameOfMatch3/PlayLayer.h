@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 #import "Box.h"
 #import "AI.h"
-#import "StatePanelLayer.h"
+#import "StatePanelLayerInBattle.h"
 #import "GameOverLayer.h"
 #import "Person.h"
 #import "ManaLayer.h"
@@ -21,10 +21,13 @@
     AI *ai;
 }
 
-@property (strong,nonatomic) StatePanelLayer* statePanelLayerPlayer;
-@property (strong,nonatomic) StatePanelLayer* statePanelLayerEnemy;
+@property (strong,nonatomic) StatePanelLayerInBattle* statePanelLayerPlayer;
+@property (strong,nonatomic) StatePanelLayerInBattle* statePanelLayerEnemy;
 -(bool) changeWithTileA: (Tile *) a TileB: (Tile *) b;
 //-(void) check: (id) sender data: (id) data;
 
 -(id)initWithPlayer:(Person*)player withEnemy:(Person*)enemy;
+@property (strong,nonatomic) Person* player;
+@property (strong,nonatomic) Person* enemy;
+@property int gameLevel; //第几关
 @end

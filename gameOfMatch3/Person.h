@@ -9,15 +9,28 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 @interface Person : NSObject
+@property (readonly) int lv;
 @property int curHP;
 @property int maxHP;
 @property int curStep;
 @property int maxStep;
 @property int damage;
-@property int magicDamage;
+@property (readonly) int magicDamage;
+@property int experience;
+@property int money;
+@property int expInBattle;
+@property int moneyInBattle;
 @property (strong,nonatomic) NSString* spriteName;
+@property float spriteScale;
 
++(void)initSharedPlayer;
++(void)copyWith:(Person*)oriPerson to:(Person*)destPerson;
++(Person*)copyWith:(Person*)oriPerson;
++(Person*)sharedPlayer;
++(Person*)sharedPlayerCopy;
 +(Person*)enemyWithLevel:(int)level;
 +(Person*)defaultPlayer;
 +(Person*)defaultEnemy;
++(int)lvByExp:(int)experience;
+-(int)expToNextLV;
 @end

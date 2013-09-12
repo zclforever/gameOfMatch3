@@ -7,28 +7,72 @@
 //
 
 #import "GameOverLayer.h"
-#import "BattleLayer.h"
-#import "GameLevelLayer.h"
-
+#import "Global.h"
 @implementation GameOverLayer
 +(CCScene *) sceneWithWon:(BOOL)won {
     CCScene *scene = [CCScene node];
-    GameOverLayer *layer = [[GameOverLayer alloc] initWithWon:won] ;
+    GameOverLayer *layer = [[GameOverLayer alloc] initWithWon:won FromBattle:nil] ;
+    [scene addChild: layer];
+    return scene;
+}
++(CCScene *) sceneWithWon:(BOOL)won FromBattle:(PlayLayer*) playLayer{
+    CCScene *scene = [CCScene node];
+    GameOverLayer *layer = [[GameOverLayer alloc] initWithWon:won FromBattle:playLayer] ;
     [scene addChild: layer];
     return scene;
 }
 
-- (id)initWithWon:(BOOL)won {
+- (id)initWithWon:(BOOL)won FromBattle:(PlayLayer*) playLayer{
     if ((self = [super initWithColor:ccc4(255, 255, 255, 255)])) {
+        CGSize winSize = [[CCDirector sharedDirector] winSize];
         
         float duration=8.0f;
         NSString * message;
         if (won) {
-            message = @"龙哥的小伙伴们都惊呆了";
+            message = @"胜利";
             [self addChild:[CCParticleSpiral node]];
             [self addChild:[CCParticleFireworks node]];
             //[self addChild:[CCParticleMeteor node]];
             [self addChild:[CCParticleExplosion node]];
+            
+            if (playLayer) {
+                NSMutableArray* labelArray=[[NSMutableArray alloc]init];
+                CGSize winSize = [[CCDirector sharedDirector] winSize];
+                CCLabelTTF * label ;
+                int padding=40;
+                for(int i=0;i<4;i++){
+                    label= [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:28];
+                    label.color = ccc3(0,0,0);
+                    label.position = ccp(winSize.width/2+10, winSize.height-padding*(i+1));
+                    [self addChild:label];
+                    [labelArray addObject:label];
+                    
+                }
+                
+                Person* player=playLayer.player;
+                int i=0;
+                int curLevel=[[Global sharedManager] currentLevelOfGame];
+                [labelArray[i++] setString:[NSString stringWithFormat:@"得到经验:%d",player.expInBattle]];
+                [labelArray[i++] setString:[NSString stringWithFormat:@"得到金线:%d",player.moneyInBattle]];
+                [labelArray[i++] setString:[NSString stringWithFormat:@"过关经验:%d",curLevel*25]];
+                [labelArray[i++] setString:[NSString stringWithFormat:@"过关金钱:%d",curLevel*25]];
+                
+                [[Global sharedManager] nameOfGameLevelArray][curLevel-1]=[NSString stringWithFormat:@"%02d clear",curLevel];
+
+                
+//                CGSize winSize = [[CCDirector sharedDirector] winSize];
+//                CCLabelTTF * label ;
+//                Person* player=playLayer.player;
+//                label= [CCLabelTTF labelWithString:[NSString stringWithFormat:@"得到经验:%d",player.expInBattle] fontName:@"Arial" fontSize:28];
+//                label.color = ccc3(0,0,0);
+//                label.position = ccp(winSize.width/2+10, winSize.height-20);
+//                [self addChild:label];
+//                
+//                label= [CCLabelTTF labelWithString:[NSString stringWithFormat:@"得到金线:%d",player.moneyInBattle] fontName:@"Arial" fontSize:28];
+//                label.color = ccc3(0,0,0);
+//                label.position = ccp(winSize.width/2+10, winSize.height-40);
+//                [self addChild:label];
+            }
         } else {
             message = @"你翘了  ";
             [self setColor:ccc3(0,0,0)];
@@ -37,7 +81,7 @@
             duration=4.0f;
         }
         
-        CGSize winSize = [[CCDirector sharedDirector] winSize];
+        
         CCLabelTTF * label = [CCLabelTTF labelWithString:message fontName:@"Arial" fontSize:28];
         label.color = ccc3(0,0,0);
         label.position = ccp(winSize.width/2+10, winSize.height/2-20);
@@ -51,7 +95,7 @@
          }],
           nil]];
         
-
+        
     }
     return self;
 }

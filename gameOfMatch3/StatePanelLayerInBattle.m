@@ -6,14 +6,15 @@
 //  Copyright 2013年 Wei Ju. All rights reserved.
 //
 
-#import "StatePanelLayer.h"
-#import "const.h"
+#import "StatePanelLayerInBattle.h"
+#import "Global.h"
 #import "Magic.h"
 
-@interface StatePanelLayer()
+@interface StatePanelLayerInBattle()
 @property (strong,nonatomic) CCSprite* lifeBar;
 @property (strong,nonatomic) CCLabelTTF* HPLabel;
-
+@property (strong,nonatomic) CCLabelTTF* expLabel;
+@property (strong,nonatomic) CCLabelTTF* moneyLabel;
 
 @property (strong,nonatomic) CCSprite* magic;
 @property ccColor3B colorOfMagicEnabled;
@@ -22,7 +23,7 @@
 @end
 
 
-@implementation StatePanelLayer
+@implementation StatePanelLayerInBattle
 -(id)initWithPositon:(CGPoint)pos{
     CGSize winSize=[CCDirector sharedDirector].winSize;
     
@@ -98,7 +99,20 @@
     [self.magicLayerArray[index] setMagicEnabled:state];
 }
 
-
+-(void)addMoneyExpLabel{
+    self.expLabel=[CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:18];
+    self.expLabel.anchorPoint=ccp(0,0);
+    self.expLabel.position=ccp(5,self.contentSize.height-zStatePanel_ExpLabelMarginTop);
+    
+    self.moneyLabel=[CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:18];
+    self.moneyLabel.anchorPoint=ccp(0,0);
+    self.moneyLabel.position=ccp(5,self.contentSize.height-zStatePanel_MoneyLabelMarginTop);
+    [self addChild:self.expLabel];
+    [self addChild:self.moneyLabel];
+    
+    
+    
+}
 -(void)addManaLayer{
     //init manaLayer
     
@@ -122,6 +136,9 @@
 }
 
 -(void)update:(ccTime)delta{
+    if(self.expLabel&&self.person){[self.expLabel setString:[NSString stringWithFormat:@"经验:%d",self.person.expInBattle]];}
+    if(self.moneyLabel&&self.person){[self.moneyLabel setString:[NSString stringWithFormat:@"金钱:%d",self.person.moneyInBattle]];}
+    
     if(self.curHP&&self.maxHP){
         [self.HPLabel setString:[NSString stringWithFormat:@"%@/%@",self.curHP,self.maxHP]];
         

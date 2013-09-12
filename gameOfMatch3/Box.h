@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-#import "const.h"
+#import "Global.h"
 #import "Tile.h"
 @interface Box : NSObject
 {

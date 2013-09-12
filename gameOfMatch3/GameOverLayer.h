@@ -9,8 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
+#import "BattleLayer.h"
+#import "GameLevelLayer.h"
+#import "PlayLayer.h"
+#import "Person.h"
 @interface GameOverLayer : CCLayerColor {
     
 }
 +(CCScene *) sceneWithWon:(BOOL)won;
++(CCScene *) sceneWithWon:(BOOL)won FromBattle:(id) playLayer;
 @end

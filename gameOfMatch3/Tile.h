@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "const.h"
+#import "Global.h"
 
 @interface Tile : NSObject
 {

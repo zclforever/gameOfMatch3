@@ -10,7 +10,8 @@
 #import "cocos2d.h"
 #import "MagicLayer.h"
 #import "ManaLayer.h"
-@interface StatePanelLayer : CCLayerColor {
+#import "Person.h"
+@interface StatePanelLayerInBattle : CCLayerColor {
     
 }
 
@@ -19,6 +20,7 @@
 
 -(id)initWithPositon:(CGPoint)pos;
 
+-(void)addMoneyExpLabel;
 -(void)addManaLayer;
 -(CCLayer*) addMagicLayerWithMagicName:(NSString*)name;
 -(int)findMagicTouchedIndex:(CGPoint)pos;
@@ -28,6 +30,7 @@
 @property (strong,nonatomic) NSMutableArray* magicArray; //add Magic Class
 @property (strong,nonatomic) NSMutableArray* magicLayerArray; //add MagicLayer
 @property (strong,nonatomic) ManaLayer* manaLayer;
+@property (strong,nonatomic) Person* person;
 @property (strong,nonatomic) NSMutableArray* manaArray;
 -(void)setMagicState:(bool)state atIndex:(int)index;
 @end

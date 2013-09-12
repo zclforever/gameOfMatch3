@@ -56,13 +56,21 @@
          contextName = "-[Box scanMaxLineAtRow:]:Box.m">
       </ContextState>
       <ContextState
+         contextName = "-[GameOverLayer initWithWon:FromBattle:]:GameOverLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[Global sharedManager] nameOfGameLevelArray]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[PlayLayer changeWithTileA:TileB:]:PlayLayer.m">
       </ContextState>
       <ContextState
          contextName = "-[Box repairSingleColumn:]:Box.m">
          <PersistentStrings>
             <PersistentString
-               value = "tile.pixPositon.x">
+               value = "kTileSize/kMoveTileTime">
             </PersistentString>
             <PersistentString
                value = "kStartX">
@@ -71,7 +79,7 @@
                value = "ccpDistance(sprite.position, destTile.pixPosition)">
             </PersistentString>
             <PersistentString
-               value = "kTileSize/kMoveTileTime">
+               value = "tile.pixPositon.x">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

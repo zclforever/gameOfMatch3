@@ -15,8 +15,6 @@
 @property int level;
 @property (strong,nonatomic) CCLabelTTF *testLabel;
 @property (strong,nonatomic) CCLabelTTF *stepLabel;
-@property (strong,nonatomic) Person* player;
-@property (strong,nonatomic) Person* enemy;
 @property (strong,nonatomic) NSArray* turnOfPersons;
 @property (strong,nonatomic) Tile *selectedTile;
 @property (strong,nonatomic)  CCMotionStreak* touchStreak;
@@ -58,12 +56,12 @@
     //init StateLayer
     //float kStartX=[[consts sharedManager] kStartX];
     
-    StatePanelLayer *statePanelLayer=[[StatePanelLayer alloc]initWithPositon:ccp(0,0)];
+    StatePanelLayerInBattle *statePanelLayer=[[StatePanelLayerInBattle alloc]initWithPositon:ccp(0,0)];
     [statePanelLayer addManaLayer];
     [self addChild:statePanelLayer z:2];
     
     //StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
-    StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(zStatePanel_LifeBarWidth+10,0)];
+    StatePanelLayerInBattle *statePanelLayerEnemy=[[StatePanelLayerInBattle alloc]initWithPositon:ccp(zStatePanel_LifeBarWidth+10,0)];
     [self addChild:statePanelLayerEnemy z:-1];
     
     self.statePanelLayerPlayer=statePanelLayer;
@@ -80,21 +78,10 @@
     
     if (!player) {
         self.player=[Person defaultPlayer];
-//        self.player=[[Person alloc]init];
-//        self.player.curHP=100;
-//        self.player.maxHP=100;
-//        self.player.maxStep=5;
-//        self.player.curStep=self.player.maxStep;
-//        self.player.damage=5;
-//        self.player.magicDamage=20;
     }
 
     if(!enemy){
         self.enemy=[Person defaultEnemy];
-//        self.enemy=[[Person alloc]init];
-//        self.enemy.damage=13;
-//        self.enemy.curHP=100;
-//        self.enemy.maxHP=100;
     }
 
     
@@ -321,7 +308,7 @@
              [CCSequence actions:
               [CCDelayTime actionWithDuration:magicLayer.magic.CD],
               [CCCallBlockN actionWithBlock:^(CCNode *node) {
-                 [(StatePanelLayer*)node setMagicState:YES atIndex:index];
+                 [(StatePanelLayerInBattle*)node setMagicState:YES atIndex:index];
              }],
               
               nil]];
@@ -333,17 +320,20 @@
     
     if(box.readyToRemoveTiles.count>0){
         //NSLog(@"in check is value 5");
+         NSArray* tmp=[box.readyToRemoveTiles allObjects];
         for(int i=0;i<5;i++){
-            NSArray* tmp=[box.readyToRemoveTiles allObjects];
+           
             matchedArray=[box findMatchedArray:tmp forValue:i+1];
             if (matchedArray) {
                 [self.statePanelLayerPlayer.manaLayer addManaArrayAtIndex:i withValue:matchedArray.count];
             }
-            
-            
-            
+     
         }
-
+        matchedArray=[box findMatchedArray:tmp forValue:6];
+        if (matchedArray) {self.player.expInBattle+=matchedArray.count;}
+        matchedArray=[box findMatchedArray:tmp forValue:7];
+        if (matchedArray) {self.player.moneyInBattle+=matchedArray.count;}
+        
         [box removeAndRepair];
         if(self.moveSuccessReady){
             [self setTimeOut:0.1 withSelect:@selector(moveSuccess)];
@@ -398,6 +388,8 @@
     [self unlock];
     
     [self.statePanelLayerPlayer addMagicLayerWithMagicName:@"magicAttackType_1"];
+    self.statePanelLayerPlayer.person=self.player;
+    [self.statePanelLayerPlayer addMoneyExpLabel];
 }
 
 
@@ -554,9 +546,10 @@
         
         CCSprite* playerSprite=[CCSprite spriteWithFile:self.player.spriteName];
         playerSprite.position=ccp(50,150);
+        playerSprite.scale=self.player.spriteScale;
         CCSprite* enemySprite=[CCSprite spriteWithFile:self.enemy.spriteName];
         enemySprite.position=ccp(380,150);
-        
+        enemySprite.scale=self.enemy.spriteScale;
         [self addChild:playerSprite z:11];
         [self addChild:enemySprite z:11];
         
@@ -652,24 +645,26 @@
         [self setTimeOut:8.0 withSelect:@selector(battleFinish)];
         return;
     }else{
-        if (self.enemy.curHP<=0) {
-            [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:YES]];
-        }
-        else if (self.player.curHP<=0){
-            [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:NO]];
-            
-        }
+        [self checkGameOver];
     }
 }
-
--(void)battleFinish{
+-(void)checkGameOver{
     if (self.enemy.curHP<=0) {
-        [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:YES]];
+        Person* person=[Person sharedPlayer];
+        person.money+=self.player.moneyInBattle;
+        person.experience+=self.player.expInBattle;
+        person.experience+=[[Global sharedManager] currentLevelOfGame]*25;
+        person.money+=[[Global sharedManager] currentLevelOfGame]*25;
+        
+        [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:YES FromBattle:self]];
     }
     else if (self.player.curHP<=0){
         [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:NO]];
         
     }
+}
+-(void)battleFinish{
+    [self checkGameOver];
     
     
     self.player.curStep=self.player.maxStep;
@@ -747,8 +742,8 @@
     
     
 	
-    float kStartX=[[consts sharedManager] kStartX];
-    float kStartY=[[consts sharedManager] kStartY];
+    float kStartX=[[Global sharedManager] kStartX];
+    float kStartY=[[Global sharedManager] kStartY];
 	int x = (location.x -kStartX) / kTileSize;
 	int y = (location.y -kStartY) / kTileSize;
 	

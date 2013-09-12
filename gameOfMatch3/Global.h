@@ -5,6 +5,8 @@
 //  Created by Wei Ju on 13-8-22.
 //  Copyright (c) 2013年 Wei Ju. All rights reserved.
 //
+#import "cocos2d.h"
+
 
 #ifndef gameOfMatch3_const_h
 #define gameOfMatch3_const_h
@@ -22,7 +24,8 @@
 #define zStatePanel_ManaLayerHeight 50.0f
 #define zStatePanel_ManaLayerMarginTop 100.0f
 
-
+#define zStatePanel_ExpLabelMarginTop 130.0f
+#define zStatePanel_MoneyLabelMarginTop 150.0f
 
 #define Turn_Player 0
 #define Turn_Enemy 1
@@ -45,9 +48,12 @@ typedef enum Orientation Orientation;
 
 
 #endif
-@interface consts : NSObject
+@interface Global :CCLayer
 + (id)sharedManager;
++(id)menuOfBackTo:(CCScene*)scene;
 @property float kStartX;
 @property float kStartY;
+@property int currentLevelOfGame;
+@property (strong,nonatomic) NSMutableArray* nameOfGameLevelArray;
 @end
 
