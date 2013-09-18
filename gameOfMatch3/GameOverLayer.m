@@ -13,6 +13,7 @@
     CCScene *scene = [CCScene node];
     GameOverLayer *layer = [[GameOverLayer alloc] initWithWon:won FromBattle:nil] ;
     [scene addChild: layer];
+
     return scene;
 }
 +(CCScene *) sceneWithWon:(BOOL)won FromBattle:(PlayLayer*) playLayer{
@@ -24,6 +25,7 @@
 
 - (id)initWithWon:(BOOL)won FromBattle:(PlayLayer*) playLayer{
     if ((self = [super initWithColor:ccc4(255, 255, 255, 255)])) {
+        self.isTouchEnabled=YES;
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         
         float duration=8.0f;
@@ -40,7 +42,7 @@
                 CGSize winSize = [[CCDirector sharedDirector] winSize];
                 CCLabelTTF * label ;
                 int padding=40;
-                for(int i=0;i<4;i++){
+                for(int i=0;i<5;i++){
                     label= [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:28];
                     label.color = ccc3(0,0,0);
                     label.position = ccp(winSize.width/2+10, winSize.height-padding*(i+1));
@@ -56,6 +58,7 @@
                 [labelArray[i++] setString:[NSString stringWithFormat:@"得到金线:%d",player.moneyInBattle]];
                 [labelArray[i++] setString:[NSString stringWithFormat:@"过关经验:%d",curLevel*25]];
                 [labelArray[i++] setString:[NSString stringWithFormat:@"过关金钱:%d",curLevel*25]];
+                [labelArray[i++] setString:[NSString stringWithFormat:@"得分:%d",player.scoreInBattle]];
                 
                 [[Global sharedManager] nameOfGameLevelArray][curLevel-1]=[NSString stringWithFormat:@"%02d clear",curLevel];
 
@@ -98,5 +101,16 @@
         
     }
     return self;
+}
+-(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch* touch = [touches anyObject];
+	CGPoint location = [touch locationInView: touch.view];
+	location = [[CCDirector sharedDirector] convertToGL: location];
+    
+
+    [self stopAllActions];
+    [[CCDirector sharedDirector] replaceScene:[GameLevelLayer scene]];
+
+
 }
 @end

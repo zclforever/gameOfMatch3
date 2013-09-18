@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[PlayLayer update:]:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.lastTipTime">
+            </PersistentString>
+            <PersistentString
+               value = "(1.0f-2.0f)&gt;2">
+            </PersistentString>
+            <PersistentString
+               value = "self.gameTime">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Box checkWith:]:Box.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "second">
+            </PersistentString>
+            <PersistentString
+               value = "self.removeResultArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__20-[PlayLayer update:]_block_invoke_3:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.gameTime">
+            </PersistentString>
+            <PersistentString
+               value = "self.lastTipTime">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

@@ -22,6 +22,7 @@
 @property int moneyInBattle;
 @property (strong,nonatomic) NSString* spriteName;
 @property float spriteScale;
+@property int scoreInBattle;
 
 +(void)initSharedPlayer;
 +(void)copyWith:(Person*)oriPerson to:(Person*)destPerson;

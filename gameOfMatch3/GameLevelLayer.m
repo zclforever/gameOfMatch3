@@ -38,7 +38,7 @@
     
     CCMenu* backMenu=[CCMenu menuWithItems:menuLabel, nil];
     backMenu.anchorPoint=ccp(0,0);
-    backMenu.position = ccp(100,30);
+    backMenu.position = ccp(50,30);
     [self addChild:backMenu z:4];
     
     
@@ -111,4 +111,5 @@
     //    }
     return self;
 }
+
 @end

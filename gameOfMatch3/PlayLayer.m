@@ -30,6 +30,8 @@
 @property bool moveSuccessReady;
 
 @property bool usingMagic;
+@property float lastTipTime;
+@property float gameTime;
 -(void)afterTurn: (id) node;
 @end
 
@@ -134,12 +136,12 @@
     
     self.testLabel=label;
     
-    
-    label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:18];
+    label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:18];     //stepLabel
+
     label.opacity=250;
     label.color = ccc3(255,255,230);
     label.anchorPoint=ccp(0,0);
-    label.position = ccp(10,150);
+    label.position = ccp(380,285);
     [self addChild:label z:4];
     self.stepLabel=label;
     
@@ -154,6 +156,8 @@
     backMenu.anchorPoint=ccp(0,0);
     backMenu.position = ccp(100,30);
     [self addChild:backMenu z:4];
+
+    
 
     
 	return self;
@@ -268,6 +272,7 @@
       nil]];
 }
 -(void)update:(ccTime)delta{   //.update.
+    self.gameTime+=delta;
     if (self.lockUpdate) {
         return;
     }
@@ -283,8 +288,8 @@
     }
     self.updating=YES;
     self.updateCount++;
-    
-    
+
+    [box.removeResultArray removeAllObjects];
     [box check];
     NSArray* matchedArray;
     //Person* nextPerson=self.turnOfPersons[(self.whosTurn+1) % 2];
@@ -320,6 +325,24 @@
     
     if(box.readyToRemoveTiles.count>0){
         //NSLog(@"in check is value 5");
+
+        for (NSArray* result in box.removeResultArray) {
+            int mul=1;
+            int mount=result.count;
+            if(mount>3) {
+             mul=pow(2, mount-2);
+                self.player.curStep+=mount-3;
+                CCLabelTTF* showLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"额外%d步",mount-3] fontName:@"Arial" fontSize:48];
+                showLabel.anchorPoint=ccp(0,0);
+                showLabel.position=ccp(260,160);
+                [self addChild:showLabel];
+                [showLabel runAction:[CCSequence actions:[CCFadeOut actionWithDuration:3.0f],[CCCallBlockN actionWithBlock:^(CCNode *node) {
+                    [node removeFromParentAndCleanup:YES];
+                }], nil]];
+            }
+            self.player.scoreInBattle+=mount*100*mul;
+        }
+        
          NSArray* tmp=[box.readyToRemoveTiles allObjects];
         for(int i=0;i<5;i++){
            
@@ -340,12 +363,64 @@
             self.moveSuccessReady=NO;
         }
         //NSLog(@"in check is value 5 finished");
-        
+        self.lastTipTime=self.gameTime;
     }else{
         NSMutableArray* ret=[box scanSwapMatch];
         if (ret.count<=0) {
             [self noMoves];
+        }else{
+            if(self.gameTime-self.lastTipTime>2.0f){  //有东西但是没拿 且过了x秒 提示
+                self.lastTipTime+=6;
+                Tile* tile1=ret[0][0];
+                //NSLog(@"%f",self.gameTime);
+                float actionTime=0.5;
+//                NSArray* actions=[NSArray arrayWithObjects:
+//                                  [CCScaleBy actionWithDuration:actionTime scale:0.5f],
+//                                  [CCScaleBy actionWithDuration:actionTime scale:2.0f],
+//                                  [CCScaleBy actionWithDuration:actionTime scale:0.5f],
+//                                  [CCScaleBy actionWithDuration:actionTime scale:2.0f],
+//                                  [CCCallBlockN actionWithBlock:^(CCNode *node) {
+//                     if(node)[tile1 scaleToTileSize];
+//                }],
+//                                  nil];
+//                [tile1.actionSequence addObjectsFromArray:actions ];
+//               
+//                Tile* tile2=ret[0][1];
+//                //float scale2=tile2.sprite.scale;
+//                actions=[NSArray arrayWithObjects:
+//                         [CCDelayTime actionWithDuration:actionTime],
+//                         [CCScaleBy actionWithDuration:actionTime scale:0.5f],
+//                         [CCScaleBy actionWithDuration:actionTime scale:2.0f],
+//                         [CCScaleBy actionWithDuration:actionTime scale:0.5f],
+//                         [CCScaleBy actionWithDuration:actionTime scale:2.0f],
+//                         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+//                     if(node)[tile2 scaleToTileSize];
+//                }],
+//                         nil];
+//                
+//                [tile2.actionSequence addObjectsFromArray:actions];
+                
+                [tile1.sprite runAction:[CCSequence actions:
+
+                                         [CCScaleBy actionWithDuration:actionTime scale:0.5f],
+                                         [CCScaleBy actionWithDuration:actionTime scale:2.0f],
+                                         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                    if(node)[tile1 scaleToTileSize];
+                }],
+                                         nil]];
+                Tile* tile2=ret[0][1];
+
+                [tile2.sprite runAction:[CCSequence actions:
+                                         [CCScaleBy actionWithDuration:actionTime scale:0.5f],
+                                         [CCScaleBy actionWithDuration:actionTime scale:2.0f],
+                                         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                    if(node)[tile2 scaleToTileSize];
+                }],
+                                         nil]];
+                
+            }
         }
+        
     }
     
     
@@ -390,6 +465,8 @@
     [self.statePanelLayerPlayer addMagicLayerWithMagicName:@"magicAttackType_1"];
     self.statePanelLayerPlayer.person=self.player;
     [self.statePanelLayerPlayer addMoneyExpLabel];
+    [self.statePanelLayerPlayer addScoreLayer];
+    
 }
 
 
@@ -471,7 +548,7 @@
 -(void)setSelectedTile:(Tile *)selectedTile{
     Tile* lastTile=_selectedTile;
     if(lastTile==selectedTile)return;
-    [lastTile scaleToTileSize];
+    //[lastTile scaleToTileSize];
     if (lastTile.readyToEnd) {
         [lastTile scaleToNone];
     }
@@ -527,10 +604,12 @@
         self.lockTouch=YES;
         bool magicAttack=YES;
         Magic* magic=self.statePanelLayerPlayer.magicArray[0];
-        for(int i=0;i<4;i++){
+        int minTimes=10;
+        for(int i=0;i<4;i++){    //check magic attain
             int value=[self.statePanelLayerPlayer.manaArray[i] intValue];
-            
-            if(value<[magic.manaCostArray[i] intValue]){
+            int times=value/[magic.manaCostArray[i] intValue];
+            if(times<minTimes)minTimes=times;
+            if(times==0){
                 magicAttack=NO;
                 break;
             }
@@ -538,7 +617,7 @@
         
         finalDam=self.player.damage;
         if(magicAttack){
-            finalDam+=self.player.magicDamage;
+            finalDam+=self.player.magicDamage*minTimes;
         }
         //来个动画
         CCLayerColor* animationLayer=[[CCLayerColor alloc]initWithColor:ccc4(0, 0, 0, 200)];
@@ -771,6 +850,7 @@
         //            int a=1;
         //        }
 		[box setLock:YES];
+
 		bool ret=[self changeWithTileA: self.selectedTile TileB: tile];
         //[self.selectedTile scaleToTileSize];
 		self.selectedTile = nil;
@@ -780,9 +860,9 @@
             [self moveFailed];
         }
 	}else {
-        [self.selectedTile scaleToTileSize];
+        //[self.selectedTile scaleToTileSize];
 		self.selectedTile = tile;
-		[self afterTurn:tile.sprite];
+		//[self afterTurn:tile.sprite];
 	}
 }
 

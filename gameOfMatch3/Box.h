@@ -27,6 +27,8 @@
 @property(nonatomic, readonly) CGSize size;
 @property(nonatomic) BOOL lock;
 @property(nonatomic,retain) NSMutableSet *readyToRemoveTiles;
+@property(nonatomic,strong) NSMutableArray *removeResultArray;
+
 -(id) initWithSize: (CGSize) size factor: (int) factor;
 -(Tile *) objectAtX: (int) posX Y: (int) posY;
 -(BOOL) check;

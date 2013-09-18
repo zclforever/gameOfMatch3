@@ -121,6 +121,7 @@
 
 +(Person*)enemyWithLevel:(int)level{
     Person* person=[[Person alloc]init];
+    int raw_level=level;
     level=(level-1)%5+1;
     
     if(level==1){
@@ -143,6 +144,9 @@
         person.damage=24;
         person.maxHP=140;
     }
+    person.damage+=10*(int)((raw_level-1)/5);
+    person.maxHP+=50*(int)((raw_level-1)/5);
+    
     person.curHP=person.maxHP;
     person.spriteName=[NSString stringWithFormat:@"enemy_%d.png",level];
     person.spriteScale=1.0f;

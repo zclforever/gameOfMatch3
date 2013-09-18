@@ -15,6 +15,7 @@
 @property (strong,nonatomic) CCLabelTTF* HPLabel;
 @property (strong,nonatomic) CCLabelTTF* expLabel;
 @property (strong,nonatomic) CCLabelTTF* moneyLabel;
+@property (strong,nonatomic) CCLabelTTF* scoreLabel;
 
 @property (strong,nonatomic) CCSprite* magic;
 @property ccColor3B colorOfMagicEnabled;
@@ -113,6 +114,15 @@
     
     
 }
+-(void)addScoreLayer{
+    self.scoreLabel=[CCLabelTTF labelWithString:@"Score:0" fontName:@"Arial" fontSize:18];
+    self.scoreLabel.opacity=250;
+    self.scoreLabel.color = ccc3(255,255,230);
+    self.scoreLabel.anchorPoint=ccp(0,0);
+    self.scoreLabel.position=ccp(zScoreLabelLeft,zScoreLabelBottom);
+    [self addChild:self.scoreLabel z:5];
+
+}
 -(void)addManaLayer{
     //init manaLayer
     
@@ -138,6 +148,9 @@
 -(void)update:(ccTime)delta{
     if(self.expLabel&&self.person){[self.expLabel setString:[NSString stringWithFormat:@"经验:%d",self.person.expInBattle]];}
     if(self.moneyLabel&&self.person){[self.moneyLabel setString:[NSString stringWithFormat:@"金钱:%d",self.person.moneyInBattle]];}
+    if(self.scoreLabel&&self.person){[self.scoreLabel setString:[NSString stringWithFormat:@"Score:%d",self.person.scoreInBattle]];}
+
+    
     
     if(self.curHP&&self.maxHP){
         [self.HPLabel setString:[NSString stringWithFormat:@"%@/%@",self.curHP,self.maxHP]];

@@ -11,6 +11,8 @@
 #ifndef gameOfMatch3_const_h
 #define gameOfMatch3_const_h
 
+#define zScoreLabelLeft 220.0f
+#define zScoreLabelBottom 285.0f
 #define zStatePanelWidth 180.0f
 #define zStatePanel_LifeBarWidth 90.0f
 #define zStatePanel_LifeBarHeight 40.0f
@@ -21,11 +23,11 @@
 #define zStatePanel_MagicLayerHeight 60.0f
 #define zStatePanel_MagicLayerSpace 5.0f
 
-#define zStatePanel_ManaLayerHeight 50.0f
-#define zStatePanel_ManaLayerMarginTop 100.0f
+#define zStatePanel_ManaLayerHeight 80.0f
+#define zStatePanel_ManaLayerMarginTop 120.0f
 
-#define zStatePanel_ExpLabelMarginTop 130.0f
-#define zStatePanel_MoneyLabelMarginTop 150.0f
+#define zStatePanel_ExpLabelMarginTop 140.0f
+#define zStatePanel_MoneyLabelMarginTop 160.0f
 
 #define Turn_Player 0
 #define Turn_Enemy 1

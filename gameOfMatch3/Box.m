@@ -44,6 +44,8 @@
     for (int i=0; i<kBoxWidth; i++) {
         [self.columnExtension addObject:[NSMutableArray arrayWithObjects:@0,@0,nil]];
     }
+    
+    self.removeResultArray=[[NSMutableArray alloc]init];
 	return self;
 }
 -(void) swapWithTile:(Tile*)a B:(Tile*)b{
@@ -83,6 +85,9 @@
 	return [[content objectAtIndex: y] objectAtIndex: x];
 }
 -(void) checkWith: (Orientation) orient{
+    NSMutableArray* tmpRemoveArray=[[NSMutableArray alloc]init];
+    //[self.removeResultArray removeAllObjects];
+
 	int iMax = (orient == OrientationHori) ? size.width : size.height;
 	int jMax = (orient == OrientationVert) ? size.height : size.width;
 	for (int i=0; i<iMax; i++) {
@@ -90,9 +95,15 @@
 		int value = -1;
 		first = nil;
 		second = nil;
+        bool readToAddResultArray=NO;
 		for (int j=0; j<jMax; j++) {
 			Tile *tile = [self objectAtX:((orient == OrientationHori) ?i :j)  Y:((orient == OrientationHori) ?j :i)];
-			if(tile.value == value){
+
+
+            if(tile.value == value){
+                if(value>0){
+                    [tmpRemoveArray addObject:tile];
+                }
 				count++;
 				if (count > 3) {
 					[self.readyToRemoveTiles addObject:tile];
@@ -111,11 +122,27 @@
 					}
 				
 			}else {
+                
+                if(tmpRemoveArray.count>=3){readToAddResultArray=YES;}else{
+                    [tmpRemoveArray removeAllObjects];
+                    readToAddResultArray=NO;
+                    if(tile.value>0){
+                        [tmpRemoveArray addObject:tile];
+                    }
+                }
 				count = 1;
 				first = tile;
 				second = nil;
 				value = tile.value;
 			}
+        if (readToAddResultArray) {
+            [self.removeResultArray addObject:tmpRemoveArray];
+            tmpRemoveArray=[[NSMutableArray alloc]init];
+            if(value>0){
+                [tmpRemoveArray addObject:tile];
+            }
+            readToAddResultArray=NO;
+        }
 		}
 	}
 }

@@ -22,6 +22,7 @@
 
 -(void)addMoneyExpLabel;
 -(void)addManaLayer;
+-(void)addScoreLayer;
 -(CCLayer*) addMagicLayerWithMagicName:(NSString*)name;
 -(int)findMagicTouchedIndex:(CGPoint)pos;
 -(bool)checkMagicTouched:(CGPoint)pos;
