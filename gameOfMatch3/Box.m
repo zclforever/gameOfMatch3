@@ -7,6 +7,7 @@
 //
 
 #import "Box.h"
+#import "SimpleAudioEngine.h"
 @interface Box()
 -(int) repair;
 -(int) repairSingleColumn: (int) columnIndex;
@@ -46,6 +47,8 @@
     }
     
     self.removeResultArray=[[NSMutableArray alloc]init];
+    
+    self.isSoundEnabled=NO;
 	return self;
 }
 -(void) swapWithTile:(Tile*)a B:(Tile*)b{
@@ -114,6 +117,8 @@
 						[self.readyToRemoveTiles addObject:tile];
 						first = nil;
 						second = nil;
+                        //if(self.isSoundEnabled)[[SimpleAudioEngine sharedEngine]playEffect:@"zizizi.m4a"];
+                        //[[SimpleAudioEngine sharedEngine] playEffect:@"pew-pew-lei.caf"];
 						
 					}else if (count == 2) {
 						second = tile;

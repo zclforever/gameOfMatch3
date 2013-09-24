@@ -14,7 +14,7 @@
 #import "StatePanelLayerInBattle.h"
 
 #import "AppDelegate.h"
-
+#import "SimpleAudioEngine.h"
 #pragma mark - HelloWorldLayer
 
 
@@ -25,7 +25,6 @@
 	CCScene *scene = [CCScene node];
 	BattleLayer *layer = [[BattleLayer alloc]initWithPlayer:player withEnemy:enemy];
 	[scene addChild: layer];
-
 	return scene;
 }
 +(CCScene *) sceneWithLevel:(int)level
@@ -47,6 +46,7 @@
         [[Global sharedManager] setKStartY:kStartY];
         PlayLayer  *playLayer = [[PlayLayer alloc]initWithPlayer:player withEnemy:enemy];
         [self addChild: playLayer z:0];
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"superMario.mp3"];
         
 	}
 	return self;

@@ -10,6 +10,7 @@
 #import "BattleLayer.h"
 #import "GameMainLayer.h"
 #import "Global.h"
+#import "SimpleAudioEngine.h"
 @interface GameLevelLayer()
 
 
@@ -29,6 +30,8 @@
 -(id) init
 {
     self=[super initWithColor:ccc4(255, 0, 255, 80)];
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"marioWorld.mp3"];
+    
     CCLabelTTF* label = [CCLabelTTF labelWithString:@"返回" fontName:@"Arial" fontSize:18];
     label.opacity=250;
     label.color = ccc3(255,255,230);

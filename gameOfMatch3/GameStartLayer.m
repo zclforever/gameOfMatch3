@@ -13,6 +13,7 @@
 #import "BattleLayer.h"
 #import "GameLevelLayer.h"
 #import "GameMainLayer.h"
+#import "SimpleAudioEngine.h"
 @implementation GameStartLayer
 +(CCScene *) scene
 {
@@ -44,6 +45,8 @@
         
         self.isTouchEnabled=YES;
         [Person initSharedPlayer];
+        
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Contra.mp3"];
         
 	}
 	return self;

@@ -7,12 +7,13 @@
 //
 
 #import "PlayLayer.h"
-
+#import "SimpleAudioEngine.h"
 
 @interface PlayLayer()
 @property  int whosTurn;
 @property bool effectOn;
 @property int level;
+@property bool isSoundEnabled;
 @property (strong,nonatomic) CCLabelTTF *testLabel;
 @property (strong,nonatomic) CCLabelTTF *stepLabel;
 @property (strong,nonatomic) NSArray* turnOfPersons;
@@ -46,7 +47,7 @@
     self.effectOn=NO;
     self.effectOn=YES;
     
-    
+    self.isSoundEnabled=NO;
     //init BG
 	CCSprite *bg = [CCSprite spriteWithFile: @"playLayer.jpg"];
     CGSize winSize = [CCDirector sharedDirector].winSize;
@@ -81,11 +82,11 @@
     if (!player) {
         self.player=[Person defaultPlayer];
     }
-
+    
     if(!enemy){
         self.enemy=[Person defaultEnemy];
     }
-
+    
     
     
     
@@ -137,7 +138,7 @@
     self.testLabel=label;
     
     label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:18];     //stepLabel
-
+    
     label.opacity=250;
     label.color = ccc3(255,255,230);
     label.anchorPoint=ccp(0,0);
@@ -156,9 +157,9 @@
     backMenu.anchorPoint=ccp(0,0);
     backMenu.position = ccp(100,30);
     [self addChild:backMenu z:4];
-
     
-
+    
+    
     
 	return self;
 }
@@ -288,7 +289,7 @@
     }
     self.updating=YES;
     self.updateCount++;
-
+    
     [box.removeResultArray removeAllObjects];
     [box check];
     NSArray* matchedArray;
@@ -325,12 +326,16 @@
     
     if(box.readyToRemoveTiles.count>0){
         //NSLog(@"in check is value 5");
-
+        
         for (NSArray* result in box.removeResultArray) {
             int mul=1;
             int mount=result.count;
+            if(mount==3){
+                if(self.isSoundEnabled)[[SimpleAudioEngine sharedEngine]playEffect:@"coinDing.wav"];
+            }
             if(mount>3) {
-             mul=pow(2, mount-2);
+                if(self.isSoundEnabled)[[SimpleAudioEngine sharedEngine]playEffect:@"thunderDone.wav"];
+                mul=pow(2, mount-2);
                 self.player.curStep+=mount-3;
                 CCLabelTTF* showLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"额外%d步",mount-3] fontName:@"Arial" fontSize:48];
                 showLabel.anchorPoint=ccp(0,0);
@@ -343,14 +348,14 @@
             self.player.scoreInBattle+=mount*100*mul;
         }
         
-         NSArray* tmp=[box.readyToRemoveTiles allObjects];
+        NSArray* tmp=[box.readyToRemoveTiles allObjects];
         for(int i=0;i<5;i++){
-           
+            
             matchedArray=[box findMatchedArray:tmp forValue:i+1];
             if (matchedArray) {
                 [self.statePanelLayerPlayer.manaLayer addManaArrayAtIndex:i withValue:matchedArray.count];
             }
-     
+            
         }
         matchedArray=[box findMatchedArray:tmp forValue:6];
         if (matchedArray) {self.player.expInBattle+=matchedArray.count;}
@@ -374,34 +379,34 @@
                 Tile* tile1=ret[0][0];
                 //NSLog(@"%f",self.gameTime);
                 float actionTime=0.5;
-//                NSArray* actions=[NSArray arrayWithObjects:
-//                                  [CCScaleBy actionWithDuration:actionTime scale:0.5f],
-//                                  [CCScaleBy actionWithDuration:actionTime scale:2.0f],
-//                                  [CCScaleBy actionWithDuration:actionTime scale:0.5f],
-//                                  [CCScaleBy actionWithDuration:actionTime scale:2.0f],
-//                                  [CCCallBlockN actionWithBlock:^(CCNode *node) {
-//                     if(node)[tile1 scaleToTileSize];
-//                }],
-//                                  nil];
-//                [tile1.actionSequence addObjectsFromArray:actions ];
-//               
-//                Tile* tile2=ret[0][1];
-//                //float scale2=tile2.sprite.scale;
-//                actions=[NSArray arrayWithObjects:
-//                         [CCDelayTime actionWithDuration:actionTime],
-//                         [CCScaleBy actionWithDuration:actionTime scale:0.5f],
-//                         [CCScaleBy actionWithDuration:actionTime scale:2.0f],
-//                         [CCScaleBy actionWithDuration:actionTime scale:0.5f],
-//                         [CCScaleBy actionWithDuration:actionTime scale:2.0f],
-//                         [CCCallBlockN actionWithBlock:^(CCNode *node) {
-//                     if(node)[tile2 scaleToTileSize];
-//                }],
-//                         nil];
-//                
-//                [tile2.actionSequence addObjectsFromArray:actions];
+                //                NSArray* actions=[NSArray arrayWithObjects:
+                //                                  [CCScaleBy actionWithDuration:actionTime scale:0.5f],
+                //                                  [CCScaleBy actionWithDuration:actionTime scale:2.0f],
+                //                                  [CCScaleBy actionWithDuration:actionTime scale:0.5f],
+                //                                  [CCScaleBy actionWithDuration:actionTime scale:2.0f],
+                //                                  [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                //                     if(node)[tile1 scaleToTileSize];
+                //                }],
+                //                                  nil];
+                //                [tile1.actionSequence addObjectsFromArray:actions ];
+                //
+                //                Tile* tile2=ret[0][1];
+                //                //float scale2=tile2.sprite.scale;
+                //                actions=[NSArray arrayWithObjects:
+                //                         [CCDelayTime actionWithDuration:actionTime],
+                //                         [CCScaleBy actionWithDuration:actionTime scale:0.5f],
+                //                         [CCScaleBy actionWithDuration:actionTime scale:2.0f],
+                //                         [CCScaleBy actionWithDuration:actionTime scale:0.5f],
+                //                         [CCScaleBy actionWithDuration:actionTime scale:2.0f],
+                //                         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                //                     if(node)[tile2 scaleToTileSize];
+                //                }],
+                //                         nil];
+                //
+                //                [tile2.actionSequence addObjectsFromArray:actions];
                 
                 [tile1.sprite runAction:[CCSequence actions:
-
+                                         
                                          [CCScaleBy actionWithDuration:actionTime scale:0.5f],
                                          [CCScaleBy actionWithDuration:actionTime scale:2.0f],
                                          [CCCallBlockN actionWithBlock:^(CCNode *node) {
@@ -409,7 +414,7 @@
                 }],
                                          nil]];
                 Tile* tile2=ret[0][1];
-
+                
                 [tile2.sprite runAction:[CCSequence actions:
                                          [CCScaleBy actionWithDuration:actionTime scale:0.5f],
                                          [CCScaleBy actionWithDuration:actionTime scale:2.0f],
@@ -466,6 +471,7 @@
     self.statePanelLayerPlayer.person=self.player;
     [self.statePanelLayerPlayer addMoneyExpLabel];
     [self.statePanelLayerPlayer addScoreLayer];
+    self.isSoundEnabled=YES;
     
 }
 
@@ -590,12 +596,13 @@
     }
 }
 -(void)moveFailed{
+    [[SimpleAudioEngine sharedEngine] playEffect:@"deny.wav"];
     return;
     self.player.curHP-=5;
     [self moveSuccess];
 }
 -(void)moveSuccess{
-
+    
     int finalDam=0;
     int enemy_dam=self.enemy.damage;
     
@@ -642,23 +649,29 @@
         [self addChild:playerDamageLabel z:11];
         [self addChild:enemyDamageLabel z:11];
         
+        
+        [self runAction:[CCSequence actions:
+                         [CCDelayTime actionWithDuration:1],
+                         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+            [[SimpleAudioEngine sharedEngine] playEffect:@"ada.m4a"];
+        }], nil]];
         [playerDamageLabel runAction:[CCSequence actions:
-                                 [CCDelayTime actionWithDuration:2.5],
-                                 [CCScaleTo actionWithDuration:1.0 scale:1.0],
-                                 //[CCMoveTo actionWithDuration:1.0 position:ccp(360,150)],
-                                 //[CCMoveTo actionWithDuration:1.0 position:ccp(50,150)],
-                                 [CCDelayTime actionWithDuration:4.0],
-                                 [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                                      [CCDelayTime actionWithDuration:2.5],
+                                      [CCScaleTo actionWithDuration:1.0 scale:1.0],
+                                      //[CCMoveTo actionWithDuration:1.0 position:ccp(360,150)],
+                                      //[CCMoveTo actionWithDuration:1.0 position:ccp(50,150)],
+                                      [CCDelayTime actionWithDuration:4.0],
+                                      [CCCallBlockN actionWithBlock:^(CCNode *node) {
             [node removeFromParentAndCleanup:YES];
         }], nil]];
         
         [enemyDamageLabel runAction:[CCSequence actions:
-                                      [CCDelayTime actionWithDuration:5.5],
-                                      [CCScaleTo actionWithDuration:0.5 scale:1.0],
-                                      //[CCMoveTo actionWithDuration:1.0 position:ccp(360,150)],
-                                      //[CCMoveTo actionWithDuration:1.0 position:ccp(50,150)],
-                                      [CCDelayTime actionWithDuration:1.5],
-                                      [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                                     [CCDelayTime actionWithDuration:5.5],
+                                     [CCScaleTo actionWithDuration:0.5 scale:1.0],
+                                     //[CCMoveTo actionWithDuration:1.0 position:ccp(360,150)],
+                                     //[CCMoveTo actionWithDuration:1.0 position:ccp(50,150)],
+                                     [CCDelayTime actionWithDuration:1.5],
+                                     [CCCallBlockN actionWithBlock:^(CCNode *node) {
             [node removeFromParentAndCleanup:YES];
         }], nil]];
         
@@ -688,8 +701,16 @@
         //player.curHP-=enemy_dam;
         
         //[self removeFromParentAndCleanup:YES];
-        
-        
+        [self runAction:[CCSequence actions:
+                         [CCDelayTime actionWithDuration:3.3],
+                         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+            [[SimpleAudioEngine sharedEngine] playEffect:@"yamede.m4a"];
+        }], nil]];
+        [self runAction:[CCSequence actions:
+                         [CCDelayTime actionWithDuration:4.8],
+                         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+            [[SimpleAudioEngine sharedEngine] playEffect:@"yamede2.m4a"];
+        }], nil]];
         [enemySprite runAction:[CCSequence actions:
                                 [CCDelayTime actionWithDuration:4.0],
                                 [CCMoveTo actionWithDuration:0.5 position:ccp(50,300)],
@@ -711,15 +732,15 @@
         }], nil]];
         
         [animationLayer runAction:[CCSequence actions:[CCDelayTime actionWithDuration:8.0],
-                                [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                                   [CCCallBlockN actionWithBlock:^(CCNode *node) {
             //self.enemy.curHP-=finalDam;
             [node removeFromParentAndCleanup:YES];
-        }], nil]];        
+        }], nil]];
         
-//        self.enemy.curHP-=finalDam;
-//        self.player.curHP-=enemy_dam;
+        //        self.enemy.curHP-=finalDam;
+        //        self.player.curHP-=enemy_dam;
         
-
+        
         
         [self setTimeOut:8.0 withSelect:@selector(battleFinish)];
         return;
@@ -767,9 +788,9 @@
         return;
     }
     if(index==4){  //按下的是骷髅
-//        [self.statePanelLayerPlayer.manaLayer addManaArrayAtIndex:index withValue:1];
-//        [self.statePanelLayerPlayer.manaLayer addManaArrayAtIndex:4 withValue:-5];
-//        return;
+        //        [self.statePanelLayerPlayer.manaLayer addManaArrayAtIndex:index withValue:1];
+        //        [self.statePanelLayerPlayer.manaLayer addManaArrayAtIndex:4 withValue:-5];
+        //        return;
     }
 }
 -(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -850,7 +871,7 @@
         //            int a=1;
         //        }
 		[box setLock:YES];
-
+        
 		bool ret=[self changeWithTileA: self.selectedTile TileB: tile];
         //[self.selectedTile scaleToTileSize];
 		self.selectedTile = nil;

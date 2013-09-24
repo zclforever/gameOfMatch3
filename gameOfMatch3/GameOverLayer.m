@@ -8,6 +8,7 @@
 
 #import "GameOverLayer.h"
 #import "Global.h"
+#import "SimpleAudioEngine.h"
 @implementation GameOverLayer
 +(CCScene *) sceneWithWon:(BOOL)won {
     CCScene *scene = [CCScene node];
@@ -77,11 +78,12 @@
 //                [self addChild:label];
             }
         } else {
+            [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"gameOver.mp3"];
             message = @"你翘了  ";
             [self setColor:ccc3(0,0,0)];
             [self addChild:[CCParticleFire node]];
             //[self addChild:[CCParticleSmoke node]];
-            duration=4.0f;
+            duration=6.0f;
         }
         
         
