@@ -58,15 +58,15 @@
     for (int j=0; j<6; j++) {
         
         [menuArray removeAllObjects];
-        for (int i=0; i<5; i++) {
-            int level=j*5+i+1;
+        for (int i=0; i<3; i++) {
+            int level=j*3+i+1;
             NSString* name=[NSString stringWithFormat:@"第%02d关",level];
             if (nameOfGameLevelArray) {
                 [nameOfGameLevelArray addObject:name];
             }else{
                 name=[[Global sharedManager] nameOfGameLevelArray][level-1];
             }
-            CCLabelTTF* levelLabel = [CCLabelTTF labelWithString:name fontName:@"Arial" fontSize:12];
+            CCLabelTTF* levelLabel = [CCLabelTTF labelWithString:name fontName:@"Arial" fontSize:24];
             
             levelLabel.opacity=250;
             levelLabel.color = ccc3(255,255,230);
@@ -82,7 +82,7 @@
         }
         CCMenu* menu=[CCMenu menuWithArray:menuArray];
         menu.anchorPoint=ccp(0,0);
-        menu.position=ccp(250,self.contentSize.height-40-(j+1)*40);
+        menu.position=ccp(160,self.contentSize.height-40-(j+1)*40-30);
         [menu alignItemsHorizontallyWithPadding:20.0f];
         [self addChild:menu];
         

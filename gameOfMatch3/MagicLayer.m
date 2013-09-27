@@ -70,6 +70,16 @@
     
     [self addChild:sprite];
     [self.costSpriteArray addObject:sprite];
+
+    //bottom
+    sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"redRow.png"]];
+    sprite.anchorPoint=ccp(0,0);
+    sprite.position=ccp(costWidth,0);
+    sprite.scaleX=spriteSize/sprite.contentSize.width;
+    sprite.scaleY=costWidth/sprite.contentSize.height;
+    
+    [self addChild:sprite];
+    [self.costSpriteArray addObject:sprite];
     
     //right
     sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"yellowColumn.png"]];
@@ -81,18 +91,10 @@
     [self addChild:sprite];
     [self.costSpriteArray addObject:sprite];
     
-    //bottom
-    sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"redColumn.png-mine.png"]];
-    sprite.anchorPoint=ccp(0,0);
-    sprite.position=ccp(costWidth,0);
-    sprite.scaleX=spriteSize/sprite.contentSize.width;
-    sprite.scaleY=costWidth/sprite.contentSize.height;
-    
-    [self addChild:sprite];
-    [self.costSpriteArray addObject:sprite];
+
     
     //top
-    sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"lifeBar-mine.png"]];
+    sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"blueRow.png"]];
     sprite.anchorPoint=ccp(0,0);
     sprite.position=ccp(costWidth,costWidth+spriteSize);
     sprite.scaleX=spriteSize/sprite.contentSize.width;
@@ -136,14 +138,16 @@
         stringValue=self.manaArray[i];
         curHeight=[stringValue floatValue]/[self.magic.manaCostArray[i] intValue]*zMagicLayer_SpriteSize;
         curHeight=(curHeight>zMagicLayer_SpriteSize)?zMagicLayer_SpriteSize:curHeight;
-        [sprite setScaleY:curHeight/sprite.contentSize.height];
-        
+        [sprite setScaleX:curHeight/sprite.contentSize.width];
+
         i++;
         sprite=self.costSpriteArray[i];
         stringValue=self.manaArray[i];
         curHeight=[stringValue floatValue]/[self.magic.manaCostArray[i] intValue]*zMagicLayer_SpriteSize;
         curHeight=(curHeight>zMagicLayer_SpriteSize)?zMagicLayer_SpriteSize:curHeight;
-        [sprite setScaleX:curHeight/sprite.contentSize.width];
+        [sprite setScaleY:curHeight/sprite.contentSize.height];
+        
+
         
         i++;
         sprite=self.costSpriteArray[i];
