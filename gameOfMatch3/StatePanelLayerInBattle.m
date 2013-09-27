@@ -125,22 +125,26 @@
 }
 -(void)addManaLayer{
     //init manaLayer
-    
-    self.manaLayer=[[ManaLayer alloc]initWithWidth:self.contentSize.width withHeight:zStatePanel_ManaLayerHeight];
-    self.manaLayer.position=ccp(0,self.contentSize.height-zStatePanel_ManaLayerMarginTop);
+    if(self.manaArray)return;
+    self.manaLayer=[[ManaLayer alloc]initWithWidth:zStatePanel_ManaLayerWidth withHeight:zStatePanel_ManaLayerHeight];
+    //self.manaLayer.position=ccp(100,100);
     [self addChild:self.manaLayer];
     self.manaArray=self.manaLayer.manaArray;
 }
 -(CCLayer*) addMagicLayerWithMagicName:(NSString*)name{
+    if(!self.manaArray){[self addManaLayer];};
     int index=self.magicLayerArray.count;
     
     MagicLayer* retLayer=[[MagicLayer alloc]initWithMagicName:name withWidth:self.contentSize.width withHeight:zStatePanel_MagicLayerHeight];
-    retLayer.position=ccp(0,self.contentSize.height-zStatePanel_MagicLayerMarginTop-(index+1)*(zStatePanel_MagicLayerHeight+zStatePanel_MagicLayerSpace));
+    retLayer.position=ccp(zStatePanel_MagicLayerMarginLeft+(zStatePanel_MagicLayerSpace+zStatePanel_MagicLayerWidth)*index,self.contentSize.height-zStatePanel_MagicLayerMarginTop);
     
+    retLayer.manaArray=self.manaArray;
     // send to MagicArray
     [self.magicArray addObject:retLayer.magic];
     [self.magicLayerArray addObject:retLayer];
     [self addChild:retLayer];
+    
+    retLayer.magicEnabled=YES;
     return retLayer;
     
 }
@@ -161,7 +165,7 @@
         //magicEnabled
         MagicLayer* magicLayer=self.magicLayerArray[i];
          CCLayerColor* layer=(CCLayerColor*)[magicLayer getChildByTag:1] ;
-        if (magicLayer.magicEnabled) {
+        if (magicLayer.magicEnabled&&magicLayer.isManaReady) {
             layer.color=self.colorOfMagicEnabled;
             layer.opacity=self.opacityOfMagicEnabled;
         }else{

@@ -12,28 +12,34 @@
 #define gameOfMatch3_const_h
 
 #define zScoreLabelLeft 220.0f
-#define zScoreLabelBottom 285.0f
+#define zScoreLabelBottom 450.0f
 #define zStatePanelWidth 180.0f
 #define zStatePanel_LifeBarWidth 90.0f
 #define zStatePanel_LifeBarHeight 40.0f
 #define zStatePanel_LifeBarMarginLeft 5.0f
 #define zStatePanel_LifeBarMarginTop 10.0f
 
-#define zStatePanel_MagicLayerMarginTop 200.0f
-#define zStatePanel_MagicLayerHeight 60.0f
+
+#define zStatePanel_MagicLayerMarginLeft 100.0f
+#define zStatePanel_MagicLayerMarginTop 155.0f
+#define zStatePanel_MagicLayerWidth 40.0f
+#define zStatePanel_MagicLayerHeight 40.0f
 #define zStatePanel_MagicLayerSpace 5.0f
+#define zMagicLayer_SpriteSize 32.0f
+
 
 #define zStatePanel_ManaLayerHeight 80.0f
+#define zStatePanel_ManaLayerWidth 100.0f
 #define zStatePanel_ManaLayerMarginTop 120.0f
 
-#define zStatePanel_ExpLabelMarginTop 140.0f
-#define zStatePanel_MoneyLabelMarginTop 160.0f
+#define zStatePanel_ExpLabelMarginTop 10.0f
+#define zStatePanel_MoneyLabelMarginTop 30.0f
 
 #define Turn_Player 0
 #define Turn_Enemy 1
 #define zTileMaxAction 3;
 
-#define kTileSize 35.0f
+#define kTileSize 40.0f
 #define kMoveTileTime 0.2f
 #define kBoxWidth 8
 #define kBoxHeight 8

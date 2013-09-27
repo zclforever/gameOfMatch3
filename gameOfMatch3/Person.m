@@ -47,6 +47,7 @@
     person.spriteName=defaultPerson.spriteName;
     person.experience=defaultPerson.experience;
     person.spriteScale=defaultPerson.spriteScale;
+    person.maxManaArray=defaultPerson.maxManaArray;
 }
 +(Person*)copyWith:(Person*)oriPerson{
     Person* person=[[Person alloc] init];
@@ -65,6 +66,7 @@
     person.damage=5;
     person.spriteName=[NSString stringWithFormat:@"player.png"];
     person.spriteScale=0.4f;
+    person.maxManaArray=[NSMutableArray arrayWithObjects:@10,@10,@10,@10, nil];
     return person;
     
     
@@ -150,6 +152,8 @@
     person.curHP=person.maxHP;
     person.spriteName=[NSString stringWithFormat:@"enemy_%d.png",level];
     person.spriteScale=1.0f;
+    person.maxStep=5;
+    person.curStep=0;
     return person;
     
 }

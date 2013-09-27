@@ -8,6 +8,7 @@
 
 #import "Magic.h"
 #import "Global.h"
+
 @implementation Magic
 
 -(Magic*)initWithName:(NSString*)name{
@@ -19,16 +20,17 @@
     NSRange range;
     range=[name rangeOfString:@"removeValue_"];
     if (range.location!=NSNotFound) {
+        
         value=[[name substringFromIndex:range.length] intValue];
-        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"block_%d.png",value]];
+        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
         self.sprite=sprite;
         self.value=value;
         self.type=@"removeValue";
         self.CD=12.0f;
         if(value==1)
         {
-            self.showName=@"绿迷";
-            self.manaCostArray=[NSMutableArray arrayWithObjects:@3,@1,@0,@1, nil];
+            self.showName=@"火球";
+            self.manaCostArray=[NSMutableArray arrayWithObjects:@4,@1,@1,@1, nil];
         }
         if(value==2)
         {
@@ -47,8 +49,19 @@
         }
     }
     
+    if ([name isEqualToString:@"fireBall"]) {
+        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
+        self.sprite=sprite;
+        self.value=value;
+        self.type=@"damage";
+        self.CD=12.0f;
+        self.showName=@"火球";
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@4,@1,@1, nil];
+
+        
+    }
     if ([name isEqualToString:@"magicAttackType_1"]) {
-        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"block_%d.png",6]];
+        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
         self.sprite=sprite;
         self.value=value;
         self.type=@"magicAttack";

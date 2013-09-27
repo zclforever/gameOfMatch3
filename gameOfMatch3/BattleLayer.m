@@ -40,8 +40,8 @@
 	if( (self=[super init]) ) {
 		
         
-        float kStartX=1.0*(self.contentSize.width-kBoxWidth*kTileSize)-10;
-        float kStartY=5.0;
+        float kStartX=1.0*(self.contentSize.width-kBoxWidth*kTileSize)/2;
+        float kStartY=1.0;
         [[Global sharedManager] setKStartX:kStartX];
         [[Global sharedManager] setKStartY:kStartY];
         PlayLayer  *playLayer = [[PlayLayer alloc]initWithPlayer:player withEnemy:enemy];

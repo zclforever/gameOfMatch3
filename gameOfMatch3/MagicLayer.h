@@ -16,5 +16,10 @@
 @property ccColor4B colorOfMagicDisabled;
 @property (strong,nonatomic) Magic* magic;
 @property bool magicEnabled;
+@property (strong,nonatomic) NSMutableArray* manaArray;
+@property bool isSelected;
+@property bool isManaReady;  //魔法满
+
+
 -(id)initWithMagicName:(NSString *)name withWidth:(float)width withHeight:(float)height;
 @end

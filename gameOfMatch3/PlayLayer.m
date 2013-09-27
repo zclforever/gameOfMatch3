@@ -60,7 +60,7 @@
     //float kStartX=[[consts sharedManager] kStartX];
     
     StatePanelLayerInBattle *statePanelLayer=[[StatePanelLayerInBattle alloc]initWithPositon:ccp(0,0)];
-    [statePanelLayer addManaLayer];
+    
     [self addChild:statePanelLayer z:2];
     
     //StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
@@ -142,7 +142,7 @@
     label.opacity=250;
     label.color = ccc3(255,255,230);
     label.anchorPoint=ccp(0,0);
-    label.position = ccp(380,285);
+    label.position = ccp(250,385);
     [self addChild:label z:4];
     self.stepLabel=label;
     
@@ -287,6 +287,7 @@
     if (!box.readyToRemoveTiles) {
         return;
     }
+    [self checkGameOver];
     self.updating=YES;
     self.updateCount++;
     
@@ -298,26 +299,43 @@
     //checkMagic
     int countOfMagicCastArray=self.magicCastArray.count;
     
-    countOfMagicCastArray=0;
+    //countOfMagicCastArray=0;
     for(int i=0;i<countOfMagicCastArray;i++){
         int index=[self.magicCastArray[0] intValue]; //取出Magic
         [self.magicCastArray removeObjectAtIndex:0];
         
         MagicLayer* magicLayer=self.statePanelLayerPlayer.magicLayerArray[index];
-        if(magicLayer&&magicLayer.magicEnabled){
-            //self.usingMagic=YES;  // 这种是要点棋盘，
-            [self.statePanelLayerPlayer setMagicState:NO atIndex:index]; //不能点 等同于magicLayer.magicEnabled=NO;
+        if(magicLayer&&magicLayer.isManaReady){
+            if(magicLayer.isSelected){
+                if(magicLayer.magicEnabled ){ //魔法 准备发射
+                    if([magicLayer.magic.name isEqualToString:@"fireBall"]){
+                        NSLog(@"魔法发射");
+                        self.enemy.curHP-=10;
+                        
+                        [self.statePanelLayerPlayer.manaLayer calcManaAfterShootWithMagic:magicLayer.magic]; //减掉魔法
+                    }
+                    
+                    magicLayer.isSelected=NO;
+                    
+                }
+            }
+            else if(!magicLayer.isSelected){
+                magicLayer.isSelected=YES;
+                continue;
+            }
             
-            [box pushTilesToRemoveForValue:magicLayer.magic.value];
+            //[self.statePanelLayerPlayer setMagicState:NO atIndex:index];
+            //            [box pushTilesToRemoveForValue:magicLayer.magic.value];
             
-            [self.statePanelLayerPlayer runAction:
-             [CCSequence actions:
-              [CCDelayTime actionWithDuration:magicLayer.magic.CD],
-              [CCCallBlockN actionWithBlock:^(CCNode *node) {
-                 [(StatePanelLayerInBattle*)node setMagicState:YES atIndex:index];
-             }],
-              
-              nil]];
+            
+            //            [self.statePanelLayerPlayer runAction:
+            //             [CCSequence actions:
+            //              [CCDelayTime actionWithDuration:magicLayer.magic.CD],
+            //              [CCCallBlockN actionWithBlock:^(CCNode *node) {
+            //                 [(StatePanelLayerInBattle*)node setMagicState:YES atIndex:index];
+            //             }],
+            //
+            //              nil]];
             
         }
         
@@ -349,18 +367,26 @@
         }
         
         NSArray* tmp=[box.readyToRemoveTiles allObjects];
-        for(int i=0;i<5;i++){
+        for(int i=0;i<4;i++){
             
             matchedArray=[box findMatchedArray:tmp forValue:i+1];
             if (matchedArray) {
-                [self.statePanelLayerPlayer.manaLayer addManaArrayAtIndex:i withValue:matchedArray.count];
+                int value=matchedArray.count;
+                int curValue=[self.statePanelLayerPlayer.manaLayer.manaArray[i] intValue];
+                int maxValue=[self.player.maxManaArray[i] intValue];
+                value+=curValue;
+                value=(value>maxValue)?maxValue:value;
+                [self.statePanelLayerPlayer.manaLayer setManaArrayAtIndex:i withValue:value];
             }
             
         }
+        matchedArray=[box findMatchedArray:tmp forValue:5];
+        if (matchedArray) {self.enemy.curHP-=matchedArray.count;}
         matchedArray=[box findMatchedArray:tmp forValue:6];
         if (matchedArray) {self.player.expInBattle+=matchedArray.count;}
         matchedArray=[box findMatchedArray:tmp forValue:7];
-        if (matchedArray) {self.player.moneyInBattle+=matchedArray.count;}
+        if (matchedArray) {self.player.curHP+=matchedArray.count;
+            self.player.curHP=self.player.curHP<=self.player.maxHP?self.player.curHP:self.player.maxHP;}
         
         [box removeAndRepair];
         if(self.moveSuccessReady){
@@ -379,31 +405,6 @@
                 Tile* tile1=ret[0][0];
                 //NSLog(@"%f",self.gameTime);
                 float actionTime=0.5;
-                //                NSArray* actions=[NSArray arrayWithObjects:
-                //                                  [CCScaleBy actionWithDuration:actionTime scale:0.5f],
-                //                                  [CCScaleBy actionWithDuration:actionTime scale:2.0f],
-                //                                  [CCScaleBy actionWithDuration:actionTime scale:0.5f],
-                //                                  [CCScaleBy actionWithDuration:actionTime scale:2.0f],
-                //                                  [CCCallBlockN actionWithBlock:^(CCNode *node) {
-                //                     if(node)[tile1 scaleToTileSize];
-                //                }],
-                //                                  nil];
-                //                [tile1.actionSequence addObjectsFromArray:actions ];
-                //
-                //                Tile* tile2=ret[0][1];
-                //                //float scale2=tile2.sprite.scale;
-                //                actions=[NSArray arrayWithObjects:
-                //                         [CCDelayTime actionWithDuration:actionTime],
-                //                         [CCScaleBy actionWithDuration:actionTime scale:0.5f],
-                //                         [CCScaleBy actionWithDuration:actionTime scale:2.0f],
-                //                         [CCScaleBy actionWithDuration:actionTime scale:0.5f],
-                //                         [CCScaleBy actionWithDuration:actionTime scale:2.0f],
-                //                         [CCCallBlockN actionWithBlock:^(CCNode *node) {
-                //                     if(node)[tile2 scaleToTileSize];
-                //                }],
-                //                         nil];
-                //
-                //                [tile2.actionSequence addObjectsFromArray:actions];
                 
                 [tile1.sprite runAction:[CCSequence actions:
                                          
@@ -437,7 +438,7 @@
     self.statePanelLayerEnemy.curHP=[NSString stringWithFormat:@"%d",self.enemy.curHP];
     self.statePanelLayerEnemy.maxHP=[NSString stringWithFormat:@"%d",self.enemy.maxHP];
     
-    [self.stepLabel setString:[NSString stringWithFormat:@"剩余步数 %d",self.player.curStep]];
+    [self.stepLabel setString:[NSString stringWithFormat:@"AP %d/%d",self.enemy.curStep,self.enemy.maxStep]];
     
 }
 
@@ -467,10 +468,11 @@
     }
     [self unlock];
     
-    [self.statePanelLayerPlayer addMagicLayerWithMagicName:@"magicAttackType_1"];
+    [self.statePanelLayerPlayer addMagicLayerWithMagicName:@"fireBall"];
     self.statePanelLayerPlayer.person=self.player;
     [self.statePanelLayerPlayer addMoneyExpLabel];
     [self.statePanelLayerPlayer addScoreLayer];
+    [self.statePanelLayerPlayer addManaLayer];
     self.isSoundEnabled=YES;
     
 }
@@ -606,143 +608,150 @@
     int finalDam=0;
     int enemy_dam=self.enemy.damage;
     
-    self.player.curStep--;
-    if(self.player.curStep<=0){   //turnFinished
+    self.enemy.curStep++;
+    if(self.enemy.curStep>=self.enemy.maxStep){   //turnFinished
         self.lockTouch=YES;
         bool magicAttack=YES;
-        Magic* magic=self.statePanelLayerPlayer.magicArray[0];
-        int minTimes=10;
-        for(int i=0;i<4;i++){    //check magic attain
-            int value=[self.statePanelLayerPlayer.manaArray[i] intValue];
-            int times=value/[magic.manaCostArray[i] intValue];
-            if(times<minTimes)minTimes=times;
-            if(times==0){
-                magicAttack=NO;
-                break;
-            }
-        }
+        
+        int minTimes=0;
+        //        Magic* magic=self.statePanelLayerPlayer.magicArray[0];
+        //        int minTimes=10;
+        //        for(int i=0;i<4;i++){    //check magic attain
+        //            int value=[self.statePanelLayerPlayer.manaArray[i] intValue];
+        //            int times=value/[magic.manaCostArray[i] intValue];
+        //            if(times<minTimes)minTimes=times;
+        //            if(times==0){
+        //                magicAttack=NO;
+        //                break;
+        //            }
+        //        }
         
         finalDam=self.player.damage;
         if(magicAttack){
             finalDam+=self.player.magicDamage*minTimes;
         }
         //来个动画
-        CCLayerColor* animationLayer=[[CCLayerColor alloc]initWithColor:ccc4(0, 0, 0, 200)];
-        [self addChild:animationLayer z:10];
-        
-        CCSprite* playerSprite=[CCSprite spriteWithFile:self.player.spriteName];
-        playerSprite.position=ccp(50,150);
-        playerSprite.scale=self.player.spriteScale;
-        CCSprite* enemySprite=[CCSprite spriteWithFile:self.enemy.spriteName];
-        enemySprite.position=ccp(380,150);
-        enemySprite.scale=self.enemy.spriteScale;
-        [self addChild:playerSprite z:11];
-        [self addChild:enemySprite z:11];
-        
-        CCLabelTTF* playerDamageLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"-%d",finalDam] fontName:@"Arial" fontSize:28];
-        playerDamageLabel.scale=0;
-        playerDamageLabel.position=ccp(350,280);
-        CCLabelTTF* enemyDamageLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"-%d",enemy_dam] fontName:@"Arial" fontSize:28];
-        enemyDamageLabel.scale=0;
-        enemyDamageLabel.position=ccp(70,280);
-        
-        [self addChild:playerDamageLabel z:11];
-        [self addChild:enemyDamageLabel z:11];
-        
-        
-        [self runAction:[CCSequence actions:
-                         [CCDelayTime actionWithDuration:1],
-                         [CCCallBlockN actionWithBlock:^(CCNode *node) {
-            [[SimpleAudioEngine sharedEngine] playEffect:@"ada.m4a"];
-        }], nil]];
-        [playerDamageLabel runAction:[CCSequence actions:
-                                      [CCDelayTime actionWithDuration:2.5],
-                                      [CCScaleTo actionWithDuration:1.0 scale:1.0],
-                                      //[CCMoveTo actionWithDuration:1.0 position:ccp(360,150)],
-                                      //[CCMoveTo actionWithDuration:1.0 position:ccp(50,150)],
-                                      [CCDelayTime actionWithDuration:4.0],
-                                      [CCCallBlockN actionWithBlock:^(CCNode *node) {
-            [node removeFromParentAndCleanup:YES];
-        }], nil]];
-        
-        [enemyDamageLabel runAction:[CCSequence actions:
-                                     [CCDelayTime actionWithDuration:5.5],
-                                     [CCScaleTo actionWithDuration:0.5 scale:1.0],
-                                     //[CCMoveTo actionWithDuration:1.0 position:ccp(360,150)],
-                                     //[CCMoveTo actionWithDuration:1.0 position:ccp(50,150)],
-                                     [CCDelayTime actionWithDuration:1.5],
-                                     [CCCallBlockN actionWithBlock:^(CCNode *node) {
-            [node removeFromParentAndCleanup:YES];
-        }], nil]];
-        
-        [playerSprite runAction:[CCSequence actions:
-                                 [CCDelayTime actionWithDuration:1.0],
-                                 [CCMoveTo actionWithDuration:0.5 position:ccp(280,300)],
-                                 [CCMoveTo actionWithDuration:0.5 position:ccp(340,200)],
-                                 
-                                 [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
-                                 [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
-                                 [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
-                                 [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
-                                 [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
-                                 [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
-                                 [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
-                                 [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
-                                 [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
-                                 [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
-                                 
-                                 [CCMoveTo actionWithDuration:0.5 position:ccp(50,150)],
-                                 [CCDelayTime actionWithDuration:4.0],
-                                 [CCCallBlockN actionWithBlock:^(CCNode *node) {
-            self.player.curHP-=enemy_dam;
-            [node removeFromParentAndCleanup:YES];
-        }], nil]];
-        //Person* player=(Person*)object;
-        //player.curHP-=enemy_dam;
-        
-        //[self removeFromParentAndCleanup:YES];
-        [self runAction:[CCSequence actions:
-                         [CCDelayTime actionWithDuration:3.3],
-                         [CCCallBlockN actionWithBlock:^(CCNode *node) {
-            [[SimpleAudioEngine sharedEngine] playEffect:@"yamede.m4a"];
-        }], nil]];
-        [self runAction:[CCSequence actions:
-                         [CCDelayTime actionWithDuration:4.8],
-                         [CCCallBlockN actionWithBlock:^(CCNode *node) {
-            [[SimpleAudioEngine sharedEngine] playEffect:@"yamede2.m4a"];
-        }], nil]];
-        [enemySprite runAction:[CCSequence actions:
-                                [CCDelayTime actionWithDuration:4.0],
-                                [CCMoveTo actionWithDuration:0.5 position:ccp(50,300)],
-                                [CCMoveTo actionWithDuration:0.5 position:ccp(50,150)],
-                                [CCMoveTo actionWithDuration:0.5 position:ccp(50,250)],
-                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
-                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
-                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
-                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
-                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
-                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
-                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
-                                [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
-                                [CCMoveTo actionWithDuration:1.0 position:ccp(380,150)],
-                                [CCDelayTime actionWithDuration:0.1],
-                                [CCCallBlockN actionWithBlock:^(CCNode *node) {
-            self.enemy.curHP-=finalDam;
-            [node removeFromParentAndCleanup:YES];
-        }], nil]];
-        
-        [animationLayer runAction:[CCSequence actions:[CCDelayTime actionWithDuration:8.0],
-                                   [CCCallBlockN actionWithBlock:^(CCNode *node) {
-            //self.enemy.curHP-=finalDam;
-            [node removeFromParentAndCleanup:YES];
-        }], nil]];
-        
-        //        self.enemy.curHP-=finalDam;
-        //        self.player.curHP-=enemy_dam;
-        
-        
-        
-        [self setTimeOut:8.0 withSelect:@selector(battleFinish)];
+        /*
+         CCLayerColor* animationLayer=[[CCLayerColor alloc]initWithColor:ccc4(0, 0, 0, 200)];
+         [self addChild:animationLayer z:10];
+         
+         CCSprite* playerSprite=[CCSprite spriteWithFile:self.player.spriteName];
+         playerSprite.position=ccp(50,150);
+         playerSprite.scale=self.player.spriteScale;
+         CCSprite* enemySprite=[CCSprite spriteWithFile:self.enemy.spriteName];
+         enemySprite.position=ccp(380,150);
+         enemySprite.scale=self.enemy.spriteScale;
+         [self addChild:playerSprite z:11];
+         [self addChild:enemySprite z:11];
+         
+         CCLabelTTF* playerDamageLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"-%d",finalDam] fontName:@"Arial" fontSize:28];
+         playerDamageLabel.scale=0;
+         playerDamageLabel.position=ccp(350,280);
+         CCLabelTTF* enemyDamageLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"-%d",enemy_dam] fontName:@"Arial" fontSize:28];
+         enemyDamageLabel.scale=0;
+         enemyDamageLabel.position=ccp(70,280);
+         
+         [self addChild:playerDamageLabel z:11];
+         [self addChild:enemyDamageLabel z:11];
+         
+         
+         [self runAction:[CCSequence actions:
+         [CCDelayTime actionWithDuration:1],
+         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+         [[SimpleAudioEngine sharedEngine] playEffect:@"ada.m4a"];
+         }], nil]];
+         [playerDamageLabel runAction:[CCSequence actions:
+         [CCDelayTime actionWithDuration:2.5],
+         [CCScaleTo actionWithDuration:1.0 scale:1.0],
+         //[CCMoveTo actionWithDuration:1.0 position:ccp(360,150)],
+         //[CCMoveTo actionWithDuration:1.0 position:ccp(50,150)],
+         [CCDelayTime actionWithDuration:4.0],
+         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+         [node removeFromParentAndCleanup:YES];
+         }], nil]];
+         
+         [enemyDamageLabel runAction:[CCSequence actions:
+         [CCDelayTime actionWithDuration:5.5],
+         [CCScaleTo actionWithDuration:0.5 scale:1.0],
+         //[CCMoveTo actionWithDuration:1.0 position:ccp(360,150)],
+         //[CCMoveTo actionWithDuration:1.0 position:ccp(50,150)],
+         [CCDelayTime actionWithDuration:1.5],
+         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+         [node removeFromParentAndCleanup:YES];
+         }], nil]];
+         
+         [playerSprite runAction:[CCSequence actions:
+         [CCDelayTime actionWithDuration:1.0],
+         [CCMoveTo actionWithDuration:0.5 position:ccp(280,300)],
+         [CCMoveTo actionWithDuration:0.5 position:ccp(340,200)],
+         
+         [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
+         
+         [CCMoveTo actionWithDuration:0.5 position:ccp(50,150)],
+         [CCDelayTime actionWithDuration:4.0],
+         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+         self.player.curHP-=enemy_dam;
+         [node removeFromParentAndCleanup:YES];
+         }], nil]];
+         //Person* player=(Person*)object;
+         //player.curHP-=enemy_dam;
+         
+         //[self removeFromParentAndCleanup:YES];
+         [self runAction:[CCSequence actions:
+         [CCDelayTime actionWithDuration:3.3],
+         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+         [[SimpleAudioEngine sharedEngine] playEffect:@"yamede.m4a"];
+         }], nil]];
+         [self runAction:[CCSequence actions:
+         [CCDelayTime actionWithDuration:4.8],
+         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+         [[SimpleAudioEngine sharedEngine] playEffect:@"yamede2.m4a"];
+         }], nil]];
+         [enemySprite runAction:[CCSequence actions:
+         [CCDelayTime actionWithDuration:4.0],
+         [CCMoveTo actionWithDuration:0.5 position:ccp(50,300)],
+         [CCMoveTo actionWithDuration:0.5 position:ccp(50,150)],
+         [CCMoveTo actionWithDuration:0.5 position:ccp(50,250)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
+         [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
+         [CCMoveTo actionWithDuration:1.0 position:ccp(380,150)],
+         [CCDelayTime actionWithDuration:0.1],
+         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+         self.enemy.curHP-=finalDam;
+         [node removeFromParentAndCleanup:YES];
+         }], nil]];
+         
+         [animationLayer runAction:[CCSequence actions:[CCDelayTime actionWithDuration:8.0],
+         [CCCallBlockN actionWithBlock:^(CCNode *node) {
+         //self.enemy.curHP-=finalDam;
+         [node removeFromParentAndCleanup:YES];
+         }], nil]];
+         
+         //        self.enemy.curHP-=finalDam;
+         //        self.player.curHP-=enemy_dam;
+         
+         
+         
+         [self setTimeOut:8.0 withSelect:@selector(battleFinish)];
+         */
+        self.enemy.curHP-=finalDam;
+        self.player.curHP-=enemy_dam;
+        [self setTimeOut:1.0 withSelect:@selector(battleFinish)];
         return;
     }else{
         [self checkGameOver];
@@ -767,10 +776,10 @@
     [self checkGameOver];
     
     
-    self.player.curStep=self.player.maxStep;
+    self.enemy.curStep=0;
     self.lockTouch=NO;
     for(int i=0;i<4;i++){
-        [self.statePanelLayerPlayer.manaLayer setManaArrayAtIndex:i withValue:0];
+        //[self.statePanelLayerPlayer.manaLayer setManaArrayAtIndex:i withValue:0];
     }
 }
 -(int)getManaWithNumberInPicName:(int)num{
@@ -828,17 +837,18 @@
     
     if(index>=0){
         [self.magicCastArray addObject:[NSNumber numberWithInt:index]];
+        
+        //todo 这里要加上魔法介绍
         return;
-    }
-    
+    }    
     //是否按下魔法转换
-    CGPoint manaLayerPos=[self.statePanelLayerPlayer.manaLayer convertTouchToNodeSpace:touch];
-    index=[self.statePanelLayerPlayer findManaTouchedIndex:manaLayerPos];
-    
-    if(index>=0){
-        [self converManaAtIndex:index];
-        return;
-    }
+    //    CGPoint manaLayerPos=[self.statePanelLayerPlayer.manaLayer convertTouchToNodeSpace:touch];
+    //    index=[self.statePanelLayerPlayer findManaTouchedIndex:manaLayerPos];
+    //
+    //    if(index>=0){
+    //        [self converManaAtIndex:index];
+    //        return;
+    //    }
     
     
 	
