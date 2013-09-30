@@ -11,7 +11,9 @@
 		0259BBDB17DDB25D0033F345 /* enemy_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD817DDB25D0033F345 /* enemy_1.png */; };
 		0259BBDC17DDB25D0033F345 /* enemy_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD917DDB25D0033F345 /* enemy_2.png */; };
 		0259BBDD17DDB25D0033F345 /* enemy_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBDA17DDB25D0033F345 /* enemy_3.png */; };
+		026A18DC17F9297100B05B31 /* Actions.m in Sources */ = {isa = PBXBuildFile; fileRef = 026A18DB17F9297100B05B31 /* Actions.m */; };
 		0279080417D48C8100CF5ED4 /* Magic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0279080317D48C8100CF5ED4 /* Magic.m */; };
+		02A18C8617F970D4008D5C33 /* ActionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A18C8517F970D4008D5C33 /* ActionQueue.m */; };
 		02B1740817C5C6D60057DA00 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B1740717C5C6D60057DA00 /* QuartzCore.framework */; };
 		02B1740A17C5C6D60057DA00 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B1740917C5C6D60057DA00 /* OpenGLES.framework */; };
 		02B1740C17C5C6D60057DA00 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B1740B17C5C6D60057DA00 /* OpenAL.framework */; };
@@ -236,8 +238,12 @@
 		0259BBD817DDB25D0033F345 /* enemy_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_1.png; sourceTree = "<group>"; };
 		0259BBD917DDB25D0033F345 /* enemy_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_2.png; sourceTree = "<group>"; };
 		0259BBDA17DDB25D0033F345 /* enemy_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_3.png; sourceTree = "<group>"; };
+		026A18DA17F9297100B05B31 /* Actions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Actions.h; sourceTree = "<group>"; };
+		026A18DB17F9297100B05B31 /* Actions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Actions.m; sourceTree = "<group>"; };
 		0279080217D48C8100CF5ED4 /* Magic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Magic.h; sourceTree = "<group>"; };
 		0279080317D48C8100CF5ED4 /* Magic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Magic.m; sourceTree = "<group>"; };
+		02A18C8417F970D4008D5C33 /* ActionQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionQueue.h; sourceTree = "<group>"; };
+		02A18C8517F970D4008D5C33 /* ActionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionQueue.m; sourceTree = "<group>"; };
 		02B1740417C5C6D60057DA00 /* gameOfMatch3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gameOfMatch3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02B1740717C5C6D60057DA00 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		02B1740917C5C6D60057DA00 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -698,8 +704,8 @@
 				02B175D117C5F3F70057DA00 /* AI.m */,
 				02B175B217C5C6D90057DA00 /* IntroLayer.h */,
 				02B175B317C5C6D90057DA00 /* IntroLayer.m */,
-				02B175BD17C5CA140057DA00 /* Global.h */,
 				75C908D117C6755000068714 /* Global.m */,
+				02B175BD17C5CA140057DA00 /* Global.h */,
 				0279080217D48C8100CF5ED4 /* Magic.h */,
 				0279080317D48C8100CF5ED4 /* Magic.m */,
 				7556385217D6791700506DBC /* ManaLayer.h */,
@@ -712,6 +718,10 @@
 				752979B217D3ABA7009B8B95 /* StatePanelLayerInBattle.m */,
 				753731AC17CFAFB700B0BEDF /* Person.h */,
 				753731AD17CFAFB800B0BEDF /* Person.m */,
+				026A18DA17F9297100B05B31 /* Actions.h */,
+				026A18DB17F9297100B05B31 /* Actions.m */,
+				02A18C8417F970D4008D5C33 /* ActionQueue.h */,
+				02A18C8517F970D4008D5C33 /* ActionQueue.m */,
 				02B175C117C5DA6B0057DA00 /* PlayLayer.h */,
 				02B175C217C5DA6B0057DA00 /* PlayLayer.m */,
 				752979B417D3C89E009B8B95 /* GameOverLayer.h */,
@@ -1466,6 +1476,8 @@
 				0259BBD717DDB02D0033F345 /* GameLevelLayer.m in Sources */,
 				75F85E8C17DE1BCC00B4329C /* StateLayer.m in Sources */,
 				75F85E8F17DE240300B4329C /* GameMainLayer.m in Sources */,
+				026A18DC17F9297100B05B31 /* Actions.m in Sources */,
+				02A18C8617F970D4008D5C33 /* ActionQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

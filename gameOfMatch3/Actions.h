@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface ActionManager : CCLayer {
+@interface Actions : CCLayer {
     
 }
-
++ (id)sharedManager;
++(void)shakeSprite:(CCSprite*)sprite;
++(void)shakeSprite:(CCSprite*)sprite delay:(float)delay;
++(void)attackSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block;
 @end

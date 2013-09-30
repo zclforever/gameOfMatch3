@@ -32,33 +32,8 @@
     self.anchorPoint=ccp(0,0);
     self.position=pos;
     
-    //init LifeBar
-    self.lifeBar=[CCSprite spriteWithFile:@"lifeBar.png" ];
-       self.lifeBar.anchorPoint=ccp(0,0);
-    self.lifeBar.scaleY=zStatePanel_LifeBarHeight/self.lifeBar.contentSize.height;
-    self.lifeBar.scaleX=zStatePanel_LifeBarWidth/self.lifeBar.contentSize.width;
-    self.lifeBar.position=ccp(zStatePanel_LifeBarMarginLeft,self.position.y+self.contentSize.height-zStatePanel_LifeBarMarginTop-zStatePanel_LifeBarHeight);
-    [self addChild:self.lifeBar];
+   
     
-    
-    //init LifeBarLabel
-    
-    int fontSize=10;
-    
-    
-    //float lifeBarFixY=self.lifeBar.position.y;//缩放修正过
-    float lifeBarFixY=self.lifeBar.position.y+zStatePanel_LifeBarHeight/2;
-    
-    
-    CCLabelTTF * label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:fontSize];
-    label.color = ccc3(255,255,255);
-    //label.anchorPoint=ccp(0,0);
-    label.position = ccp(self.lifeBar.position.x+zStatePanel_LifeBarWidth/2,lifeBarFixY);
-    [self addChild:label];
-    
-    self.HPLabel=label;
-    
-
     
     self.magicArray=[[NSMutableArray alloc]init];
     self.magicLayerArray=[[NSMutableArray alloc]init];
@@ -99,7 +74,48 @@
 -(void)setMagicState:(bool)state atIndex:(int)index{
     [self.magicLayerArray[index] setMagicEnabled:state];
 }
+-(void)addPersonSpriteAtPosition:(CGPoint)position{
+    if(!self.person)return;
+    
+    CCSprite* sprite=[CCSprite spriteWithFile:self.person.spriteName];
+    sprite.anchorPoint=ccp(0,0);
+    sprite.position=position;
+    sprite.scaleX=zPersonWidth/sprite.contentSize.width;
+    sprite.scaleY=zPersonHeight/sprite.contentSize.height;
+    self.personSprite=sprite;
+    [self addChild:sprite];
+    
+    [self addLifeBar];
+    
+}
+-(void)addLifeBar{
+    //init LifeBar
+    self.lifeBar=[CCSprite spriteWithFile:@"lifeBar.png" ];
+    self.lifeBar.anchorPoint=ccp(0,0);
+    self.lifeBar.scaleY=zStatePanel_LifeBarHeight/self.lifeBar.contentSize.height;
+    self.lifeBar.scaleX=zStatePanel_LifeBarWidth/self.lifeBar.contentSize.width;
 
+    [self addChild:self.lifeBar];
+    
+    
+    //init LifeBarLabel
+    
+    int fontSize=10;
+    
+    
+    //float lifeBarFixY=self.lifeBar.position.y;//缩放修正过
+   
+    
+    
+    CCLabelTTF * label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:fontSize];
+    label.color = ccc3(255,255,255);
+    //label.anchorPoint=ccp(0,0);
+
+    [self addChild:label];
+    
+    self.HPLabel=label;
+
+}
 -(void)addMoneyExpLabel{
     self.expLabel=[CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:18];
     self.expLabel.anchorPoint=ccp(0,0);
@@ -121,7 +137,7 @@
     self.scoreLabel.anchorPoint=ccp(0,0);
     self.scoreLabel.position=ccp(zScoreLabelLeft,zScoreLabelBottom);
     [self addChild:self.scoreLabel z:5];
-
+    
 }
 -(void)addManaLayer{
     //init manaLayer
@@ -153,43 +169,54 @@
     if(self.expLabel&&self.person){[self.expLabel setString:[NSString stringWithFormat:@"经验:%d",self.person.expInBattle]];}
     if(self.moneyLabel&&self.person){[self.moneyLabel setString:[NSString stringWithFormat:@"金钱:%d",self.person.moneyInBattle]];}
     if(self.scoreLabel&&self.person){[self.scoreLabel setString:[NSString stringWithFormat:@"Score:%d",self.person.scoreInBattle]];}
+    
+    
+    if(self.lifeBar){
+       
 
-    
-    
-    if(self.curHP&&self.maxHP){
-        [self.HPLabel setString:[NSString stringWithFormat:@"%@/%@",self.curHP,self.maxHP]];
-        
-        self.lifeBar.scaleX=[self.curHP floatValue]/[self.maxHP floatValue]*zStatePanel_LifeBarWidth/self.lifeBar.contentSize.width;
+        if(self.curHP&&self.maxHP){
+            //updatePosition
+            
+            self.lifeBar.position=ccp(self.personSprite.position.x,self.personSprite.position.y+55);
+            float lifeBarFixY=self.lifeBar.position.y+zStatePanel_LifeBarHeight/2;
+            self.HPLabel.position = ccp(self.lifeBar.position.x+zStatePanel_LifeBarWidth/2,lifeBarFixY);
+            
+            
+            
+            [self.HPLabel setString:[NSString stringWithFormat:@"%@/%@",self.curHP,self.maxHP]];
+            
+            self.lifeBar.scaleX=[self.curHP floatValue]/[self.maxHP floatValue]*zStatePanel_LifeBarWidth/self.lifeBar.contentSize.width;
+        }
     }
     for(int i=0;i<self.magicLayerArray.count;i++){
         //magicEnabled
         MagicLayer* magicLayer=self.magicLayerArray[i];
-         CCLayerColor* layer=(CCLayerColor*)[magicLayer getChildByTag:1] ;
+        CCLayerColor* layer=(CCLayerColor*)[magicLayer getChildByTag:1] ;
         if (magicLayer.magicEnabled&&magicLayer.isManaReady) {
             layer.color=self.colorOfMagicEnabled;
             layer.opacity=self.opacityOfMagicEnabled;
         }else{
-
-                layer.color=self.colorOfMagicDisabled;
-                layer.opacity=0;
-
+            
+            layer.color=self.colorOfMagicDisabled;
+            layer.opacity=0;
+            
         }
-       
         
-
+        
+        
     }
     
-        //    CCNode* node=[CCParticleFire node];
-        //    node.contentSize=layer.contentSize;
-        //    node.position=ccp(layer.contentSize.width/2,layer.contentSize.height/2);
-        //    [layer addChild:node z:0 tag:2];
-//        [layer runAction:[CCSequence actions:[CCDelayTime actionWithDuration:3.0f], [CCCallBlockN actionWithBlock:^(CCNode *node) {
-//            //[layer removeChildByTag:1 cleanup:YES];
-//            
-//            
-//        }],nil]];
-        
-
+    //    CCNode* node=[CCParticleFire node];
+    //    node.contentSize=layer.contentSize;
+    //    node.position=ccp(layer.contentSize.width/2,layer.contentSize.height/2);
+    //    [layer addChild:node z:0 tag:2];
+    //        [layer runAction:[CCSequence actions:[CCDelayTime actionWithDuration:3.0f], [CCCallBlockN actionWithBlock:^(CCNode *node) {
+    //            //[layer removeChildByTag:1 cleanup:YES];
+    //
+    //
+    //        }],nil]];
+    
+    
 }
 @end
 

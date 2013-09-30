@@ -20,6 +20,7 @@
 
 -(id)initWithPositon:(CGPoint)pos;
 
+-(void)addPersonSpriteAtPosition:(CGPoint)position;
 -(void)addMoneyExpLabel;
 -(void)addManaLayer;
 -(void)addScoreLayer;
@@ -32,6 +33,7 @@
 @property (strong,nonatomic) NSMutableArray* magicLayerArray; //add MagicLayer
 @property (strong,nonatomic) ManaLayer* manaLayer;
 @property (strong,nonatomic) Person* person;
+@property (strong,nonatomic) CCSprite* personSprite;
 @property (strong,nonatomic) NSMutableArray* manaArray;
 -(void)setMagicState:(bool)state atIndex:(int)index;
 @end

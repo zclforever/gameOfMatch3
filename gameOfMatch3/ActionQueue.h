@@ -12,5 +12,11 @@
 @interface ActionQueue : CCLayer {
     
 }
+@property (strong,nonatomic) NSMutableArray* actionArray;
+@property (strong,nonatomic) NSMutableArray* actionFinishedArray;
+@property bool lock;
+-(void)nextAction;  //动作完成后要通知这个解锁
+-(void)addActionWithBlock:(void(^)())block;
+
 
 @end

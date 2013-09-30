@@ -8,12 +8,14 @@
 
 #import "PlayLayer.h"
 #import "SimpleAudioEngine.h"
-
+#import "Actions.h"
+#import "ActionQueue.h"
 @interface PlayLayer()
 @property  int whosTurn;
 @property bool effectOn;
 @property int level;
 @property bool isSoundEnabled;
+@property (strong,nonatomic) ActionQueue* actionHandler;
 @property (strong,nonatomic) CCLabelTTF *testLabel;
 @property (strong,nonatomic) CCLabelTTF *stepLabel;
 @property (strong,nonatomic) NSArray* turnOfPersons;
@@ -42,7 +44,7 @@
 -(id)initWithPlayer:(Person*)player withEnemy:(Person*)enemy{
 	self = [super init];
     
-    
+    self.actionHandler=[[ActionQueue alloc]init];
     
     self.effectOn=NO;
     self.effectOn=YES;
@@ -64,7 +66,7 @@
     [self addChild:statePanelLayer z:2];
     
     //StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
-    StatePanelLayerInBattle *statePanelLayerEnemy=[[StatePanelLayerInBattle alloc]initWithPositon:ccp(zStatePanel_LifeBarWidth+10,0)];
+    StatePanelLayerInBattle *statePanelLayerEnemy=[[StatePanelLayerInBattle alloc]initWithPositon:ccp(0,0)];
     [self addChild:statePanelLayerEnemy z:-1];
     
     self.statePanelLayerPlayer=statePanelLayer;
@@ -160,7 +162,7 @@
     
     
     
-    
+
 	return self;
 }
 -(void)addReadyGo{
@@ -380,8 +382,34 @@
             }
             
         }
-        matchedArray=[box findMatchedArray:tmp forValue:5];
-        if (matchedArray) {self.enemy.curHP-=matchedArray.count;}
+        matchedArray=[box findMatchedArray:tmp forValue:5];  //5 is PlayerAttack
+        if (matchedArray) {
+//            [Actions attackSpriteB:self.statePanelLayerEnemy.personSprite fromSpriteA:self.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+//                self.enemy.curHP-=matchedArray.count;
+//                //[self.actionManager nextAction];
+//            }];
+//
+            __weak PlayLayer* obj=self;
+            obj.actionHandler.lock=YES;
+            [self.actionHandler addActionWithBlock:^{
+                
+                [Actions attackSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+                    obj.enemy.curHP-=matchedArray.count;}];
+                [obj.actionHandler nextAction];
+                
+            }];
+            obj.actionHandler.lock=NO;
+             obj.actionHandler.lock=YES;
+            [self.actionHandler addActionWithBlock:^{
+                
+                [Actions attackSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+                    obj.enemy.curHP-=matchedArray.count;}];
+                [obj.actionHandler nextAction];
+                
+            }];
+            obj.actionHandler.lock=NO;
+        }
+        
         matchedArray=[box findMatchedArray:tmp forValue:6];
         if (matchedArray) {self.player.expInBattle+=matchedArray.count;}
         matchedArray=[box findMatchedArray:tmp forValue:7];
@@ -468,11 +496,18 @@
     }
     [self unlock];
     
+    CGSize winSize=[[CCDirector sharedDirector] winSize];
+    
     [self.statePanelLayerPlayer addMagicLayerWithMagicName:@"fireBall"];
     self.statePanelLayerPlayer.person=self.player;
+    [self.statePanelLayerPlayer addPersonSpriteAtPosition:ccp(zPlayerMarginLeft,winSize.height-zPlayerMarginTop)];
     [self.statePanelLayerPlayer addMoneyExpLabel];
     [self.statePanelLayerPlayer addScoreLayer];
     [self.statePanelLayerPlayer addManaLayer];
+    
+    
+    self.statePanelLayerEnemy.person=self.enemy;
+    [self.statePanelLayerEnemy addPersonSpriteAtPosition:ccp(zEnemyMarginLeft,winSize.height-zPlayerMarginTop)];
     self.isSoundEnabled=YES;
     
 }
@@ -597,6 +632,10 @@
         [self.statePanelLayerPlayer.manaLayer setManaArrayAtIndex:i withValue:0];
     }
 }
+
+-(void)playerAttack{
+    
+}
 -(void)moveFailed{
     [[SimpleAudioEngine sharedEngine] playEffect:@"deny.wav"];
     return;
@@ -630,6 +669,8 @@
         if(magicAttack){
             finalDam+=self.player.magicDamage*minTimes;
         }
+        
+        [Actions shakeSprite:self.statePanelLayerPlayer.personSprite];
         //来个动画
         /*
          CCLayerColor* animationLayer=[[CCLayerColor alloc]initWithColor:ccc4(0, 0, 0, 200)];

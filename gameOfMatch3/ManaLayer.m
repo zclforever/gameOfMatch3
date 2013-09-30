@@ -7,6 +7,7 @@
 //
 
 #import "ManaLayer.h"
+#import "Global.h"
 @interface ManaLayer()
 
 @property (strong,nonatomic) NSMutableArray* manaLabelArray;
@@ -18,7 +19,7 @@
     self=[super initWithColor:ccc4(0,0,0,0) width:width height:height];
     self.anchorPoint=ccp(0,0);
     //add manaCostIcon&NumOfLabel
-    
+    CGSize winSize=[[CCDirector sharedDirector] winSize];
     CCSprite* sprite;
     CCLabelTTF* costLabel;
     
@@ -26,9 +27,9 @@
     self.manaLabelArray=[[NSMutableArray alloc]init];
     self.spriteArray=[[NSMutableArray alloc]init];
     
-    float startX=10;
-    float startY=330;
-    float space=3;
+    float startX=zStatePanel_ManaLayerMarginLeft;
+    float startY=winSize.height-zStatePanel_ManaLayerMarginTop;
+    float space=zStatePanel_ManaLayerSpace;
     float columnWidth=8;
     float columnHeight=40;
     
@@ -48,7 +49,7 @@
         //add manaCostLabel
         NSString* cost=@"0";
         costLabel=[CCLabelTTF labelWithString:cost fontName:@"Arial" fontSize:12];
-        [costLabel setHorizontalAlignment:kCCTextAlignmentRight];
+        [costLabel setHorizontalAlignment:kCCTextAlignmentLeft];
         costLabel.anchorPoint=ccp(0,0);
 //        costLabel.scaleX=magicCostLabelSize/costLabel.contentSize.width;
 //        costLabel.scaleY=magicCostLabelSize/costLabel.contentSize.height;

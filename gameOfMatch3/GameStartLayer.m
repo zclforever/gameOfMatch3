@@ -14,6 +14,7 @@
 #import "GameLevelLayer.h"
 #import "GameMainLayer.h"
 #import "SimpleAudioEngine.h"
+
 @implementation GameStartLayer
 +(CCScene *) scene
 {
@@ -49,6 +50,8 @@
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Contra.mp3"];
         
 	}
+    
+
 	return self;
 }
 
