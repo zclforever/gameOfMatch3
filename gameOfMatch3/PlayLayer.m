@@ -45,6 +45,7 @@
 	self = [super init];
     
     self.actionHandler=[[ActionQueue alloc]init];
+    [self addChild:self.actionHandler]; //为了runaction update
     
     self.effectOn=NO;
     self.effectOn=YES;
@@ -312,7 +313,12 @@
                 if(magicLayer.magicEnabled ){ //魔法 准备发射
                     if([magicLayer.magic.name isEqualToString:@"fireBall"]){
                         NSLog(@"魔法发射");
-                        self.enemy.curHP-=10;
+                        __weak PlayLayer* obj=self;
+                        [self.actionHandler addActionWithBlock:^{
+                            [Actions fireBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+                                obj.enemy.curHP-=30;}];
+                            
+                        }];
                         
                         [self.statePanelLayerPlayer.manaLayer calcManaAfterShootWithMagic:magicLayer.magic]; //减掉魔法
                     }
@@ -346,6 +352,8 @@
     
     if(box.readyToRemoveTiles.count>0){
         //NSLog(@"in check is value 5");
+        //test.
+
         
         for (NSArray* result in box.removeResultArray) {
             int mul=1;
@@ -382,32 +390,17 @@
             }
             
         }
-        matchedArray=[box findMatchedArray:tmp forValue:5];  //5 is PlayerAttack
+        matchedArray=[box findMatchedArray:tmp forValue:5];  //5 is PlayerAttack   
         if (matchedArray) {
-//            [Actions attackSpriteB:self.statePanelLayerEnemy.personSprite fromSpriteA:self.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-//                self.enemy.curHP-=matchedArray.count;
-//                //[self.actionManager nextAction];
-//            }];
-//
             __weak PlayLayer* obj=self;
-            obj.actionHandler.lock=YES;
+
             [self.actionHandler addActionWithBlock:^{
                 
                 [Actions attackSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
                     obj.enemy.curHP-=matchedArray.count;}];
-                [obj.actionHandler nextAction];
                 
             }];
-            obj.actionHandler.lock=NO;
-             obj.actionHandler.lock=YES;
-            [self.actionHandler addActionWithBlock:^{
-                
-                [Actions attackSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                    obj.enemy.curHP-=matchedArray.count;}];
-                [obj.actionHandler nextAction];
-                
-            }];
-            obj.actionHandler.lock=NO;
+
         }
         
         matchedArray=[box findMatchedArray:tmp forValue:6];
@@ -501,6 +494,7 @@
     [self.statePanelLayerPlayer addMagicLayerWithMagicName:@"fireBall"];
     self.statePanelLayerPlayer.person=self.player;
     [self.statePanelLayerPlayer addPersonSpriteAtPosition:ccp(zPlayerMarginLeft,winSize.height-zPlayerMarginTop)];
+    [self.statePanelLayerPlayer addBorderOfMagic];
     [self.statePanelLayerPlayer addMoneyExpLabel];
     [self.statePanelLayerPlayer addScoreLayer];
     [self.statePanelLayerPlayer addManaLayer];
@@ -670,7 +664,7 @@
             finalDam+=self.player.magicDamage*minTimes;
         }
         
-        [Actions shakeSprite:self.statePanelLayerPlayer.personSprite];
+        [Actions shakeSprite:self.statePanelLayerPlayer.personSprite delay:0];
         //来个动画
         /*
          CCLayerColor* animationLayer=[[CCLayerColor alloc]initWithColor:ccc4(0, 0, 0, 200)];

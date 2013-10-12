@@ -12,8 +12,13 @@
 @interface Actions : CCLayer {
     
 }
+@property int actionRunningCount;  //这个值 =0 说明所有动作执行完毕 每进一个动作 会+1
 + (id)sharedManager;
-+(void)shakeSprite:(CCSprite*)sprite;
++(void)decActionCount;
++(void)incActionCount;
++(int)getActionCount;
 +(void)shakeSprite:(CCSprite*)sprite delay:(float)delay;
++(void)shakeSprite:(CCSprite*)sprite delay:(float)delay withFinishedBlock:(void(^)())block;
 +(void)attackSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block;
++(void)fireBallToSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block;
 @end

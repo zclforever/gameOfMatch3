@@ -17,6 +17,8 @@
 
 #define zPersonWidth 60.0f
 #define zPersonHeight 60.0f
+#define zStatePanel_MagicBorderMarginBottom 320.0f
+#define zStatePanel_MagicBorderHeight 60.0f
 
 #define zScoreLabelLeft 220.0f
 #define zScoreLabelBottom 1450.0f
@@ -38,7 +40,7 @@
 #define zStatePanel_ManaLayerHeight 80.0f
 #define zStatePanel_ManaLayerWidth 100.0f
 #define zStatePanel_ManaLayerMarginTop 155.0f
-#define zStatePanel_ManaLayerMarginLeft 10.0f
+#define zStatePanel_ManaLayerMarginLeft 30.0f
 #define zStatePanel_ManaLayerSpace 5.0f
 
 #define zStatePanel_ExpLabelMarginTop -10.0f

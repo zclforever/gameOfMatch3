@@ -20,6 +20,7 @@
 
 -(id)initWithPositon:(CGPoint)pos;
 
+-(void)addBorderOfMagic;
 -(void)addPersonSpriteAtPosition:(CGPoint)position;
 -(void)addMoneyExpLabel;
 -(void)addManaLayer;

@@ -88,6 +88,15 @@
     [self addLifeBar];
     
 }
+-(void)addBorderOfMagic{
+    CCSprite* sprite=[CCSprite spriteWithFile:@"border-magic.png"];
+    sprite.anchorPoint=ccp(0,0);
+    sprite.scaleX=320/sprite.contentSize.width;
+    sprite.scaleY=zStatePanel_MagicBorderHeight/sprite.contentSize.height;
+    sprite.position=ccp(0,zStatePanel_MagicBorderMarginBottom);
+    
+    [self addChild:sprite];
+}
 -(void)addLifeBar{
     //init LifeBar
     self.lifeBar=[CCSprite spriteWithFile:@"lifeBar.png" ];

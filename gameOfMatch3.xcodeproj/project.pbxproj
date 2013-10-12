@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		020505F118094E3A00977B13 /* border-01.png in Resources */ = {isa = PBXBuildFile; fileRef = 020505F018094E3A00977B13 /* border-01.png */; };
+		020505F31809507F00977B13 /* border-02.png in Resources */ = {isa = PBXBuildFile; fileRef = 020505F21809507F00977B13 /* border-02.png */; };
+		020505F61809514900977B13 /* border-03.png in Resources */ = {isa = PBXBuildFile; fileRef = 020505F51809514900977B13 /* border-03.png */; };
+		020505F81809532E00977B13 /* border-04.png in Resources */ = {isa = PBXBuildFile; fileRef = 020505F71809532E00977B13 /* border-04.png */; };
+		020505FA1809547C00977B13 /* border-magic.png in Resources */ = {isa = PBXBuildFile; fileRef = 020505F91809547C00977B13 /* border-magic.png */; };
 		0259BBD717DDB02D0033F345 /* GameLevelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259BBD617DDB02D0033F345 /* GameLevelLayer.m */; };
 		0259BBDB17DDB25D0033F345 /* enemy_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD817DDB25D0033F345 /* enemy_1.png */; };
 		0259BBDC17DDB25D0033F345 /* enemy_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD917DDB25D0033F345 /* enemy_2.png */; };
@@ -233,6 +238,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		020505F018094E3A00977B13 /* border-01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "border-01.png"; sourceTree = "<group>"; };
+		020505F21809507F00977B13 /* border-02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "border-02.png"; sourceTree = "<group>"; };
+		020505F51809514900977B13 /* border-03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "border-03.png"; sourceTree = "<group>"; };
+		020505F71809532E00977B13 /* border-04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "border-04.png"; sourceTree = "<group>"; };
+		020505F91809547C00977B13 /* border-magic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "border-magic.png"; sourceTree = "<group>"; };
 		0259BBD517DDB02D0033F345 /* GameLevelLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLevelLayer.h; sourceTree = "<group>"; };
 		0259BBD617DDB02D0033F345 /* GameLevelLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLevelLayer.m; sourceTree = "<group>"; };
 		0259BBD817DDB25D0033F345 /* enemy_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_1.png; sourceTree = "<group>"; };
@@ -704,8 +714,8 @@
 				02B175D117C5F3F70057DA00 /* AI.m */,
 				02B175B217C5C6D90057DA00 /* IntroLayer.h */,
 				02B175B317C5C6D90057DA00 /* IntroLayer.m */,
-				75C908D117C6755000068714 /* Global.m */,
 				02B175BD17C5CA140057DA00 /* Global.h */,
+				75C908D117C6755000068714 /* Global.m */,
 				0279080217D48C8100CF5ED4 /* Magic.h */,
 				0279080317D48C8100CF5ED4 /* Magic.m */,
 				7556385217D6791700506DBC /* ManaLayer.h */,
@@ -746,6 +756,11 @@
 			children = (
 				7571AE3917E9D3220049D790 /* sound */,
 				02B1741D17C5C6D60057DA00 /* Default.png */,
+				020505F018094E3A00977B13 /* border-01.png */,
+				020505F21809507F00977B13 /* border-02.png */,
+				020505F51809514900977B13 /* border-03.png */,
+				020505F71809532E00977B13 /* border-04.png */,
+				020505F91809547C00977B13 /* border-magic.png */,
 				752979AF17D38AE3009B8B95 /* fire.png */,
 				753972ED17D5580E008EA3A0 /* AYummyApology.ttf */,
 				753972EB17D5557E008EA3A0 /* Paint-Boy.ttf */,
@@ -1339,6 +1354,11 @@
 				757FFF8617F5CBA5007A8F59 /* borderColumn.png in Resources */,
 				757FFF8917F5CD99007A8F59 /* blueRow.png in Resources */,
 				757FFF8A17F5CD99007A8F59 /* redRow.png in Resources */,
+				020505F118094E3A00977B13 /* border-01.png in Resources */,
+				020505F31809507F00977B13 /* border-02.png in Resources */,
+				020505F61809514900977B13 /* border-03.png in Resources */,
+				020505F81809532E00977B13 /* border-04.png in Resources */,
+				020505FA1809547C00977B13 /* border-magic.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
