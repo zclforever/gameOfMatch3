@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 #import "Global.h"
 
-@interface Tile : NSObject
+@interface Tile : CCNode
 {
     int x, y, value;
 	CCSprite *sprite;
@@ -24,7 +24,7 @@
 @property (nonatomic,strong)  CCSequence* ccSequnce2;
 @property (nonatomic) bool isActionDone;
 @property bool readyToEnd;
-
+@property bool skillBall;
 -(void)lock;
 -(void)unlock;
 -(Tile*)copyTile;
@@ -33,4 +33,6 @@
 -(BOOL) nearTile: (Tile *)othertile;
 -(void) trade:(Tile *)otherTile;
 -(CGPoint) pixPosition;
+-(CCAction*)disappareAction;
+-(CCAction*)appareAction;
 @end

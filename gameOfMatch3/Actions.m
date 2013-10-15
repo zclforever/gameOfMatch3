@@ -84,7 +84,7 @@ static id sharedManager = nil;
     CCParticleFire *fire = [[CCParticleFire alloc]init];
     //fire.anchorPoint=ccp(0,0);
     fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y+zPersonHeight/2);
-    fire.startSize=120;
+    fire.startSize=81;
     fire.scale=.2;
     //fire.rotation=-45;
     fire.gravity=ccp(-90,0);
@@ -93,8 +93,8 @@ static id sharedManager = nil;
 
     [fire runAction:[CCSequence actions:
                      [CCMoveTo actionWithDuration:1 position:ccp(spriteB.position.x+zPersonHeight/2,spriteB.position.y+zPersonHeight/2)],
-                     [CCScaleTo actionWithDuration:2.0 scale:.25],
-                     [CCScaleTo actionWithDuration:1.0 scale:0],
+                     [CCScaleTo actionWithDuration:1.0 scale:.25],
+                     [CCScaleTo actionWithDuration:.5 scale:0],
                      [CCCallBlockN actionWithBlock:^(CCNode *node) {
                     [node removeFromParentAndCleanup:YES];
         

@@ -59,6 +59,8 @@
 #define kMaxRecordCount 15
 #define kKindCount 7
 
+#define Tag_skillMenu 10
+
 enum Orientation{
 	OrientationHori,
 	OrientationVert,

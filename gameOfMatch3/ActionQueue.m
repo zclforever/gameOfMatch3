@@ -29,7 +29,10 @@
     }
     return self;
 }
-
+-(void)onExit{
+    [[Actions sharedManager] removeAllChildrenWithCleanup:YES];
+    [self removeAllChildrenWithCleanup:YES];
+}
 -(void)addActionWithBlock:(void(^)())block{
     [self.actionArray addObject:block];
 }

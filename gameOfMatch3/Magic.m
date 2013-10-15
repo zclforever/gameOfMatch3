@@ -10,7 +10,27 @@
 #import "Global.h"
 
 @implementation Magic
-
+-(Magic*)initWithID:(int)ID{
+    NSString* name;
+    switch (ID) {
+        case 101:
+            name=@"fireBall";
+            break;
+        case 102:
+            name=@"fireBall";
+            break;
+        case 103:
+            name=@"fireBall";
+            break;
+        case 104:
+            name=@"fireBall";
+            break;
+        default:
+            break;
+    }
+    self=[self initWithName:name];
+    return self;
+}
 -(Magic*)initWithName:(NSString*)name{
     self=[super init];
     

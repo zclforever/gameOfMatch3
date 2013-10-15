@@ -17,4 +17,5 @@
 @property  int value;
 @property  float CD;
 -(Magic*)initWithName:(NSString*)name;
+-(Magic*)initWithID:(int)ID; //接轨101 value
 @end
