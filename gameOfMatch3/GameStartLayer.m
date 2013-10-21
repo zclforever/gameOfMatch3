@@ -50,6 +50,11 @@
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Contra.mp3"];
         
 
+        
+//        CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"snowstorm.plist"];
+//        
+//        [self addChild:particle_system];
+
 	}
     
 

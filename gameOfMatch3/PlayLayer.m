@@ -203,61 +203,19 @@
                    nil]];
 }
 -(void)handleTimeOut{
-    int CD=8.0f;
+    float timeInterval=0.1f;
     
-    
-    if(self.timeCount<CD&&!self.isStarting){
-        self.isStarting=YES;
-        //addMagic
-        [self.statePanelLayerPlayer addMagicLayerWithMagicName:@"removeValue_3"];
-        [self.statePanelLayerPlayer addMagicLayerWithMagicName:@"removeValue_2"];
+    self.enemy.curStep+=self.enemy.apSpeed*timeInterval;
+    if (self.enemy.curStep>=self.enemy.maxStep) {
+        [Actions shakeSprite:self.statePanelLayerPlayer.personSprite delay:0];
+        self.player.curHP-=self.enemy.damage;
         
-        //readyGO
-        [self addReadyGo];
-        [self setTimeOut:3.7f];
-        return;
-        
+        self.enemy.curStep=0;
     }
-    
-    
-    //changeTurn
-    if (self.timeCount%CD==0) {
-        self.whosTurn=(self.whosTurn+1) % 2;
-        
-    }
-    if(self.whosTurn==Turn_Enemy){
-        self.lockTouch=YES;
-        [self computerAIgo];
-        
-        
-    }else{
-        self.lockTouch=NO;
-    }
-    
-    // setLabel
-    NSString* message=[NSString stringWithFormat:@"玩家回合"];
-    if (self.whosTurn==Turn_Player) {
-        message=[message stringByAppendingFormat:@"  %d",CD-self.timeCount%CD];
-        [self.testLabel setString:message];
-        self.testLabel.scale=100/self.testLabel.contentSize.width;
-        
-        self.testLabel.position=ccp(0,150);
-    }
-    if (self.whosTurn==Turn_Enemy) {
-        message=@"敌方行动";
-        message=[message stringByAppendingFormat:@"  %d",CD-self.timeCount%CD];
-        [self.testLabel setString:message];
-        self.testLabel.position=ccp(self.contentSize.width/2-140,self.contentSize.height/2);
-        //self.testLabel.scale=300.0f/self.testLabel.contentSize.width;
-        self.testLabel.scale=1;
-    }
-    
-    //NSLog(@"font pos %f %f",self.testLabel.contentSize.width,self.testLabel.contentSize.height);
-    
     
     
     self.timeCount++;
-    [self setTimeOut:1.0f];
+    [self setTimeOut:timeInterval];
 }
 
 -(void)setTimeOut:(float)timeOut{
@@ -284,6 +242,7 @@
     
     
     [self updateStatePanel];
+    [self checkGameOver];
     
     if (self.updating||!(self.swapCount<=0)) {
         return;
@@ -361,13 +320,14 @@
                 if(self.isSoundEnabled)[[SimpleAudioEngine sharedEngine]playEffect:@"thunderDone.wav"];
                 mul=pow(2, mount-2);
                 self.player.curStep+=mount-3;
-                CCLabelTTF* showLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"额外%d步",mount-3] fontName:@"Arial" fontSize:48];
-                showLabel.anchorPoint=ccp(0,0);
-                showLabel.position=ccp(260,160);
-                [self addChild:showLabel];
-                [showLabel runAction:[CCSequence actions:[CCFadeOut actionWithDuration:3.0f],[CCCallBlockN actionWithBlock:^(CCNode *node) {
-                    [node removeFromParentAndCleanup:YES];
-                }], nil]];
+                //额外一步
+//                CCLabelTTF* showLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"额外%d步",mount-3] fontName:@"Arial" fontSize:48];
+//                showLabel.anchorPoint=ccp(0,0);
+//                showLabel.position=ccp(260,160);
+//                [self addChild:showLabel];
+//                [showLabel runAction:[CCSequence actions:[CCFadeOut actionWithDuration:3.0f],[CCCallBlockN actionWithBlock:^(CCNode *node) {
+//                    [node removeFromParentAndCleanup:YES];
+//                }], nil]];
             }
             self.player.scoreInBattle+=mount*100*mul;
         }
@@ -406,10 +366,10 @@
             self.player.curHP=self.player.curHP<=self.player.maxHP?self.player.curHP:self.player.maxHP;}
         
         [box removeAndRepair];
-        if(self.moveSuccessReady){
-            [self setTimeOut:0.1 withSelect:@selector(moveSuccess)];
-            self.moveSuccessReady=NO;
-        }
+//        if(self.moveSuccessReady){
+//            [self setTimeOut:0.1 withSelect:@selector(moveSuccess)];
+//            self.moveSuccessReady=NO;
+//        }
         //NSLog(@"in check is value 5 finished");
         self.lastTipTime=self.gameTime;
     }else{
@@ -465,7 +425,7 @@
     self.statePanelLayerEnemy.curHP=[NSString stringWithFormat:@"%d",self.enemy.curHP];
     self.statePanelLayerEnemy.maxHP=[NSString stringWithFormat:@"%d",self.enemy.maxHP];
     
-    [self.stepLabel setString:[NSString stringWithFormat:@"AP %d/%d",self.enemy.curStep,self.enemy.maxStep]];
+    [self.stepLabel setString:[NSString stringWithFormat:@"AP %f/%f",self.enemy.curStep,self.enemy.maxStep]];
     
 }
 
@@ -498,23 +458,25 @@
     
     CGSize winSize=[[CCDirector sharedDirector] winSize];
     
-    [self.statePanelLayerPlayer addMagicLayerWithMagicName:@"fireBall"];
+    //[self.statePanelLayerPlayer addMagicLayerWithMagicName:@"fireBall"];
     self.statePanelLayerPlayer.person=self.player;
     [self.statePanelLayerPlayer addPersonSpriteAtPosition:ccp(zPlayerMarginLeft,winSize.height-zPlayerMarginTop)];
     box.lockedPlayer=self.statePanelLayerPlayer.personSprite;
     
-    [self.statePanelLayerPlayer addBorderOfMagic];
+    //[self.statePanelLayerPlayer addBorderOfMagic];
     [self.statePanelLayerPlayer addMoneyExpLabel];
     [self.statePanelLayerPlayer addScoreLayer];
-    [self.statePanelLayerPlayer addManaLayer];
+    //[self.statePanelLayerPlayer addManaLayer];
     
     
     self.statePanelLayerEnemy.person=self.enemy;
     [self.statePanelLayerEnemy addPersonSpriteAtPosition:ccp(zEnemyMarginLeft,winSize.height-zPlayerMarginTop)];
-    
+    [self.statePanelLayerEnemy addApBar];
     box.lockedEnemy=self.statePanelLayerEnemy.personSprite;
     
     self.isSoundEnabled=YES;
+    
+    [self setTimeOut:0.0f];
     
 }
 
@@ -656,6 +618,7 @@
     
     self.enemy.curStep++;
     if(self.enemy.curStep>=self.enemy.maxStep){   //turnFinished
+        
         self.lockTouch=YES;
         bool magicAttack=YES;
         
@@ -797,6 +760,7 @@
          
          [self setTimeOut:8.0 withSelect:@selector(battleFinish)];
          */
+
         self.enemy.curHP-=finalDam;
         self.player.curHP-=enemy_dam;
         [self setTimeOut:1.0 withSelect:@selector(battleFinish)];

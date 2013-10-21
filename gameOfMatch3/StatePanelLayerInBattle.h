@@ -19,7 +19,7 @@
 @property (strong,nonatomic) NSString* maxHP;
 
 -(id)initWithPositon:(CGPoint)pos;
-
+-(void)addApBar;
 -(void)addBorderOfMagic;
 -(void)addPersonSpriteAtPosition:(CGPoint)position;
 -(void)addMoneyExpLabel;

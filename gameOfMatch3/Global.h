@@ -12,7 +12,7 @@
 #define gameOfMatch3_const_h
 
 #define zPlayerMarginLeft 20.0f
-#define zPlayerMarginTop 90.0f
+#define zPlayerMarginTop 150.0f
 #define zEnemyMarginLeft 180.0f
 
 #define zPersonWidth 60.0f
@@ -24,7 +24,7 @@
 #define zScoreLabelBottom 1450.0f
 #define zStatePanelWidth 180.0f
 #define zStatePanel_LifeBarWidth 60.0f
-#define zStatePanel_LifeBarHeight 28.0f
+#define zStatePanel_LifeBarHeight 8.0f
 #define zStatePanel_LifeBarMarginLeft 5.0f
 #define zStatePanel_LifeBarMarginTop 10.0f
 

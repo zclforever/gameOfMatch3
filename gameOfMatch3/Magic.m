@@ -23,7 +23,7 @@
             name=@"fireBall";
             break;
         case 104:
-            name=@"fireBall";
+            name=@"iceArrow";
             break;
         default:
             break;
@@ -78,6 +78,18 @@
         self.showName=@"火球";
         self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@4,@1,@1, nil];
 
+        
+    }
+    
+    if ([name isEqualToString:@"iceArrow"]) {
+        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
+        self.sprite=sprite;
+        self.value=value;
+        self.type=@"damage";
+        self.CD=12.0f;
+        self.showName=@"冰箭";
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@4,@1,@1, nil];
+        
         
     }
     if ([name isEqualToString:@"magicAttackType_1"]) {

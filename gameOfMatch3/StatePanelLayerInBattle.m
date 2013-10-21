@@ -12,6 +12,8 @@
 
 @interface StatePanelLayerInBattle()
 @property (strong,nonatomic) CCSprite* lifeBar;
+@property (strong,nonatomic) CCSprite* lifeBarBorder;
+@property (strong,nonatomic) CCProgressTimer* apBar;
 @property (strong,nonatomic) CCLabelTTF* HPLabel;
 @property (strong,nonatomic) CCLabelTTF* expLabel;
 @property (strong,nonatomic) CCLabelTTF* moneyLabel;
@@ -87,6 +89,7 @@
     
     [self addLifeBar];
     
+    
 }
 -(void)addBorderOfMagic{
     CCSprite* sprite=[CCSprite spriteWithFile:@"border-magic.png"];
@@ -97,6 +100,20 @@
     
     [self addChild:sprite];
 }
+-(void)addApBar{
+    if (!self.person) {
+        return;
+    }
+   
+    
+    CCSprite* progressSprite=[CCSprite spriteWithFile:@"circle.png"];
+	CCProgressTimer* progressBar = [CCProgressTimer progressWithSprite:progressSprite];
+	progressBar.type = kCCProgressTimerTypeRadial;
+	[self addChild:progressBar z:1];
+	[progressBar setAnchorPoint: ccp(0,0)];
+    self.apBar=progressBar;
+
+}
 -(void)addLifeBar{
     //init LifeBar
     self.lifeBar=[CCSprite spriteWithFile:@"lifeBar.png" ];
@@ -106,7 +123,12 @@
 
     [self addChild:self.lifeBar];
     
+    self.lifeBarBorder=[CCSprite spriteWithFile:@"border.png"];
+    self.lifeBarBorder.anchorPoint=ccp(0,0);
+    self.lifeBarBorder.scaleY=zStatePanel_LifeBarHeight/self.lifeBarBorder.contentSize.height;
+    self.lifeBarBorder.scaleX=zStatePanel_LifeBarWidth/self.lifeBarBorder.contentSize.width;
     
+    [self addChild:self.lifeBarBorder];
     //init LifeBarLabel
     
     int fontSize=10;
@@ -185,12 +207,15 @@
 
         if(self.curHP&&self.maxHP){
             //updatePosition
-            
             self.lifeBar.position=ccp(self.personSprite.position.x,self.personSprite.position.y+55);
+            self.lifeBarBorder.position=self.lifeBar.position;
             float lifeBarFixY=self.lifeBar.position.y+zStatePanel_LifeBarHeight/2;
             self.HPLabel.position = ccp(self.lifeBar.position.x+zStatePanel_LifeBarWidth/2,lifeBarFixY);
             
-            
+            if(self.apBar){
+                self.apBar.position=ccp(self.lifeBar.position.x+20,self.lifeBar.position.y+20);
+                self.apBar.percentage=self.person.curStep;
+            }
             
             [self.HPLabel setString:[NSString stringWithFormat:@"%@/%@",self.curHP,self.maxHP]];
             

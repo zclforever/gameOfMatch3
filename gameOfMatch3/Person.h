@@ -12,9 +12,10 @@
 @property (readonly) int lv;
 @property int curHP;
 @property int maxHP;
-@property int curStep;
-@property int maxStep;
+@property float curStep;
+@property float maxStep;
 @property int damage;
+@property float apSpeed;
 @property (readonly) int magicDamage;
 @property int experience;
 @property int money;
