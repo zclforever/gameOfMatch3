@@ -501,6 +501,8 @@
     [self.statePanelLayerPlayer addMagicLayerWithMagicName:@"fireBall"];
     self.statePanelLayerPlayer.person=self.player;
     [self.statePanelLayerPlayer addPersonSpriteAtPosition:ccp(zPlayerMarginLeft,winSize.height-zPlayerMarginTop)];
+    box.lockedPlayer=self.statePanelLayerPlayer.personSprite;
+    
     [self.statePanelLayerPlayer addBorderOfMagic];
     [self.statePanelLayerPlayer addMoneyExpLabel];
     [self.statePanelLayerPlayer addScoreLayer];
@@ -509,6 +511,9 @@
     
     self.statePanelLayerEnemy.person=self.enemy;
     [self.statePanelLayerEnemy addPersonSpriteAtPosition:ccp(zEnemyMarginLeft,winSize.height-zPlayerMarginTop)];
+    
+    box.lockedEnemy=self.statePanelLayerEnemy.personSprite;
+    
     self.isSoundEnabled=YES;
     
 }
@@ -892,9 +897,11 @@
     //        [self converManaAtIndex:index];
     //        return;
     //    }
-    
-    
-	
+    CCNode* node=[self getChildByTag:Tag_skillMenu];
+    if(node){
+    [self removeChildByTag:Tag_skillMenu cleanup:YES];
+    [self removeChildByTag:Tag_skillMenu cleanup:YES];
+	}
     float kStartX=[[Global sharedManager] kStartX];
     float kStartY=[[Global sharedManager] kStartY];
 	int x = (location.x -kStartX) / kTileSize;
@@ -916,14 +923,16 @@
     
     //这里是点击魔法球出MENU
     if(tile.value>100){
-        
-        CCLayerGradient* backgroundLayer=[[CCLayerGradient alloc]initWithColor:ccc4(255,0,0,100) fadingTo:ccc4 ( 255 , 10 , 10 , 10 ) alongVector:ccp(1,-1)];
-        backgroundLayer.contentSize= self.contentSize=CGSizeMake(400, 400);
-        backgroundLayer.anchorPoint=ccp(0,0);
         CGPoint pos=[tile pixPosition];
-        backgroundLayer.position=pos;
+
+        CCLayerGradient* backgroundLayer=[[CCLayerGradient alloc]initWithColor:ccc4(255,0,0,100) fadingTo:ccc4 ( 255 , 10 , 10 , 10 ) alongVector:ccp(1,-1)];
+        int width=100;
+        int height=150;
+        backgroundLayer.contentSize= self.contentSize=CGSizeMake(width, height);
+        //backgroundLayer.anchorPoint=ccp(0,0);
+        backgroundLayer.position=ccp(pos.x-width/2,pos.y-height/2);
         
-        [self addChild:backgroundLayer z:5 tag:10];
+        [self addChild:backgroundLayer z:5 tag:Tag_skillMenu];
         
         NSMutableArray* menuArray=[[NSMutableArray alloc]init];
         int magicId=tile.value;
@@ -940,6 +949,7 @@
             CCMenuItemLabel* menuLabel=[CCMenuItemLabel itemWithLabel:levelLabel block:^(id sender) {
                 [box.readyToRemoveTiles addObject:tile];
                 [self magicShootByName:magic.name];
+                [self removeChildByTag:Tag_skillMenu cleanup:YES];
                  [self removeChildByTag:Tag_skillMenu cleanup:YES];
             }];
             
@@ -952,10 +962,10 @@
         menu.color=ccc3(255, 255, 0);
         menu.anchorPoint=ccp(0,0);
         
-        pos.y+=20;
-        menu.position=ccp(0,0);
+
+        menu.position=ccp(pos.x,pos.y+20);
         [menu alignItemsVerticallyWithPadding:20.0f];
-        [backgroundLayer addChild:menu z:5 tag:Tag_skillMenu];
+        [self addChild:menu z:5 tag:Tag_skillMenu];
         return ;
     }
     

@@ -161,6 +161,26 @@
         if(firstTile.x==secondTile.x){
             tile=removeArray[0];
         }
+        if(tile.value==5&&self.lockedEnemy){  //剑的话
+            
+            CGPoint pos=self.lockedEnemy.position;
+            for (int i=0; i<removeArray.count; i++) {
+                tile=removeArray[i];
+                CCAction* moveAction=[CCMoveTo actionWithDuration:.4 position:pos];
+                [tile.actionSequence addObject:moveAction];
+            }
+            continue;
+        }
+        if(tile.value==7&&self.lockedPlayer){  //医药箱的话
+            
+            CGPoint pos=self.lockedPlayer.position;
+            for (int i=0; i<removeArray.count; i++) {
+                tile=removeArray[i];
+                CCAction* moveAction=[CCMoveTo actionWithDuration:.4 position:ccp(pos.x+zPersonWidth,pos.y)];
+                [tile.actionSequence addObject:moveAction];
+            }
+            continue;
+        }
         
         if(tile.value<=0||tile.value>4)continue;
         
@@ -175,7 +195,7 @@
         CCSprite* sprite;
         destTile.value+=tile.value+100;
         sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"block_%d.png",destTile.value]];
-        destTile.skillBall=YES;
+        destTile.skillBall=3*(removeArray.count-1);
         sprite.position=pos;
         sprite.scale=0;
         destTile.sprite=sprite;

@@ -41,7 +41,7 @@ static id sharedManager = nil;
     }];
 }
 +(void)shakeSprite:(CCSprite*)sprite delay:(float)delay withFinishedBlock:(void(^)())block{
-    CGPoint position=sprite.position;
+    //CGPoint position=sprite.position;
     float totalShakeDuration=.4f;
     float perShakerDurtation=totalShakeDuration/8;
     float amplitude=5.0f; //振幅

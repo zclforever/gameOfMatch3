@@ -24,6 +24,8 @@
 }
 @property(nonatomic) BOOL allMoveDone;
 @property(nonatomic, retain) CCLayer *layer;
+@property(nonatomic, strong) CCSprite* lockedEnemy;
+@property(nonatomic, strong) CCSprite* lockedPlayer;
 @property(nonatomic, readonly) CGSize size;
 @property(nonatomic) BOOL lock;
 @property(nonatomic,retain) NSMutableSet *readyToRemoveTiles;

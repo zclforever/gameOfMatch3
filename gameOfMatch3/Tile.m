@@ -31,7 +31,7 @@
     self.updating=NO;
     self.ccSequnce2=nil;
     self.readyToEnd=NO;
-    self.skillBall=NO;
+    self.skillBall=0;
     //[self update];
 
     [[[CCDirector sharedDirector] scheduler] scheduleSelector:@selector(update) forTarget:self interval:0.1 repeat:kCCRepeatForever delay:0 paused:NO] ;
