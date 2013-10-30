@@ -51,7 +51,7 @@
         
 
         
-//        CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"snowstorm.plist"];
+//        CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"iceBall.plist"];
 //        
 //        [self addChild:particle_system];
 

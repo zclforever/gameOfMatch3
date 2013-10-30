@@ -159,7 +159,7 @@
     
     CCMenu* backMenu=[CCMenu menuWithItems:menuLabel, nil];
     backMenu.anchorPoint=ccp(0,0);
-    backMenu.position = ccp(100,30);
+    backMenu.position = ccp(20,460);
     [self addChild:backMenu z:4];
     
     
@@ -410,10 +410,38 @@
     self.updating=NO;
 }
 -(void)magicShootByName:(NSString*)name{
+    __weak PlayLayer* obj=self;
     if([name isEqualToString:@"fireBall"]){
-        __weak PlayLayer* obj=self;
+        
         [self.actionHandler addActionWithBlock:^{
             [Actions fireBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+                obj.enemy.curHP-=30;}];
+            
+        }];
+    }
+    
+    if([name isEqualToString:@"iceBall"]){
+        
+        [self.actionHandler addActionWithBlock:^{
+            [Actions iceBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+                obj.enemy.curHP-=30;}];
+            
+        }];
+    }
+    
+    if([name isEqualToString:@"poison"]){
+        
+        [self.actionHandler addActionWithBlock:^{
+            [Actions poisonToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+                obj.enemy.curHP-=30;}];
+            
+        }];
+    }
+    
+    if([name isEqualToString:@"bloodAbsorb"]){
+        
+        [self.actionHandler addActionWithBlock:^{
+            [Actions bloodAbsorbSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
                 obj.enemy.curHP-=30;}];
             
         }];
@@ -871,7 +899,10 @@
 	int x = (location.x -kStartX) / kTileSize;
 	int y = (location.y -kStartY) / kTileSize;
 	
-	
+	//test
+    //[self magicShootByName:@"bloodAbsorb"];
+    
+    
 	if (self.selectedTile && self.selectedTile.x ==x && self.selectedTile.y == y) {
 		return;
 	}
@@ -901,9 +932,9 @@
         NSMutableArray* menuArray=[[NSMutableArray alloc]init];
         int magicId=tile.value;
         
-        NSArray* names=[NSArray arrayWithObjects:@"火球",@"火流星", nil];
+        
         Magic* magic=[[Magic alloc]initWithID:magicId];
-
+        NSArray* names=[NSArray arrayWithObjects:magic.showName, nil];
         
         for(NSString* name in names){
             CCLabelTTF* levelLabel = [CCLabelTTF labelWithString:name fontName:@"Arial" fontSize:24];

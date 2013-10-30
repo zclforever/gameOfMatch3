@@ -80,6 +80,95 @@ static id sharedManager = nil;
                         nil]];
 
 }
++(void)poisonFromSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block{
+    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"poison.plist"];
+    
+    CCParticleSystem* fire=particle_system;
+    //fire.anchorPoint=ccp(0,0);
+    fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y+zPersonHeight/2);
+    //fire.startSize=36;
+    fire.scale=.6;
+    //fire.rotation=-45;
+    //fire.speed=100;
+    
+    [[Actions sharedManager] addChild:fire];
+    
+    [fire runAction:[CCSequence actions:
+                     [CCDelayTime actionWithDuration:2.0],
+                     //[CCScaleTo actionWithDuration:1.0 scale:.25],
+                     [CCScaleTo actionWithDuration:.5 scale:0],
+                     [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+        
+    }],
+                     nil]];
+    [Actions shakeSprite:spriteB delay:2 withFinishedBlock:block];
+}
++(void)bloodAbsorbSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block{
+    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"bloodAbsorb.plist"];
+    
+    CCParticleSystem* fire=particle_system;
+    //fire.anchorPoint=ccp(0,0);
+    fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y+zPersonHeight/2);
+    //fire.startSize=36;
+    fire.scale=.62;
+    //fire.rotation=-45;
+    //fire.speed=100;
+    
+    [[Actions sharedManager] addChild:fire];
+    
+    [fire runAction:[CCSequence actions:
+                     [CCDelayTime actionWithDuration:2.0],
+                     //[CCScaleTo actionWithDuration:1.0 scale:.25],
+                     [CCScaleTo actionWithDuration:.5 scale:0],
+                     [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+        
+    }],
+                     nil]];
+    [Actions shakeSprite:spriteB delay:2 withFinishedBlock:block];
+}
++(void)poisonToSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block{
+    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"poisonTo.plist"];
+    
+    CCParticleSystem* fire=particle_system;
+    //fire.anchorPoint=ccp(0,0);
+    fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y+zPersonHeight/2);
+    //fire.startSize=36;
+    fire.scale=.6;
+    fire.duration=2.0;
+    //fire.speed=100;
+    
+    [[Actions sharedManager] addChild:fire];
+
+    [Actions shakeSprite:spriteB delay:2.2 withFinishedBlock:block];
+}
+
++(void)iceBallToSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block{
+    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"iceBall.plist"];
+
+    CCParticleSystem* fire=particle_system;
+    //fire.anchorPoint=ccp(0,0);
+    fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y+zPersonHeight/2);
+    fire.startSize=36;
+    fire.scale=.6;
+    //fire.rotation=-45;
+    fire.speed=100;
+    
+    [[Actions sharedManager] addChild:fire];
+    
+    [fire runAction:[CCSequence actions:
+                     [CCMoveTo actionWithDuration:1 position:ccp(spriteB.position.x+zPersonHeight/2,spriteB.position.y+zPersonHeight/2)],
+                     [CCScaleTo actionWithDuration:1.0 scale:.25],
+                     [CCScaleTo actionWithDuration:.5 scale:0],
+                     [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+        
+    }],
+                     nil]];
+    [Actions shakeSprite:spriteB delay:1 withFinishedBlock:block];
+}
+
 +(void)fireBallToSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block{
     CCParticleFire *fire = [[CCParticleFire alloc]init];
     //fire.anchorPoint=ccp(0,0);

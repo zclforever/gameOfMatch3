@@ -14,16 +14,16 @@
     NSString* name;
     switch (ID) {
         case 101:
-            name=@"fireBall";
+            name=@"poison";
             break;
         case 102:
             name=@"fireBall";
             break;
         case 103:
-            name=@"fireBall";
+            name=@"bloodAbsorb";
             break;
         case 104:
-            name=@"iceArrow";
+            name=@"iceBall";
             break;
         default:
             break;
@@ -81,13 +81,35 @@
         
     }
     
-    if ([name isEqualToString:@"iceArrow"]) {
+    if ([name isEqualToString:@"iceBall"]) {
         CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
         self.sprite=sprite;
         self.value=value;
         self.type=@"damage";
         self.CD=12.0f;
-        self.showName=@"冰箭";
+        self.showName=@"冰弹";
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@4,@1,@1, nil];
+        
+        
+    }
+    if ([name isEqualToString:@"poison"]) {
+        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
+        self.sprite=sprite;
+        self.value=value;
+        self.type=@"damage";
+        self.CD=12.0f;
+        self.showName=@"毒气";
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@4,@1,@1, nil];
+        
+        
+    }
+    if ([name isEqualToString:@"bloodAbsorb"]) {
+        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
+        self.sprite=sprite;
+        self.value=value;
+        self.type=@"damage";
+        self.CD=12.0f;
+        self.showName=@"吸血";
         self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@4,@1,@1, nil];
         
         

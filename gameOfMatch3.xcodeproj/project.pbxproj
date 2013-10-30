@@ -12,6 +12,10 @@
 		020505F61809514900977B13 /* border-03.png in Resources */ = {isa = PBXBuildFile; fileRef = 020505F51809514900977B13 /* border-03.png */; };
 		020505F81809532E00977B13 /* border-04.png in Resources */ = {isa = PBXBuildFile; fileRef = 020505F71809532E00977B13 /* border-04.png */; };
 		020505FA1809547C00977B13 /* border-magic.png in Resources */ = {isa = PBXBuildFile; fileRef = 020505F91809547C00977B13 /* border-magic.png */; };
+		0209D2531820DFF200FAFD26 /* iceBall.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2521820DFF200FAFD26 /* iceBall.plist */; };
+		0209D2551820E81100FAFD26 /* poison.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2541820E81100FAFD26 /* poison.plist */; };
+		0209D2571820EE5600FAFD26 /* poisonTo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2561820EE5600FAFD26 /* poisonTo.plist */; };
+		0209D2591820F32000FAFD26 /* bloodAbsorb.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2581820F32000FAFD26 /* bloodAbsorb.plist */; };
 		0259BBD717DDB02D0033F345 /* GameLevelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259BBD617DDB02D0033F345 /* GameLevelLayer.m */; };
 		0259BBDB17DDB25D0033F345 /* enemy_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD817DDB25D0033F345 /* enemy_1.png */; };
 		0259BBDC17DDB25D0033F345 /* enemy_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD917DDB25D0033F345 /* enemy_2.png */; };
@@ -251,6 +255,10 @@
 		020505F51809514900977B13 /* border-03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "border-03.png"; sourceTree = "<group>"; };
 		020505F71809532E00977B13 /* border-04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "border-04.png"; sourceTree = "<group>"; };
 		020505F91809547C00977B13 /* border-magic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "border-magic.png"; sourceTree = "<group>"; };
+		0209D2521820DFF200FAFD26 /* iceBall.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iceBall.plist; sourceTree = "<group>"; };
+		0209D2541820E81100FAFD26 /* poison.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = poison.plist; sourceTree = "<group>"; };
+		0209D2561820EE5600FAFD26 /* poisonTo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = poisonTo.plist; sourceTree = "<group>"; };
+		0209D2581820F32000FAFD26 /* bloodAbsorb.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bloodAbsorb.plist; sourceTree = "<group>"; };
 		0259BBD517DDB02D0033F345 /* GameLevelLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLevelLayer.h; sourceTree = "<group>"; };
 		0259BBD617DDB02D0033F345 /* GameLevelLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLevelLayer.m; sourceTree = "<group>"; };
 		0259BBD817DDB25D0033F345 /* enemy_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_1.png; sourceTree = "<group>"; };
@@ -669,6 +677,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0209D24B1820DD1C00FAFD26 /* particle */ = {
+			isa = PBXGroup;
+			children = (
+				02A2601C18151777009F2719 /* snowstorm.plist */,
+				0209D2521820DFF200FAFD26 /* iceBall.plist */,
+				0209D2541820E81100FAFD26 /* poison.plist */,
+				0209D2561820EE5600FAFD26 /* poisonTo.plist */,
+				0209D2581820F32000FAFD26 /* bloodAbsorb.plist */,
+			);
+			name = particle;
+			sourceTree = "<group>";
+		};
 		0259BBDE17DDB28C0033F345 /* persons */ = {
 			isa = PBXGroup;
 			children = (
@@ -817,7 +837,7 @@
 				02B1742B17C5C6D60057DA00 /* Icon-Small@2x.png */,
 				02B1742D17C5C6D60057DA00 /* Icon.png */,
 				02B1742F17C5C6D60057DA00 /* Icon@2x.png */,
-				02A2601C18151777009F2719 /* snowstorm.plist */,
+				0209D24B1820DD1C00FAFD26 /* particle */,
 				02B1743117C5C6D60057DA00 /* Info.plist */,
 				02B1743217C5C6D60057DA00 /* iTunesArtwork */,
 			);
@@ -1391,6 +1411,10 @@
 				02A2601918150450009F2719 /* apBar.png in Resources */,
 				02A2601B18151232009F2719 /* circle.png in Resources */,
 				02A2601D18151777009F2719 /* snowstorm.plist in Resources */,
+				0209D2531820DFF200FAFD26 /* iceBall.plist in Resources */,
+				0209D2551820E81100FAFD26 /* poison.plist in Resources */,
+				0209D2571820EE5600FAFD26 /* poisonTo.plist in Resources */,
+				0209D2591820F32000FAFD26 /* bloodAbsorb.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
