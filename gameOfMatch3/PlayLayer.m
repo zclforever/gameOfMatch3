@@ -46,6 +46,19 @@
 
 -(id)initWithPlayer:(Person*)player withEnemy:(Person*)enemy{
 	self = [super init];
+    if(1){
+        CCLabelTTF* label = [CCLabelTTF labelWithString:@"返回" fontName:@"Arial" fontSize:36];
+        label.opacity=250;
+        label.color = ccc3(255,255,230);
+        CCMenuItemLabel* menuLabel=[CCMenuItemLabel itemWithLabel:label block:^(id sender) {
+            [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:NO]];
+        }];
+        
+        CCMenu* backMenu=[CCMenu menuWithItems:menuLabel, nil];
+        backMenu.anchorPoint=ccp(0,0);
+        backMenu.position = ccp(40,420);
+        [self addChild:backMenu z:4];
+    }
     
     self.actionHandler=[[ActionQueue alloc]init];
     [self addChild:self.actionHandler]; //为了runaction update
@@ -81,6 +94,7 @@
 	box.layer = self;
 	box.lock = YES;
     
+    return self;
     ai=[[AI alloc]initWithBox:box];
     self.player=player;
     self.enemy=enemy;
@@ -168,6 +182,10 @@
     
     
 	return self;
+}
+-(void)onExit{
+    ccctodo
+    
 }
 -(void)addReadyGo{
     CGSize size=[CCDirector sharedDirector].winSize;
@@ -484,6 +502,7 @@
 }
 
 -(void) onEnterTransitionDidFinish{
+    return;
     [self updateStatePanel];
     
 	[self lock];

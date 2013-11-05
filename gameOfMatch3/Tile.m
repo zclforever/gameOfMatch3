@@ -33,18 +33,19 @@
     self.readyToEnd=NO;
     self.skillBall=0;
     self.selected=NO;
-    //[self update];
+    [self update];
 
-    [[[CCDirector sharedDirector] scheduler] scheduleSelector:@selector(update) forTarget:self interval:0.1 repeat:kCCRepeatForever delay:0 paused:NO] ;
+    //[[[CCDirector sharedDirector] scheduler] scheduleSelector:@selector(update) forTarget:self interval:0.1 repeat:kCCRepeatForever delay:0 paused:NO] ;
 	return self;
 }
 
 
 -(void)setTimeOutOfUpdateWithDelay:(float)timeOut{
+    __block Tile* obj=self;
     //[self schedule:@selector(update:) interval:timeOut];
     //[self scheduleOnce:@selector(update:) delay:timeOut];
-    [[[CCDirector sharedDirector] scheduler] unscheduleSelector:@selector(update) forTarget:self];
-    [[[CCDirector sharedDirector] scheduler] scheduleSelector:@selector(update) forTarget:self interval:timeOut repeat:kCCRepeatForever delay:timeOut paused:NO] ;
+    [[[CCDirector sharedDirector] scheduler] unscheduleSelector:@selector(update) forTarget:obj];
+    [[[CCDirector sharedDirector] scheduler] scheduleSelector:@selector(update) forTarget:obj interval:timeOut repeat:kCCRepeatForever delay:timeOut paused:NO] ;
 
 //    [self runAction:
 //     [CCSequence actions:
@@ -73,6 +74,7 @@
 }
 -(void)update{
     float updateDelay=0.1;
+    [self setTimeOutOfUpdateWithDelay:updateDelay];return;
     
     if(self.locking){[self setTimeOutOfUpdateWithDelay:updateDelay];return;};
     if(self.updating){[self setTimeOutOfUpdateWithDelay:updateDelay];return;};
