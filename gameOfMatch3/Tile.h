@@ -24,6 +24,7 @@
 @property (nonatomic,strong)  CCSequence* ccSequnce2;
 @property (nonatomic) bool isActionDone;
 @property bool readyToEnd;
+@property bool selected;
 @property int skillBall;
 -(void)lock;
 -(void)unlock;

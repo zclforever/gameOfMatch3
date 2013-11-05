@@ -78,7 +78,7 @@
 //                [self addChild:label];
             }
         } else {
-            [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"gameOver.mp3"];
+            //[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"gameOver.mp3"];
             message = @"你翘了  ";
             [self setColor:ccc3(0,0,0)];
             [self addChild:[CCParticleFire node]];

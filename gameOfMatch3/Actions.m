@@ -149,7 +149,8 @@ static id sharedManager = nil;
 
     CCParticleSystem* fire=particle_system;
     //fire.anchorPoint=ccp(0,0);
-    fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y+zPersonHeight/2);
+    int randomVar=(arc4random()%80-40);
+    fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y+zPersonHeight/2+randomVar);
     fire.startSize=36;
     fire.scale=.6;
     //fire.rotation=-45;
@@ -172,10 +173,12 @@ static id sharedManager = nil;
 +(void)fireBallToSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block{
     CCParticleFire *fire = [[CCParticleFire alloc]init];
     //fire.anchorPoint=ccp(0,0);
-    fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y+zPersonHeight/2);
+    int randomVar=(arc4random()%60-30);
+    fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y+zPersonHeight/2+randomVar);
     fire.startSize=81;
     fire.scale=.2;
     //fire.rotation=-45;
+    fire.duration=3.0f;
     fire.gravity=ccp(-90,0);
    
     [[Actions sharedManager] addChild:fire];

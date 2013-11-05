@@ -11,6 +11,8 @@
 #ifndef gameOfMatch3_const_h
 #define gameOfMatch3_const_h
 
+#define zMagicCD 1.0f
+
 #define zPlayerMarginLeft 20.0f
 #define zPlayerMarginTop 150.0f
 #define zEnemyMarginLeft 180.0f

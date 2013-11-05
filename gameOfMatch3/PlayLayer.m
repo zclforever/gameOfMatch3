@@ -23,6 +23,7 @@
 @property (strong,nonatomic) Tile *selectedTile;
 @property (strong,nonatomic)  CCMotionStreak* touchStreak;
 @property (strong,nonatomic) NSMutableArray* magicCastArray;
+@property (strong,nonatomic) NSMutableArray* magicSelectedArray;
 
 @property int swapCount;
 @property bool updating;
@@ -34,6 +35,7 @@
 @property bool moveSuccessReady;
 
 @property bool usingMagic;
+@property float lastSelectTimeOfMagic;
 @property float lastTipTime;
 @property float gameTime;
 -(void)afterTurn: (id) node;
@@ -104,7 +106,7 @@
     self.updating=NO;
     self.updateCount=0;
     self.magicCastArray=[[NSMutableArray alloc]init];
-    
+    self.magicSelectedArray=[[NSMutableArray alloc]init];
 	self.isTouchEnabled = YES;
     
     
@@ -234,7 +236,17 @@
       
       nil]];
 }
+-(void)setTimeOut:(float)timeOut withBlock:(void(^)())block{
+    [self runAction:
+     [CCSequence actions:
+      [CCDelayTime actionWithDuration:timeOut],
+      [CCCallBlock actionWithBlock:block],
+      
+      nil]];
+}
+
 -(void)update:(ccTime)delta{   //.update.
+    
     self.gameTime+=delta;
     if (self.lockUpdate) {
         return;
@@ -254,57 +266,54 @@
     self.updating=YES;
     self.updateCount++;
     
+    __weak PlayLayer* obj=self;
+    
+    
     [box.removeResultArray removeAllObjects];
     [box check];
     NSArray* matchedArray;
     //Person* nextPerson=self.turnOfPersons[(self.whosTurn+1) % 2];
     
-    //checkMagic
-    int countOfMagicCastArray=self.magicCastArray.count;
-    
-    //countOfMagicCastArray=0;
-    for(int i=0;i<countOfMagicCastArray;i++){
-        int index=[self.magicCastArray[0] intValue]; //取出Magic
-        [self.magicCastArray removeObjectAtIndex:0];
+    if(self.gameTime-self.lastSelectTimeOfMagic>=zMagicCD&&(self.lastSelectTimeOfMagic!=0))
+    {
+        int count=self.magicSelectedArray.count;
+        while(count>3){
+            [self.magicSelectedArray removeObjectAtIndex:count-1]; //万一在这个时候按到球
+            
+            count--;
+        }
+        float comboShootInterval=0.3f;
         
-        MagicLayer* magicLayer=self.statePanelLayerPlayer.magicLayerArray[index];
-        if(magicLayer&&magicLayer.isManaReady){
-            if(magicLayer.isSelected){
-                if(magicLayer.magicEnabled ){ //魔法 准备发射
-                    if([magicLayer.magic.name isEqualToString:@"fireBall"]){
-                        NSLog(@"魔法发射");
-                        [self magicShootByName:@"fireBall"];
-                        
-                        [self.statePanelLayerPlayer.manaLayer calcManaAfterShootWithMagic:magicLayer.magic]; //减掉魔法
-                    }
-                    
-                    magicLayer.isSelected=NO;
-                    
-                }
+        NSMutableArray* magicCountArray=[[NSMutableArray alloc]initWithObjects:@0,@0,@0,@0, nil];
+        for(int i=0;i<count;i++){
+            Tile* tile=self.magicSelectedArray[0];
+            [self.magicSelectedArray removeObjectAtIndex:0];
+            int magicId=tile.value;
+            magicCountArray[magicId-101]=[NSNumber numberWithInt:[magicCountArray[magicId-101] intValue]+1];
+            [box.readyToRemoveTiles addObject:tile];
+        }
+
+        for(int i=0;i<4;i++){
+            int magicId=101+i;
+            int mount=[magicCountArray[i] intValue];
+            Magic* magic=[[Magic alloc]initWithID:magicId];
+            
+            int shootTimes=0;
+            if(mount==0) continue;
+            if(mount==1) shootTimes=1;
+            if(mount==2) shootTimes=3;
+            if(mount==3) shootTimes=6;
+            for(int j=0;j<shootTimes;j++){
+                [self setTimeOut:comboShootInterval*j withBlock:^{
+                    [obj magicShootByName:magic.name];
+                }];
             }
-            else if(!magicLayer.isSelected){
-                magicLayer.isSelected=YES;
-                continue;
-            }
-            
-            //[self.statePanelLayerPlayer setMagicState:NO atIndex:index];
-            //            [box pushTilesToRemoveForValue:magicLayer.magic.value];
-            
-            
-            //            [self.statePanelLayerPlayer runAction:
-            //             [CCSequence actions:
-            //              [CCDelayTime actionWithDuration:magicLayer.magic.CD],
-            //              [CCCallBlockN actionWithBlock:^(CCNode *node) {
-            //                 [(StatePanelLayerInBattle*)node setMagicState:YES atIndex:index];
-            //             }],
-            //
-            //              nil]];
+
             
         }
         
+        self.lastSelectTimeOfMagic=0;
     }
-    
-    
     if(box.readyToRemoveTiles.count>0){
         //NSLog(@"in check is value 5");
         //test.
@@ -348,12 +357,14 @@
         }
         matchedArray=[box findMatchedArray:tmp forValue:5];  //5 is PlayerAttack
         if (matchedArray) {
-            __weak PlayLayer* obj=self;
+            
             
             [self.actionHandler addActionWithBlock:^{
-                
-                [Actions attackSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+                [Actions shakeSprite:obj.statePanelLayerEnemy.personSprite delay:0.5f withFinishedBlock:^{
                     obj.enemy.curHP-=matchedArray.count;}];
+                
+//                [Actions attackSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+//                    obj.enemy.curHP-=matchedArray.count;}];
                 
             }];
             
@@ -415,7 +426,7 @@
         
         [self.actionHandler addActionWithBlock:^{
             [Actions fireBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curHP-=30;}];
+                obj.enemy.curHP-=8;}];
             
         }];
     }
@@ -424,7 +435,7 @@
         
         [self.actionHandler addActionWithBlock:^{
             [Actions iceBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curHP-=30;}];
+                obj.enemy.curHP-=8;}];
             
         }];
     }
@@ -433,7 +444,7 @@
         
         [self.actionHandler addActionWithBlock:^{
             [Actions poisonToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curHP-=30;}];
+                obj.enemy.curHP-=8;}];
             
         }];
     }
@@ -442,7 +453,7 @@
         
         [self.actionHandler addActionWithBlock:^{
             [Actions bloodAbsorbSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curHP-=30;}];
+                obj.enemy.curHP-=8;}];
             
         }];
     }
@@ -848,19 +859,23 @@
 	location = [[CCDirector sharedDirector] convertToGL: location];
     if(self.effectOn) self.touchStreak.position=location;
     
+    //[self ccTouchesBegan:touches withEvent:event];
+    
+    
+}
+-(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch* touch = [touches anyObject];
+	CGPoint location = [touch locationInView: touch.view];
+	location = [[CCDirector sharedDirector] convertToGL: location];
+    if(self.effectOn) self.touchStreak.position=location;
+    
     [self ccTouchesBegan:touches withEvent:event];
     
     
 }
+
 - (void)ccTouchesBegan:(NSSet*)touches withEvent:(UIEvent*)event{
     
-	//NSLog(@"ccTouchesBegan");
-	
-    //	if ([box lock]) {
-    //        NSLog(@"locked return");
-    //		return;
-    //	}
-    //    if(!box.allMoveDone) return;
     
  	if (self.lockTouch) {
         return;
@@ -871,29 +886,7 @@
 	location = [[CCDirector sharedDirector] convertToGL: location];
     
     
-    //是否按下魔法
-    CGPoint statePlayerPos=[self.statePanelLayerPlayer convertTouchToNodeSpace:touch];
-    int index=[self.statePanelLayerPlayer findMagicTouchedIndex:statePlayerPos];
-    
-    if(index>=0){
-        [self.magicCastArray addObject:[NSNumber numberWithInt:index]];
-        
-        //todo 这里要加上魔法介绍
-        return;
-    }
-    //是否按下魔法转换
-    //    CGPoint manaLayerPos=[self.statePanelLayerPlayer.manaLayer convertTouchToNodeSpace:touch];
-    //    index=[self.statePanelLayerPlayer findManaTouchedIndex:manaLayerPos];
-    //
-    //    if(index>=0){
-    //        [self converManaAtIndex:index];
-    //        return;
-    //    }
-    CCNode* node=[self getChildByTag:Tag_skillMenu];
-    if(node){
-    [self removeChildByTag:Tag_skillMenu cleanup:YES];
-    [self removeChildByTag:Tag_skillMenu cleanup:YES];
-	}
+
     float kStartX=[[Global sharedManager] kStartX];
     float kStartY=[[Global sharedManager] kStartY];
 	int x = (location.x -kStartX) / kTileSize;
@@ -916,56 +909,18 @@
     if(!tile.isActionDone)return;
     if(tile.value==0)return;
     
-    //这里是点击魔法球出MENU
-    if(tile.value>100){
-        CGPoint pos=[tile pixPosition];
-
-        CCLayerGradient* backgroundLayer=[[CCLayerGradient alloc]initWithColor:ccc4(255,0,0,100) fadingTo:ccc4 ( 255 , 10 , 10 , 10 ) alongVector:ccp(1,-1)];
-        int width=100;
-        int height=150;
-        backgroundLayer.contentSize= self.contentSize=CGSizeMake(width, height);
-        //backgroundLayer.anchorPoint=ccp(0,0);
-        backgroundLayer.position=ccp(pos.x-width/2,pos.y-height/2);
+    if(tile.value>100&&(!tile.selected)){
+        tile.selected=YES;
+        [self.magicSelectedArray addObject:tile];
+        self.lastSelectTimeOfMagic=self.gameTime;
+        return;
         
-        [self addChild:backgroundLayer z:5 tag:Tag_skillMenu];
-        
-        NSMutableArray* menuArray=[[NSMutableArray alloc]init];
-        int magicId=tile.value;
-        
-        
-        Magic* magic=[[Magic alloc]initWithID:magicId];
-        NSArray* names=[NSArray arrayWithObjects:magic.showName, nil];
-        
-        for(NSString* name in names){
-            CCLabelTTF* levelLabel = [CCLabelTTF labelWithString:name fontName:@"Arial" fontSize:24];
-            
-            levelLabel.opacity=250;
-            levelLabel.color = ccc3(255,255,133);
-            CCMenuItemLabel* menuLabel=[CCMenuItemLabel itemWithLabel:levelLabel block:^(id sender) {
-                [box.readyToRemoveTiles addObject:tile];
-                [self magicShootByName:magic.name];
-                [self removeChildByTag:Tag_skillMenu cleanup:YES];
-                 [self removeChildByTag:Tag_skillMenu cleanup:YES];
-            }];
-            
-            
-            [menuArray addObject:menuLabel];
-        }
-        
-        
-        CCMenu* menu=[CCMenu menuWithArray:menuArray];
-        menu.color=ccc3(255, 255, 0);
-        menu.anchorPoint=ccp(0,0);
-        
-
-        menu.position=ccp(pos.x,pos.y+20);
-        [menu alignItemsVerticallyWithPadding:20.0f];
-        [self addChild:menu z:5 tag:Tag_skillMenu];
-        return ;
     }
     
-    
-    
+    if(tile.value>100){
+        self.selectedTile=nil;
+        return;
+    }
 	if (self.selectedTile && [self.selectedTile nearTile:tile]&&self.selectedTile.value!=0) {
         //        if([box findMatchWithSwap:tile B:self.selectedTile]){
         //            int a=1;

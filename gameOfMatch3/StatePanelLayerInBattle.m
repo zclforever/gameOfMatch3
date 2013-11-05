@@ -107,12 +107,14 @@
    
     
     CCSprite* progressSprite=[CCSprite spriteWithFile:@"circle.png"];
+    progressSprite.scale=2.5f;
 	CCProgressTimer* progressBar = [CCProgressTimer progressWithSprite:progressSprite];
 	progressBar.type = kCCProgressTimerTypeRadial;
 	[self addChild:progressBar z:1];
 	[progressBar setAnchorPoint: ccp(0,0)];
     self.apBar=progressBar;
 
+     progressBar.scale=2.5f;
 }
 -(void)addLifeBar{
     //init LifeBar
