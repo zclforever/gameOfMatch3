@@ -74,6 +74,7 @@ typedef enum Orientation Orientation;
 @interface Global :CCLayer
 + (id)sharedManager;
 +(id)menuOfBackTo:(CCScene*)scene;
+@property int debugTest;
 @property float kStartX;
 @property float kStartY;
 @property int currentLevelOfGame;

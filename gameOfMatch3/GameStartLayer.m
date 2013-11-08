@@ -32,7 +32,12 @@
 	// always call "super" init
 	// Apple recommends to re-assign "self" with the "super's" return value
 	if( (self=[super init]) ) {
-		
+		[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"Contra.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"superMario.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"marioWorld.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"coinDing.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"thunderDone.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"deny.wav"];
         
         CCLabelTTF* start=[CCLabelTTF labelWithString:@"新的开始" fontName:@"Arial" fontSize:48];
         

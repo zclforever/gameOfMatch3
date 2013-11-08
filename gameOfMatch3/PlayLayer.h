@@ -23,11 +23,13 @@
 
 @property (strong,nonatomic) StatePanelLayerInBattle* statePanelLayerPlayer;
 @property (strong,nonatomic) StatePanelLayerInBattle* statePanelLayerEnemy;
+@property (weak,nonatomic) Person* player;
+@property (weak,nonatomic) Person* enemy;
+@property int gameLevel; //第几关
+
+
 -(bool) changeWithTileA: (Tile *) a TileB: (Tile *) b;
 //-(void) check: (id) sender data: (id) data;
 
 -(id)initWithPlayer:(Person*)player withEnemy:(Person*)enemy;
-@property (strong,nonatomic) Person* player;
-@property (strong,nonatomic) Person* enemy;
-@property int gameLevel; //第几关
 @end

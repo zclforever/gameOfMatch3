@@ -24,6 +24,11 @@
 	GameLevelLayer *layer = [GameLevelLayer node];
     
 	[scene addChild: layer];
+    
+    //debug
+    Global* dbg=[Global sharedManager];
+    NSLog(@"tile count=%d",dbg.debugTest) ;
+    
 	
 	return scene;
 }

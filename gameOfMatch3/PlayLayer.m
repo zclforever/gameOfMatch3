@@ -20,7 +20,7 @@
 @property (strong,nonatomic) CCLabelTTF *testLabel;
 @property (strong,nonatomic) CCLabelTTF *stepLabel;
 @property (strong,nonatomic) NSArray* turnOfPersons;
-@property (strong,nonatomic) Tile *selectedTile;
+@property (weak,nonatomic) Tile *selectedTile;
 @property (strong,nonatomic)  CCMotionStreak* touchStreak;
 @property (strong,nonatomic) NSMutableArray* magicCastArray;
 @property (strong,nonatomic) NSMutableArray* magicSelectedArray;
@@ -78,8 +78,9 @@
     
     //init Box
 	box = [[Box alloc] initWithSize:CGSizeMake(kBoxWidth,kBoxHeight) factor:6];
-	box.layer = self;
+	//box.layer = self;
 	box.lock = YES;
+    [self addChild:box];
     
     ai=[[AI alloc]initWithBox:box];
     self.player=player;
@@ -98,6 +99,7 @@
     
     [self updateStatePanel];
     self.turnOfPersons=[NSArray arrayWithObjects:self.player, self.enemy, nil];
+
     //    self.whosTurn=Turn_Enemy;
     //    self.lockTouch=YES;
     self.whosTurn=Turn_Player;
@@ -124,7 +126,7 @@
         //[self addChild:[CCParticleGalaxy node]];
         [self addChild:[CCParticleRain node]];
         self.touchStreak=[[CCMotionStreak alloc]initWithFade:.99f minSeg:16 width:96 color:ccc3(255,0,255) textureFilename:@"fire.png"];
-        [self addChild:self.touchStreak];
+        //[self addChild:self.touchStreak];
     }
     
     
@@ -152,23 +154,29 @@
     [self addChild:label z:4];
     self.stepLabel=label;
     
-    label = [CCLabelTTF labelWithString:@"返回" fontName:@"Arial" fontSize:18];
-    label.opacity=250;
-    label.color = ccc3(255,255,230);
-    CCMenuItemLabel* menuLabel=[CCMenuItemLabel itemWithLabel:label block:^(id sender) {
-        [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:NO]];
-    }];
-    
-    CCMenu* backMenu=[CCMenu menuWithItems:menuLabel, nil];
-    backMenu.anchorPoint=ccp(0,0);
-    backMenu.position = ccp(20,460);
-    [self addChild:backMenu z:4];
-    
-    
-    
+  
     
 	return self;
 }
+-(void)onExit{
+    [super onExit];
+    [self removeAllChildrenWithCleanup:YES];
+    
+    self.statePanelLayerPlayer=nil;
+    self.statePanelLayerEnemy=nil;
+    self.player=nil;
+    self.enemy=nil;
+    self.testLabel=nil;
+    self.stepLabel=nil;
+    self.turnOfPersons=nil;
+    self.selectedTile=nil;
+    self.touchStreak=nil;
+    self.magicCastArray=nil;
+    self.magicSelectedArray=nil;
+    //self.actionHandler=nil;
+    
+}
+
 -(void)addReadyGo{
     CGSize size=[CCDirector sharedDirector].winSize;
     CCLabelTTF * ready = [CCLabelTTF labelWithString:@"Ready" fontName:@"AYummyApology" fontSize:72];
@@ -278,6 +286,8 @@
     {
         int count=self.magicSelectedArray.count;
         while(count>3){
+            Tile* tile=self.magicSelectedArray[count-1];
+            tile.selected=NO;
             [self.magicSelectedArray removeObjectAtIndex:count-1]; //万一在这个时候按到球
             
             count--;
@@ -488,12 +498,13 @@
     
 	[self lock];
     [box check];
-    while(box.readyToRemoveTiles.count>0){
-        
-        [box removeAndRepair];
-        [box check];
-    }
-    [self unlock];
+    [box removeAndRepair];
+//    while(box.readyToRemoveTiles.count>0){
+//        
+//        [box removeAndRepair];
+//        [box check];
+//    }
+   
     
     CGSize winSize=[[CCDirector sharedDirector] winSize];
     
@@ -515,10 +526,30 @@
     
     self.isSoundEnabled=YES;
     
+    //add back layer
+    __block PlayLayer* obj=self;
+    [self setTimeOut:2.0 withBlock:^{
+        [obj unlock];
+    }];
+    
+    [self setTimeOut:0.0f withSelect:@selector(addBackLayer)];
+    
     [self setTimeOut:0.0f];
     
 }
-
+-(void)addBackLayer{
+    CCLabelTTF* label = [CCLabelTTF labelWithString:@"返回" fontName:@"Arial" fontSize:18];
+    label.opacity=250;
+    label.color = ccc3(255,255,230);
+    CCMenuItemLabel* menuLabel=[CCMenuItemLabel itemWithLabel:label block:^(id sender) {
+        [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:NO]];
+    }];
+    
+    CCMenu* backMenu=[CCMenu menuWithItems:menuLabel, nil];
+    backMenu.anchorPoint=ccp(0,0);
+    backMenu.position = ccp(20,460);
+    [self addChild:backMenu z:4];
+}
 
 
 -(bool) changeWithTileArray:(NSArray*)tiles{
@@ -658,21 +689,9 @@
     self.enemy.curStep++;
     if(self.enemy.curStep>=self.enemy.maxStep){   //turnFinished
         
-        self.lockTouch=YES;
         bool magicAttack=YES;
         
         int minTimes=0;
-        //        Magic* magic=self.statePanelLayerPlayer.magicArray[0];
-        //        int minTimes=10;
-        //        for(int i=0;i<4;i++){    //check magic attain
-        //            int value=[self.statePanelLayerPlayer.manaArray[i] intValue];
-        //            int times=value/[magic.manaCostArray[i] intValue];
-        //            if(times<minTimes)minTimes=times;
-        //            if(times==0){
-        //                magicAttack=NO;
-        //                break;
-        //            }
-        //        }
         
         finalDam=self.player.damage;
         if(magicAttack){
@@ -680,125 +699,6 @@
         }
         
         [Actions shakeSprite:self.statePanelLayerPlayer.personSprite delay:0];
-        //来个动画
-        /*
-         CCLayerColor* animationLayer=[[CCLayerColor alloc]initWithColor:ccc4(0, 0, 0, 200)];
-         [self addChild:animationLayer z:10];
-         
-         CCSprite* playerSprite=[CCSprite spriteWithFile:self.player.spriteName];
-         playerSprite.position=ccp(50,150);
-         playerSprite.scale=self.player.spriteScale;
-         CCSprite* enemySprite=[CCSprite spriteWithFile:self.enemy.spriteName];
-         enemySprite.position=ccp(380,150);
-         enemySprite.scale=self.enemy.spriteScale;
-         [self addChild:playerSprite z:11];
-         [self addChild:enemySprite z:11];
-         
-         CCLabelTTF* playerDamageLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"-%d",finalDam] fontName:@"Arial" fontSize:28];
-         playerDamageLabel.scale=0;
-         playerDamageLabel.position=ccp(350,280);
-         CCLabelTTF* enemyDamageLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"-%d",enemy_dam] fontName:@"Arial" fontSize:28];
-         enemyDamageLabel.scale=0;
-         enemyDamageLabel.position=ccp(70,280);
-         
-         [self addChild:playerDamageLabel z:11];
-         [self addChild:enemyDamageLabel z:11];
-         
-         
-         [self runAction:[CCSequence actions:
-         [CCDelayTime actionWithDuration:1],
-         [CCCallBlockN actionWithBlock:^(CCNode *node) {
-         [[SimpleAudioEngine sharedEngine] playEffect:@"ada.m4a"];
-         }], nil]];
-         [playerDamageLabel runAction:[CCSequence actions:
-         [CCDelayTime actionWithDuration:2.5],
-         [CCScaleTo actionWithDuration:1.0 scale:1.0],
-         //[CCMoveTo actionWithDuration:1.0 position:ccp(360,150)],
-         //[CCMoveTo actionWithDuration:1.0 position:ccp(50,150)],
-         [CCDelayTime actionWithDuration:4.0],
-         [CCCallBlockN actionWithBlock:^(CCNode *node) {
-         [node removeFromParentAndCleanup:YES];
-         }], nil]];
-         
-         [enemyDamageLabel runAction:[CCSequence actions:
-         [CCDelayTime actionWithDuration:5.5],
-         [CCScaleTo actionWithDuration:0.5 scale:1.0],
-         //[CCMoveTo actionWithDuration:1.0 position:ccp(360,150)],
-         //[CCMoveTo actionWithDuration:1.0 position:ccp(50,150)],
-         [CCDelayTime actionWithDuration:1.5],
-         [CCCallBlockN actionWithBlock:^(CCNode *node) {
-         [node removeFromParentAndCleanup:YES];
-         }], nil]];
-         
-         [playerSprite runAction:[CCSequence actions:
-         [CCDelayTime actionWithDuration:1.0],
-         [CCMoveTo actionWithDuration:0.5 position:ccp(280,300)],
-         [CCMoveTo actionWithDuration:0.5 position:ccp(340,200)],
-         
-         [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(310,200)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(340,200)],
-         
-         [CCMoveTo actionWithDuration:0.5 position:ccp(50,150)],
-         [CCDelayTime actionWithDuration:4.0],
-         [CCCallBlockN actionWithBlock:^(CCNode *node) {
-         self.player.curHP-=enemy_dam;
-         [node removeFromParentAndCleanup:YES];
-         }], nil]];
-         //Person* player=(Person*)object;
-         //player.curHP-=enemy_dam;
-         
-         //[self removeFromParentAndCleanup:YES];
-         [self runAction:[CCSequence actions:
-         [CCDelayTime actionWithDuration:3.3],
-         [CCCallBlockN actionWithBlock:^(CCNode *node) {
-         [[SimpleAudioEngine sharedEngine] playEffect:@"yamede.m4a"];
-         }], nil]];
-         [self runAction:[CCSequence actions:
-         [CCDelayTime actionWithDuration:4.8],
-         [CCCallBlockN actionWithBlock:^(CCNode *node) {
-         [[SimpleAudioEngine sharedEngine] playEffect:@"yamede2.m4a"];
-         }], nil]];
-         [enemySprite runAction:[CCSequence actions:
-         [CCDelayTime actionWithDuration:4.0],
-         [CCMoveTo actionWithDuration:0.5 position:ccp(50,300)],
-         [CCMoveTo actionWithDuration:0.5 position:ccp(50,150)],
-         [CCMoveTo actionWithDuration:0.5 position:ccp(50,250)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(50,150)],
-         [CCMoveTo actionWithDuration:0.1 position:ccp(50,250)],
-         [CCMoveTo actionWithDuration:1.0 position:ccp(380,150)],
-         [CCDelayTime actionWithDuration:0.1],
-         [CCCallBlockN actionWithBlock:^(CCNode *node) {
-         self.enemy.curHP-=finalDam;
-         [node removeFromParentAndCleanup:YES];
-         }], nil]];
-         
-         [animationLayer runAction:[CCSequence actions:[CCDelayTime actionWithDuration:8.0],
-         [CCCallBlockN actionWithBlock:^(CCNode *node) {
-         //self.enemy.curHP-=finalDam;
-         [node removeFromParentAndCleanup:YES];
-         }], nil]];
-         
-         //        self.enemy.curHP-=finalDam;
-         //        self.player.curHP-=enemy_dam;
-         
-         
-         
-         [self setTimeOut:8.0 withSelect:@selector(battleFinish)];
-         */
 
         self.enemy.curHP-=finalDam;
         self.player.curHP-=enemy_dam;
@@ -853,16 +753,16 @@
         //        return;
     }
 }
--(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-    UITouch* touch = [touches anyObject];
-	CGPoint location = [touch locationInView: touch.view];
-	location = [[CCDirector sharedDirector] convertToGL: location];
-    if(self.effectOn) self.touchStreak.position=location;
-    
-    //[self ccTouchesBegan:touches withEvent:event];
-    
-    
-}
+//-(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+//    UITouch* touch = [touches anyObject];
+//	CGPoint location = [touch locationInView: touch.view];
+//	location = [[CCDirector sharedDirector] convertToGL: location];
+//    if(self.effectOn) self.touchStreak.position=location;
+//    
+//    //[self ccTouchesBegan:touches withEvent:event];
+//    
+//    
+//}
 -(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch* touch = [touches anyObject];
 	CGPoint location = [touch locationInView: touch.view];
@@ -906,21 +806,11 @@
     
     
 	
-    if(!tile.isActionDone)return;
+    //if(!tile.isActionDone)return;
     if(tile.value==0)return;
+
     
-    if(tile.value>100&&(!tile.selected)){
-        tile.selected=YES;
-        [self.magicSelectedArray addObject:tile];
-        self.lastSelectTimeOfMagic=self.gameTime;
-        return;
-        
-    }
-    
-    if(tile.value>100){
-        self.selectedTile=nil;
-        return;
-    }
+
 	if (self.selectedTile && [self.selectedTile nearTile:tile]&&self.selectedTile.value!=0) {
         //        if([box findMatchWithSwap:tile B:self.selectedTile]){
         //            int a=1;
@@ -935,10 +825,34 @@
         else{
             [self moveFailed];
         }
-	}else {
-        //[self.selectedTile scaleToTileSize];
+        return;
+	}
+    if(tile.value>100&&(!tile.selected)){
+        if (self.magicSelectedArray.count>=3) {
+            return;
+        }
+        tile.selected=YES;
+        [self.magicSelectedArray addObject:tile];
+        self.lastSelectTimeOfMagic=self.gameTime;
+        self.selectedTile=nil;
+        return;
+        
+    }
+    
+    
+    if(tile.value>100){
+        self.selectedTile=nil;
+        return;
+    }
+    
+    if (self.selectedTile && (![self.selectedTile nearTile:tile])){
+        self.selectedTile = tile;
+        return;
+    }
+    if(!self.selectedTile) {
 		self.selectedTile = tile;
-		//[self afterTurn:tile.sprite];
+        return;
+
 	}
 }
 

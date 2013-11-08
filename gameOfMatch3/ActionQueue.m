@@ -30,6 +30,7 @@
     return self;
 }
 -(void)onExit{
+    [super onExit];
     [[Actions sharedManager] removeAllChildrenWithCleanup:YES];
     [self removeAllChildrenWithCleanup:YES];
 }
