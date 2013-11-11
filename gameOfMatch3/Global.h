@@ -52,14 +52,14 @@
 #define Turn_Enemy 1
 #define zTileMaxAction 3;
 
-#define kTileSize 40.0f
+#define kTileSize 50.0f
 #define kMoveTileTime 0.2f
-#define kBoxWidth 8
-#define kBoxHeight 8
+#define kBoxWidth 6
+#define kBoxHeight 6
 
 #define kMaxLevelNo 10
 #define kMaxRecordCount 15
-#define kKindCount 7
+#define kKindCount 5
 
 #define Tag_skillMenu 10
 

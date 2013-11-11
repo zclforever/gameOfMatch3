@@ -25,6 +25,7 @@
 @property float spriteScale;
 @property int scoreInBattle;
 @property (strong,nonatomic) NSMutableArray* maxManaArray;
+@property (strong,nonatomic) NSMutableDictionary* stateDict;
 +(void)initSharedPlayer;
 +(void)copyWith:(Person*)oriPerson to:(Person*)destPerson;
 +(Person*)copyWith:(Person*)oriPerson;

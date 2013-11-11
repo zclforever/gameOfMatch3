@@ -421,6 +421,9 @@
     int count=1;
     for (int x=0; x<size.width; x++) {
         Tile *tile = [self objectAtX:x Y:rowIndex withSwapA:A B:B];
+        
+        if(tile.skillBall){value=-1;}
+        
         if(value==tile.value){
             count++;
         }else{
@@ -444,6 +447,9 @@
     int count=1;
     for (int x=0; x<size.height; x++) {
         Tile *tile = [self objectAtX:columnIndex Y:x withSwapA:A B:B];
+        
+        if(tile.skillBall){value=-1;}
+        
         if(value==tile.value){
             count++;
         }else{
@@ -504,6 +510,9 @@
     int count=1;
     for (int x=0; x<size.width; x++) {
         Tile *tile = [self objectAtX:x Y:rowIndex withSwapA:A B:B];
+        
+        if(tile.skillBall){value=-1;}
+        
         if(value==tile.value){
             count++;
         }else{
