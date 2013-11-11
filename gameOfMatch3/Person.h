@@ -10,8 +10,8 @@
 #import "cocos2d.h"
 @interface Person : NSObject
 @property (readonly) int lv;
-@property int curHP;
-@property int maxHP;
+@property float curHP;
+@property float maxHP;
 @property float curStep;
 @property float maxStep;
 @property int damage;

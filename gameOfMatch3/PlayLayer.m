@@ -105,7 +105,7 @@
     //    self.whosTurn=Turn_Enemy;
     //    self.lockTouch=YES;
     self.whosTurn=Turn_Player;
-    self.lockTouch=NO;
+    self.lockTouch=YES;
     self.isStarting=NO;
     self.updating=NO;
     self.updateCount=0;
@@ -162,7 +162,7 @@
     label.opacity=250;
     label.color = ccc3(255,255,230);
     label.anchorPoint=ccp(0,0);
-    label.position = ccp(240,415);
+    label.position = ccp(200,435);
     [self addChild:label z:4];
     self.stateLabel=label;
     
@@ -230,9 +230,15 @@
     value=[[self.enemy.stateDict objectForKey:@"slow"] floatValue];
     float apSpeed=self.enemy.apSpeed*value;
     
+    value=[[self.enemy.stateDict objectForKey:@"poison"] floatValue];
+    float hpReduceByPoison=self.enemy.curHP*(value-1)*timeInterval;
+    
     //NSLog(@"%f",apSpeed);
     
     self.enemy.curStep+=apSpeed*timeInterval;
+    self.enemy.curHP-=hpReduceByPoison;
+    
+    
     if (self.enemy.curStep>=self.enemy.maxStep) {
         [Actions shakeSprite:self.statePanelLayerPlayer.personSprite delay:0];
         self.player.curHP-=self.enemy.damage;
@@ -448,19 +454,23 @@
     self.updating=NO;
 }
 -(void)magicShootByName:(NSString*)name{  //.shootbyname.shoot.
+    
+    float iceStateCD=15.0;
+    float iceEffect=0.8;  //影响90%
+    float poisonStateCD=20.0;
+    float poisonEffect=1+0.005; //减1%的血
     __block PlayLayer* obj=self;
     if([name isEqualToString:@"fireBall"]){
         
         [self.actionHandler addActionWithBlock:^{
             [Actions fireBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curHP-=5;}];
+                obj.enemy.curHP-=7;}];
             
         }];
     }
     
     if([name isEqualToString:@"iceBall"]){
-        float iceStateCD=15.0;
-        float iceEffect=.8;  //影响90%
+
         [self.actionHandler addActionWithBlock:^{
             [Actions iceBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
                 obj.enemy.curHP-=3;
@@ -484,10 +494,25 @@
     }
     
     if([name isEqualToString:@"poison"]){
-        
+
         [self.actionHandler addActionWithBlock:^{
             [Actions poisonToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curHP-=5;}];
+                //obj.enemy.curHP-=5;
+                float value=[[obj.enemy.stateDict valueForKey:@"poison"] floatValue];
+                value*=poisonEffect;
+                [obj.enemy.stateDict setObject:[NSNumber numberWithFloat:value] forKey:@"poison"];
+                
+                
+                __block PlayLayer* obj2=obj;
+                [obj setTimeOut:poisonStateCD withBlock:^{
+                    
+                    float value=[[obj2.enemy.stateDict valueForKey:@"poison"] floatValue]/poisonEffect;
+                    if (value<1)value=1;
+                    [obj2.enemy.stateDict setObject:[NSNumber numberWithFloat:value] forKey:@"poison"];
+                    
+                }];
+            
+            }];
             
         }];
     }
@@ -496,19 +521,24 @@
         
         [self.actionHandler addActionWithBlock:^{
             [Actions bloodAbsorbSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curHP-=5;}];
+                obj.enemy.curHP-=4;
+                obj.player.curHP+=4;
+            }];
             
         }];
     }
 }
 -(void)updateStatePanel{
-    self.statePanelLayerPlayer.curHP=[NSString stringWithFormat:@"%d",self.player.curHP];
-    self.statePanelLayerPlayer.maxHP=[NSString stringWithFormat:@"%d",self.player.maxHP];
-    self.statePanelLayerEnemy.curHP=[NSString stringWithFormat:@"%d",self.enemy.curHP];
-    self.statePanelLayerEnemy.maxHP=[NSString stringWithFormat:@"%d",self.enemy.maxHP];
+    if (self.statePanelLayerPlayer.curHP>self.statePanelLayerPlayer.maxHP) {
+        self.statePanelLayerPlayer.curHP=self.statePanelLayerPlayer.maxHP;
+    }
+    self.statePanelLayerPlayer.curHP=[NSString stringWithFormat:@"%d",(int)self.player.curHP];
+    self.statePanelLayerPlayer.maxHP=[NSString stringWithFormat:@"%d",(int)self.player.maxHP];
+    self.statePanelLayerEnemy.curHP=[NSString stringWithFormat:@"%d",(int)self.enemy.curHP];
+    self.statePanelLayerEnemy.maxHP=[NSString stringWithFormat:@"%d",(int)self.enemy.maxHP];
     
     [self.stepLabel setString:[NSString stringWithFormat:@"AP %f/%f",self.enemy.curStep,self.enemy.maxStep]];
-    NSString* key=@"slow";
+    NSString* key=@"poison";
     float value=[[self.enemy.stateDict valueForKey:key] floatValue];
     [self.stateLabel setString:[NSString stringWithFormat:@"%@:%f",key,value]];
     
@@ -886,7 +916,7 @@
     //tile=[box objectAtX:3 Y:3];
     //self.selectedTile=[box objectAtX:3 Y:4];
     
-    
+    self.lastTipTime=self.gameTime;
 	
     //if(!tile.isActionDone)return;
     if(tile.value==0){

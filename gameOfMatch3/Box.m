@@ -141,7 +141,7 @@
             
             
             if(tile.skillBall){
-             value=-1;   
+             value=arc4random();
             }
             
             if(tile.value == value){
@@ -265,7 +265,7 @@
 		tile.value = 0;
 		if (tile.sprite) {
 			[tile.actionSequence addObject:[tile disappareAction]];
-            //tile.readyToEnd=YES;
+            tile.readyToEnd=YES;
 		}
         [self.readyToRemoveTiles removeObject:tile];
          
@@ -422,7 +422,7 @@
     for (int x=0; x<size.width; x++) {
         Tile *tile = [self objectAtX:x Y:rowIndex withSwapA:A B:B];
         
-        if(tile.skillBall){value=-1;}
+        if(tile.skillBall){value=arc4random();}
         
         if(value==tile.value){
             count++;
@@ -448,7 +448,7 @@
     for (int x=0; x<size.height; x++) {
         Tile *tile = [self objectAtX:columnIndex Y:x withSwapA:A B:B];
         
-        if(tile.skillBall){value=-1;}
+        if(tile.skillBall){value=arc4random();}
         
         if(value==tile.value){
             count++;
@@ -479,7 +479,7 @@
     for (int x=0; x<size.height; x++) {
         Tile *tile = [self objectAtX:columnIndex Y:x withSwapA:A B:B];
         
-        if(tile.skillBall){value=-1;}
+        if(tile.skillBall){value=arc4random();}
         
         if(value==tile.value){
             count++;
@@ -511,7 +511,7 @@
     for (int x=0; x<size.width; x++) {
         Tile *tile = [self objectAtX:x Y:rowIndex withSwapA:A B:B];
         
-        if(tile.skillBall){value=-1;}
+        if(tile.skillBall){value=arc4random();}
         
         if(value==tile.value){
             count++;

@@ -121,7 +121,7 @@
     person.spriteName=[NSString stringWithFormat:@"enemy_4.png"];
     person.spriteScale=1.0f;
     person.apSpeed=5.0f;
-    person.stateDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@1.0,@"slow", nil];
+    person.stateDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@1.0,@"slow",@1.0,@"poison", nil];
     return person;
 }
 
@@ -152,9 +152,9 @@
         person.maxHP=140;
     }
 
-    person.damage+=7*(int)((raw_level-1)/5);
-    person.maxHP+=100*(int)((raw_level-1)/5);
-    person.apSpeed=5.0f+1*(int)((raw_level-1)/5);
+    person.damage+=4*(int)((raw_level-1)/3);
+    person.maxHP+=110*(int)((raw_level-1)/3);
+    person.apSpeed=5.0f+1*(int)((raw_level-1)/3);
     
     person.curHP=person.maxHP;
     person.spriteName=[NSString stringWithFormat:@"enemy_%d.png",level];

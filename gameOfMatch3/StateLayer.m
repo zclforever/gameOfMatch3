@@ -44,7 +44,7 @@
         [labelArray[0] setString:[NSString stringWithFormat:@"等级:%d",person.lv]];
         [labelArray[1] setString:[NSString stringWithFormat:@"金线:%d",person.money]];
         [labelArray[2] setString:[NSString stringWithFormat:@"魔伤:%d",person.magicDamage]];
-        [labelArray[3] setString:[NSString stringWithFormat:@"血量:%d",person.maxHP]];
+        [labelArray[3] setString:[NSString stringWithFormat:@"血量:%d",(int)person.maxHP]];
         [labelArray[4] setString:[NSString stringWithFormat:@"经验:%d",person.experience]];
         [labelArray[5] setString:[NSString stringWithFormat:@"下一级需:%d",[person expToNextLV]]];
 

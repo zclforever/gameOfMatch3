@@ -75,9 +75,10 @@
     
 }
 -(CCAction *)disappareAction{
+    __block Tile* obj=self;
     CCAction *disappearAction = [CCSequence actions:[CCScaleTo actionWithDuration:0.3f scale:0.0f],
                                  [CCCallBlockN actionWithBlock:^(CCNode* node){
-        [self scaleToNone];
+        [obj scaleToNone];
         [node removeFromParentAndCleanup:YES];
     }],
                                  nil];
@@ -104,7 +105,21 @@
         [sprite stopAllActions];
         while(sprite.numberOfRunningActions>0){        [sprite stopAllActions];};
         [sprite runAction:disappearAction];
-      {[self setTimeOutOfUpdateWithDelay:updateDelay];return;};
+      //[self setTimeOutOfUpdateWithDelay:updateDelay];
+          
+          
+        [self runAction:
+         [CCSequence actions:
+          [CCDelayTime actionWithDuration:2],
+          [CCCallBlockN actionWithBlock:^(CCNode *node) {
+             [node removeAllChildrenWithCleanup:YES];
+            }],
+          
+          nil]];
+        return;
+      
+      
+      
     }
     int count=self.actionSequence.count;
 
