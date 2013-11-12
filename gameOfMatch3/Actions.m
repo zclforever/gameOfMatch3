@@ -195,7 +195,45 @@ static id sharedManager = nil;
     [Actions shakeSprite:spriteB delay:1 withFinishedBlock:block];
 }
 
-
++(void)hammerToSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block{
+    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"singleHammer.plist"];
+   
+    CCParticleSystem* fire=particle_system;
+    //fire.anchorPoint=ccp(0,0);
+    int randomVar=(arc4random()%40-20);
+    fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y+zPersonHeight/2+randomVar);
+    //fire.startSize=36;
+    fire.scale=1;
+    //fire.rotation=-45;
+    //fire.speed=100;
+    fire.duration=2.0f;
+    fire.life=1.0f;
+    
+    
+    
+    [[Actions sharedManager] addChild:fire];
+    
+    [fire runAction:[CCSequence actions:
+                     [CCDelayTime actionWithDuration:1],
+                     [CCMoveTo actionWithDuration:.5 position:ccp(spriteB.position.x+zPersonHeight/2,spriteB.position.y+zPersonHeight/2)],
+                     //[CCScaleTo actionWithDuration:1.0 scale:.25],
+                     //[CCScaleTo actionWithDuration:.5 scale:0],
+                     [CCDelayTime actionWithDuration:1],
+                     [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+        
+    }],
+                     nil]];
+    [Actions shakeSprite:spriteB delay:1.7];
+    
+    [spriteA runAction:[CCSequence actions:
+                     [CCDelayTime actionWithDuration:1.7],
+                     [CCCallBlock actionWithBlock:block],
+    
+                     nil]];
+    
+    
+}
 
 
 

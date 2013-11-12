@@ -153,7 +153,7 @@
     }
 
     person.damage+=4*(int)((raw_level-1)/3);
-    person.maxHP+=110*(int)((raw_level-1)/3);
+    person.maxHP+=130*(int)((raw_level-1)/3);
     person.apSpeed=5.0f+1*(int)((raw_level-1)/3);
     
     person.curHP=person.maxHP;

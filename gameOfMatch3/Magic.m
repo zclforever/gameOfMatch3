@@ -10,6 +10,27 @@
 #import "Global.h"
 
 @implementation Magic
++(NSString *)getNameByCountArray:(NSMutableArray *)countArray{
+    NSString* name;
+    NSMutableArray* magicCostArray;
+    bool enough=NO;
+    
+    
+    magicCostArray=[NSMutableArray arrayWithObjects:@1,@0,@2,@0, nil];
+    name=@"hammer";
+    enough=YES;
+    for(int i=0;i<4;i++){
+        if ([countArray[i] intValue]<[magicCostArray[i] intValue]){
+            enough=NO;break;
+        }
+    }
+    if(enough)return name;
+    
+
+    
+    return nil;
+    
+}
 -(Magic*)initWithID:(int)ID{
     NSString* name;
     switch (ID) {
@@ -37,46 +58,26 @@
     self.name=name;
     int value;
     
-    NSRange range;
-    range=[name rangeOfString:@"removeValue_"];
-    if (range.location!=NSNotFound) {
-        
-        value=[[name substringFromIndex:range.length] intValue];
+    if ([name isEqualToString:@"hammer"]) {
         CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
         self.sprite=sprite;
-        self.value=value;
-        self.type=@"removeValue";
+        self.value=5;
+        self.type=@"damage";
         self.CD=12.0f;
-        if(value==1)
-        {
-            self.showName=@"火球";
-            self.manaCostArray=[NSMutableArray arrayWithObjects:@4,@1,@1,@1, nil];
-        }
-        if(value==2)
-        {
-            self.showName=@"红移";
-            self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@3,@4,@3, nil];
-        }
-        if(value==3)
-        {
-            self.showName=@"黄闪";
-            self.manaCostArray=[NSMutableArray arrayWithObjects:@4,@1,@2,@3, nil];
-        }
-        if(value==4)
-        {
-            self.showName=@"蓝心";
-            self.manaCostArray=[NSMutableArray arrayWithObjects:@0,@2,@3,@2, nil];
-        }
+        self.showName=@"圣锤";
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@0,@2,@0, nil];
+        
+        
     }
     
     if ([name isEqualToString:@"fireBall"]) {
         CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
         self.sprite=sprite;
-        self.value=value;
+        self.value=2;
         self.type=@"damage";
         self.CD=12.0f;
         self.showName=@"火球";
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@4,@1,@1, nil];
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@0,@1,@0,@0, nil];
 
         
     }
@@ -84,33 +85,33 @@
     if ([name isEqualToString:@"iceBall"]) {
         CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
         self.sprite=sprite;
-        self.value=value;
+        self.value=4;
         self.type=@"damage";
         self.CD=12.0f;
         self.showName=@"冰弹";
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@4,@1,@1, nil];
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@0,@0,@0,@1, nil];
         
         
     }
     if ([name isEqualToString:@"poison"]) {
         CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
         self.sprite=sprite;
-        self.value=value;
+        self.value=1;
         self.type=@"damage";
         self.CD=12.0f;
         self.showName=@"毒气";
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@4,@1,@1, nil];
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@0,@0,@0, nil];
         
         
     }
     if ([name isEqualToString:@"bloodAbsorb"]) {
         CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
         self.sprite=sprite;
-        self.value=value;
+        self.value=3;
         self.type=@"damage";
         self.CD=12.0f;
         self.showName=@"吸血";
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@4,@1,@1, nil];
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@0,@0,@1,@0, nil];
         
         
     }

@@ -176,6 +176,8 @@
 		02B175CD17C5DC8B0057DA00 /* block_24.png in Resources */ = {isa = PBXBuildFile; fileRef = 02B175C817C5DC8B0057DA00 /* block_24.png */; };
 		02B175CF17C5DD010057DA00 /* block_55.png in Resources */ = {isa = PBXBuildFile; fileRef = 02B175CE17C5DD010057DA00 /* block_55.png */; };
 		02B175D217C5F3F70057DA00 /* AI.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175D117C5F3F70057DA00 /* AI.m */; };
+		02F05A8D1831EED900676308 /* singleHammer.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F05A8C1831EED900676308 /* singleHammer.plist */; };
+		02F05A8F1831FDB700676308 /* hammer_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F05A8E1831FDB700676308 /* hammer_yellow.png */; };
 		02FEF453182CD647001DBEE6 /* checkMark_White.png in Resources */ = {isa = PBXBuildFile; fileRef = 02FEF451182CD647001DBEE6 /* checkMark_White.png */; };
 		752979AE17D357CC009B8B95 /* GameStartLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 752979AD17D357CC009B8B95 /* GameStartLayer.m */; };
 		752979B017D38AE3009B8B95 /* fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 752979AF17D38AE3009B8B95 /* fire.png */; };
@@ -576,6 +578,8 @@
 		02B175CE17C5DD010057DA00 /* block_55.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_55.png; sourceTree = "<group>"; };
 		02B175D017C5F3F60057DA00 /* AI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AI.h; sourceTree = "<group>"; };
 		02B175D117C5F3F70057DA00 /* AI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AI.m; sourceTree = "<group>"; };
+		02F05A8C1831EED900676308 /* singleHammer.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = singleHammer.plist; sourceTree = "<group>"; };
+		02F05A8E1831FDB700676308 /* hammer_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer_yellow.png; sourceTree = "<group>"; };
 		02FEF451182CD647001DBEE6 /* checkMark_White.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkMark_White.png; sourceTree = "<group>"; };
 		752979AC17D357CC009B8B95 /* GameStartLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStartLayer.h; sourceTree = "<group>"; };
 		752979AD17D357CC009B8B95 /* GameStartLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStartLayer.m; sourceTree = "<group>"; };
@@ -683,6 +687,8 @@
 			isa = PBXGroup;
 			children = (
 				02A2601C18151777009F2719 /* snowstorm.plist */,
+				02F05A8E1831FDB700676308 /* hammer_yellow.png */,
+				02F05A8C1831EED900676308 /* singleHammer.plist */,
 				0209D2521820DFF200FAFD26 /* iceBall.plist */,
 				0209D2541820E81100FAFD26 /* poison.plist */,
 				0209D2561820EE5600FAFD26 /* poisonTo.plist */,
@@ -1419,6 +1425,8 @@
 				0209D2571820EE5600FAFD26 /* poisonTo.plist in Resources */,
 				0209D2591820F32000FAFD26 /* bloodAbsorb.plist in Resources */,
 				02FEF453182CD647001DBEE6 /* checkMark_White.png in Resources */,
+				02F05A8D1831EED900676308 /* singleHammer.plist in Resources */,
+				02F05A8F1831FDB700676308 /* hammer_yellow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

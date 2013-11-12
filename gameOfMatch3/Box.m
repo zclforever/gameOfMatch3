@@ -117,7 +117,7 @@
 	return [[self.content objectAtIndex: y] objectAtIndex: x];
 }
 -(void) checkWith: (Orientation) orient{
-    NSMutableArray* tmpRemoveArray=[[NSMutableArray alloc]init];
+    NSMutableArray* tmpRemoveArray;;
     //[self.removeResultArray removeAllObjects];
 
 	int iMax = (orient == OrientationHori) ? size.width : size.height;
@@ -128,6 +128,8 @@
 		first = nil;
 		second = nil;
         bool readToAddResultArray=NO;
+        tmpRemoveArray=nil;
+        
 		for (int j=0; j<jMax; j++) {
 			Tile *tile = [self objectAtX:((orient == OrientationHori) ?i :j)  Y:((orient == OrientationHori) ?j :i)];
             //checkMark
@@ -151,12 +153,14 @@
 				count++;
 				if (count > 3) {
 					[self.readyToRemoveTiles addObject:tile];
+                    [tmpRemoveArray addObject:tile];
 				}else
 					if (count == 3) {
 						[self.readyToRemoveTiles addObject:first];
 						[self.readyToRemoveTiles addObject:second];
 						[self.readyToRemoveTiles addObject:tile];
-						first = nil;
+                        tmpRemoveArray=[NSMutableArray arrayWithObjects:first,second,tile, nil];
+  						first = nil;
 						second = nil;
                         //if(self.isSoundEnabled)[[SimpleAudioEngine sharedEngine]playEffect:@"zizizi.m4a"];
                         //[[SimpleAudioEngine sharedEngine] playEffect:@"pew-pew-lei.caf"];
@@ -168,29 +172,22 @@
 					}
 				
 			}else {
-                
-                if(tmpRemoveArray.count>=3){readToAddResultArray=YES;}else{
-                    [tmpRemoveArray removeAllObjects];
-                    readToAddResultArray=NO;
-                    if(tile.value>0){
-                        [tmpRemoveArray addObject:tile];
-                    }
+                if (tmpRemoveArray) {
+                    [self.removeResultArray addObject:tmpRemoveArray];
                 }
+                tmpRemoveArray=nil;
 				count = 1;
 				first = tile;
 				second = nil;
 				value = tile.value;
 			}
-        if (readToAddResultArray) {
+
+            
+		} //end for
+        if(tmpRemoveArray){
             [self.removeResultArray addObject:tmpRemoveArray];
-            tmpRemoveArray=[[NSMutableArray alloc]init];
-            if(value>0){
-                [tmpRemoveArray addObject:tile];
-            }
-            readToAddResultArray=NO;
         }
-		}
-	}
+	}//end for
 }
 -(BOOL)removeAndRepair{
     for(NSMutableArray* removeArray in self.removeResultArray){
@@ -224,8 +221,9 @@
         if(tile.value<=0||tile.value>4)continue;
         
         [removeArray removeObject:tile];
-        [self.readyToRemoveTiles removeObject:tile];
-        [tile.actionSequence addObject:tile.disappareAction];
+        //[self.readyToRemoveTiles removeObject:tile];
+        //[tile.actionSequence addObject:tile.disappareAction]; //统一消失
+        //[tile scaleToNone];
         
         CGPoint pos=[tile pixPosition];
         
@@ -262,10 +260,11 @@
 	for (int i=0; i<count; i++) {
         
 		Tile *tile = [objects objectAtIndex:i];
+        tile.selected=NO;
 		tile.value = 0;
 		if (tile.sprite) {
 			[tile.actionSequence addObject:[tile disappareAction]];
-            tile.readyToEnd=YES;
+            //tile.readyToEnd=YES;
 		}
         [self.readyToRemoveTiles removeObject:tile];
          
@@ -370,7 +369,8 @@
   
 	for (int i=0; i<extension; i++) {
 		int value = (arc4random()%kKindCount+1);
-        //Tile *sourceTile =[self objectAtX:columnIndex Y:kBoxHeight-extension+i];
+        Tile *sourceTile =[self objectAtX:columnIndex Y:kBoxHeight-extension+i];
+        [sourceTile disappareAction];
         
         
         Tile *destTile = [[Tile alloc]initWithX:columnIndex Y:kBoxHeight-extension+i];

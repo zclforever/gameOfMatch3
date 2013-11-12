@@ -277,9 +277,14 @@
 }
 
 -(void)update:(ccTime)delta{   //.update.
+    float updateInterval=0.01;
+    float tipCD=2.0f;  //notips....
     
     self.gameTime+=delta;
+    //self.gameTime+=updateInterval;
+    
     if (self.lockUpdate) {
+        //[self setTimeOut:updateInterval withSelect:@selector(update:)]; //ccctodo
         return;
     }
     
@@ -288,9 +293,11 @@
     [self checkGameOver];
     
     if (self.updating||!(self.swapCount<=0)) {
+        //[self setTimeOut:updateInterval withSelect:@selector(update:)];
         return;
     }
     if (!box.readyToRemoveTiles) {
+        //[self setTimeOut:updateInterval withSelect:@selector(update:)];
         return;
     }
     [self checkGameOver];
@@ -305,7 +312,7 @@
     NSArray* matchedArray;
     //Person* nextPerson=self.turnOfPersons[(self.whosTurn+1) % 2];
     
-    if(self.gameTime-self.lastSelectTimeOfMagic>=zMagicCD&&(self.lastSelectTimeOfMagic!=0))
+    if((self.gameTime-self.lastSelectTimeOfMagic>=zMagicCD&&(self.lastSelectTimeOfMagic!=0))||self.magicSelectedArray.count>=3)
     {
         int count=self.magicSelectedArray.count;
         while(count>3){
@@ -315,6 +322,8 @@
             
             count--;
         }
+        
+        //统计技能球个数
         float comboShootInterval=0.3f;
         
         NSMutableArray* magicCountArray=[[NSMutableArray alloc]initWithObjects:@0,@0,@0,@0, nil];
@@ -326,9 +335,23 @@
             [box.readyToRemoveTiles addObject:tile];
         }
 
+        NSString* name=[Magic getNameByCountArray:magicCountArray];
+
+        if(name){
+            Magic* magic=[[Magic alloc]initWithName:name];
+            [obj magicShootByName:name];
+            for(int i=0;i<4;i++){
+                magicCountArray[i]=[NSNumber numberWithInt:[magicCountArray[i] intValue]-[magic.manaCostArray[i] intValue] ];
+            }
+        }
+        
+        
         for(int i=0;i<4;i++){
+
             int magicId=101+i;
             int mount=[magicCountArray[i] intValue];
+            
+            
             Magic* magic=[[Magic alloc]initWithID:magicId];
             
             int shootTimes=0;
@@ -349,7 +372,7 @@
     }
     if(box.readyToRemoveTiles.count>0){
         //NSLog(@"in check is value 5");
-        //test.
+        
         
         
         for (NSArray* result in box.removeResultArray) {
@@ -421,7 +444,7 @@
         if (ret.count<=0) {
             [self noMoves];
         }else{
-            if(self.gameTime-self.lastTipTime>2.0f){  //有东西但是没拿 且过了x秒 提示
+            if(self.gameTime-self.lastTipTime>tipCD){  //有东西但是没拿 且过了x秒 提示
                 self.lastTipTime+=6;
                 Tile* tile1=ret[0][0];
                 //NSLog(@"%f",self.gameTime);
@@ -452,6 +475,9 @@
     
     
     self.updating=NO;
+    
+    //[self setTimeOut:updateInterval withSelect:@selector(update:)];
+    return;
 }
 -(void)magicShootByName:(NSString*)name{  //.shootbyname.shoot.
     
@@ -460,6 +486,18 @@
     float poisonStateCD=20.0;
     float poisonEffect=1+0.005; //减1%的血
     __block PlayLayer* obj=self;
+    if([name isEqualToString:@"hammer"]){
+        
+        [self.actionHandler addActionWithBlock:^{
+            [Actions hammerToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+                obj.enemy.curStep=0;
+            
+                }];
+            
+        }];     //todo fireBallMagc 改一下
+    }
+    
+    
     if([name isEqualToString:@"fireBall"]){
         
         [self.actionHandler addActionWithBlock:^{
@@ -473,7 +511,7 @@
 
         [self.actionHandler addActionWithBlock:^{
             [Actions iceBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curHP-=3;
+                obj.enemy.curHP-=1;
                 
                 float value=[[obj.enemy.stateDict valueForKey:@"slow"] floatValue]*iceEffect;
                 [obj.enemy.stateDict setObject:[NSNumber numberWithFloat:value] forKey:@"slow"];
@@ -521,7 +559,7 @@
         
         [self.actionHandler addActionWithBlock:^{
             [Actions bloodAbsorbSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curHP-=4;
+                obj.enemy.curHP-=2;
                 obj.player.curHP+=4;
             }];
             
@@ -529,8 +567,8 @@
     }
 }
 -(void)updateStatePanel{
-    if (self.statePanelLayerPlayer.curHP>self.statePanelLayerPlayer.maxHP) {
-        self.statePanelLayerPlayer.curHP=self.statePanelLayerPlayer.maxHP;
+    if (self.player.curHP>self.player.maxHP) {
+        self.player.curHP=self.player.maxHP;
     }
     self.statePanelLayerPlayer.curHP=[NSString stringWithFormat:@"%d",(int)self.player.curHP];
     self.statePanelLayerPlayer.maxHP=[NSString stringWithFormat:@"%d",(int)self.player.maxHP];
@@ -597,6 +635,7 @@
     [self setTimeOut:2.0 withBlock:^{
         [obj unlock];
         obj.lockTouch=NO;
+
     }];
     
     [self setTimeOut:0.0f withSelect:@selector(addBackLayer)];
@@ -655,15 +694,18 @@
                    nil];
         NSArray* ret=[box findMatchedArray:matched forValue:a.value];
         if(!ret){unRemoveTile=a;unRemoveAction=actionA;}else{unRemoveTile=b;unRemoveAction=actionB;}
-        [unRemoveTile.actionSequence addObject:unRemoveAction];
+        if (![box.readyToRemoveTiles containsObject:unRemoveTile]) {
+            [unRemoveTile.actionSequence addObject:unRemoveAction];
+        }
+        
         //[unRemoveTile.sprite runAction:unRemoveAction];
         //        [a.actionSequence addObject:actionA];
         //        [b.actionSequence addObject:actionB];
         //[a.sprite runAction:actionA];
         //[b.sprite runAction:actionB];
-        [self lock];
+        //[self lock];
         [box swapWithTile:a B:b];
-        [self unlock];
+        //[self unlock];
         //NSLog(@"in changeWithTile finished");
         return YES;
     }else{
@@ -727,7 +769,7 @@
 	}
 }
 -(void)noMoves{
-    self.player.curHP-=10;
+    self.player.curHP-=5;
     [box pushTilesToRemoveForValue:1];
     [box pushTilesToRemoveForValue:2];
     [box pushTilesToRemoveForValue:3];
@@ -906,8 +948,8 @@
 -(void)touchedOnPointX:(int)x Y:(int)y{
 
 	
-	//test
-    //[self magicShootByName:@"bloodAbsorb"];
+	//test.
+    //[self magicShootByName:@"hammer"];
     
     
 
@@ -950,7 +992,7 @@
 	}
     else{   //提上且不同一个
         if ([self.selectedTile nearTile:tile]&&self.selectedTile.value!=0) {  //相邻
-            [box setLock:YES];
+            //[box setLock:YES];
             
             bool ret=[self changeWithTileA: self.selectedTile TileB: tile];
             //[self.selectedTile scaleToTileSize];

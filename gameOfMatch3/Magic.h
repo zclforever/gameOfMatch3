@@ -16,6 +16,7 @@
 @property (strong,nonatomic) NSString* type;
 @property  int value;
 @property  float CD;
++(NSString*)getNameByCountArray:(NSMutableArray*) countArray;
 -(Magic*)initWithName:(NSString*)name;
 -(Magic*)initWithID:(int)ID; //接轨101 value
 @end
