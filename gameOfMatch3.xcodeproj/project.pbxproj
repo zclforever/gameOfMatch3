@@ -182,6 +182,8 @@
 		02F71A0B18349E6D00F60B1F /* fired.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A0A18349E6D00F60B1F /* fired.plist */; };
 		02F71A0D1834AF1A00F60B1F /* water.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A0C1834AF1A00F60B1F /* water.plist */; };
 		02F71A0F1834BC7500F60B1F /* particleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A0E1834BC7500F60B1F /* particleTexture.png */; };
+		02F71A111834CB9A00F60B1F /* rainFall.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A101834CB9A00F60B1F /* rainFall.plist */; };
+		02F71A131834CC6700F60B1F /* stars.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A121834CC6700F60B1F /* stars.plist */; };
 		02FEF453182CD647001DBEE6 /* checkMark_White.png in Resources */ = {isa = PBXBuildFile; fileRef = 02FEF451182CD647001DBEE6 /* checkMark_White.png */; };
 		752979AE17D357CC009B8B95 /* GameStartLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 752979AD17D357CC009B8B95 /* GameStartLayer.m */; };
 		752979B017D38AE3009B8B95 /* fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 752979AF17D38AE3009B8B95 /* fire.png */; };
@@ -588,6 +590,8 @@
 		02F71A0A18349E6D00F60B1F /* fired.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = fired.plist; sourceTree = "<group>"; };
 		02F71A0C1834AF1A00F60B1F /* water.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = water.plist; sourceTree = "<group>"; };
 		02F71A0E1834BC7500F60B1F /* particleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particleTexture.png; sourceTree = "<group>"; };
+		02F71A101834CB9A00F60B1F /* rainFall.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = rainFall.plist; sourceTree = "<group>"; };
+		02F71A121834CC6700F60B1F /* stars.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stars.plist; sourceTree = "<group>"; };
 		02FEF451182CD647001DBEE6 /* checkMark_White.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkMark_White.png; sourceTree = "<group>"; };
 		752979AC17D357CC009B8B95 /* GameStartLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStartLayer.h; sourceTree = "<group>"; };
 		752979AD17D357CC009B8B95 /* GameStartLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStartLayer.m; sourceTree = "<group>"; };
@@ -697,6 +701,8 @@
 				752979AF17D38AE3009B8B95 /* fire.png */,
 				02F71A0E1834BC7500F60B1F /* particleTexture.png */,
 				02F05A8E1831FDB700676308 /* hammer_yellow.png */,
+				02F71A121834CC6700F60B1F /* stars.plist */,
+				02F71A101834CB9A00F60B1F /* rainFall.plist */,
 				02A2601C18151777009F2719 /* snowstorm.plist */,
 				02F05A8C1831EED900676308 /* singleHammer.plist */,
 				0209D2521820DFF200FAFD26 /* iceBall.plist */,
@@ -1443,6 +1449,8 @@
 				02F71A0B18349E6D00F60B1F /* fired.plist in Resources */,
 				02F71A0D1834AF1A00F60B1F /* water.plist in Resources */,
 				02F71A0F1834BC7500F60B1F /* particleTexture.png in Resources */,
+				02F71A111834CB9A00F60B1F /* rainFall.plist in Resources */,
+				02F71A131834CC6700F60B1F /* stars.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

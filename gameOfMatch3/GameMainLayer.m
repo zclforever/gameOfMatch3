@@ -24,7 +24,12 @@
 }
 -(id) init
 {
-    self=[super initWithColor:ccc4(255, 0, 255, 80)];
+    //self=[super initWithColor:ccc4(255, 0, 255, 80)];
+    self=[super init];
+    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"rainFall.plist"];
+    
+    [self addChild:particle_system];
+    
     NSMutableArray* menuItemArray=[[NSMutableArray alloc]init];
     CCLabelTTF* label;
     CCMenuItemLabel* menuLabel;

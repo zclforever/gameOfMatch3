@@ -34,7 +34,14 @@
 }
 -(id) init
 {
-    self=[super initWithColor:ccc4(255, 0, 255, 80)];
+    //self=[super initWithColor:ccc4(255, 0, 255, 80)];
+    self=[super init];
+    
+    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"stars.plist"];
+    
+    [self addChild:particle_system];
+    
+    
     [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"marioWorld.mp3"];
     
     CCLabelTTF* label = [CCLabelTTF labelWithString:@"返回" fontName:@"Arial" fontSize:18];
