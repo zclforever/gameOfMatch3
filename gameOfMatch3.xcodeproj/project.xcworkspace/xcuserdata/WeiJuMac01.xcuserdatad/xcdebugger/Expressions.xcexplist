@@ -6,13 +6,13 @@
          contextName = "-[PlayLayer update:]:PlayLayer.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.gameTime">
+               value = "self.lastTipTime">
             </PersistentString>
             <PersistentString
                value = "(1.0f-2.0f)&gt;2">
             </PersistentString>
             <PersistentString
-               value = "self.lastTipTime">
+               value = "self.gameTime">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -20,16 +20,19 @@
          contextName = "__20-[PlayLayer update:]_block_invoke_3:PlayLayer.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.lastTipTime">
+               value = "self.gameTime">
             </PersistentString>
             <PersistentString
-               value = "self.gameTime">
+               value = "self.lastTipTime">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[PlayLayer handleTimeOut]:PlayLayer.m">
          <PersistentStrings>
+            <PersistentString
+               value = "self.enemy.curStep">
+            </PersistentString>
             <PersistentString
                value = "self.enemy.stateDict">
             </PersistentString>

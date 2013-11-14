@@ -10,6 +10,8 @@
 #import "cocos2d.h"
 @interface Person : NSObject
 @property (readonly) int lv;
+@property int level; //enemy level;
+@property int attackType; //敌人会用上 哪种攻击
 @property float curHP;
 @property float maxHP;
 @property float curStep;

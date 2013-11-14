@@ -15,7 +15,7 @@
 
 #define zPlayerMarginLeft 20.0f
 #define zPlayerMarginTop 150.0f
-#define zEnemyMarginLeft 180.0f
+#define zEnemyMarginLeft 240.0f
 
 #define zPersonWidth 60.0f
 #define zPersonHeight 60.0f

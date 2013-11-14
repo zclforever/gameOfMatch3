@@ -14,7 +14,7 @@
 #import "GameOverLayer.h"
 #import "Person.h"
 #import "ManaLayer.h"
-@interface PlayLayer : CCLayer {
+@interface PlayLayer : CCLayer<UIAccelerometerDelegate> {
 	Box *box;
 	//Tile *selectedTile;
 	Tile *firstOne;

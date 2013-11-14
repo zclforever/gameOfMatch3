@@ -127,7 +127,7 @@
 		int value = -1;
 		first = nil;
 		second = nil;
-        bool readToAddResultArray=NO;
+        //bool readToAddResultArray=NO;
         tmpRemoveArray=nil;
         
 		for (int j=0; j<jMax; j++) {
@@ -341,6 +341,14 @@
         }
         
         if(tile.value == 0){
+            if (tile.skillBall) {
+                
+
+                [Actions explosionAtPosition:[tile pixPosition] withFinishedBlock:^{
+                    
+                }];
+            }
+            
             extension++;
         }else if (extension == 0) {
             
@@ -372,9 +380,11 @@
         Tile *sourceTile =[self objectAtX:columnIndex Y:kBoxHeight-extension+i];
         [sourceTile disappareAction];
         
+
+        
         
         Tile *destTile = [[Tile alloc]initWithX:columnIndex Y:kBoxHeight-extension+i];
-       
+
         [self addChild:destTile];
         [self setObjectAtX:columnIndex Y:kBoxHeight-extension+i withTile:destTile];
 		NSString *name = [NSString stringWithFormat:@"block_%d.png",value];

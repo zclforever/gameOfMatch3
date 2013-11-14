@@ -56,9 +56,9 @@
         
 
         
-//        CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"iceBall.plist"];
-//        
-//        [self addChild:particle_system];
+        CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"fired.plist"];
+        
+        [self addChild:particle_system];
 
 
 	}

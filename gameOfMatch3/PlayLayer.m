@@ -40,6 +40,12 @@
 @property float lastSelectTimeOfMagic;
 @property float lastTipTime;
 @property float gameTime;
+
+@property int firedTag;
+@property int shakeCount;
+@property int firedShakeCount;
+
+
 -(void)afterTurn: (id) node;
 @end
 
@@ -48,6 +54,16 @@
 
 -(id)initWithPlayer:(Person*)player withEnemy:(Person*)enemy{
 	self = [super init];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(shakeEvent)
+//                                                 name:@"MyiPhoneShakeEvent" object:nil];
+    
+    self.isAccelerometerEnabled = YES;
+    [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1/60];
+
+    [[UIAccelerometer sharedAccelerometer] setDelegate:self];
+    
     
     self.actionHandler=[[ActionQueue alloc]init];
     [self addChild:self.actionHandler]; //为了runaction update
@@ -69,7 +85,7 @@
     
     StatePanelLayerInBattle *statePanelLayer=[[StatePanelLayerInBattle alloc]initWithPositon:ccp(0,0)];
     
-    [self addChild:statePanelLayer z:2];
+    [self addChild:statePanelLayer z:-1];
     
     //StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
     StatePanelLayerInBattle *statePanelLayerEnemy=[[StatePanelLayerInBattle alloc]initWithPositon:ccp(0,0)];
@@ -147,17 +163,17 @@
     
     self.testLabel=label;
     
-    label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:18];     //stepLabel
+    label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:12];     //stepLabel
     
     label.opacity=250;
     label.color = ccc3(255,255,230);
     label.anchorPoint=ccp(0,0);
-    label.position = ccp(250,385);
+    label.position = ccp(250,415);
     [self addChild:label z:4];
     self.stepLabel=label;
  
     
-    label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:18];     //stateLabel
+    label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:12];     //stateLabel
     
     label.opacity=250;
     label.color = ccc3(255,255,230);
@@ -184,8 +200,27 @@
     self.touchStreak=nil;
     self.magicCastArray=nil;
     self.magicSelectedArray=nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     //self.actionHandler=nil;
     
+}
+
+-(void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
+        float THRESHOLD = 2;
+    
+    if (acceleration.x > THRESHOLD || acceleration.x < -THRESHOLD ||
+        acceleration.y > THRESHOLD || acceleration.y < -THRESHOLD ||
+        acceleration.z > THRESHOLD || acceleration.z < -THRESHOLD) {
+        
+        [self shakeEvent];
+        
+    }
+
+    
+}
+-(void)shakeEvent{
+    self.shakeCount++;
+    CCLOG(@"shake:%d",self.shakeCount);
 }
 
 -(void)addReadyGo{
@@ -224,7 +259,8 @@
                    nil]];
 }
 -(void)handleTimeOut{  //.handletimeout.handle.
-    float timeInterval=0.1f;
+    float timeInterval=0.04f;
+    //enemy state;
     float value;
     
     value=[[self.enemy.stateDict objectForKey:@"slow"] floatValue];
@@ -233,18 +269,84 @@
     value=[[self.enemy.stateDict objectForKey:@"poison"] floatValue];
     float hpReduceByPoison=self.enemy.curHP*(value-1)*timeInterval;
     
-    //NSLog(@"%f",apSpeed);
+    //player state
+    value=[[self.player.stateDict objectForKey:@"fired"] floatValue];
+    float hpReduceByFired=value*2*timeInterval;
+    
+    //NSLog(@"%f",hpReduceByFired);
+    
+    if (self.shakeCount-self.firedShakeCount>=5&&self.firedTag&&self.shakeCount!=0) {
+        [self magicShootByName:@"firedClear"];
+        self.shakeCount=0;
+    }
+
+    if (hpReduceByFired>0) {
+        self.player.curHP-=hpReduceByFired;
+
+    }
     
     self.enemy.curStep+=apSpeed*timeInterval;
     self.enemy.curHP-=hpReduceByPoison;
     
     
-    if (self.enemy.curStep>=self.enemy.maxStep) {
+    if (self.enemy.curStep>=self.enemy.maxStep) {  //attack success.
         [Actions shakeSprite:self.statePanelLayerPlayer.personSprite delay:0];
         self.player.curHP-=self.enemy.damage;
         
         self.enemy.curStep=0;
+        
+        if(self.enemy.attackType==2&&!self.firedTag){
+        
+            [self.player.stateDict setValue:[NSNumber numberWithInt:self.enemy.level] forKey:@"fired"];
+            self.firedShakeCount=self.shakeCount;
+            self.firedTag=[Actions fireSpriteStart:self.statePanelLayerPlayer.personSprite  withFinishedBlock:^{}];
+
+
+        }
+        self.enemy.attackType=2;
     }
+    //NSLog(@"distance:%f",(zEnemyMarginLeft-zPlayerMarginLeft-20)*(1-self.enemy.curStep/self.enemy.maxStep));
+    
+
+    //控制位置
+   
+    //if ([Actions getActionCount]==0) {
+    if (YES) {
+        float minDistance=60;
+        CGPoint position;
+        
+//        if(self.enemy.curStep<20&&[Actions getActionCount]==0){
+//             NSLog(@"ActionCount:%d",[Actions getActionCount]);
+//            //position=ccp(self.statePanelLayerPlayer.personSprite.position.x+minDistance+(zEnemyMarginLeft-zPlayerMarginLeft-minDistance)*(self.enemy.curStep/20),self.statePanelLayerEnemy.personSprite.position.y);
+//            
+//            position=ccp(zEnemyMarginLeft,self.statePanelLayerEnemy.personSprite.position.y);
+//            //self.statePanelLayerEnemy.personSprite.position=position;
+//            float duration=(20-self.enemy.curStep)/apSpeed;
+//            NSLog(@"duration %f",duration);
+//            __block PlayLayer* obj=self;
+//            [Actions moveSprite:obj.statePanelLayerEnemy.personSprite toPosition:position withDuration:duration withFinishedBlock:^{}];
+//            [self.actionHandler addActionWithBlock:^{
+//
+//                [Actions moveSprite:obj.statePanelLayerEnemy.personSprite toPosition:position withDuration:duration withFinishedBlock:^{}];
+//
+//
+//            }];
+            
+
+        if(self.enemy.curStep<20){
+            position=ccp(self.statePanelLayerPlayer.personSprite.position.x+minDistance+(zEnemyMarginLeft-zPlayerMarginLeft-minDistance)*(self.enemy.curStep/20),self.statePanelLayerEnemy.personSprite.position.y);
+
+            self.statePanelLayerEnemy.personSprite.position=position;
+        }
+        if(self.enemy.curStep>=20){
+            position=ccp(self.statePanelLayerPlayer.personSprite.position.x+minDistance+(zEnemyMarginLeft-zPlayerMarginLeft-minDistance)*(1-(self.enemy.curStep-20)/(self.enemy.maxStep-20)),self.statePanelLayerEnemy.personSprite.position.y);
+            
+            self.statePanelLayerEnemy.personSprite.position=position;
+        }
+        
+    }
+
+    
     
     
     self.timeCount++;
@@ -277,7 +379,7 @@
 }
 
 -(void)update:(ccTime)delta{   //.update.
-    float updateInterval=0.01;
+    //float updateInterval=0.01;
     float tipCD=2.0f;  //notips....
     
     self.gameTime+=delta;
@@ -479,6 +581,7 @@
     //[self setTimeOut:updateInterval withSelect:@selector(update:)];
     return;
 }
+
 -(void)magicShootByName:(NSString*)name{  //.shootbyname.shoot.
     
     float iceStateCD=15.0;
@@ -486,16 +589,36 @@
     float poisonStateCD=20.0;
     float poisonEffect=1+0.005; //减1%的血
     __block PlayLayer* obj=self;
+    
+    
+     
+    if([name isEqualToString:@"firedClear"]){
+        if(self.firedTag)[Actions fireSpriteEndByTag:self.firedTag];
+        [self.player.stateDict setValue:@0.0 forKey:@"fired"];
+        self.firedTag=nil;
+    }
+    
+    if([name isEqualToString:@"fired"]){
+        
+        [self.actionHandler addActionWithBlock:^{
+            [Actions hammerToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+                obj.enemy.curStep=20;
+                
+            }];
+            
+        }];     
+    }
+    
+    
     if([name isEqualToString:@"hammer"]){
         
         [self.actionHandler addActionWithBlock:^{
             [Actions hammerToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curStep=0;
+                obj.enemy.curStep=20;
             
                 }];
             
-        }];     //todo fireBallMagc 改一下
-    }
+        }];        }
     
     
     if([name isEqualToString:@"fireBall"]){
@@ -566,7 +689,7 @@
         }];
     }
 }
--(void)updateStatePanel{
+-(void)updateStatePanel{  //.state.updatestate.
     if (self.player.curHP>self.player.maxHP) {
         self.player.curHP=self.player.maxHP;
     }
@@ -613,7 +736,11 @@
     CGSize winSize=[[CCDirector sharedDirector] winSize];
     
     //[self.statePanelLayerPlayer addMagicLayerWithMagicName:@"fireBall"];
+    
+    self.player=[Person defaultPlayer]; // 测试版清空player数据,state自动重置
+    
     self.statePanelLayerPlayer.person=self.player;
+    
     [self.statePanelLayerPlayer addPersonSpriteAtPosition:ccp(zPlayerMarginLeft,winSize.height-zPlayerMarginTop)];
     box.lockedPlayer=self.statePanelLayerPlayer.personSprite;
     
@@ -627,6 +754,8 @@
     [self.statePanelLayerEnemy addPersonSpriteAtPosition:ccp(zEnemyMarginLeft,winSize.height-zPlayerMarginTop)];
     [self.statePanelLayerEnemy addApBar];
     box.lockedEnemy=self.statePanelLayerEnemy.personSprite;
+    self.enemy.curStep=20;  //配合返回
+    self.enemy.attackType=2;
     
     self.isSoundEnabled=YES;  //soundEnable
     
@@ -769,6 +898,9 @@
 	}
 }
 -(void)noMoves{
+    self.selectedTile=nil; //touches 会bug..
+    self.touchBegan=ccp(-100,-100);
+    
     self.player.curHP-=5;
     [box pushTilesToRemoveForValue:1];
     [box pushTilesToRemoveForValue:2];
@@ -898,6 +1030,11 @@
 
 - (void)ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event{
     
+    //test.
+    //[self magicShootByName:@"bloodAbsorb"];
+//    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"explosion.plist"];
+//
+//    [self addChild:particle_system];
     
  	if (self.lockTouch) {
         return;
@@ -948,8 +1085,7 @@
 -(void)touchedOnPointX:(int)x Y:(int)y{
 
 	
-	//test.
-    //[self magicShootByName:@"hammer"];
+
     
     
 

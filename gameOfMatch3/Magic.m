@@ -26,6 +26,17 @@
     }
     if(enough)return name;
     
+    
+//    magicCostArray=[NSMutableArray arrayWithObjects:@1,@0,@1,@1, nil];
+//    name=@"firedClear";
+//    enough=YES;
+//    for(int i=0;i<4;i++){
+//        if ([countArray[i] intValue]<[magicCostArray[i] intValue]){
+//            enough=NO;break;
+//        }
+//    }
+//    if(enough)return name;
+    
 
     
     return nil;
@@ -57,6 +68,18 @@
     
     self.name=name;
     int value;
+    
+    if ([name isEqualToString:@"firedClear"]) {
+        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
+        self.sprite=sprite;
+        self.value=5;
+        self.type=@"recover";
+        self.CD=12.0f;
+        self.showName=@"灭火";
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@0,@1,@1, nil];
+        
+        
+    }
     
     if ([name isEqualToString:@"hammer"]) {
         CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];

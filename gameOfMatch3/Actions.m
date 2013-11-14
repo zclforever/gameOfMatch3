@@ -80,6 +80,20 @@ static id sharedManager = nil;
                         nil]];
 
 }
++(void)moveSprite:(CCSprite*)sprite toPosition:(CGPoint)position withDuration:(float)duration withFinishedBlock:(void(^)())block{
+    CCSprite* spriteA=sprite;
+    float moveDuration=duration;
+    [Actions incActionCount];
+    [spriteA runAction:[CCSequence actions:
+                        //[CCDelayTime actionWithDuration:1],
+                        [CCMoveTo actionWithDuration:moveDuration position:position],
+                        [CCCallBlock actionWithBlock:block],
+                        [CCCallBlock actionWithBlock:^{
+        [Actions decActionCount];
+    }],
+                        nil]];
+
+}
 +(void)poisonFromSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block{
     CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"poison.plist"];
     
@@ -108,12 +122,22 @@ static id sharedManager = nil;
     CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"bloodAbsorb.plist"];
     
     CCParticleSystem* fire=particle_system;
+    
+    //spriteB.position=ccp(spriteB.position.x-10,spriteB.position.y);
+    //fire.speed=(spriteB.position.x-spriteA.position.x)/1.5;
+    
+    
+    //fire.scale=.62;
+    fire.scale=.05+(spriteB.position.x-spriteA.position.x)/280;
+    
     //fire.anchorPoint=ccp(0,0);
     fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y+zPersonHeight/2);
     //fire.startSize=36;
-    fire.scale=.62;
+    
     //fire.rotation=-45;
-    //fire.speed=100;
+    //fire.speed=-100;
+    
+    [Actions incActionCount];
     
     [[Actions sharedManager] addChild:fire];
     
@@ -123,6 +147,7 @@ static id sharedManager = nil;
                      [CCScaleTo actionWithDuration:.5 scale:0],
                      [CCCallBlockN actionWithBlock:^(CCNode *node) {
         [node removeFromParentAndCleanup:YES];
+        [Actions decActionCount];
         
     }],
                      nil]];
@@ -132,6 +157,9 @@ static id sharedManager = nil;
     CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"poisonTo.plist"];
     
     CCParticleSystem* fire=particle_system;
+    
+    fire.speed=(spriteB.position.x-spriteA.position.x)/1.5;
+    
     //fire.anchorPoint=ccp(0,0);
     fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y+zPersonHeight/2);
     //fire.startSize=36;
@@ -139,9 +167,46 @@ static id sharedManager = nil;
     fire.duration=2.0;
     //fire.speed=100;
     
+    [Actions incActionCount];
     [[Actions sharedManager] addChild:fire];
+    [fire runAction:[CCSequence actions:
+                     [CCDelayTime actionWithDuration:2.2],
+                     //[CCScaleTo actionWithDuration:.5 scale:0],
+                     [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+        [Actions decActionCount];
+        
+    }],
+                     nil]];
 
     [Actions shakeSprite:spriteB delay:2.2 withFinishedBlock:block];
+}
+
++(void)explosionAtPosition:(CGPoint)position withFinishedBlock:(void(^)())block{
+    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"explosion.plist"];
+    
+    CCParticleSystem* fire=particle_system;
+    //fire.anchorPoint=ccp(0,0);
+    fire.position=position;
+//    fire.startSize=36;
+//    fire.scale=.6;
+    //fire.rotation=-45;
+//    fire.speed=100;
+    
+    //[Actions incActionCount];
+    
+    [[Actions sharedManager] addChild:fire];
+    [fire runAction:[CCSequence actions:
+                     [CCDelayTime actionWithDuration:1.0],
+//                     [CCScaleTo actionWithDuration:1.0 scale:.25],
+//                     [CCScaleTo actionWithDuration:.5 scale:0],
+                     [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+        //[Actions decActionCount];
+        
+    }],
+                     nil]];
+
 }
 
 +(void)iceBallToSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block{
@@ -156,20 +221,102 @@ static id sharedManager = nil;
     //fire.rotation=-45;
     fire.speed=100;
     
-    [[Actions sharedManager] addChild:fire];
+    [Actions incActionCount];
     
+    [[Actions sharedManager] addChild:fire];
     [fire runAction:[CCSequence actions:
                      [CCMoveTo actionWithDuration:1 position:ccp(spriteB.position.x+zPersonHeight/2,spriteB.position.y+zPersonHeight/2)],
                      [CCScaleTo actionWithDuration:1.0 scale:.25],
                      [CCScaleTo actionWithDuration:.5 scale:0],
                      [CCCallBlockN actionWithBlock:^(CCNode *node) {
         [node removeFromParentAndCleanup:YES];
+        [Actions decActionCount];
         
     }],
                      nil]];
     [Actions shakeSprite:spriteB delay:1 withFinishedBlock:block];
 }
++(void)fireSprite:(CCSprite*)spriteA withDuration:(float)duration withFinishedBlock:(void(^)())block{
+    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"fired.plist"];
+    
+    CCParticleSystem* fire=particle_system;
+    //fire.anchorPoint=ccp(0,0);
+    //int randomVar=(arc4random()%80-40);
+    fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y);
+    //fire.startSize=36;
+    fire.scale=.08;
+    //fire.rotation=-45;
+    //fire.speed=100;
+    
+    [Actions incActionCount];
+    int useTag=arc4random();
+    
+    [[Actions sharedManager] addChild:fire z:10 tag:useTag];
+    [fire runAction:[CCSequence actions:
+                     [CCDelayTime actionWithDuration:duration],
+                     [CCScaleTo actionWithDuration:.5 scale:0],
+                     [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+        [Actions decActionCount];
+        
+    }],
+                     nil]];
 
+}
++(void)fireSpriteEndByTag:(int)useTag{
+    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"water.plist"];
+    
+    CCParticleSystem* water=particle_system;
+    CCNode* fire=[[Actions sharedManager] getChildByTag:useTag];
+    [fire runAction:[CCSequence actions:
+                     [CCScaleTo actionWithDuration:1.5 scale:0],
+                     [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+        [Actions decActionCount];
+        
+    }],
+                     nil]];
+    
+
+    water.position=ccp(fire.position.x,fire.position.y+zPersonHeight/2);
+    water.scale=.6;
+    
+    [Actions incActionCount];
+   [[Actions sharedManager] addChild:water];
+    [water runAction:[CCSequence actions:
+                     [CCDelayTime actionWithDuration:2],
+                     //[CCScaleTo actionWithDuration:.5 scale:0],
+                     [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+        [Actions decActionCount];
+        
+    }],
+                     nil]];
+    
+    
+
+
+}
+
++(int)fireSpriteStart:(CCSprite*)spriteA withFinishedBlock:(void(^)())block{
+    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"fired.plist"];
+    
+    CCParticleSystem* fire=particle_system;
+    fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y);
+
+    fire.scale=.08;
+
+    [Actions incActionCount];
+    int useTag=arc4random();
+    
+    [[Actions sharedManager] addChild:fire z:10 tag:useTag]; 
+    [fire runAction:[CCSequence actions:
+                     [CCDelayTime actionWithDuration:999],
+ 
+                     nil]];
+    return useTag;
+
+}
 +(void)fireBallToSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block{
     CCParticleFire *fire = [[CCParticleFire alloc]init];
     //fire.anchorPoint=ccp(0,0);
@@ -180,6 +327,8 @@ static id sharedManager = nil;
     //fire.rotation=-45;
     fire.duration=3.0f;
     fire.gravity=ccp(-90,0);
+    
+     [Actions incActionCount];
    
     [[Actions sharedManager] addChild:fire];
 
@@ -189,7 +338,7 @@ static id sharedManager = nil;
                      [CCScaleTo actionWithDuration:.5 scale:0],
                      [CCCallBlockN actionWithBlock:^(CCNode *node) {
                     [node removeFromParentAndCleanup:YES];
-        
+                    [Actions decActionCount];
                         }],
                      nil]];
     [Actions shakeSprite:spriteB delay:1 withFinishedBlock:block];
@@ -210,7 +359,7 @@ static id sharedManager = nil;
     fire.life=1.0f;
     
     
-    
+     [Actions incActionCount];
     [[Actions sharedManager] addChild:fire];
     
     [fire runAction:[CCSequence actions:
@@ -221,7 +370,7 @@ static id sharedManager = nil;
                      [CCDelayTime actionWithDuration:1],
                      [CCCallBlockN actionWithBlock:^(CCNode *node) {
         [node removeFromParentAndCleanup:YES];
-        
+         [Actions decActionCount];
     }],
                      nil]];
     [Actions shakeSprite:spriteB delay:1.7];

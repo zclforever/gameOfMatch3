@@ -44,7 +44,7 @@
 -(void)update{
     float updateDelay=0.01;
     //NSLog(@"int actionHandler updating");
-    if([Actions getActionCount]>0){[self setTimeOutOfUpdateWithDelay:updateDelay];return;}
+    //if([Actions getActionCount]>0){[self setTimeOutOfUpdateWithDelay:updateDelay];return;}
     if(self.actionArray.count<=0){[self setTimeOutOfUpdateWithDelay:updateDelay];return;}
 
     int (^block)(void)=self.actionArray[0];

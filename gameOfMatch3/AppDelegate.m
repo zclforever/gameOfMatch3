@@ -16,6 +16,32 @@
 // The available orientations should be defined in the Info.plist file.
 // And in iOS 6+ only, you can override it in the Root View controller in the "supportedInterfaceOrientations" method.
 // Only valid for iOS 6+. NOT VALID for iOS 4 / 5.
+
+//zcl.....
+
+-(BOOL)canBecomeFirstResponder{
+    return  YES;
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self becomeFirstResponder];
+}
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if ( event.subtype == UIEventSubtypeMotionShake ) {
+        //CCLOG(@"shake it baby from the root view controller");
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"MyiPhoneShakeEvent" object:nil];
+    }
+    
+    if ( [super respondsToSelector:@selector(motionEnded:withEvent:)] ){
+        [super motionEnded:motion withEvent:event];
+    }
+    
+}
+
+//zcl-end.....
+
+
 -(NSUInteger)supportedInterfaceOrientations {
 	
 	// iPhone only

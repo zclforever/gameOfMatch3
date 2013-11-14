@@ -11,6 +11,7 @@
 
 #import "Global.h"
 #import "Tile.h"
+#import "Actions.h"
 @interface Box : CCLayer
 {
 	id first, second;
