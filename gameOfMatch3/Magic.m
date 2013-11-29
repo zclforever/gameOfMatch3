@@ -45,7 +45,7 @@
 -(Magic*)initWithID:(int)ID{
     NSString* name;
     switch (ID) {
-        case 101:
+        case 104:
             name=@"poison";
             break;
         case 102:
@@ -54,7 +54,7 @@
         case 103:
             name=@"bloodAbsorb";
             break;
-        case 104:
+        case 101:
             name=@"iceBall";
             break;
         default:
@@ -112,7 +112,7 @@
         self.type=@"damage";
         self.CD=12.0f;
         self.showName=@"冰弹";
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@0,@0,@0,@1, nil];
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@0,@0,@0, nil];
         
         
     }
@@ -123,7 +123,7 @@
         self.type=@"damage";
         self.CD=12.0f;
         self.showName=@"毒气";
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@0,@0,@0, nil];
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@0,@0,@0,@1, nil];
         
         
     }

@@ -38,7 +38,7 @@
     self.readyToEnd=NO;
     self.skillBall=0;
     self.selected=NO;
-
+    self.tradeTile=NO;
     [self update];
 
     //[[[CCDirector sharedDirector] scheduler] scheduleSelector:@selector(update) forTarget:self interval:0.1 repeat:kCCRepeatForever delay:0 paused:NO] ;

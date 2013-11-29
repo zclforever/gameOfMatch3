@@ -49,7 +49,7 @@
             totalStar+=[person.starsOfLevelArray[i] intValue];
         }
         
-        int leftPoint=totalStar-point1-point2-point3;
+        int leftPoint=totalStar-(point1+point2+point3)*3;
         
         
         
@@ -80,12 +80,12 @@
         int labelLeft=60;
         int labelSpace=100;
 
-        label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"火系 %d",point1] fontName:@"Arial" fontSize:28];
+        label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"寒冰 %d",point1] fontName:@"Arial" fontSize:28];
         label.opacity=250;
         label.color = ccc3(255,255,230);
         menuLabel=[CCMenuItemLabel itemWithLabel:label block:^(id sender) {
         
-            if (point1<3&&leftPoint>0) {
+            if (point1<3&&leftPoint>=3) {
                  [person.pointDict setValue:[NSNumber numberWithInt:point1+1] forKey:@"skill1"];
                 [[CCDirector sharedDirector]replaceScene:[GamePointLayer scene]];
             }
@@ -98,12 +98,12 @@
         
         
         
-        label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"冰系 %d",point2] fontName:@"Arial" fontSize:28];
+        label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"火神 %d",point2] fontName:@"Arial" fontSize:28];
 
         label.opacity=250;
         label.color = ccc3(255,255,230);
         menuLabel=[CCMenuItemLabel itemWithLabel:label block:^(id sender) {
-            if (point2<3&&leftPoint>0) {
+            if (point2<3&&leftPoint>=3) {
                 [person.pointDict setValue:[NSNumber numberWithInt:point2+1] forKey:@"skill2"];
                 [[CCDirector sharedDirector]replaceScene:[GamePointLayer scene]];
             }
@@ -115,12 +115,12 @@
         
         
         
-        label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"奥术 %d",point3] fontName:@"Arial" fontSize:28];
+        label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"南瓜 %d",point3] fontName:@"Arial" fontSize:28];
 
         label.opacity=250;
         label.color = ccc3(255,255,230);
         menuLabel=[CCMenuItemLabel itemWithLabel:label block:^(id sender) {
-            if (point3<3&&leftPoint>0) {
+            if (point3<3&&leftPoint>=3) {
                 [person.pointDict setValue:[NSNumber numberWithInt:point3+1] forKey:@"skill3"];
                 [[CCDirector sharedDirector]replaceScene:[GamePointLayer scene]];
             }

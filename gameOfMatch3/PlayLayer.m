@@ -113,13 +113,13 @@
     }
     
     
-    
+    self.level=self.enemy.level;
     
     [self updateStatePanel];
     self.turnOfPersons=[NSArray arrayWithObjects:self.player, self.enemy, nil];
 
     //    self.whosTurn=Turn_Enemy;
-    //    self.lockTouch=YES;
+    self.lockTouch=YES;
     self.whosTurn=Turn_Player;
     self.lockTouch=YES;
     self.isStarting=NO;
@@ -222,6 +222,29 @@
     self.shakeCount++;
     CCLOG(@"shake:%d",self.shakeCount);
 }
+
+-(void)addTipWithString:(NSString*)tipString{  //tipstring.tip.
+    CGSize size=[CCDirector sharedDirector].winSize;
+    //@"AYummyApology"
+    CCLabelTTF * ready = [CCLabelTTF labelWithString:tipString fontName:@"Arial" fontSize:22];
+    ready.color = ccc3(255,255,255);
+    //label.anchorPoint=ccp(0,0);
+    ready.position = ccp(size.width/2,size.height/2+75);
+    ready.opacity=0;
+    [self addChild:ready z:4];
+
+    
+    [ready runAction:[CCSequence actions:
+                      [CCFadeIn actionWithDuration:1.0f],
+                      [CCDelayTime actionWithDuration:3.0f],
+                      [CCFadeOut actionWithDuration:2.0f],
+                      [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+    }],
+                      nil]];
+
+}
+
 
 -(void)addReadyGo{
     CGSize size=[CCDirector sharedDirector].winSize;
@@ -414,12 +437,13 @@
     NSArray* matchedArray;
     //Person* nextPerson=self.turnOfPersons[(self.whosTurn+1) % 2];
     
-    if((self.gameTime-self.lastSelectTimeOfMagic>=zMagicCD&&(self.lastSelectTimeOfMagic!=0))||self.magicSelectedArray.count>=3)
+    if((self.gameTime-self.lastSelectTimeOfMagic>=zMagicCD&&(self.lastSelectTimeOfMagic!=0))||self.magicSelectedArray.count>=2)
     {
         int count=self.magicSelectedArray.count;
-        while(count>3){
+        while(count>2){
             Tile* tile=self.magicSelectedArray[count-1];
             tile.selected=NO;
+            tile.tradeTile=NO;
             [self.magicSelectedArray removeObjectAtIndex:count-1]; //万一在这个时候按到球
             
             count--;
@@ -442,13 +466,13 @@
         if(name){
             Magic* magic=[[Magic alloc]initWithName:name];
             [obj magicShootByName:name];
-            for(int i=0;i<4;i++){
+            for(int i=0;i<3;i++){
                 magicCountArray[i]=[NSNumber numberWithInt:[magicCountArray[i] intValue]-[magic.manaCostArray[i] intValue] ];
             }
         }
         
         
-        for(int i=0;i<4;i++){
+        for(int i=0;i<3;i++){
 
             int magicId=101+i;
             int mount=[magicCountArray[i] intValue];
@@ -500,7 +524,7 @@
         }
         
         NSArray* tmp=[box.readyToRemoveTiles allObjects];
-        for(int i=0;i<4;i++){
+        for(int i=0;i<3;i++){
             
             matchedArray=[box findMatchedArray:tmp forValue:i+1];
             if (matchedArray) {
@@ -625,7 +649,7 @@
         
         [self.actionHandler addActionWithBlock:^{
             [Actions fireBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curHP-=700;}];
+                obj.enemy.curHP-=7;}];
             
         }];
     }
@@ -721,6 +745,21 @@
 }
 
 -(void) onEnterTransitionDidFinish{
+    Person* person=self.player;
+    int point1=[[person.pointDict valueForKey:@"skill1"] intValue];
+    int point2=[[person.pointDict valueForKey:@"skill2"] intValue];
+    int point3=[[person.pointDict valueForKey:@"skill3"] intValue];
+
+    if(self.level==1)[self addTipWithString:@"试试消除剑来干她^_^"];
+    if(self.level==2){
+        if (point1+point2+point3<=0) {
+            [self addTipWithString:@"打不过？试试加点"];
+        }else{
+            [self addTipWithString:@"圆圆的技能球,要摸哦~~"];
+        }
+        
+    }
+    
     [self updateStatePanel];
     self.lockTouch=YES;
 	[self lock];
@@ -761,7 +800,9 @@
     
     //add back layer
     __block PlayLayer* obj=self;
-    [self setTimeOut:2.0 withBlock:^{
+    
+    
+    [self setTimeOut:3.5 withBlock:^{
         [obj unlock];
         obj.lockTouch=NO;
 
@@ -1125,7 +1166,7 @@
   	if (self.selectedTile.x ==x && self.selectedTile.y == y) {  //提上且同一个
         
         if(tile.value>100&&(!tile.selected)){
-            if (self.magicSelectedArray.count>=3) {
+            if (self.magicSelectedArray.count>=2) {
                 self.selectedTile=nil;
                 return;
             }
@@ -1147,7 +1188,11 @@
             //[self.selectedTile scaleToTileSize];
             self.selectedTile = nil;
             if(ret)
-            {self.moveSuccessReady=YES;}
+            {
+                self.moveSuccessReady=YES;
+                tile.tradeTile=YES;
+                self.selectedTile.tradeTile=YES;
+            }
             else{
                 [self moveFailed];
             }

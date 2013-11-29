@@ -8,6 +8,7 @@
 
 #import "Box.h"
 #import "SimpleAudioEngine.h"
+#import "Person.h"
 @interface Box()
 -(int) repair;
 -(int) repairSingleColumn: (int) columnIndex;
@@ -218,7 +219,25 @@
             continue;
         }
         
-        if(tile.value<=0||tile.value>4)continue;
+        if(tile.value<=0||tile.value>3)continue; 
+        
+    //产生技能球.skill.skillball.
+        Person* person=[Person sharedPlayerCopy];
+        int point1=[[person.pointDict valueForKey:@"skill1"] intValue];
+        int point2=[[person.pointDict valueForKey:@"skill2"] intValue];
+        int point3=[[person.pointDict valueForKey:@"skill3"] intValue];
+        if(point1==0&&tile.value==1)continue;
+        if(point2==0&&tile.value==2)continue;
+        if(point3==0&&tile.value==3)continue;
+        
+        for (int i=0; i<removeArray.count; i++) {
+            
+            if([removeArray[i] tradeTile]){
+                tile=removeArray[i];
+                break;
+            }
+           
+        }
         
         [removeArray removeObject:tile];
         //[self.readyToRemoveTiles removeObject:tile];
@@ -227,7 +246,7 @@
         
         CGPoint pos=[tile pixPosition];
         
-        Tile *destTile = [[Tile alloc]initWithX:tile.x Y:tile.y];
+        Tile *destTile = [[Tile alloc]initWithX:tile.x Y:tile.y];  
         [self addChild:destTile];
         [self setObjectAtX:tile.x Y:tile.y withTile:destTile];
         CCSprite* sprite;
@@ -637,121 +656,5 @@
 	}
     return count;
 }
-/*
--(NSMutableArray*) scanSingleRow: (int) rowIndex{
-    Tile *oriTile;
-    Tile *destTile;
-    Tile *matchTile;
-    NSMutableArray* ret=[[NSMutableArray alloc]init];
-    
-    NSMutableArray* maxLineArray=[self scanMaxLineAtRow:rowIndex];
-    for(NSArray* range in maxLineArray){
-        int start=[range[0] intValue];
-        int end=[range[1] intValue];
-        matchTile=[self objectAtX:start Y:rowIndex];
-        
-        destTile=[self objectAtX:start-1 Y:rowIndex];
-        if(destTile.value==-1)continue;
-        oriTile = [self objectAtX:start-1 Y:rowIndex-1];
-        if(destTile.value==oriTile.value){[ret addObject:[NSArray arrayWithObjects:oriTile,destTile, nil]];}
-        oriTile = [self objectAtX:start-1 Y:rowIndex+1];
-        if(destTile.value==oriTile.value){[ret addObject:[NSArray arrayWithObjects:oriTile,destTile, nil]];}
-        oriTile = [self objectAtX:start-2 Y:rowIndex];
-        if(destTile.value==oriTile.value){[ret addObject:[NSArray arrayWithObjects:oriTile,destTile, nil]];}
-        
-        destTile=[self objectAtX:end+1 Y:rowIndex];
-        if(destTile.value==-1)continue;
-        oriTile = [self objectAtX:end+1 Y:rowIndex-1];
-        if(destTile.value==oriTile.value){[ret addObject:[NSArray arrayWithObjects:oriTile,destTile, nil]];}
-        oriTile = [self objectAtX:end+1 Y:rowIndex+1];
-        if(destTile.value==oriTile.value){[ret addObject:[NSArray arrayWithObjects:oriTile,destTile, nil]];}
-        oriTile = [self objectAtX:end+2 Y:rowIndex];
-        if(destTile.value==oriTile.value){[ret addObject:[NSArray arrayWithObjects:oriTile,destTile, nil]];}
-    }
-    return ret;
-
-}
- */
-/*
--(NSMutableArray*) scanSingleColumn: (int) columnIndex{
-    Tile *oriTile;
-    Tile *destTile;
-    Tile *matchTile;
-    NSMutableArray* ret=[[NSMutableArray alloc]init];
-    
-    NSMutableArray* maxLineArray=[self scanMaxLineAtColumn:columnIndex];
-    for(NSArray* range in maxLineArray){
-        int start=[range[0] intValue];
-        int end=[range[1] intValue];
-        matchTile=[self objectAtX:columnIndex Y:start];
-        
-        destTile=[self objectAtX:columnIndex Y:start-1];
-        if(destTile.value==-1)continue;
-        oriTile = [self objectAtX:columnIndex-1 Y:start-1];
-        if(destTile.value==oriTile.value){[ret addObject:[NSArray arrayWithObjects:oriTile,destTile, nil]];}
-        oriTile = [self objectAtX:columnIndex+1 Y:start-1];
-        if(destTile.value==oriTile.value){[ret addObject:[NSArray arrayWithObjects:oriTile,destTile, nil]];}
-        oriTile = [self objectAtX:columnIndex Y:start-2];
-        if(destTile.value==oriTile.value){[ret addObject:[NSArray arrayWithObjects:oriTile,destTile, nil]];}
-        
-        destTile=[self objectAtX:columnIndex Y:end+1];
-        if(destTile.value==-1)continue;
-        oriTile = [self objectAtX:columnIndex-1 Y:end+1];
-        if(destTile.value==oriTile.value){[ret addObject:[NSArray arrayWithObjects:oriTile,destTile, nil]];}
-        oriTile = [self objectAtX:columnIndex+1 Y:end+1];
-        if(destTile.value==oriTile.value){[ret addObject:[NSArray arrayWithObjects:oriTile,destTile, nil]];}
-        oriTile = [self objectAtX:columnIndex Y:end+2];
-        if(destTile.value==oriTile.value){[ret addObject:[NSArray arrayWithObjects:oriTile,destTile, nil]];}
-    }
-    return ret;
-    
-}
-
-
--(NSMutableArray*) scanForMatch{
-    NSMutableArray* ret=[[NSMutableArray alloc]init];
-    for (int x=0; x<size.height; x++) {
-        [ret arrayByAddingObjectsFromArray:[self scanSingleRow:x]];
-        
-    }
-    for (int x=0; x<size.width; x++) {
-        [ret arrayByAddingObjectsFromArray:[self scanSingleColumn:x]];
-    }
-    return ret;
-}
- -(NSMutableArray*) scanMaxLineAtRow:(int) rowIndex{
- NSMutableArray* maxLineArray=[[NSMutableArray alloc]init];
- int start=0;   //扫描最长线
- int value=nil;
- for (int x=0; x<size.width+1; x++) {
- Tile *tile = [self objectAtX:x Y:rowIndex];
- if(value==tile.value){
- 
- }else{
- value=tile.value;
- if(x>start){[maxLineArray addObject:[NSArray arrayWithObjects:[NSNumber numberWithInt:start],[NSNumber numberWithInt:x],nil]];}
- start=x+1;
- }
- }
- return maxLineArray;
- }
- -(NSMutableArray*) scanMaxLineAtColumn:(int) columnIndex{
- NSMutableArray* maxLineArray=[[NSMutableArray alloc]init];
- int start=0;   //扫描最长线
- int value=nil;
- for (int x=0; x<size.height+1; x++) {
- Tile *tile = [self objectAtX:columnIndex Y:x];
- if(value==tile.value){
- 
- }else{
- value=tile.value;
- if(x>start){[maxLineArray addObject:[NSArray arrayWithObjects:[NSNumber numberWithInt:start],[NSNumber numberWithInt:x],nil]];}
- start=x+1;
- }
- }
- return maxLineArray;
- }
-
-*/
 
 @end
