@@ -49,12 +49,15 @@
     person.spriteScale=defaultPerson.spriteScale;
     person.maxManaArray=defaultPerson.maxManaArray;
     person.stateDict=defaultPerson.stateDict ;
+    person.starsOfLevelArray=defaultPerson.starsOfLevelArray;
+    person.pointDict=defaultPerson.pointDict;
 }
 +(Person*)copyWith:(Person*)oriPerson{
     Person* person=[[Person alloc] init];
     [self copyWith:oriPerson to:person];
     return person;
 }
+
 +(Person*)defaultPlayer{
     
     Person* person=[[Person alloc] init];
@@ -70,6 +73,11 @@
     person.spriteScale=0.4f;
     person.maxManaArray=[NSMutableArray arrayWithObjects:@10,@10,@10,@10, nil];
     person.stateDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0.0,@"fired",@0.0,@"poisoned", nil];
+    person.pointDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0,@"skill1",@0,@"skill2",@0,@"skill3", nil];
+    person.starsOfLevelArray=[[NSMutableArray alloc] initWithCapacity:100];
+    for (int i=0; i<100;i++) {
+        [person.starsOfLevelArray addObject:@0];
+    }
     return person;
     
     

@@ -32,6 +32,7 @@
 		02A65452180D250800A932F9 /* block_101.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A6544E180D250800A932F9 /* block_101.png */; };
 		02A65453180D250800A932F9 /* block_102.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A6544F180D250800A932F9 /* block_102.png */; };
 		02A65454180D250800A932F9 /* block_104.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A65450180D250800A932F9 /* block_104.png */; };
+		02AD8E95184876A3000092AC /* GamePointLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 02AD8E94184876A3000092AC /* GamePointLayer.m */; };
 		02B1740817C5C6D60057DA00 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B1740717C5C6D60057DA00 /* QuartzCore.framework */; };
 		02B1740A17C5C6D60057DA00 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B1740917C5C6D60057DA00 /* OpenGLES.framework */; };
 		02B1740C17C5C6D60057DA00 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B1740B17C5C6D60057DA00 /* OpenAL.framework */; };
@@ -288,6 +289,8 @@
 		02A6544E180D250800A932F9 /* block_101.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_101.png; sourceTree = "<group>"; };
 		02A6544F180D250800A932F9 /* block_102.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_102.png; sourceTree = "<group>"; };
 		02A65450180D250800A932F9 /* block_104.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_104.png; sourceTree = "<group>"; };
+		02AD8E93184876A2000092AC /* GamePointLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePointLayer.h; sourceTree = "<group>"; };
+		02AD8E94184876A3000092AC /* GamePointLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePointLayer.m; sourceTree = "<group>"; };
 		02B1740417C5C6D60057DA00 /* gameOfMatch3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gameOfMatch3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02B1740717C5C6D60057DA00 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		02B1740917C5C6D60057DA00 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -801,6 +804,8 @@
 				02B175B017C5C6D90057DA00 /* BattleLayer.m */,
 				0259BBD517DDB02D0033F345 /* GameLevelLayer.h */,
 				0259BBD617DDB02D0033F345 /* GameLevelLayer.m */,
+				02AD8E93184876A2000092AC /* GamePointLayer.h */,
+				02AD8E94184876A3000092AC /* GamePointLayer.m */,
 				75F85E8D17DE240300B4329C /* GameMainLayer.h */,
 				75F85E8E17DE240300B4329C /* GameMainLayer.m */,
 				752979AC17D357CC009B8B95 /* GameStartLayer.h */,
@@ -1590,6 +1595,7 @@
 				75F85E8F17DE240300B4329C /* GameMainLayer.m in Sources */,
 				026A18DC17F9297100B05B31 /* Actions.m in Sources */,
 				02A18C8617F970D4008D5C33 /* ActionQueue.m in Sources */,
+				02AD8E95184876A3000092AC /* GamePointLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

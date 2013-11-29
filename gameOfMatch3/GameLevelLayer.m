@@ -63,6 +63,10 @@
     [self addChild:label];
     NSMutableArray* menuArray=[[NSMutableArray alloc]init];
     NSMutableArray* nameOfGameLevelArray=nil;
+    
+    Person* person=[Person sharedPlayerCopy];
+    bool lockLevel=NO;  //锁住这关
+    
     if (![[Global sharedManager] nameOfGameLevelArray]) {
         nameOfGameLevelArray=[[NSMutableArray alloc]init];
         [[Global sharedManager] setNameOfGameLevelArray:nameOfGameLevelArray];
@@ -72,19 +76,34 @@
         [menuArray removeAllObjects];
         for (int i=0; i<3; i++) {
             int level=j*3+i+1;
-            NSString* name=[NSString stringWithFormat:@"第%02d关",level];
+            
+    
+            NSString* name=[NSString stringWithFormat:@"%02d",level];
             if (nameOfGameLevelArray) {
                 [nameOfGameLevelArray addObject:name];
             }else{
                 name=[[Global sharedManager] nameOfGameLevelArray][level-1];
             }
+            
+            if (level>1) {
+                int starOfLevel=[person.starsOfLevelArray[level-2] intValue];
+                if(starOfLevel<1){
+                    name=@"锁";
+                    lockLevel=YES;
+                
+                }
+            }
+            
+            
             CCLabelTTF* levelLabel = [CCLabelTTF labelWithString:name fontName:@"Arial" fontSize:24];
             
             levelLabel.opacity=250;
             levelLabel.color = ccc3(255,255,230);
             CCMenuItemLabel* menuLabel=[CCMenuItemLabel itemWithLabel:levelLabel block:^(id sender) {
-                [[Global sharedManager] setCurrentLevelOfGame:level];
-                [[CCDirector sharedDirector] replaceScene:[BattleLayer sceneWithLevel:level]];
+                if (!lockLevel) {
+                    [[Global sharedManager] setCurrentLevelOfGame:level];
+                    [[CCDirector sharedDirector] replaceScene:[BattleLayer sceneWithLevel:level]];
+                }
             }];
             
             

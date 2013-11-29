@@ -9,6 +9,7 @@
 #import "GameMainLayer.h"
 #import "GameLevelLayer.h"
 #import "StateLayer.h"
+#import "GamePointLayer.h"
 
 @implementation GameMainLayer
 +(CCScene *) scene
@@ -43,6 +44,18 @@
     [menuItemArray addObject:menuLabel];
     
     
+    
+    label = [CCLabelTTF labelWithString:@"加点" fontName:@"Arial" fontSize:28];
+    label.opacity=250;
+    label.color = ccc3(255,255,230);
+    menuLabel=[CCMenuItemLabel itemWithLabel:label block:^(id sender) {
+        [[CCDirector sharedDirector]replaceScene:[GamePointLayer scene]];
+    }];
+    
+    [menuItemArray addObject:menuLabel];
+    
+    
+    
     label = [CCLabelTTF labelWithString:@"人物" fontName:@"Arial" fontSize:28];
     label.opacity=250;
     label.color = ccc3(255,255,230);
@@ -50,7 +63,11 @@
         [[CCDirector sharedDirector]replaceScene:[StateLayer sceneWith:[Person sharedPlayer]]];
     }];
     
-    [menuItemArray addObject:menuLabel];
+    //[menuItemArray addObject:menuLabel];
+    
+    
+    
+    
     CCMenu* backMenu=[CCMenu menuWithArray:menuItemArray];
     //CCMenu* backMenu=[CCMenu menuWithItems:menuItemArray[0],menuItemArray[1],nil];
     backMenu.anchorPoint=ccp(0,0);

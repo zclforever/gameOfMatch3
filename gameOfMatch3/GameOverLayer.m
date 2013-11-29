@@ -61,7 +61,7 @@
                 [labelArray[i++] setString:[NSString stringWithFormat:@"过关金钱:%d",curLevel*25]];
                 [labelArray[i++] setString:[NSString stringWithFormat:@"得分:%d",player.scoreInBattle]];
                 
-                [[Global sharedManager] nameOfGameLevelArray][curLevel-1]=[NSString stringWithFormat:@"%02d clear",curLevel];
+                [[Global sharedManager] nameOfGameLevelArray][curLevel-1]=[NSString stringWithFormat:@"%02d",curLevel];
 
                 
 //                CGSize winSize = [[CCDirector sharedDirector] winSize];

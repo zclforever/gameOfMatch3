@@ -406,7 +406,7 @@
     self.updating=YES;
     self.updateCount++;
     
-    __weak PlayLayer* obj=self;
+    __block PlayLayer* obj=self;
     
     
     [box.removeResultArray removeAllObjects];
@@ -625,7 +625,7 @@
         
         [self.actionHandler addActionWithBlock:^{
             [Actions fireBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curHP-=7;}];
+                obj.enemy.curHP-=700;}];
             
         }];
     }
@@ -957,7 +957,20 @@
         person.experience+=self.player.expInBattle;
         person.experience+=[[Global sharedManager] currentLevelOfGame]*25;
         person.money+=[[Global sharedManager] currentLevelOfGame]*25;
+
+        int star=1;
+        float needTime=180.0f;
         
+        if(self.player.curHP>=self.player.maxHP/2) star++;   //半血加星
+        if(self.gameTime<=needTime) star++;   //小于needTime加星
+         
+        if(star>[person.starsOfLevelArray[self.enemy.level-1] intValue]){
+            person.starsOfLevelArray[self.enemy.level-1]=[NSNumber numberWithInt:star]; //更新得星数
+
+        }
+
+
+
         [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:YES FromBattle:self]];
     }
     else if (self.player.curHP<=0){
