@@ -370,7 +370,7 @@
         
         if(self.enemy.attackType==2&&!self.firedTag){
         
-            [self.player.stateDict setValue:[NSNumber numberWithInt:self.enemy.level] forKey:@"fired"];
+            [self.player.stateDict setValue:[NSNumber numberWithInt:1+self.enemy.level/3] forKey:@"fired"];
             self.firedShakeCount=self.shakeCount;
             self.firedTag=[Actions fireSpriteStart:self.statePanelLayerPlayer.personSprite  withFinishedBlock:^{}];
 
