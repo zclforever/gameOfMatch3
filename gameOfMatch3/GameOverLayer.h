@@ -17,5 +17,6 @@
     
 }
 +(CCScene *) sceneWithWon:(BOOL)won;
-+(CCScene *) sceneWithWon:(BOOL)won FromBattle:(id) playLayer;
++(CCScene *) sceneWithWon:(BOOL)won withGameInfo:(NSDictionary*) info;
+
 @end

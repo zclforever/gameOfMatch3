@@ -21,15 +21,13 @@
 @property (readonly) int magicDamage;
 @property int experience;
 @property int money;
-@property int expInBattle;
-@property int moneyInBattle;
 @property (strong,nonatomic) NSString* spriteName;
 @property float spriteScale;
-@property int scoreInBattle;
 @property (strong,nonatomic) NSMutableArray* maxManaArray;
 @property (strong,nonatomic) NSMutableArray* starsOfLevelArray;
-@property (strong,nonatomic) NSMutableDictionary* stateDict;
+@property (strong,nonatomic) NSMutableDictionary* stateDict;  //战斗时的状态
 @property (strong,nonatomic) NSMutableDictionary* pointDict;
+@property (strong,nonatomic) NSMutableDictionary* moneyBuyDict;
 +(void)initSharedPlayer;
 +(void)copyWith:(Person*)oriPerson to:(Person*)destPerson;
 +(Person*)copyWith:(Person*)oriPerson;

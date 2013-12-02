@@ -14,6 +14,14 @@
 #import "GameOverLayer.h"
 #import "Person.h"
 #import "ManaLayer.h"
+@interface MyPoint:NSObject{
+    
+}
+-(id)initWithX:(int)x Y:(int)y;
+@property int x;
+@property int y;
+@end
+
 @interface PlayLayer : CCLayer<UIAccelerometerDelegate> {
 	Box *box;
 	//Tile *selectedTile;
@@ -26,6 +34,7 @@
 @property (weak,nonatomic) Person* player;
 @property (weak,nonatomic) Person* enemy;
 @property int gameLevel; //第几关
+
 
 
 -(bool) changeWithTileA: (Tile *) a TileB: (Tile *) b;

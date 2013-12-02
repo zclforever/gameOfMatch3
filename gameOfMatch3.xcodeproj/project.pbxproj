@@ -16,6 +16,7 @@
 		0209D2551820E81100FAFD26 /* poison.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2541820E81100FAFD26 /* poison.plist */; };
 		0209D2571820EE5600FAFD26 /* poisonTo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2561820EE5600FAFD26 /* poisonTo.plist */; };
 		0209D2591820F32000FAFD26 /* bloodAbsorb.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2581820F32000FAFD26 /* bloodAbsorb.plist */; };
+		0214C9C0184C6FC2001ADFBD /* GameMoneyBuyLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0214C9BF184C6FC2001ADFBD /* GameMoneyBuyLayer.m */; };
 		0259BBD717DDB02D0033F345 /* GameLevelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259BBD617DDB02D0033F345 /* GameLevelLayer.m */; };
 		0259BBDB17DDB25D0033F345 /* enemy_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD817DDB25D0033F345 /* enemy_1.png */; };
 		0259BBDC17DDB25D0033F345 /* enemy_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD917DDB25D0033F345 /* enemy_2.png */; };
@@ -241,6 +242,8 @@
 		0209D2541820E81100FAFD26 /* poison.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = poison.plist; sourceTree = "<group>"; };
 		0209D2561820EE5600FAFD26 /* poisonTo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = poisonTo.plist; sourceTree = "<group>"; };
 		0209D2581820F32000FAFD26 /* bloodAbsorb.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bloodAbsorb.plist; sourceTree = "<group>"; };
+		0214C9BE184C6FC2001ADFBD /* GameMoneyBuyLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMoneyBuyLayer.h; sourceTree = "<group>"; };
+		0214C9BF184C6FC2001ADFBD /* GameMoneyBuyLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMoneyBuyLayer.m; sourceTree = "<group>"; };
 		0259BBD517DDB02D0033F345 /* GameLevelLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLevelLayer.h; sourceTree = "<group>"; };
 		0259BBD617DDB02D0033F345 /* GameLevelLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLevelLayer.m; sourceTree = "<group>"; };
 		0259BBD817DDB25D0033F345 /* enemy_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_1.png; sourceTree = "<group>"; };
@@ -750,6 +753,8 @@
 				0259BBD617DDB02D0033F345 /* GameLevelLayer.m */,
 				02AD8E93184876A2000092AC /* GamePointLayer.h */,
 				02AD8E94184876A3000092AC /* GamePointLayer.m */,
+				0214C9BE184C6FC2001ADFBD /* GameMoneyBuyLayer.h */,
+				0214C9BF184C6FC2001ADFBD /* GameMoneyBuyLayer.m */,
 				75F85E8D17DE240300B4329C /* GameMainLayer.h */,
 				75F85E8E17DE240300B4329C /* GameMainLayer.m */,
 				752979AC17D357CC009B8B95 /* GameStartLayer.h */,
@@ -1476,6 +1481,7 @@
 				026A18DC17F9297100B05B31 /* Actions.m in Sources */,
 				02A18C8617F970D4008D5C33 /* ActionQueue.m in Sources */,
 				02AD8E95184876A3000092AC /* GamePointLayer.m in Sources */,
+				0214C9C0184C6FC2001ADFBD /* GameMoneyBuyLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

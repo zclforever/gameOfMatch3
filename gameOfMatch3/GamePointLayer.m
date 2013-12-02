@@ -30,7 +30,7 @@
         NSMutableArray* menuItemArray=[[NSMutableArray alloc]init];
         CCLabelTTF* label;
         CCMenuItemLabel* menuLabel;
-        label = [CCLabelTTF labelWithString:@"返回" fontName:@"Arial" fontSize:28];
+        label = [CCLabelTTF labelWithString:@"返回" fontName:@"Arial" fontSize:36];
         label.opacity=250;
         label.color = ccc3(255,255,230);
         menuLabel=[CCMenuItemLabel itemWithLabel:label block:^(id sender) {
@@ -129,7 +129,7 @@
         menu.position=ccp(labelLeft+labelSpace*2,labelHeight);        
         [self addChild:menu];
         
-        label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"剩余点数 %02d",leftPoint] fontName:@"Arial" fontSize:28];
+        label = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"剩余星星数 %02d",leftPoint] fontName:@"Arial" fontSize:28];
         label.opacity=250;
         label.color = ccc3(255,255,230);
         label.position=ccp(150,300);

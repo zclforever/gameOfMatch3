@@ -6,7 +6,10 @@
          contextName = "-[PlayLayer ccTouchesEnded:withEvent:]:PlayLayer.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.touchBegan">
+               value = "i">
+            </PersistentString>
+            <PersistentString
+               value = "location">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -25,35 +28,10 @@
          contextName = "-[PlayLayer update:]:PlayLayer.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.gameTime">
+               value = "self.lastTipTime">
             </PersistentString>
             <PersistentString
                value = "(1.0f-2.0f)&gt;2">
-            </PersistentString>
-            <PersistentString
-               value = "self.lastTipTime">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[GameLevelLayer init]:GameLevelLayer.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[PlayLayer checkGameOver]:PlayLayer.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[PlayLayer onEnterTransitionDidFinish]:PlayLayer.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.level">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "__20-[PlayLayer update:]_block_invoke_3:PlayLayer.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.lastTipTime">
             </PersistentString>
             <PersistentString
                value = "self.gameTime">
@@ -68,6 +46,31 @@
             </PersistentString>
             <PersistentString
                value = "self.enemy.stateDict">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer checkGameOver]:PlayLayer.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer onEnterTransitionDidFinish]:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.level">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[GameLevelLayer init]:GameLevelLayer.m">
+      </ContextState>
+      <ContextState
+         contextName = "__20-[PlayLayer update:]_block_invoke_3:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.gameTime">
+            </PersistentString>
+            <PersistentString
+               value = "self.lastTipTime">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

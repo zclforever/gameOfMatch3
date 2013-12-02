@@ -162,6 +162,8 @@
 	
 	// make main window visible
 	[window_ makeKeyAndVisible];
+    
+    glView.multipleTouchEnabled=YES;
 	
 	return YES;
 }

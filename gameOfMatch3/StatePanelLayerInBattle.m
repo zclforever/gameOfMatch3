@@ -199,11 +199,11 @@
 }
 
 -(void)update:(ccTime)delta{
-    if(self.expLabel&&self.person){[self.expLabel setString:[NSString stringWithFormat:@"经验:%d",self.person.expInBattle]];}
-    if(self.moneyLabel&&self.person){[self.moneyLabel setString:[NSString stringWithFormat:@"金钱:%d",self.person.moneyInBattle]];}
-    if(self.scoreLabel&&self.person){[self.scoreLabel setString:[NSString stringWithFormat:@"Score:%d",self.person.scoreInBattle]];}
-    
-    
+    //if(self.expLabel){[self.expLabel setString:[NSString stringWithFormat:@"经验:%d",self.person.expInBattle]];}
+//    if(self.moneyLabel){[self.moneyLabel setString:[NSString stringWithFormat:@"金钱:%d",self.moneyInBattle]];}
+//    if(self.scoreLabel){[self.scoreLabel setString:[NSString stringWithFormat:@"Score:%d",self.scoreInBattle]];}
+//    
+//    
     if(self.lifeBar){
        
 

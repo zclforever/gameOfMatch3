@@ -10,6 +10,7 @@
 #import "GameLevelLayer.h"
 #import "StateLayer.h"
 #import "GamePointLayer.h"
+#import "GameMoneyBuyLayer.h"
 
 @implementation GameMainLayer
 +(CCScene *) scene
@@ -56,14 +57,14 @@
     
     
     
-    label = [CCLabelTTF labelWithString:@"人物" fontName:@"Arial" fontSize:28];
+    label = [CCLabelTTF labelWithString:@"土豪" fontName:@"Arial" fontSize:28];
     label.opacity=250;
     label.color = ccc3(255,255,230);
     menuLabel=[CCMenuItemLabel itemWithLabel:label block:^(id sender) {
-        [[CCDirector sharedDirector]replaceScene:[StateLayer sceneWith:[Person sharedPlayer]]];
+        [[CCDirector sharedDirector]replaceScene:[GameMoneyBuyLayer scene]];
     }];
     
-    //[menuItemArray addObject:menuLabel];
+    [menuItemArray addObject:menuLabel];
     
     
     
@@ -71,8 +72,8 @@
     CCMenu* backMenu=[CCMenu menuWithArray:menuItemArray];
     //CCMenu* backMenu=[CCMenu menuWithItems:menuItemArray[0],menuItemArray[1],nil];
     backMenu.anchorPoint=ccp(0,0);
-    backMenu.position = ccp(100,30);
-    [backMenu alignItemsHorizontallyWithPadding:80.0f];
+    backMenu.position = ccp(150,30);
+    [backMenu alignItemsHorizontallyWithPadding:60.0f];
     [self addChild:backMenu z:4];
     
     

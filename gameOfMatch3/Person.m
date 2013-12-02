@@ -51,6 +51,7 @@
     person.stateDict=defaultPerson.stateDict ;
     person.starsOfLevelArray=defaultPerson.starsOfLevelArray;
     person.pointDict=defaultPerson.pointDict;
+    person.moneyBuyDict=defaultPerson.moneyBuyDict;
 }
 +(Person*)copyWith:(Person*)oriPerson{
     Person* person=[[Person alloc] init];
@@ -74,6 +75,8 @@
     person.maxManaArray=[NSMutableArray arrayWithObjects:@10,@10,@10,@10, nil];
     person.stateDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0.0,@"fired",@0.0,@"poisoned", nil];
     person.pointDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0,@"skill1",@0,@"skill2",@0,@"skill3", nil];
+    person.moneyBuyDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0,@"hpPlus",@0,@"shakeStopFire", nil];
+    
     person.starsOfLevelArray=[[NSMutableArray alloc] initWithCapacity:100];
     for (int i=0; i<100;i++) {
         [person.starsOfLevelArray addObject:@0];
@@ -171,7 +174,7 @@
     person.spriteScale=1.0f;
     person.maxStep=100;
     person.curStep=0;
-    person.level=level;
+    person.level=raw_level;
     
     
     return person;
