@@ -692,7 +692,7 @@
         
         [self.actionHandler addActionWithBlock:^{
             [Actions bigFireBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curHP-=35;}];
+                obj.enemy.curHP-=50;}];
             
         }];
     }

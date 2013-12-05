@@ -45,7 +45,7 @@
         int point2=[[person.pointDict valueForKey:@"skill2"] intValue];
         int point3=[[person.pointDict valueForKey:@"skill3"] intValue];
         int totalStar=0;
-        totalStar=5; //test;
+        totalStar=10; //test;
         for (int i=0; i<100; i++) {
             totalStar+=[person.starsOfLevelArray[i] intValue];
         }
