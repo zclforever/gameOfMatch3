@@ -165,9 +165,9 @@
         person.maxHP=140;
     }
 
-    person.damage=1+10*(int)((raw_level-1));
-    person.maxHP=20+50*(int)((raw_level-1));
-    person.apSpeed=5.0f+1*(int)((raw_level-1)/3);
+    person.damage=1+5*(int)((raw_level-1));
+    person.maxHP=20+60*(int)((raw_level-1));
+    person.apSpeed=4.0f+1*(int)((raw_level-1)/3);
     
     person.curHP=person.maxHP;
     person.spriteName=[NSString stringWithFormat:@"enemy_%d.png",level];

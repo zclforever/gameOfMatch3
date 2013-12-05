@@ -38,6 +38,9 @@
 @property int  moneyInBattle;
 @property int  scoreInBattle;
 
+@property (weak,nonatomic) Tile *tradeTile1;
+@property (weak,nonatomic) Tile *tradeTile2;
+
 @property CGPoint touchBegan;
 @property (strong,nonatomic) NSMutableArray* touchesBeganArray;
 @property (strong,nonatomic) NSMutableArray* touchesEndArray;
@@ -70,9 +73,9 @@
 -(id)initWithPlayer:(Person*)player withEnemy:(Person*)enemy{
 	self = [super init];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(shakeEvent)
-//                                                 name:@"MyiPhoneShakeEvent" object:nil];
+    //    [[NSNotificationCenter defaultCenter] addObserver:self
+    //                                             selector:@selector(shakeEvent)
+    //                                                 name:@"MyiPhoneShakeEvent" object:nil];
     
     self.isAccelerometerEnabled = YES;
     [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1/60];
@@ -80,19 +83,19 @@
     
     
     //添加手势  跟cocos2d冲突
-//    UITapGestureRecognizer* tapRecognizer =
-//    [[UITapGestureRecognizer alloc]
-//      initWithTarget:self action:@selector(handleTaped:)];
-//
-//    [[[CCDirector sharedDirector] view]
-//     addGestureRecognizer:tapRecognizer];
-//    
-//    UISwipeGestureRecognizer* swipeRecognizer =
-//    [[UISwipeGestureRecognizer alloc]
-//     initWithTarget:self action:@selector(handleSwiped:)];
-//    
-//    [[[CCDirector sharedDirector] view]
-//     addGestureRecognizer:swipeRecognizer];
+    //    UITapGestureRecognizer* tapRecognizer =
+    //    [[UITapGestureRecognizer alloc]
+    //      initWithTarget:self action:@selector(handleTaped:)];
+    //
+    //    [[[CCDirector sharedDirector] view]
+    //     addGestureRecognizer:tapRecognizer];
+    //
+    //    UISwipeGestureRecognizer* swipeRecognizer =
+    //    [[UISwipeGestureRecognizer alloc]
+    //     initWithTarget:self action:@selector(handleSwiped:)];
+    //
+    //    [[[CCDirector sharedDirector] view]
+    //     addGestureRecognizer:swipeRecognizer];
     
     
     self.actionHandler=[[ActionQueue alloc]init];
@@ -147,7 +150,7 @@
     
     [self updateStatePanel];
     self.turnOfPersons=[NSArray arrayWithObjects:self.player, self.enemy, nil];
-
+    
     //    self.whosTurn=Turn_Enemy;
     self.lockTouch=YES;
     self.whosTurn=Turn_Player;
@@ -204,7 +207,7 @@
     label.position = ccp(250,415);
     [self addChild:label z:4];
     self.stepLabel=label;
- 
+    
     
     label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:12];     //stateLabel
     
@@ -226,7 +229,7 @@
     [super onExit];
     [self removeAllChildrenWithCleanup:YES];
     
-
+    
     
     self.statePanelLayerPlayer=nil;
     self.statePanelLayerEnemy=nil;
@@ -245,7 +248,7 @@
 }
 
 -(void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
-        float THRESHOLD = 2;
+    float THRESHOLD = 2;
     
     if (acceleration.x > THRESHOLD || acceleration.x < -THRESHOLD ||
         acceleration.y > THRESHOLD || acceleration.y < -THRESHOLD ||
@@ -254,7 +257,7 @@
         [self shakeEvent];
         
     }
-
+    
     
 }
 -(void)shakeEvent{
@@ -268,19 +271,19 @@
     
     CGSize size=[CCDirector sharedDirector].winSize;
     //@"AYummyApology"
-
+    
     CCLabelTTF * ready = [CCLabelTTF labelWithString:tipString fontName:@"Arial" fontSize:22 dimensions:CGSizeMake(280,320) hAlignment:kCCTextAlignmentCenter vAlignment:kCCVerticalTextAlignmentCenter lineBreakMode:kCCLineBreakModeWordWrap];
     
-
+    
     //CCLabelTTF * ready = [CCLabelTTF labelWithString:tipString fontName:@"Arial" fontSize:22];
     ready.color = ccc3(255,255,255);
     //label.anchorPoint=ccp(0,0);
     ready.position = ccp(size.width/2,size.height/2-30);
     ready.opacity=0;
-
+    
     
     [self addChild:ready z:101];
-
+    
     
     [ready runAction:[CCSequence actions:
                       [CCFadeIn actionWithDuration:.5f],
@@ -290,7 +293,7 @@
         [node removeFromParentAndCleanup:YES];
     }],
                       nil]];
-
+    
 }
 
 
@@ -330,6 +333,8 @@
                    nil]];
 }
 -(void)handleTimeOut{  //.handletimeout.handle.
+    float firedDamage=.5+self.enemy.level/9;
+    
     float timeInterval=0.04f;
     //enemy state;
     float value;
@@ -344,7 +349,7 @@
     value=[[self.player.stateDict objectForKey:@"fired"] floatValue];
     float hpReduceByFired=value*2*timeInterval;
     
-
+    
     
     //NSLog(@"%f",hpReduceByFired);
     
@@ -352,10 +357,10 @@
         [self magicShootByName:@"firedClear"];
         self.shakeCount=0;
     }
-
+    
     if (hpReduceByFired>0) {
         self.player.curHP-=hpReduceByFired;
-
+        
     }
     
     self.enemy.curStep+=apSpeed*timeInterval;
@@ -369,46 +374,46 @@
         self.enemy.curStep=0;
         
         if(self.enemy.attackType==2&&!self.firedTag){
-        
-            [self.player.stateDict setValue:[NSNumber numberWithInt:1+self.enemy.level/3] forKey:@"fired"];
+            
+            [self.player.stateDict setValue:[NSNumber numberWithFloat:firedDamage] forKey:@"fired"];
             self.firedShakeCount=self.shakeCount;
             self.firedTag=[Actions fireSpriteStart:self.statePanelLayerPlayer.personSprite  withFinishedBlock:^{}];
-
-
+            
+            
         }
         self.enemy.attackType=2;
     }
     //NSLog(@"distance:%f",(zEnemyMarginLeft-zPlayerMarginLeft-20)*(1-self.enemy.curStep/self.enemy.maxStep));
     
-
+    
     //控制位置
-   
+    
     //if ([Actions getActionCount]==0) {
     if (YES) {
         float minDistance=60;
         CGPoint position;
         
-//        if(self.enemy.curStep<20&&[Actions getActionCount]==0){
-//             NSLog(@"ActionCount:%d",[Actions getActionCount]);
-//            //position=ccp(self.statePanelLayerPlayer.personSprite.position.x+minDistance+(zEnemyMarginLeft-zPlayerMarginLeft-minDistance)*(self.enemy.curStep/20),self.statePanelLayerEnemy.personSprite.position.y);
-//            
-//            position=ccp(zEnemyMarginLeft,self.statePanelLayerEnemy.personSprite.position.y);
-//            //self.statePanelLayerEnemy.personSprite.position=position;
-//            float duration=(20-self.enemy.curStep)/apSpeed;
-//            NSLog(@"duration %f",duration);
-//            __block PlayLayer* obj=self;
-//            [Actions moveSprite:obj.statePanelLayerEnemy.personSprite toPosition:position withDuration:duration withFinishedBlock:^{}];
-//            [self.actionHandler addActionWithBlock:^{
-//
-//                [Actions moveSprite:obj.statePanelLayerEnemy.personSprite toPosition:position withDuration:duration withFinishedBlock:^{}];
-//
-//
-//            }];
-            
-
+        //        if(self.enemy.curStep<20&&[Actions getActionCount]==0){
+        //             NSLog(@"ActionCount:%d",[Actions getActionCount]);
+        //            //position=ccp(self.statePanelLayerPlayer.personSprite.position.x+minDistance+(zEnemyMarginLeft-zPlayerMarginLeft-minDistance)*(self.enemy.curStep/20),self.statePanelLayerEnemy.personSprite.position.y);
+        //
+        //            position=ccp(zEnemyMarginLeft,self.statePanelLayerEnemy.personSprite.position.y);
+        //            //self.statePanelLayerEnemy.personSprite.position=position;
+        //            float duration=(20-self.enemy.curStep)/apSpeed;
+        //            NSLog(@"duration %f",duration);
+        //            __block PlayLayer* obj=self;
+        //            [Actions moveSprite:obj.statePanelLayerEnemy.personSprite toPosition:position withDuration:duration withFinishedBlock:^{}];
+        //            [self.actionHandler addActionWithBlock:^{
+        //
+        //                [Actions moveSprite:obj.statePanelLayerEnemy.personSprite toPosition:position withDuration:duration withFinishedBlock:^{}];
+        //
+        //
+        //            }];
+        
+        
         if(self.enemy.curStep<20){
             position=ccp(self.statePanelLayerPlayer.personSprite.position.x+minDistance+(zEnemyMarginLeft-zPlayerMarginLeft-minDistance)*(self.enemy.curStep/20),self.statePanelLayerEnemy.personSprite.position.y);
-
+            
             self.statePanelLayerEnemy.personSprite.position=position;
         }
         if(self.enemy.curStep>=20){
@@ -418,7 +423,7 @@
         }
         
     }
-
+    
     
     
     
@@ -458,7 +463,7 @@
     self.gameTime+=delta;
     //self.gameTime+=updateInterval;
     
-
+    
     
     if (self.lockUpdate) {
         //[self setTimeOut:updateInterval withSelect:@selector(update:)]; //ccctodo
@@ -488,10 +493,10 @@
     NSArray* matchedArray;
     //Person* nextPerson=self.turnOfPersons[(self.whosTurn+1) % 2];
     
-    if((self.gameTime-self.lastSelectTimeOfMagic>=zMagicCD&&(self.lastSelectTimeOfMagic!=0))||self.magicSelectedArray.count>=2)
+    if((self.gameTime-self.lastSelectTimeOfMagic>=zMagicCD&&(self.lastSelectTimeOfMagic!=0))||self.magicSelectedArray.count>=3) //在技能球队列里 发射选中技能球
     {
         int count=self.magicSelectedArray.count;
-        while(count>2){
+        while(count>3){
             Tile* tile=self.magicSelectedArray[count-1];
             tile.selected=NO;
             tile.tradeTile=NO;
@@ -511,9 +516,10 @@
             magicCountArray[magicId-101]=[NSNumber numberWithInt:[magicCountArray[magicId-101] intValue]+1];
             [box.readyToRemoveTiles addObject:tile];
         }
-
-        NSString* name=[Magic getNameByCountArray:magicCountArray];
-
+        
+        //NSString* name=[Magic getNameByCountArray:magicCountArray];
+        NSString* name=[Magic getNameByCountArray:magicCountArray withMagicNameList:[Magic getNameListByPointDict:self.player.pointDict]];
+        
         if(name){
             Magic* magic=[[Magic alloc]initWithName:name];
             [obj magicShootByName:name];
@@ -524,7 +530,8 @@
         
         
         for(int i=0;i<3;i++){
-
+            int point=[[self.player.pointDict valueForKey:[NSString stringWithFormat:@"skill%d",i+1]]intValue];
+            
             int magicId=101+i;
             int mount=[magicCountArray[i] intValue];
             
@@ -534,14 +541,21 @@
             int shootTimes=0;
             if(mount==0) continue;
             if(mount==1) shootTimes=1;
-            if(mount==2) shootTimes=3;
-            if(mount==3) shootTimes=6;
+            if(mount==2) shootTimes=2;
+            if(mount==3) shootTimes=3;
+            
+            if (point>=2){
+                if(mount==1) shootTimes=2;
+                if(mount==2) shootTimes=3;
+                if(mount==3) shootTimes=4;
+            }
+            
             for(int j=0;j<shootTimes;j++){
-                [self setTimeOut:comboShootInterval*j withBlock:^{
+                [self setTimeOut:comboShootInterval*(j+1) withBlock:^{
                     [obj magicShootByName:magic.name];
                 }];
             }
-
+            
             
         }
         
@@ -549,7 +563,8 @@
     }
     if(box.readyToRemoveTiles.count>0){
         //NSLog(@"in check is value 5");
-        
+        if(self.tradeTile1&&![box.readyToRemoveTiles containsObject:self.tradeTile1]){self.tradeTile1.tradeTile=NO;self.tradeTile1=nil;}
+        if(self.tradeTile2&&![box.readyToRemoveTiles containsObject:self.tradeTile2]){self.tradeTile2.tradeTile=NO;self.tradeTile2=nil;}
         
         
         for (NSArray* result in box.removeResultArray) {
@@ -563,13 +578,13 @@
                 mul=pow(2, mount-2);
                 self.player.curStep+=mount-3;
                 //额外一步
-//                CCLabelTTF* showLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"额外%d步",mount-3] fontName:@"Arial" fontSize:48];
-//                showLabel.anchorPoint=ccp(0,0);
-//                showLabel.position=ccp(260,160);
-//                [self addChild:showLabel];
-//                [showLabel runAction:[CCSequence actions:[CCFadeOut actionWithDuration:3.0f],[CCCallBlockN actionWithBlock:^(CCNode *node) {
-//                    [node removeFromParentAndCleanup:YES];
-//                }], nil]];
+                //                CCLabelTTF* showLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"额外%d步",mount-3] fontName:@"Arial" fontSize:48];
+                //                showLabel.anchorPoint=ccp(0,0);
+                //                showLabel.position=ccp(260,160);
+                //                [self addChild:showLabel];
+                //                [showLabel runAction:[CCSequence actions:[CCFadeOut actionWithDuration:3.0f],[CCCallBlockN actionWithBlock:^(CCNode *node) {
+                //                    [node removeFromParentAndCleanup:YES];
+                //                }], nil]];
             }
             self.scoreInBattle+=mount*100*mul;
         }
@@ -596,8 +611,8 @@
                 [Actions shakeSprite:obj.statePanelLayerEnemy.personSprite delay:0.5f withFinishedBlock:^{
                     obj.enemy.curHP-=matchedArray.count;}];
                 
-//                [Actions attackSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-//                    obj.enemy.curHP-=matchedArray.count;}];
+                //                [Actions attackSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+                //                    obj.enemy.curHP-=matchedArray.count;}];
                 
             }];
             
@@ -611,13 +626,16 @@
             self.player.curHP=self.player.curHP<=self.player.maxHP?self.player.curHP:self.player.maxHP;}
         
         [box removeAndRepair];
-//        if(self.moveSuccessReady){
-//            [self setTimeOut:0.1 withSelect:@selector(moveSuccess)];
-//            self.moveSuccessReady=NO;
-//        }
+        //        if(self.moveSuccessReady){
+        //            [self setTimeOut:0.1 withSelect:@selector(moveSuccess)];
+        //            self.moveSuccessReady=NO;
+        //        }
         //NSLog(@"in check is value 5 finished");
         self.lastTipTime=self.gameTime;
     }else{
+        if(self.tradeTile1){self.tradeTile1.tradeTile=NO;self.tradeTile1=nil;}
+        if(self.tradeTile2){self.tradeTile2.tradeTile=NO;self.tradeTile2=nil;}
+        
         NSMutableArray* ret=[box scanSwapMatch];
         if (ret.count<=0) {
             [self noMoves];
@@ -667,32 +685,27 @@
     __block PlayLayer* obj=self;
     
     
-     
-    if([name isEqualToString:@"firedClear"]){
-        if(self.firedTag)[Actions fireSpriteEndByTag:self.firedTag];
-        [self.player.stateDict setValue:@0.0 forKey:@"fired"];
-        self.firedTag=nil;
-    }
     
-    if([name isEqualToString:@"fired"]){
+
+    
+    if([name isEqualToString:@"bigFireBall"]){
         
         [self.actionHandler addActionWithBlock:^{
-            [Actions hammerToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curStep=20;
-                
-            }];
+            [Actions bigFireBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+                obj.enemy.curHP-=35;}];
             
-        }];     
+        }];
     }
+    
     
     
     if([name isEqualToString:@"hammer"]){
         
         [self.actionHandler addActionWithBlock:^{
             [Actions hammerToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curStep=20;
-            
-                }];
+                obj.enemy.curStep=35;
+                
+            }];
             
         }];        }
     
@@ -701,13 +714,13 @@
         
         [self.actionHandler addActionWithBlock:^{
             [Actions fireBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curHP-=7;}];
+                obj.enemy.curHP-=6;}];
             
         }];
     }
     
     if([name isEqualToString:@"iceBall"]){
-
+        
         [self.actionHandler addActionWithBlock:^{
             [Actions iceBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
                 obj.enemy.curHP-=1;
@@ -731,7 +744,7 @@
     }
     
     if([name isEqualToString:@"poison"]){
-
+        
         [self.actionHandler addActionWithBlock:^{
             [Actions poisonToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
                 //obj.enemy.curHP-=5;
@@ -748,7 +761,7 @@
                     [obj2.enemy.stateDict setObject:[NSNumber numberWithFloat:value] forKey:@"poison"];
                     
                 }];
-            
+                
             }];
             
         }];
@@ -758,7 +771,7 @@
         
         [self.actionHandler addActionWithBlock:^{
             [Actions bloodAbsorbSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
-                obj.enemy.curHP-=2;
+                obj.enemy.curHP-=1;
                 obj.player.curHP+=4;
             }];
             
@@ -801,19 +814,19 @@
     int point1=[[person.pointDict valueForKey:@"skill1"] intValue];
     int point2=[[person.pointDict valueForKey:@"skill2"] intValue];
     int point3=[[person.pointDict valueForKey:@"skill3"] intValue];
-
-
+    
+    
     [self updateStatePanel];
     self.lockTouch=YES;
 	[self lock];
     [box check];
     [box removeAndRepair];
-//    while(box.readyToRemoveTiles.count>0){
-//        
-//        [box removeAndRepair];
-//        [box check];
-//    }
-   
+    //    while(box.readyToRemoveTiles.count>0){
+    //
+    //        [box removeAndRepair];
+    //        [box check];
+    //    }
+    
     
     CGSize winSize=[[CCDirector sharedDirector] winSize];
     
@@ -856,9 +869,9 @@
         }else{
             [self addTipWithString:@"刷钱来的吧..."];
         }
-    
+        
     }
-
+    
     if(self.level==2){
         if (point1+point2+point3<=0) {
             [self addTipWithString:@"打不过？试试加点"];
@@ -868,7 +881,7 @@
         
     }
     if(self.level==3)[self addTipWithString:@"星星不够？过关保存血量50%以上可得一星！"];
-
+    
     
     //add back layer
     __block PlayLayer* obj=self;
@@ -879,7 +892,7 @@
         obj.lockTouch=NO;
         [obj setTimeOut:0.0f];
         [obj.maskLayer setOpacity:0];
-
+        
     }];
     
     [self setTimeOut:0.0f withSelect:@selector(addBackLayer)];
@@ -1028,9 +1041,6 @@
     }
 }
 
--(void)playerAttack{
-    
-}
 -(void)moveFailed{
     [[SimpleAudioEngine sharedEngine] playEffect:@"deny.wav"];
     return;
@@ -1056,7 +1066,7 @@
         }
         
         [Actions shakeSprite:self.statePanelLayerPlayer.personSprite delay:0];
-
+        
         self.enemy.curHP-=finalDam;
         self.player.curHP-=enemy_dam;
         [self setTimeOut:1.0 withSelect:@selector(battleFinish)];
@@ -1075,19 +1085,19 @@
         //person.experience+=self..expInBattle;
         person.experience+=self.level*25;
         person.money+=moneyWin;
-
+        
         int star=1;
         float needTime=180.0f;
         
         if(self.player.curHP>=self.player.maxHP/2) star++;   //半血加星
         if(self.gameTime<=needTime) star++;   //小于needTime加星
-         
+        
         if(star>[person.starsOfLevelArray[self.enemy.level-1] intValue]){
             person.starsOfLevelArray[self.enemy.level-1]=[NSNumber numberWithInt:star]; //更新得星数
-
+            
         }
-
-    
+        
+        
         NSMutableDictionary* gameInfo=[[NSMutableDictionary alloc]init];
         int money=self.moneyInBattle;
         int score=self.scoreInBattle;
@@ -1141,27 +1151,18 @@
 //    CGPoint lastLocation =[touch previousLocationInView:touch.view];
 //	location = [[CCDirector sharedDirector] convertToGL: location];
 //    if(self.effectOn) self.touchStreak.position=location;
-//    
+//
 //    //[self ccTouchesBegan:touches withEvent:event];
-//    
-//    
+//
+//
 //}
-//-(void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-//    UITouch* touch = [touches anyObject];
-//	CGPoint location = [touch locationInView: touch.view];
-//	location = [[CCDirector sharedDirector] convertToGL: location];
-//    if(self.effectOn) self.touchStreak.position=location;
-//    
-//    [self ccTouchesBegan:touches withEvent:event];
-//    
-//    
-//}
+
 -(void)ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
   	if (self.lockTouch) {
         return;
     }
     //NSSet *allTouches = [event allTouches];
-    NSLog(@"touches Began %d",touches.count);
+    //NSLog(@"touches Began %d",touches.count);
     
 	UITouch* touch = [touches anyObject];
 	CGPoint location = [touch locationInView: touch.view];
@@ -1177,20 +1178,20 @@
 - (void)ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event{
     
     //test.
-    //[self magicShootByName:@"bloodAbsorb"];
-//    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"explosion.plist"];
-//
-//    [self addChild:particle_system];
+    //[self magicShootByName:@"bigFireBall"];
+    //    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"explosion.plist"];
+    //
+    //    [self addChild:particle_system];
     
  	if (self.lockTouch) {
         return;
     }
-     
-    NSLog(@"touches End %d",touches.count);
+    
+    //NSLog(@"touches End %d",touches.count);
 	UITouch* touch = [touches anyObject];
 	CGPoint location = [touch locationInView: touch.view];
 	location = [[CCDirector sharedDirector] convertToGL: location];
-    MyPoint* beganLocation;  
+    MyPoint* beganLocation;
     
     float kStartX=[[Global sharedManager] kStartX];
     float kStartY=[[Global sharedManager] kStartY];
@@ -1201,12 +1202,16 @@
     BOOL singleTile=NO;
     bool hasMatchedBegan=NO;
     int vogue=3; //手势模糊值，，偏一格也算对 0为最精确
-
+    int minDistance=5; //防抖动 5p内算是没动
     //判断是否 同一格(tap)
     for(MyPoint* touchBegan in self.touchesBeganArray){
         beganLocation =touchBegan;
         beganX=(beganLocation.x -kStartX) / kTileSize;
         beganY=(beganLocation.y -kStartY) / kTileSize;
+        int distanceX=abs(beganLocation.x-location.x);
+        int distanceY=abs(beganLocation.y-location.y);
+        if(distanceX<minDistance&&distanceY<minDistance){x=beganX;y=beganY;}  //防抖动处理
+        
         if(x==beganX&&y==beganY){
             singleTile=YES;
             hasMatchedBegan=YES;
@@ -1217,8 +1222,8 @@
     }
     
     if (!singleTile) {
-
-            
+        
+        
         for(int i=0;i<=vogue;i++){
             for(MyPoint* touchBegan in self.touchesBeganArray){
                 beganLocation = touchBegan;
@@ -1226,12 +1231,15 @@
                 int distanceY=abs(beganLocation.y-location.y);
                 beganX=(beganLocation.x -kStartX) / kTileSize;
                 beganY=(beganLocation.y -kStartY) / kTileSize;
-            
+                
+                
+                
+                
                 int vogueDistance=i*kTileSize;
                 if (distanceX<distanceY&&distanceX<=vogueDistance) {
                     x=beganX;
                     y=beganY+(y>beganY?1:-1);
-
+                    
                     hasMatchedBegan=YES;
                     [self.touchesBeganArray removeObject:touchBegan];
                     break;
@@ -1247,7 +1255,7 @@
                 
             }
             if(hasMatchedBegan)break;
-
+            
             
         }
         if (!hasMatchedBegan) {
@@ -1257,7 +1265,7 @@
                 [self.touchesEndArray removeObjectAtIndex:0];
             }else{
                 [self.touchesEndArray addObject:touch];
-               
+                
             }
             return;
             
@@ -1265,15 +1273,17 @@
     }
     
     //NSLog(@"touchesEnded XY:%d,%d",x,y);
-
+    
     
     
     if (!singleTile) {
         self.selectedTile=nil;
-
+        [self touchedOnPointX:beganX Y:beganY];
+        [self touchedOnPointX:x Y:y];
+    }else{
+        [self touchedSingleTileOnPointX:beganX Y:beganY];
     }
-    [self touchedOnPointX:beganX Y:beganY];
-    [self touchedOnPointX:x Y:y];
+
     
     if(self.touchesEndArray.count>0&&self.touchesBeganArray.count==1){
         [self ccTouchesEnded:touches withEvent:event];
@@ -1287,13 +1297,35 @@
     NSLog(@"%d",recognizer.state);
 }
 
+-(void)touchedSingleTileOnPointX:(int)x Y:(int)y{
+    Tile *tile = [box objectAtX:x Y:y];
+   
+    self.lastTipTime=self.gameTime;
+
+    if(tile.value==0){
+        self.selectedTile=nil; //test??
+        return;
+    }
+    
+    
+    if(!self.selectedTile&&tile.value>100&&(!tile.selected)){
+        if (self.magicSelectedArray.count>=3) {
+            self.selectedTile=nil;
+            return;
+        }
+        tile.selected=YES;
+        [self.magicSelectedArray addObject:tile];
+        self.lastSelectTimeOfMagic=self.gameTime;
+        self.selectedTile=nil;
+        return;
+        
+    }else{
+        [self touchedOnPointX:x Y:y];
+    }
+
+}
 -(void)touchedOnPointX:(int)x Y:(int)y{
-
-	
-
     
-    
-
 	
 	Tile *tile = [box objectAtX:x Y:y];
     //tile=[box objectAtX:3 Y:3];
@@ -1306,7 +1338,7 @@
         self.selectedTile=nil; //test??
         return;
     }
-
+    
     
     if(!self.selectedTile){   //未按下
         self.selectedTile=tile;
@@ -1316,18 +1348,6 @@
     
   	if (self.selectedTile.x ==x && self.selectedTile.y == y) {  //提上且同一个
         
-        if(tile.value>100&&(!tile.selected)){
-            if (self.magicSelectedArray.count>=2) {
-                self.selectedTile=nil;
-                return;
-            }
-            tile.selected=YES;
-            [self.magicSelectedArray addObject:tile];
-            self.lastSelectTimeOfMagic=self.gameTime;
-            self.selectedTile=nil;
-            return;
-            
-        }
         
 		return;
 	}
@@ -1337,23 +1357,28 @@
             
             bool ret=[self changeWithTileA: self.selectedTile TileB: tile];
             //[self.selectedTile scaleToTileSize];
-            self.selectedTile = nil;
             if(ret)
             {
+                NSLog(@"im traded");
                 self.moveSuccessReady=YES;
                 tile.tradeTile=YES;
                 self.selectedTile.tradeTile=YES;
+                self.tradeTile1=tile;
+                self.tradeTile2=self.selectedTile;
+                self.selectedTile = nil;
             }
             else{
+                self.selectedTile = nil;
                 [self moveFailed];
             }
             return;
+
         }
         
         self.selectedTile=nil; //不相邻时 清空selected
         
     }
-
+    
 }
 
 @end

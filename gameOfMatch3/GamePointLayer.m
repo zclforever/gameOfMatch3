@@ -45,11 +45,12 @@
         int point2=[[person.pointDict valueForKey:@"skill2"] intValue];
         int point3=[[person.pointDict valueForKey:@"skill3"] intValue];
         int totalStar=0;
+        totalStar=5; //test;
         for (int i=0; i<100; i++) {
             totalStar+=[person.starsOfLevelArray[i] intValue];
         }
         
-        int leftPoint=totalStar-(point1+point2+point3)*3;
+        int leftPoint=totalStar-(pow(point1+1, 2)+pow(point2+1, 2)+pow(point3+1, 2)-3);
         
         
         
@@ -85,7 +86,7 @@
         label.color = ccc3(255,255,230);
         menuLabel=[CCMenuItemLabel itemWithLabel:label block:^(id sender) {
         
-            if (point1<3&&leftPoint>=3) {
+            if (point1<3&&leftPoint>=pow(point1+1, 2)+1) {
                  [person.pointDict setValue:[NSNumber numberWithInt:point1+1] forKey:@"skill1"];
                 [[CCDirector sharedDirector]replaceScene:[GamePointLayer scene]];
             }
@@ -103,7 +104,7 @@
         label.opacity=250;
         label.color = ccc3(255,255,230);
         menuLabel=[CCMenuItemLabel itemWithLabel:label block:^(id sender) {
-            if (point2<3&&leftPoint>=3) {
+            if (point2<3&&leftPoint>=pow(point2+1, 2)+1) {
                 [person.pointDict setValue:[NSNumber numberWithInt:point2+1] forKey:@"skill2"];
                 [[CCDirector sharedDirector]replaceScene:[GamePointLayer scene]];
             }
@@ -120,7 +121,7 @@
         label.opacity=250;
         label.color = ccc3(255,255,230);
         menuLabel=[CCMenuItemLabel itemWithLabel:label block:^(id sender) {
-            if (point3<3&&leftPoint>=3) {
+            if (point3<3&&leftPoint>=pow(point3+1, 2)+1) {
                 [person.pointDict setValue:[NSNumber numberWithInt:point3+1] forKey:@"skill3"];
                 [[CCDirector sharedDirector]replaceScene:[GamePointLayer scene]];
             }

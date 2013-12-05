@@ -208,7 +208,36 @@ static id sharedManager = nil;
                      nil]];
 
 }
-
++(void)bigFireBallToSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block{
+    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"bigFireBall.plist"];
+    
+    CCParticleSystem* fire=particle_system;
+    
+    fire.blendFunc= (ccBlendFunc) {GL_SRC_ALPHA,GL_DST_ALPHA};
+    //fire.anchorPoint=ccp(0,0);
+    //int randomVar=(arc4random()%80-40);
+    fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y+zPersonHeight/2+40);
+    
+    //fire.startSize=36;
+    //fire.scale=.6;
+    //fire.rotation=-45;
+    //fire.speed=100;
+    
+    [Actions incActionCount];
+    
+    [[Actions sharedManager] addChild:fire];
+    [fire runAction:[CCSequence actions:
+                     [CCMoveTo actionWithDuration:2 position:ccp(spriteB.position.x+zPersonHeight/2,spriteB.position.y+zPersonHeight/2)],
+                     //[CCDelayTime actionWithDuration:.5],
+                     [CCScaleTo actionWithDuration:2 scale:.25],
+                     [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+        [Actions decActionCount];
+        
+    }],
+                     nil]];
+    [Actions shakeSprite:spriteB delay:2 withFinishedBlock:block];
+}
 +(void)iceBallToSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block{
     CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"iceBall.plist"];
 

@@ -11,12 +11,17 @@
 @interface Magic : NSObject
 @property (strong,nonatomic)  CCSprite* sprite;
 @property (strong,nonatomic) NSMutableArray* manaCostArray;
+@property (strong,nonatomic) NSMutableArray* needSkillPoint;
 @property (strong,nonatomic) NSString* name; //用途
 @property (strong,nonatomic) NSString* showName; //展示
 @property (strong,nonatomic) NSString* type;
 @property  int value;
 @property  float CD;
-+(NSString*)getNameByCountArray:(NSMutableArray*) countArray;
+
++(NSMutableArray*)getNameListByPointDict:(NSDictionary*)pointDict;
++(NSMutableArray*)allMagicNameList;
++(NSString *)getNameByCountArray:(NSMutableArray *)manaArray withMagicNameList:(NSMutableArray*)magicNameList;
++(NSString *)getNameByCountArray:(NSMutableArray *)manaArray;
 -(Magic*)initWithName:(NSString*)name;
 -(Magic*)initWithID:(int)ID; //接轨101 value
 @end

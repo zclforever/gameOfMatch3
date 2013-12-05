@@ -98,19 +98,19 @@
     
     if(self.locking){[self setTimeOutOfUpdateWithDelay:updateDelay];return;};
     if(self.updating){[self setTimeOutOfUpdateWithDelay:updateDelay];return;};
-    if(self.readyToEnd){
-        [self lock];
-        CCAction *disappearAction = [self disappareAction];
-       
-        [sprite stopAllActions];
-        while(sprite.numberOfRunningActions>0){        [sprite stopAllActions];};
-        [sprite runAction:disappearAction];
+    if(self.actionSequence.count==0&& self.readyToEnd){
+//        [self lock];
+//        CCAction *disappearAction = [self disappareAction];
+//       
+//        [sprite stopAllActions];
+//        while(sprite.numberOfRunningActions>0){        [sprite stopAllActions];};
+//        [sprite runAction:disappearAction];
       //[self setTimeOutOfUpdateWithDelay:updateDelay];
           
           
         [self runAction:
          [CCSequence actions:
-          [CCDelayTime actionWithDuration:2],
+          [CCDelayTime actionWithDuration:3],
           [CCCallBlockN actionWithBlock:^(CCNode *node) {
              [node removeAllChildrenWithCleanup:YES];
             }],

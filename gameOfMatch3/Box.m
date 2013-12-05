@@ -14,6 +14,10 @@
 -(int) repairSingleColumn: (int) columnIndex;
 @property (nonatomic,strong) NSMutableArray* checkMarkSpriteArray;
 @property NSMutableArray* columnExtension;
+@property (nonatomic,strong) NSMutableArray* removedTilesExecuteRemove; //缓冲制 当前要强制消除的
+@property (nonatomic,strong) NSMutableArray* removedTiles;
+
+@property int debugCount;
 @end
 @implementation Box
 
@@ -32,6 +36,7 @@
     [self addChild:self.OutBorderTile];
 	self.content = [NSMutableArray arrayWithCapacity: size.height];
 	self.checkMarkSpriteArray=[NSMutableArray arrayWithCapacity:size.height*size.width];
+    self.removedTiles=[[NSMutableArray alloc]init];
     
 	for (int y=0; y<size.height; y++) {
 		
@@ -48,10 +53,10 @@
             checkedSprite.visible=NO;
             [self.checkMarkSpriteArray addObject:checkedSprite];
             [self addChild:checkedSprite z:8];
-
+            
 		}
 		[self.content addObject:rowContent];
-
+        
 	}
 	
 	self.readyToRemoveTiles = [NSMutableSet setWithCapacity:kMaxRecordCount];
@@ -76,10 +81,11 @@
     self.removeResultArray=nil;
     self.columnExtension=nil;
     self.checkMarkSpriteArray=nil;
+    self.removedTiles=nil;
     first=nil;
     second=nil;
     self.content=nil;
-
+    
 }
 -(void) swapWithTile:(Tile*)a B:(Tile*)b{
     [a lock];
@@ -120,7 +126,6 @@
 -(void) checkWith: (Orientation) orient{
     NSMutableArray* tmpRemoveArray;;
     //[self.removeResultArray removeAllObjects];
-
 	int iMax = (orient == OrientationHori) ? size.width : size.height;
 	int jMax = (orient == OrientationVert) ? size.height : size.width;
 	for (int i=0; i<iMax; i++) {
@@ -132,6 +137,8 @@
         tmpRemoveArray=nil;
         
 		for (int j=0; j<jMax; j++) {
+            
+            
 			Tile *tile = [self objectAtX:((orient == OrientationHori) ?i :j)  Y:((orient == OrientationHori) ?j :i)];
             //checkMark
             int index=tile.y*size.width+tile.x;
@@ -144,12 +151,12 @@
             
             
             if(tile.skillBall){
-             value=arc4random();
+                value=arc4random();
             }
             
             if(tile.value == value){
                 if(value>0){
-                    [tmpRemoveArray addObject:tile];
+                    //[tmpRemoveArray addObject:tile];
                 }
 				count++;
 				if (count > 3) {
@@ -169,28 +176,34 @@
 					}else if (count == 2) {
 						second = tile;
 					}else {
-						
+                        
 					}
 				
 			}else {
+                
+                
                 if (tmpRemoveArray) {
                     [self.removeResultArray addObject:tmpRemoveArray];
                 }
+                
                 tmpRemoveArray=nil;
 				count = 1;
 				first = tile;
 				second = nil;
 				value = tile.value;
 			}
-
+            
             
 		} //end for
         if(tmpRemoveArray){
             [self.removeResultArray addObject:tmpRemoveArray];
         }
+        
 	}//end for
 }
 -(BOOL)removeAndRepair{
+    
+    
     for(NSMutableArray* removeArray in self.removeResultArray){
         Tile* firstTile=removeArray[0];
         Tile* secondTile=removeArray[1];
@@ -219,9 +232,9 @@
             continue;
         }
         
-        if(tile.value<=0||tile.value>3)continue; 
+        if(tile.value<=0||tile.value>3)continue;
         
-    //产生技能球.skill.skillball.
+        //产生技能球.skill.skillball.
         Person* person=[Person sharedPlayerCopy];
         int point1=[[person.pointDict valueForKey:@"skill1"] intValue];
         int point2=[[person.pointDict valueForKey:@"skill2"] intValue];
@@ -233,10 +246,12 @@
         for (int i=0; i<removeArray.count; i++) {
             
             if([removeArray[i] tradeTile]){
+                
                 tile=removeArray[i];
+                tile.tradeTile=NO;
                 break;
             }
-           
+            
         }
         
         [removeArray removeObject:tile];
@@ -246,7 +261,7 @@
         
         CGPoint pos=[tile pixPosition];
         
-        Tile *destTile = [[Tile alloc]initWithX:tile.x Y:tile.y];  
+        Tile *destTile = [[Tile alloc]initWithX:tile.x Y:tile.y];
         [self addChild:destTile];
         [self setObjectAtX:tile.x Y:tile.y withTile:destTile];
         CCSprite* sprite;
@@ -263,53 +278,74 @@
             CCAction* moveAction=[CCMoveTo actionWithDuration:kMoveTileTime position:pos];
             [tile.actionSequence addObject:moveAction];
         }
-        
 
-        
-        
+
+        [self.removedTiles addObject:tile];
+
+}
+
+
+NSArray *objects = [[self.readyToRemoveTiles objectEnumerator] allObjects];
+if ([objects count] == 0) {
+    return NO;
+}
+allMoveDone=NO;
+int count = [objects count];
+for (int i=0; i<count; i++) {
+    
+    Tile *tile = [objects objectAtIndex:i];
+    tile.selected=NO;
+    tile.value = 0;
+    if (tile.sprite) {
+        [tile.actionSequence addObject:[tile disappareAction]];
+        tile.readyToEnd=YES;
     }
+    [self.readyToRemoveTiles removeObject:tile];
     
-    
-  	NSArray *objects = [[self.readyToRemoveTiles objectEnumerator] allObjects];
-	if ([objects count] == 0) {
-		return NO;
-	}
-	allMoveDone=NO;
-	int count = [objects count];
-	for (int i=0; i<count; i++) {
-        
-		Tile *tile = [objects objectAtIndex:i];
-        tile.selected=NO;
-		tile.value = 0;
-		if (tile.sprite) {
-			[tile.actionSequence addObject:[tile disappareAction]];
-            //tile.readyToEnd=YES;
-		}
-        [self.readyToRemoveTiles removeObject:tile];
-         
-	}
+}
 
 
-         [self repair];
+[self repair];
 
-        //[self.readyToRemoveTiles removeAllObjects];
-        
-        
+//[self.readyToRemoveTiles removeAllObjects];
+
+
 //        [layer runAction: [CCSequence actions: [CCDelayTime actionWithDuration: kMoveTileTime * maxCount + 0.03f],
 //                           [CCCallFunc actionWithTarget:self selector:@selector(afterAllMoveDone)],
 //                           nil]];
 
-	return YES;
+return YES;
 }
 
 -(BOOL) check{
+    //    //debug-start
+    //    self.debugCount++;
+    //    for (int i=0; i<5; i++) {
+    //        for(int j=0;j<5;j++){
+    //            Tile* tmpTile=self.content[i][j];
+    //            if(tmpTile.tradeTile) NSLog(@"%d tile %d,%d,tradeTile,%d",self.debugCount,tmpTile.x,tmpTile.y,tmpTile.tradeTile);
+    //        }
+    //
+    //    }
+    //    //debug-end
+
     
 	[self checkWith:OrientationHori];
 	[self checkWith:OrientationVert];
   	NSArray *objects = [[self.readyToRemoveTiles objectEnumerator] allObjects];
 	if ([objects count] == 0) {
 		return NO;
-	}else{return YES;}
+	}else{   //没有可消除对象
+//        for (Tile* tile in self.removedTiles) {
+//            if (tile.sprite) {
+//             [tile scaleToNone];
+//            }
+//            
+//        }
+        [self.removedTiles removeAllObjects];
+        
+        return YES;
+    }
 }
 
 -(void) removeSprite: (id) sender{
@@ -362,7 +398,7 @@
         if(tile.value == 0){
             if (tile.skillBall) {
                 
-
+                
                 [Actions explosionAtPosition:[tile pixPosition] withFinishedBlock:^{
                     
                 }];
@@ -372,7 +408,7 @@
         }else if (extension == 0) {
             
         }else{
-    
+            
             
             Tile *destTile = [self objectAtX:columnIndex Y:y-extension];
             //[self setObjectAtX:columnIndex Y:y-extension withTile:tile];
@@ -385,25 +421,26 @@
             
             //[tile.sprite runAction: action];
             
-//            destTile.value = tile.value;
-//            destTile.sprite = tile.sprite;
+            //            destTile.value = tile.value;
+            //            destTile.sprite = tile.sprite;
             [tile.actionSequence addObject:action];
             
         }
 	}
     
-
-  
+    
+    
 	for (int i=0; i<extension; i++) {
 		int value = (arc4random()%kKindCount+1);
         Tile *sourceTile =[self objectAtX:columnIndex Y:kBoxHeight-extension+i];
         [sourceTile disappareAction];
+        sourceTile.readyToEnd=YES;
         
-
+        [self.removedTiles addObject:sourceTile];
         
         
         Tile *destTile = [[Tile alloc]initWithX:columnIndex Y:kBoxHeight-extension+i];
-
+        
         [self addChild:destTile];
         [self setObjectAtX:columnIndex Y:kBoxHeight-extension+i withTile:destTile];
 		NSString *name = [NSString stringWithFormat:@"block_%d.png",value];
@@ -462,7 +499,7 @@
         if (count>=3) {
             return YES;
         }
-
+        
     }
     return NO;
 }
@@ -571,7 +608,7 @@
         if(matched){
             {[ret addObject:[NSArray arrayWithObjects:oriTile,destTile, nil]];}
         }
-
+        
     }
     return ret;
 }

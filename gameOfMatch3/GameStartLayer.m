@@ -59,6 +59,10 @@
         CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"fired.plist"];
         
         [self addChild:particle_system];
+//        
+//        CCParticleSystem* test = [CCParticleSystemQuad particleWithFile:@"bigFireBall.plist"];
+//        
+//        [self addChild:test];
 
 
 	}
