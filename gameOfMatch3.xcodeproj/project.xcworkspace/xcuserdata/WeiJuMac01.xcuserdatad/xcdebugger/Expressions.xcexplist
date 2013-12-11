@@ -42,15 +42,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "__20-[PlayLayer update:]_block_invoke_3:PlayLayer.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.lastTipTime">
-            </PersistentString>
-            <PersistentString
-               value = "self.gameTime">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "-[GameLevelLayer init]:GameLevelLayer.m">
       </ContextState>
       <ContextState
          contextName = "-[PlayLayer checkGameOver]:PlayLayer.m">
@@ -64,18 +56,35 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "__20-[PlayLayer update:]_block_invoke_3:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.gameTime">
+            </PersistentString>
+            <PersistentString
+               value = "self.lastTipTime">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[PlayLayer handleTimeOut]:PlayLayer.m">
          <PersistentStrings>
+            <PersistentString
+               value = "self.shakeStopFire">
+            </PersistentString>
+            <PersistentString
+               value = "self.shakeCount">
+            </PersistentString>
             <PersistentString
                value = "self.enemy.curStep">
             </PersistentString>
             <PersistentString
                value = "self.enemy.stateDict">
             </PersistentString>
+            <PersistentString
+               value = "self.firedShakeCount">
+            </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[GameLevelLayer init]:GameLevelLayer.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

@@ -686,6 +686,11 @@
     
     
     
+   if([name isEqualToString:@"firedClear"]){
+        if(self.firedTag)[Actions fireSpriteEndByTag:self.firedTag];
+            [self.player.stateDict setValue:@0.0 forKey:@"fired"];
+            self.firedTag=nil;
+        }
 
     
     if([name isEqualToString:@"bigFireBall"]){

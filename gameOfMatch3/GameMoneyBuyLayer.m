@@ -54,7 +54,7 @@
         
         int hpPlus=[[person.moneyBuyDict valueForKey:@"hpPlus"] intValue];
         int shakeStopFire=[[person.moneyBuyDict valueForKey:@"shakeStopFire"] intValue];
-        int moneyLeft=person.money;
+        int moneyLeft=person.money+250;
         int hpPlusNeedMoney=(hpPlus+10)*(hpPlus+10)/2;
         hpPlusNeedMoney=hpPlusNeedMoney/5; //test//
         int shakeStopFireNeedMoney=250;
