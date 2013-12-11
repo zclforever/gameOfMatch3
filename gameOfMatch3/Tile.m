@@ -15,10 +15,11 @@
 @property (nonatomic,strong)  NSMutableArray* cache;
 @property bool updating;
 @property  bool locking;
+
 @end
 @implementation Tile
 
-@synthesize x, y, value, sprite;
+
 
 -(id) initWithX: (int) posX Y: (int) posY{
 	self = [super init];
@@ -27,8 +28,8 @@
     dbg.debugTest++;
     //NSLog(@"init x:%d y:%d",posX,posY);
     
-	x = posX;
-	y = posY;
+	self.x = posX;
+	self.y = posY;
     
     self.actionSequence=[[NSMutableArray alloc]init];
     self.cache=[[NSMutableArray alloc]init];
@@ -84,8 +85,10 @@
                                  nil];
     return disappearAction;
 }
--(CCAction *)appareAction{
-    CCAction *action = [CCSequence actions:[CCScaleTo actionWithDuration:0.3f scaleX:kTileSize/sprite.contentSize.width scaleY:kTileSize/sprite.contentSize.height],
+-(CCAction *)appareActionWithDelay:(float)delay{
+    CCAction *action = [CCSequence actions:
+                        [CCDelayTime actionWithDuration:delay],
+                        [CCScaleTo actionWithDuration:0.3f scaleX:kTileSize/self.sprite.contentSize.width scaleY:kTileSize/self.sprite.contentSize.height],
                                  [CCCallBlockN actionWithBlock:^(CCNode* node){
         [self scaleToTileSize];
     }],
@@ -94,7 +97,7 @@
 }
 -(void)update{
     float updateDelay=0.1;
-
+    
     
     if(self.locking){[self setTimeOutOfUpdateWithDelay:updateDelay];return;};
     if(self.updating){[self setTimeOutOfUpdateWithDelay:updateDelay];return;};
@@ -123,7 +126,7 @@
     }
     int count=self.actionSequence.count;
 
-   if (count==0||!sprite) {
+   if (count==0||!self.sprite) {
         {[self setTimeOutOfUpdateWithDelay:updateDelay];return;};
     }
     //if(self.sprite.numberOfRunningActions>0){return;}
@@ -169,18 +172,18 @@
     {[self setTimeOutOfUpdateWithDelay:updateDelay];return;};
 }
 -(void)scaleToNone{
-    [sprite setScaleX: 0];
-    [sprite setScaleY: 0];
+    [self.sprite setScaleX: 0];
+    [self.sprite setScaleY: 0];
 }
 -(void)scaleToTileSize{
-    [sprite setScaleX: kTileSize/sprite.contentSize.width];
-    [sprite setScaleY: kTileSize/sprite.contentSize.height];
+    [self.sprite setScaleX: kTileSize/self.sprite.contentSize.width];
+    [self.sprite setScaleY: kTileSize/self.sprite.contentSize.height];
 }
 -(BOOL) nearTile: (Tile *)othertile{
 	return
-	(x == othertile.x && abs(y - othertile.y)==1)
+	(self.x == othertile.x && abs(self.y - othertile.y)==1)
 	||
-	(y == othertile.y && abs(x - othertile.x)==1);
+	(self.y == othertile.y && abs(self.x - othertile.x)==1);
 }
 
 -(void) trade: (Tile *)otherTile{
@@ -193,12 +196,12 @@
 //	otherTile.value = tempValue;
     
 	int tmpX = otherTile.x;
-	otherTile.x= x ;
-    x=tmpX;
+	otherTile.x= self.x ;
+    self.x=tmpX;
     
 	int tmpY = otherTile.y;
-	otherTile.y= y ;
-    y=tmpY;
+	otherTile.y= self.y ;
+    self.y=tmpY;
 
 }
 -(void)lock{
@@ -211,16 +214,16 @@
     self.locking=NO;
 }
 -(Tile*)copyTile{
-    Tile* tmpTile=[[Tile alloc]initWithX:x Y:y];
-    tmpTile.value=value;
-    NSString *name = [NSString stringWithFormat:@"block_%d.png",value];
+    Tile* tmpTile=[[Tile alloc]initWithX:self.x Y:self.y];
+    tmpTile.value=self.value;
+    NSString *name = [NSString stringWithFormat:@"block_%d.png",self.value];
     tmpTile.sprite=[CCSprite spriteWithFile:name];
     return tmpTile;
 }
 -(CGPoint) pixPosition{
     float kStartX=[[Global sharedManager] kStartX];
     float kStartY=[[Global sharedManager] kStartY];
-	return ccp(kStartX + x * kTileSize +kTileSize/2.0f,kStartY + y * kTileSize +kTileSize/2.0f);
+	return ccp(kStartX + self.x * kTileSize +kTileSize/2.0f,kStartY + self.y * kTileSize +kTileSize/2.0f);
 }
 @end
 

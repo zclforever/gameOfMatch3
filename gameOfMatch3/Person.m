@@ -74,7 +74,19 @@
     person.spriteScale=0.4f;
     person.maxManaArray=[NSMutableArray arrayWithObjects:@10,@10,@10,@10, nil];
     person.stateDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0.0,@"fired",@0.0,@"poisoned", nil];
-    person.pointDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0,@"skill1",@0,@"skill2",@0,@"skill3", nil];
+    person.pointDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:
+                      @0,@"skill1",
+                      @0,@"skill2",
+                      @0,@"skill3",
+                      @0,@"bigFireBall",
+                      @0,@"fireBall",
+                      @0,@"iceShield",
+                      @0,@"iceBall",
+                      @0,@"bloodAbsorb",
+                      @0,@"poison",
+                      @0,@"hammer",
+                      
+                      nil];
     person.moneyBuyDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0,@"hpPlus",@0,@"shakeStopFire", nil];
     
     person.starsOfLevelArray=[[NSMutableArray alloc] initWithCapacity:100];
@@ -165,8 +177,8 @@
         person.maxHP=140;
     }
 
-    person.damage=1+5*(int)((raw_level-1));
-    person.maxHP=20+60*(int)((raw_level-1));
+    person.damage=1+4*(int)((raw_level-1));
+    person.maxHP=20+55*(int)((raw_level-1));
     person.apSpeed=4.0f+1*(int)((raw_level-1)/3);
     
     person.curHP=person.maxHP;

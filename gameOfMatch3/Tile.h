@@ -12,7 +12,6 @@
 
 @interface Tile : CCLayer
 {
-    int x, y, value;
 	
 }
 -(id) initWithX: (int) posX Y: (int) posY;
@@ -26,6 +25,7 @@
 @property bool readyToEnd;
 @property bool selected;
 @property bool tradeTile;
+@property bool newSkillBall;
 @property int skillBall;  // 看是消掉的等同于几个球。。过渡  已作废 （起初是以消掉个数来计量球的大波，后来以技能球的数量来决定技能大小
 -(void)lock;
 -(void)unlock;
@@ -36,5 +36,5 @@
 -(void) trade:(Tile *)otherTile;
 -(CGPoint) pixPosition;
 -(CCAction*)disappareAction;
--(CCAction*)appareAction;
+-(CCAction *)appareActionWithDelay:(float)delay;
 @end

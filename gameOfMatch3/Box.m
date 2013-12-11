@@ -202,14 +202,17 @@
 	}//end for
 }
 -(BOOL)removeAndRepair{
+    bool needWaitForVertialSkillBallAppear=NO;
     
     
     for(NSMutableArray* removeArray in self.removeResultArray){
+        bool vertical=NO;
         Tile* firstTile=removeArray[0];
         Tile* secondTile=removeArray[1];
         Tile* tile=[removeArray lastObject];
         if(firstTile.x==secondTile.x){
             tile=removeArray[0];
+            vertical=YES;
         }
         if(tile.value==5&&self.lockedEnemy){  //剑的话
             
@@ -262,8 +265,6 @@
         CGPoint pos=[tile pixPosition];
         
         Tile *destTile = [[Tile alloc]initWithX:tile.x Y:tile.y];
-        [self addChild:destTile];
-        [self setObjectAtX:tile.x Y:tile.y withTile:destTile];
         CCSprite* sprite;
         destTile.value+=tile.value+100;
         sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"block_%d.png",destTile.value]];
@@ -271,50 +272,61 @@
         sprite.position=pos;
         sprite.scale=0;
         destTile.sprite=sprite;
-        [self addChild:destTile.sprite];
-        [destTile.actionSequence addObject:[destTile appareAction]];
+        [self addChild:destTile];
+        [self setObjectAtX:tile.x Y:tile.y withTile:destTile];
+        [destTile addChild:destTile.sprite];
+        [destTile.actionSequence addObject:[destTile appareActionWithDelay:0]];
+        destTile.newSkillBall=YES; //用这个来控制 出现后的移动
+        if(vertical)needWaitForVertialSkillBallAppear=YES;
         for (int i=0; i<removeArray.count; i++) {
             tile=removeArray[i];
             CCAction* moveAction=[CCMoveTo actionWithDuration:kMoveTileTime position:pos];
             [tile.actionSequence addObject:moveAction];
         }
-
-
-        [self.removedTiles addObject:tile];
-
-}
-
-
-NSArray *objects = [[self.readyToRemoveTiles objectEnumerator] allObjects];
-if ([objects count] == 0) {
-    return NO;
-}
-allMoveDone=NO;
-int count = [objects count];
-for (int i=0; i<count; i++) {
-    
-    Tile *tile = [objects objectAtIndex:i];
-    tile.selected=NO;
-    tile.value = 0;
-    if (tile.sprite) {
-        [tile.actionSequence addObject:[tile disappareAction]];
-        tile.readyToEnd=YES;
+        
+        
+        //[self.removedTiles addObject:tile];
+        
     }
-    [self.readyToRemoveTiles removeObject:tile];
     
-}
-
-
-[self repair];
-
-//[self.readyToRemoveTiles removeAllObjects];
-
-
-//        [layer runAction: [CCSequence actions: [CCDelayTime actionWithDuration: kMoveTileTime * maxCount + 0.03f],
-//                           [CCCallFunc actionWithTarget:self selector:@selector(afterAllMoveDone)],
-//                           nil]];
-
-return YES;
+    
+    NSArray *objects = [[self.readyToRemoveTiles objectEnumerator] allObjects];
+    if ([objects count] == 0) {
+        return NO;
+    }
+    allMoveDone=NO;   
+    int count = [objects count];
+    for (int i=0; i<count; i++) {
+        
+        Tile *tile = [objects objectAtIndex:i];
+        tile.selected=NO;
+        tile.value = 0;
+        if (tile.sprite) {
+            [tile.actionSequence addObject:[tile disappareAction]];
+            tile.readyToEnd=YES;
+        }
+        [self.readyToRemoveTiles removeObject:tile];
+        
+    }
+    
+    float delayTime=0;
+    if(needWaitForVertialSkillBallAppear)delayTime=kMoveTileTime+.3;
+    //为了技能球出现而延迟  //已经取消
+    [self runAction:[CCSequence actions:
+                     [CCDelayTime actionWithDuration:0],
+                     [CCCallFunc actionWithTarget:self selector:@selector(repair)]
+                     , nil]];
+    
+    //[self repair];
+    
+    //[self.readyToRemoveTiles removeAllObjects];
+    
+    
+    //        [layer runAction: [CCSequence actions: [CCDelayTime actionWithDuration: kMoveTileTime * maxCount + 0.03f],
+    //                           [CCCallFunc actionWithTarget:self selector:@selector(afterAllMoveDone)],
+    //                           nil]];
+    
+    return YES;
 }
 
 -(BOOL) check{
@@ -328,7 +340,7 @@ return YES;
     //
     //    }
     //    //debug-end
-
+    
     
 	[self checkWith:OrientationHori];
 	[self checkWith:OrientationVert];
@@ -336,12 +348,12 @@ return YES;
 	if ([objects count] == 0) {
 		return NO;
 	}else{   //没有可消除对象
-//        for (Tile* tile in self.removedTiles) {
-//            if (tile.sprite) {
-//             [tile scaleToNone];
-//            }
-//            
-//        }
+        //        for (Tile* tile in self.removedTiles) {
+        //            if (tile.sprite) {
+        //             [tile scaleToNone];
+        //            }
+        //
+        //        }
         [self.removedTiles removeAllObjects];
         
         return YES;
@@ -380,7 +392,11 @@ return YES;
 	return maxCount;
 }
 
--(int) repairSingleColumn: (int) columnIndex{
+-(int) repairSingleColumn: (int) columnIndex{  //repair.
+    float delayTimeForNewSkillBall=0;
+    float delayTimeForTradeTile=0;
+    float totalDelayTime=0;
+    
     float kStartX=[[Global sharedManager] kStartX];
     float kStartY=[[Global sharedManager] kStartY];
 	int extension = 0;
@@ -409,14 +425,15 @@ return YES;
             
         }else{
             
-            
+            //问题可能在这儿  交换tile?!
+
             Tile *destTile = [self objectAtX:columnIndex Y:y-extension];
             //[self setObjectAtX:columnIndex Y:y-extension withTile:tile];
             CGPoint pos=[tile pixPosition];
             [self swapWithTile:tile B:destTile];
             CCSequence *action = [CCSequence actions:
                                   //[CCMoveBy actionWithDuration:kMoveTileTime*extension position:ccp(0,-kTileSize*extension)],
-                                  [CCMoveTo actionWithDuration:kMoveTileTime*extension position:ccp(pos.x,pos.y-kTileSize*extension)],
+                                  [CCMoveTo actionWithDuration:kMoveTileTime*extension+totalDelayTime position:ccp(pos.x,pos.y-kTileSize*extension)],
                                   nil];
             
             //[tile.sprite runAction: action];
@@ -424,7 +441,16 @@ return YES;
             //            destTile.value = tile.value;
             //            destTile.sprite = tile.sprite;
             [tile.actionSequence addObject:action];
+            if (tile.newSkillBall) {
+                delayTimeForNewSkillBall=.4f;
+                tile.newSkillBall=NO;
+            }
             
+            if(tile.tradeTile){
+                delayTimeForTradeTile=kMoveTileTime;
+            }
+            
+            totalDelayTime=delayTimeForTradeTile+delayTimeForNewSkillBall;
         }
 	}
     
@@ -457,6 +483,9 @@ return YES;
             NSLog(@"%f",moveTime);
             moveTime=2;
         }
+        
+        moveTime+=totalDelayTime;
+        
 		CCSequence *action = [CCSequence actions:
                               //[CCMoveBy actionWithDuration:kMoveTileTime*extension position:ccp(0,-kTileSize*extension)],
 							  [CCMoveTo actionWithDuration:moveTime position:[destTile pixPosition]],

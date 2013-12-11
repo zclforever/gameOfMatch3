@@ -9,7 +9,7 @@
 #import "GameMoneyBuyLayer.h"
 #import "Person.h"
 #import "GameMainLayer.h"
-
+#import "GameLevelLayer.h"
 @implementation GameMoneyBuyLayer
 +(CCScene *) scene
 {
@@ -31,11 +31,11 @@
         NSMutableArray* menuItemArray=[[NSMutableArray alloc]init];
         CCLabelTTF* label;
         CCMenuItemLabel* menuLabel;
-        label = [CCLabelTTF labelWithString:@"返回" fontName:@"Arial" fontSize:36];
+        label = [CCLabelTTF labelWithString:@"返回" fontName:@"Arial" fontSize:28];
         label.opacity=250;
         label.color = ccc3(255,255,230);
         menuLabel=[CCMenuItemLabel itemWithLabel:label block:^(id sender) {
-            [[CCDirector sharedDirector]replaceScene:[GameMainLayer scene]];
+            [[CCDirector sharedDirector]replaceScene:[GameLevelLayer scene]];
         }];
         
         [menuItemArray addObject:menuLabel];
@@ -63,7 +63,7 @@
         CCMenu* backMenu=[CCMenu menuWithArray:menuItemArray];
         //CCMenu* backMenu=[CCMenu menuWithItems:menuItemArray[0],menuItemArray[1],nil];
         backMenu.anchorPoint=ccp(0,0);
-        backMenu.position = ccp(100,30);
+        backMenu.position = ccp(30,450);
         [backMenu alignItemsHorizontallyWithPadding:80.0f];
         [self addChild:backMenu z:4];
         

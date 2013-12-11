@@ -24,7 +24,7 @@
 @property (strong,nonatomic) NSString* spriteName;
 @property float spriteScale;
 @property (strong,nonatomic) NSMutableArray* maxManaArray;
-@property (strong,nonatomic) NSMutableArray* starsOfLevelArray;
+@property (strong,nonatomic) NSMutableArray* starsOfLevelArray; //星星数 [0]=level 1的star
 @property (strong,nonatomic) NSMutableDictionary* stateDict;  //战斗时的状态
 @property (strong,nonatomic) NSMutableDictionary* pointDict;
 @property (strong,nonatomic) NSMutableDictionary* moneyBuyDict;

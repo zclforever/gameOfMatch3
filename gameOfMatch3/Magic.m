@@ -10,7 +10,7 @@
 #import "Global.h"
 
 @implementation Magic
-+(NSMutableArray*)allMagicNameList{
++(NSMutableArray*)allMagicNameList{  //决定优先权
     return [
             [NSMutableArray alloc]initWithObjects:
             @"bigFireBall",@"firedClear",@"hammer",
@@ -19,26 +19,15 @@
             
             nil];
 }
-
 +(NSMutableArray*)getNameListByPointDict:(NSDictionary*)pointDict{
-
+    
     NSMutableArray* ret=[[NSMutableArray alloc]init];
-    bool enough;
     
     for (NSString* name in [Magic allMagicNameList]) {
-        enough=YES;
-        Magic* magic=[[Magic alloc]initWithName:name];
-        for (int i=0; i<magic.needSkillPoint.count; i++) {
-            NSString* skillName=[NSString stringWithFormat:@"skill%d",i+1];
-            int point=[[pointDict valueForKey:skillName] intValue];
-            int needPoint=[magic.needSkillPoint[i] intValue];
-            if (point<needPoint) {
-                enough=NO;
-                break;
-            }
-        }
-        if (enough) {
-            [ret addObject:name];
+
+        int point=[[pointDict valueForKey:name] intValue];
+        if (point>0) {
+             [ret addObject:name];
         }
     }
     if (ret.count==0) {
@@ -46,6 +35,32 @@
     }
     return ret;
 }
+//+(NSMutableArray*)getNameListByPointDict:(NSDictionary*)pointDict{
+//
+//    NSMutableArray* ret=[[NSMutableArray alloc]init];
+//    bool enough;
+//    
+//    for (NSString* name in [Magic allMagicNameList]) {
+//        enough=YES;
+//        Magic* magic=[[Magic alloc]initWithName:name];
+//        for (int i=0; i<magic.needSkillPoint.count; i++) {
+//            NSString* skillName=[NSString stringWithFormat:@"skill%d",i+1];
+//            int point=[[pointDict valueForKey:skillName] intValue];
+//            int needPoint=[magic.needSkillPoint[i] intValue];
+//            if (point<needPoint) {
+//                enough=NO;
+//                break;
+//            }
+//        }
+//        if (enough) {
+//            [ret addObject:name];
+//        }
+//    }
+//    if (ret.count==0) {
+//        return nil;
+//    }
+//    return ret;
+//}
 
 +(NSString *)getNameByCountArray:(NSMutableArray *)manaArray withMagicNameList:(NSMutableArray*)magicNameList{
     if(!magicNameList) return nil;
@@ -137,7 +152,7 @@
         self.type=@"damage";
         self.CD=12.0f;
         self.showName=@"圣锤";
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@0,@2,@0, nil];
+        self.manaCostArray=[NSMutableArray arrayWithObjects:@0,@1,@2,@0, nil];
         
         
     }

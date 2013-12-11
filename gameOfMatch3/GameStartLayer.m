@@ -14,7 +14,7 @@
 #import "GameLevelLayer.h"
 #import "GameMainLayer.h"
 #import "SimpleAudioEngine.h"
-
+#import "GameLevelLayer.h"
 @implementation GameStartLayer
 +(CCScene *) scene
 {
@@ -43,7 +43,7 @@
         
         CCMenuItemLabel* menuLabel=[[CCMenuItemLabel alloc]initWithLabel:start block:^(id sender) {
             
-            [[CCDirector sharedDirector] replaceScene:[GameMainLayer scene]];
+            [[CCDirector sharedDirector] replaceScene:[GameLevelLayer scene]];
         }];
         CCMenu* menu=[CCMenu menuWithItems:menuLabel, nil];
         menu.position=ccp(self.contentSize.width/2,self.contentSize.height/2);

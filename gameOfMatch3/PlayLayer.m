@@ -519,18 +519,33 @@
         
         //NSString* name=[Magic getNameByCountArray:magicCountArray];
         NSString* name=[Magic getNameByCountArray:magicCountArray withMagicNameList:[Magic getNameListByPointDict:self.player.pointDict]];
-        
-        if(name){
+        int j=0;
+        while (name) {
             Magic* magic=[[Magic alloc]initWithName:name];
-            [obj magicShootByName:name];
+            [self setTimeOut:comboShootInterval*(j+1) withBlock:^{
+                [obj magicShootByName:name];
+            }];
+            //[obj magicShootByName:name];
             for(int i=0;i<3;i++){
                 magicCountArray[i]=[NSNumber numberWithInt:[magicCountArray[i] intValue]-[magic.manaCostArray[i] intValue] ];
             }
+            name=[Magic getNameByCountArray:magicCountArray withMagicNameList:[Magic getNameListByPointDict:self.player.pointDict]];
+            j++;
         }
+//        if(name){
+//            Magic* magic=[[Magic alloc]initWithName:name];
+//            [obj magicShootByName:name];
+//            for(int i=0;i<3;i++){
+//                magicCountArray[i]=[NSNumber numberWithInt:[magicCountArray[i] intValue]-[magic.manaCostArray[i] intValue] ];
+//            }
+//        }
         
         
         for(int i=0;i<3;i++){
+            continue;
+            
             int point=[[self.player.pointDict valueForKey:[NSString stringWithFormat:@"skill%d",i+1]]intValue];
+            
             
             int magicId=101+i;
             int mount=[magicCountArray[i] intValue];
@@ -577,14 +592,6 @@
                 if(self.isSoundEnabled)[[SimpleAudioEngine sharedEngine]playEffect:@"thunderDone.wav"];
                 mul=pow(2, mount-2);
                 self.player.curStep+=mount-3;
-                //额外一步
-                //                CCLabelTTF* showLabel=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"额外%d步",mount-3] fontName:@"Arial" fontSize:48];
-                //                showLabel.anchorPoint=ccp(0,0);
-                //                showLabel.position=ccp(260,160);
-                //                [self addChild:showLabel];
-                //                [showLabel runAction:[CCSequence actions:[CCFadeOut actionWithDuration:3.0f],[CCCallBlockN actionWithBlock:^(CCNode *node) {
-                //                    [node removeFromParentAndCleanup:YES];
-                //                }], nil]];
             }
             self.scoreInBattle+=mount*100*mul;
         }
@@ -624,6 +631,8 @@
         matchedArray=[box findMatchedArray:tmp forValue:7];
         if (matchedArray) {self.player.curHP+=matchedArray.count;
             self.player.curHP=self.player.curHP<=self.player.maxHP?self.player.curHP:self.player.maxHP;}
+        
+        tmp=nil;
         
         [box removeAndRepair];
         //        if(self.moveSuccessReady){
@@ -666,6 +675,8 @@
                 
             }
         }
+        
+        ret=nil;
         
     }
     
@@ -1360,7 +1371,7 @@
         if ([self.selectedTile nearTile:tile]&&self.selectedTile.value!=0) {  //相邻
             //[box setLock:YES];
             
-            bool ret=[self changeWithTileA: self.selectedTile TileB: tile];
+            bool ret=[self changeWithTileA: self.selectedTile TileB: tile];  //这里是否插到update里面去
             //[self.selectedTile scaleToTileSize];
             if(ret)
             {

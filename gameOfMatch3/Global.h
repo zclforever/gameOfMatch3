@@ -78,6 +78,7 @@ typedef enum Orientation Orientation;
 @property float kStartX;
 @property float kStartY;
 @property int currentLevelOfGame;
+@property (strong,nonatomic) NSString* lastSelectedString;
 @property (strong,nonatomic) NSMutableArray* nameOfGameLevelArray;
 @end
 
