@@ -28,6 +28,9 @@
 @property (strong,nonatomic) NSMutableDictionary* stateDict;  //战斗时的状态
 @property (strong,nonatomic) NSMutableDictionary* pointDict;
 @property (strong,nonatomic) NSMutableDictionary* moneyBuyDict;
+@property int smallEnemyCount;
+@property float smallEnemyHp;
+
 +(void)initSharedPlayer;
 +(void)copyWith:(Person*)oriPerson to:(Person*)destPerson;
 +(Person*)copyWith:(Person*)oriPerson;

@@ -182,8 +182,30 @@
 			}else {
                 
                 
-                if (tmpRemoveArray) {
-                    [self.removeResultArray addObject:tmpRemoveArray];
+                if (tmpRemoveArray&&tile.value!=0) {
+                    
+                    
+                    //----------check row and column has same tile------------
+                    bool needCombineSameTile=NO;
+                    
+                    for (NSMutableArray* tileArray in self.removeResultArray) {
+                        for (Tile* sameTile in tmpRemoveArray) {
+                            if ([tileArray containsObject:sameTile]) {
+                                needCombineSameTile=YES;
+                                [tmpRemoveArray removeObject:sameTile];
+                                [tileArray addObjectsFromArray:tmpRemoveArray];
+                                break;
+                            }
+                        }
+                        
+                        if(needCombineSameTile)break;
+                    }
+                    
+                    if (!needCombineSameTile) {
+                        [self.removeResultArray addObject:tmpRemoveArray];
+                    }
+                   
+                    
                 }
                 
                 tmpRemoveArray=nil;
@@ -195,8 +217,28 @@
             
             
 		} //end for
-        if(tmpRemoveArray){
-            [self.removeResultArray addObject:tmpRemoveArray];
+        if(tmpRemoveArray&&value!=0){
+            //----------check row and column has same tile------------
+            bool needCombineSameTile=NO;
+            Tile* sameTile;
+
+            for (NSMutableArray* tileArray in self.removeResultArray) {
+                for (Tile* t in tmpRemoveArray) {
+                    if ([tileArray containsObject:t]) {
+                        needCombineSameTile=YES;
+                        [tmpRemoveArray removeObject:sameTile];
+                        [tileArray addObjectsFromArray:tmpRemoveArray];
+                        break;
+                    }
+                }
+
+                if(needCombineSameTile)break;
+            }
+            
+           if (!needCombineSameTile) {
+                [self.removeResultArray addObject:tmpRemoveArray];
+            }
+            
         }
         
 	}//end for

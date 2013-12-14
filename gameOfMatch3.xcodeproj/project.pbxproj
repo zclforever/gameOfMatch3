@@ -16,6 +16,8 @@
 		0209D2551820E81100FAFD26 /* poison.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2541820E81100FAFD26 /* poison.plist */; };
 		0209D2571820EE5600FAFD26 /* poisonTo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2561820EE5600FAFD26 /* poisonTo.plist */; };
 		0209D2591820F32000FAFD26 /* bloodAbsorb.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2581820F32000FAFD26 /* bloodAbsorb.plist */; };
+		020AB229185BEADD0000BB3E /* SmallEnemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 020AB228185BEADD0000BB3E /* SmallEnemy.m */; };
+		020AB22B185BEDBD0000BB3E /* skeleton_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 020AB22A185BEDBD0000BB3E /* skeleton_left.png */; };
 		0214C9C0184C6FC2001ADFBD /* GameMoneyBuyLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0214C9BF184C6FC2001ADFBD /* GameMoneyBuyLayer.m */; };
 		0259BBD717DDB02D0033F345 /* GameLevelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259BBD617DDB02D0033F345 /* GameLevelLayer.m */; };
 		0259BBDB17DDB25D0033F345 /* enemy_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD817DDB25D0033F345 /* enemy_1.png */; };
@@ -217,7 +219,7 @@
 		75C908D217C6755000068714 /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C908D117C6755000068714 /* Global.m */; };
 		75CAC93C17E1FA310093F22C /* enemy_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CAC93B17E1FA310093F22C /* enemy_5.png */; };
 		75CAC93E17E1FC850093F22C /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CAC93D17E1FC840093F22C /* player.png */; };
-		75CF2A3917DCD82500A877E1 /* skeleton_player.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CF2A3717DCD82500A877E1 /* skeleton_player.png */; };
+		75CF2A3917DCD82500A877E1 /* skeleton_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CF2A3717DCD82500A877E1 /* skeleton_right.png */; };
 		75CF2A3A17DCD82500A877E1 /* enemy_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CF2A3817DCD82500A877E1 /* enemy_4.png */; };
 		75F24AD117EC60BE000EAA6F /* 20130920 172724.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 75F24ACC17EC60BE000EAA6F /* 20130920 172724.m4a */; };
 		75F24AD217EC60BE000EAA6F /* yamede2.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 75F24ACD17EC60BE000EAA6F /* yamede2.m4a */; };
@@ -244,6 +246,9 @@
 		0209D2541820E81100FAFD26 /* poison.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = poison.plist; sourceTree = "<group>"; };
 		0209D2561820EE5600FAFD26 /* poisonTo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = poisonTo.plist; sourceTree = "<group>"; };
 		0209D2581820F32000FAFD26 /* bloodAbsorb.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bloodAbsorb.plist; sourceTree = "<group>"; };
+		020AB227185BEADD0000BB3E /* SmallEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallEnemy.h; sourceTree = "<group>"; };
+		020AB228185BEADD0000BB3E /* SmallEnemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallEnemy.m; sourceTree = "<group>"; };
+		020AB22A185BEDBD0000BB3E /* skeleton_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skeleton_left.png; sourceTree = "<group>"; };
 		0214C9BE184C6FC2001ADFBD /* GameMoneyBuyLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMoneyBuyLayer.h; sourceTree = "<group>"; };
 		0214C9BF184C6FC2001ADFBD /* GameMoneyBuyLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMoneyBuyLayer.m; sourceTree = "<group>"; };
 		0259BBD517DDB02D0033F345 /* GameLevelLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLevelLayer.h; sourceTree = "<group>"; };
@@ -609,7 +614,7 @@
 		75C908D117C6755000068714 /* Global.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
 		75CAC93B17E1FA310093F22C /* enemy_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_5.png; sourceTree = "<group>"; };
 		75CAC93D17E1FC840093F22C /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
-		75CF2A3717DCD82500A877E1 /* skeleton_player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skeleton_player.png; sourceTree = "<group>"; };
+		75CF2A3717DCD82500A877E1 /* skeleton_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skeleton_right.png; sourceTree = "<group>"; };
 		75CF2A3817DCD82500A877E1 /* enemy_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_4.png; sourceTree = "<group>"; };
 		75F24ACC17EC60BE000EAA6F /* 20130920 172724.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "20130920 172724.m4a"; sourceTree = "<group>"; };
 		75F24ACD17EC60BE000EAA6F /* yamede2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = yamede2.m4a; sourceTree = "<group>"; };
@@ -675,7 +680,8 @@
 		0259BBDE17DDB28C0033F345 /* persons */ = {
 			isa = PBXGroup;
 			children = (
-				75CF2A3717DCD82500A877E1 /* skeleton_player.png */,
+				75CF2A3717DCD82500A877E1 /* skeleton_right.png */,
+				020AB22A185BEDBD0000BB3E /* skeleton_left.png */,
 				75CAC93D17E1FC840093F22C /* player.png */,
 				0259BBD817DDB25D0033F345 /* enemy_1.png */,
 				0259BBD917DDB25D0033F345 /* enemy_2.png */,
@@ -747,6 +753,8 @@
 				752979B217D3ABA7009B8B95 /* StatePanelLayerInBattle.m */,
 				753731AC17CFAFB700B0BEDF /* Person.h */,
 				753731AD17CFAFB800B0BEDF /* Person.m */,
+				020AB227185BEADD0000BB3E /* SmallEnemy.h */,
+				020AB228185BEADD0000BB3E /* SmallEnemy.m */,
 				026A18DA17F9297100B05B31 /* Actions.h */,
 				026A18DB17F9297100B05B31 /* Actions.m */,
 				02A18C8417F970D4008D5C33 /* ActionQueue.h */,
@@ -1289,7 +1297,7 @@
 				7539733417D60A58008EA3A0 /* block_1.png in Resources */,
 				7539733817D60B56008EA3A0 /* block_123121.png in Resources */,
 				7539733917D60B56008EA3A0 /* block_6.png in Resources */,
-				75CF2A3917DCD82500A877E1 /* skeleton_player.png in Resources */,
+				75CF2A3917DCD82500A877E1 /* skeleton_right.png in Resources */,
 				75CF2A3A17DCD82500A877E1 /* enemy_4.png in Resources */,
 				0259BBDB17DDB25D0033F345 /* enemy_1.png in Resources */,
 				0259BBDC17DDB25D0033F345 /* enemy_2.png in Resources */,
@@ -1349,6 +1357,7 @@
 				02AD8E9718488B98000092AC /* block_4.png in Resources */,
 				02F9B287185094A80083FDD7 /* bigFireBall.plist in Resources */,
 				02F9B2891850972C0083FDD7 /* bigFireBall.png in Resources */,
+				020AB22B185BEDBD0000BB3E /* skeleton_left.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1490,6 +1499,7 @@
 				02A18C8617F970D4008D5C33 /* ActionQueue.m in Sources */,
 				02AD8E95184876A3000092AC /* GamePointLayer.m in Sources */,
 				0214C9C0184C6FC2001ADFBD /* GameMoneyBuyLayer.m in Sources */,
+				020AB229185BEADD0000BB3E /* SmallEnemy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

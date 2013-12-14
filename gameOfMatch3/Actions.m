@@ -47,6 +47,7 @@ static id sharedManager = nil;
     float amplitude=5.0f; //振幅
     [sprite runAction:[CCSequence actions:
                        [CCDelayTime actionWithDuration:delay],
+                       [CCCallBlock actionWithBlock:block],
                        [CCMoveBy actionWithDuration:perShakerDurtation position:ccp(amplitude,0)],
                         [CCMoveBy actionWithDuration:perShakerDurtation position:ccp(-amplitude,0)],
                        [CCMoveBy actionWithDuration:perShakerDurtation position:ccp(-amplitude,0)],
@@ -56,7 +57,7 @@ static id sharedManager = nil;
                        [CCMoveBy actionWithDuration:perShakerDurtation position:ccp(-amplitude,0)],
                        [CCMoveBy actionWithDuration:perShakerDurtation position:ccp(-amplitude,0)],
                        [CCMoveBy actionWithDuration:perShakerDurtation position:ccp(amplitude,0)],
-                       [CCCallBlock actionWithBlock:block],
+                       
                        nil]];
 }
 
@@ -350,6 +351,7 @@ static id sharedManager = nil;
     CCParticleFire *fire = [[CCParticleFire alloc]init];
     //fire.anchorPoint=ccp(0,0);
     int randomVar=(arc4random()%60-30);
+    randomVar=0;
     fire.position=ccp(spriteA.position.x+zPersonHeight/2,spriteA.position.y+zPersonHeight/2+randomVar);
     fire.startSize=81;
     fire.scale=.2;
@@ -357,21 +359,24 @@ static id sharedManager = nil;
     fire.duration=3.0f;
     fire.gravity=ccp(-90,0);
     
-     [Actions incActionCount];
-   
+    [Actions incActionCount];
+    
     [[Actions sharedManager] addChild:fire];
-
+    
+    float spriteBRealWidth=spriteB.contentSize.width*spriteB.scaleX;
+    float spriteBRealHeight=spriteB.contentSize.height*spriteB.scaleY;
     [fire runAction:[CCSequence actions:
-                     [CCMoveTo actionWithDuration:1 position:ccp(spriteB.position.x+zPersonHeight/2,spriteB.position.y+zPersonHeight/2)],
-                     [CCScaleTo actionWithDuration:1.0 scale:.25],
-                     [CCScaleTo actionWithDuration:.5 scale:0],
+                     [CCMoveTo actionWithDuration:1 position:ccp(spriteB.position.x+spriteBRealWidth/2,spriteB.position.y+spriteBRealHeight/2)],
+                     //[CCScaleTo actionWithDuration:1.0 scale:.25],
+                     //[CCScaleTo actionWithDuration:.5 scale:0],
                      [CCCallBlockN actionWithBlock:^(CCNode *node) {
-                    [node removeFromParentAndCleanup:YES];
-                    [Actions decActionCount];
-                        }],
+        [node removeFromParentAndCleanup:YES];
+        [Actions decActionCount];
+    }],
                      nil]];
     [Actions shakeSprite:spriteB delay:1 withFinishedBlock:block];
 }
+
 
 +(void)hammerToSpriteB:(CCSprite*)spriteB fromSpriteA:(CCSprite*)spriteA withFinishedBlock:(void(^)())block{
     CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"singleHammer.plist"];
