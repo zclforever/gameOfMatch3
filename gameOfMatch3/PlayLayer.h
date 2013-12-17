@@ -14,6 +14,8 @@
 #import "GameOverLayer.h"
 #import "Person.h"
 #import "ManaLayer.h"
+#import "Player.h"
+
 @interface MyPoint:NSObject{
     
 }
@@ -31,8 +33,8 @@
 
 @property (strong,nonatomic) StatePanelLayerInBattle* statePanelLayerPlayer;
 @property (strong,nonatomic) StatePanelLayerInBattle* statePanelLayerEnemy;
-@property (weak,nonatomic) Person* player;
-@property (weak,nonatomic) Person* enemy;
+@property (strong,nonatomic) Player* player;
+@property (strong,nonatomic) Person* enemy;
 @property int gameLevel; //第几关
 
 

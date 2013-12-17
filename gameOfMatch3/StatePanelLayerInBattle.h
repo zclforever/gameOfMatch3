@@ -11,6 +11,7 @@
 #import "MagicLayer.h"
 #import "ManaLayer.h"
 #import "Person.h"
+#import "AiObject.h"
 @interface StatePanelLayerInBattle : CCLayerColor {
     
 }
@@ -30,6 +31,8 @@
 -(bool)checkMagicTouched:(CGPoint)pos;
 -(int)findManaTouchedIndex:(CGPoint)pos;
 
+@property bool alive;
+@property (nonatomic,strong) NSString* objectName;
 @property (strong,nonatomic) NSMutableArray* magicArray; //add Magic Class
 @property (strong,nonatomic) NSMutableArray* magicLayerArray; //add MagicLayer
 @property (strong,nonatomic) ManaLayer* manaLayer;

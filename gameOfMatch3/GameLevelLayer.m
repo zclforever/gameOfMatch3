@@ -67,7 +67,7 @@
     label.position=ccp(self.contentSize.width/2,self.contentSize.height-50);
     [self addChild:label];
     NSMutableArray* menuArray=[[NSMutableArray alloc]init];
-    NSMutableArray* starArray=[[NSMutableArray alloc]init];
+    //NSMutableArray* starArray=[[NSMutableArray alloc]init];
     NSMutableArray* nameOfGameLevelArray=nil;
     
     Person* person=[Person sharedPlayerCopy];

@@ -31,6 +31,9 @@
 		02A2601918150450009F2719 /* apBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2601818150450009F2719 /* apBar.png */; };
 		02A2601B18151232009F2719 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2601A18151232009F2719 /* circle.png */; };
 		02A2601D18151777009F2719 /* snowstorm.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02A2601C18151777009F2719 /* snowstorm.plist */; };
+		02A58039186033680042C083 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A58038186033680042C083 /* Player.m */; };
+		02A5803C1860577B0042C083 /* Projectile.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A5803B1860577B0042C083 /* Projectile.m */; };
+		02A5803F186070A40042C083 /* BossEnemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A5803E186070A40042C083 /* BossEnemy.m */; };
 		02A65451180D250800A932F9 /* block_103.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A6544D180D250800A932F9 /* block_103.png */; };
 		02A65452180D250800A932F9 /* block_105.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A6544E180D250800A932F9 /* block_105.png */; };
 		02A65453180D250800A932F9 /* block_102.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A6544F180D250800A932F9 /* block_102.png */; };
@@ -178,6 +181,7 @@
 		02B175D217C5F3F70057DA00 /* AI.m in Sources */ = {isa = PBXBuildFile; fileRef = 02B175D117C5F3F70057DA00 /* AI.m */; };
 		02F05A8D1831EED900676308 /* singleHammer.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F05A8C1831EED900676308 /* singleHammer.plist */; };
 		02F05A8F1831FDB700676308 /* hammer_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F05A8E1831FDB700676308 /* hammer_yellow.png */; };
+		02F2AA78185FFA4700C4FD14 /* AiObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2AA77185FFA4700C4FD14 /* AiObject.m */; };
 		02F71A0918348BDF00F60B1F /* explosion.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A0818348BDF00F60B1F /* explosion.plist */; };
 		02F71A0B18349E6D00F60B1F /* fired.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A0A18349E6D00F60B1F /* fired.plist */; };
 		02F71A0D1834AF1A00F60B1F /* water.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A0C1834AF1A00F60B1F /* water.plist */; };
@@ -267,6 +271,12 @@
 		02A2601818150450009F2719 /* apBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apBar.png; sourceTree = "<group>"; };
 		02A2601A18151232009F2719 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
 		02A2601C18151777009F2719 /* snowstorm.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snowstorm.plist; sourceTree = "<group>"; };
+		02A58037186033680042C083 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		02A58038186033680042C083 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		02A5803A1860577B0042C083 /* Projectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Projectile.h; sourceTree = "<group>"; };
+		02A5803B1860577B0042C083 /* Projectile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Projectile.m; sourceTree = "<group>"; };
+		02A5803D186070A30042C083 /* BossEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BossEnemy.h; sourceTree = "<group>"; };
+		02A5803E186070A40042C083 /* BossEnemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BossEnemy.m; sourceTree = "<group>"; };
 		02A6544D180D250800A932F9 /* block_103.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_103.png; sourceTree = "<group>"; };
 		02A6544E180D250800A932F9 /* block_105.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_105.png; sourceTree = "<group>"; };
 		02A6544F180D250800A932F9 /* block_102.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_102.png; sourceTree = "<group>"; };
@@ -567,6 +577,8 @@
 		02B175D117C5F3F70057DA00 /* AI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AI.m; sourceTree = "<group>"; };
 		02F05A8C1831EED900676308 /* singleHammer.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = singleHammer.plist; sourceTree = "<group>"; };
 		02F05A8E1831FDB700676308 /* hammer_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer_yellow.png; sourceTree = "<group>"; };
+		02F2AA76185FFA4700C4FD14 /* AiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiObject.h; sourceTree = "<group>"; };
+		02F2AA77185FFA4700C4FD14 /* AiObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiObject.m; sourceTree = "<group>"; };
 		02F71A0818348BDF00F60B1F /* explosion.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = explosion.plist; sourceTree = "<group>"; };
 		02F71A0A18349E6D00F60B1F /* fired.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = fired.plist; sourceTree = "<group>"; };
 		02F71A0C1834AF1A00F60B1F /* water.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = water.plist; sourceTree = "<group>"; };
@@ -749,12 +761,20 @@
 				753972E717D535E8008EA3A0 /* MagicLayer.m */,
 				75F85E8A17DE1BCC00B4329C /* StateLayer.h */,
 				75F85E8B17DE1BCC00B4329C /* StateLayer.m */,
-				752979B117D3ABA7009B8B95 /* StatePanelLayerInBattle.h */,
-				752979B217D3ABA7009B8B95 /* StatePanelLayerInBattle.m */,
 				753731AC17CFAFB700B0BEDF /* Person.h */,
 				753731AD17CFAFB800B0BEDF /* Person.m */,
+				752979B117D3ABA7009B8B95 /* StatePanelLayerInBattle.h */,
+				752979B217D3ABA7009B8B95 /* StatePanelLayerInBattle.m */,
+				02F2AA76185FFA4700C4FD14 /* AiObject.h */,
+				02F2AA77185FFA4700C4FD14 /* AiObject.m */,
+				02A58037186033680042C083 /* Player.h */,
+				02A58038186033680042C083 /* Player.m */,
+				02A5803D186070A30042C083 /* BossEnemy.h */,
+				02A5803E186070A40042C083 /* BossEnemy.m */,
 				020AB227185BEADD0000BB3E /* SmallEnemy.h */,
 				020AB228185BEADD0000BB3E /* SmallEnemy.m */,
+				02A5803A1860577B0042C083 /* Projectile.h */,
+				02A5803B1860577B0042C083 /* Projectile.m */,
 				026A18DA17F9297100B05B31 /* Actions.h */,
 				026A18DB17F9297100B05B31 /* Actions.m */,
 				02A18C8417F970D4008D5C33 /* ActionQueue.h */,
@@ -1500,6 +1520,10 @@
 				02AD8E95184876A3000092AC /* GamePointLayer.m in Sources */,
 				0214C9C0184C6FC2001ADFBD /* GameMoneyBuyLayer.m in Sources */,
 				020AB229185BEADD0000BB3E /* SmallEnemy.m in Sources */,
+				02F2AA78185FFA4700C4FD14 /* AiObject.m in Sources */,
+				02A58039186033680042C083 /* Player.m in Sources */,
+				02A5803C1860577B0042C083 /* Projectile.m in Sources */,
+				02A5803F186070A40042C083 /* BossEnemy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

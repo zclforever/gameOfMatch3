@@ -42,15 +42,15 @@
         
         __block Person* person=[Person sharedPlayer];
         
-        int point1=[[person.pointDict valueForKey:@"skill1"] intValue];
-        int point2=[[person.pointDict valueForKey:@"skill2"] intValue];
-        int point3=[[person.pointDict valueForKey:@"skill3"] intValue];
+        //int point1=[[person.pointDict valueForKey:@"skill1"] intValue];
+        //int point2=[[person.pointDict valueForKey:@"skill2"] intValue];
+        //int point3=[[person.pointDict valueForKey:@"skill3"] intValue];
         int totalStar=0;
         for (int i=0; i<100; i++) {
             totalStar+=[person.starsOfLevelArray[i] intValue];
         }
         
-        int leftPoint=totalStar-(point1+point2+point3)*3;
+        //int leftPoint=totalStar-(point1+point2+point3)*3;
         
         int hpPlus=[[person.moneyBuyDict valueForKey:@"hpPlus"] intValue];
         int shakeStopFire=[[person.moneyBuyDict valueForKey:@"shakeStopFire"] intValue];

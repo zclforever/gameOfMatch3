@@ -12,6 +12,7 @@
 #import "ActionQueue.h"
 #import "Global.h"
 #import "SmallEnemy.h"
+
 @implementation MyPoint
 -(id)initWithX:(int)x Y:(int)y{
     self=[super init];
@@ -37,6 +38,7 @@
 @property (strong,nonatomic) CCLayerColor* maskLayer;
 
 @property (strong,nonatomic) NSMutableArray* smallEnemyArray;
+@property (strong,nonatomic) NSMutableArray* allObjectsArray;
 
 @property int  moneyInBattle;
 @property int  scoreInBattle;
@@ -119,15 +121,12 @@
     //init StateLayer
     //float kStartX=[[consts sharedManager] kStartX];
     
-    StatePanelLayerInBattle *statePanelLayer=[[StatePanelLayerInBattle alloc]initWithPositon:ccp(0,0)];
-    
-    [self addChild:statePanelLayer z:-1];
     
     //StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
     StatePanelLayerInBattle *statePanelLayerEnemy=[[StatePanelLayerInBattle alloc]initWithPositon:ccp(0,0)];
     [self addChild:statePanelLayerEnemy z:-1];
     
-    self.statePanelLayerPlayer=statePanelLayer;
+
     self.statePanelLayerEnemy=statePanelLayerEnemy;
     
     //init Box
@@ -137,12 +136,10 @@
     [self addChild:box];
     
     ai=[[AI alloc]initWithBox:box];
-    self.player=player;
+    self.player=nil;
     self.enemy=enemy;
     
-    if (!player) {
-        self.player=[Person defaultPlayer];
-    }
+
     
     if(!enemy){
         self.enemy=[Person defaultEnemy];
@@ -166,6 +163,7 @@
     self.touchesBeganArray=[[NSMutableArray alloc]init];
     self.touchesEndArray=[[NSMutableArray alloc]init];
     self.smallEnemyArray=[[NSMutableArray alloc]init];
+    self.allObjectsArray=[[NSMutableArray alloc]init];
     
 	self.isTouchEnabled = YES;
     //[CCDirector sharedDirector] ism
@@ -379,7 +377,7 @@
   
     
     if (self.enemy.curStep>=self.enemy.maxStep) {  //attack success.
-        [Actions shakeSprite:self.statePanelLayerPlayer.personSprite delay:0];
+        [Actions shakeSprite:self.player.sprite delay:0];
         self.player.curHP-=self.enemy.damage;
         
         self.enemy.curStep=0;
@@ -388,7 +386,7 @@
             
             [self.player.stateDict setValue:[NSNumber numberWithFloat:firedDamage] forKey:@"fired"];
             self.firedShakeCount=self.shakeCount;
-            self.firedTag=[Actions fireSpriteStart:self.statePanelLayerPlayer.personSprite  withFinishedBlock:^{}];
+            self.firedTag=[Actions fireSpriteStart:self.player.sprite  withFinishedBlock:^{}];
             
             
         }
@@ -403,12 +401,12 @@
         CGPoint position;
         
         if(self.enemy.curStep<20){
-            position=ccp(self.statePanelLayerPlayer.personSprite.position.x+minDistance+(zEnemyMarginLeft-zPlayerMarginLeft-minDistance)*(self.enemy.curStep/20),self.statePanelLayerEnemy.personSprite.position.y);
+            position=ccp(self.player.sprite.position.x+minDistance+(zEnemyMarginLeft-zPlayerMarginLeft-minDistance)*(self.enemy.curStep/20),self.statePanelLayerEnemy.personSprite.position.y);
             
             self.statePanelLayerEnemy.personSprite.position=position;
         }
         if(self.enemy.curStep>=20){
-            position=ccp(self.statePanelLayerPlayer.personSprite.position.x+minDistance+(zEnemyMarginLeft-zPlayerMarginLeft-minDistance)*(1-(self.enemy.curStep-20)/(self.enemy.maxStep-20)),self.statePanelLayerEnemy.personSprite.position.y);
+            position=ccp(self.player.sprite.position.x+minDistance+(zEnemyMarginLeft-zPlayerMarginLeft-minDistance)*(1-(self.enemy.curStep-20)/(self.enemy.maxStep-20)),self.statePanelLayerEnemy.personSprite.position.y);
             
             self.statePanelLayerEnemy.personSprite.position=position;
         }
@@ -416,12 +414,12 @@
     }
     
     
-    //---------------small Enemy---------------------
+    //---------------small Enemy---------------------   small.smallEnemy.
     //--------------判断存活
     count=0;
     while (count<self.smallEnemyArray.count) {   
         SmallEnemy* smallEnemy=self.smallEnemyArray[count];
-        if (!smallEnemy.isAlive) {
+        if (!smallEnemy.alive) {
             //[smallEnemy dieAction];
             [self.smallEnemyArray removeObject:smallEnemy];
             
@@ -436,13 +434,16 @@
     float smallEnemyAppearCD=3.0f;
     count=smallEnemyAppearCD/timeInterval;
     if (self.timeCount%count==0&&self.enemy.smallEnemyCount>0) {
-        SmallEnemy* smallEnemy=[[SmallEnemy alloc]init];
+        SmallEnemy* smallEnemy=[[SmallEnemy alloc]initWithAllObjectArray:self.allObjectsArray];
+        
+        
         [self addChild:smallEnemy z:-10];
         [self.smallEnemyArray addObject:smallEnemy];
+
         
         CGPoint pos=self.statePanelLayerEnemy.personSprite.position; //设置开始结束
         [smallEnemy appearAtX:pos.x Y:pos.y];
-        pos=self.statePanelLayerPlayer.personSprite.position;
+        pos=self.player.sprite.position;
         smallEnemy.destPos=ccp(pos.x+40,pos.y);
         
         smallEnemy.maxHP=self.enemy.smallEnemyHp;
@@ -456,13 +457,13 @@
     float smallEnemyAttackCD=1.0f;
     count=smallEnemyAttackCD/timeInterval;
     
-    for (int i=0;i<self.smallEnemyArray.count;i++) {
-        SmallEnemy* smallEnemy=self.smallEnemyArray[i];
-        if (self.timeCount%count==0&&smallEnemy.atDest) {
-            [Actions shakeSprite:self.statePanelLayerPlayer.personSprite delay:0+i*.5];
-            self.player.curHP-=smallEnemy.damage;
-        }
-    }
+//    for (int i=0;i<self.smallEnemyArray.count;i++) {
+//        SmallEnemy* smallEnemy=self.smallEnemyArray[i];
+//        if (self.timeCount%count==0&&smallEnemy.atDest) {
+//            [Actions shakeSprite:self.player.sprite delay:0+i*.5];
+//            self.player.curHP-=smallEnemy.damage;
+//        }
+//    }
     
             
     
@@ -497,6 +498,7 @@
 }
 
 -(void)update:(ccTime)delta{   //.update.
+    
     //float updateInterval=0.01;
     float tipCD=2.0f;  //notips....
     
@@ -631,7 +633,7 @@
             if(mount>3) {
                 if(self.isSoundEnabled)[[SimpleAudioEngine sharedEngine]playEffect:@"thunderDone.wav"];
                 mul=pow(2, mount-2);
-                self.player.curStep+=mount-3;
+                //self.player.curStep+=mount-3;
             }
             if(mount>6){
                 NSLog(@"combo mount:%d",mount);
@@ -640,19 +642,19 @@
         }
         
         NSArray* tmp=[box.readyToRemoveTiles allObjects];
-        for(int i=0;i<3;i++){
-            
-            matchedArray=[box findMatchedArray:tmp forValue:i+1];
-            if (matchedArray) {
-                int value=matchedArray.count;
-                int curValue=[self.statePanelLayerPlayer.manaLayer.manaArray[i] intValue];
-                int maxValue=[self.player.maxManaArray[i] intValue];
-                value+=curValue;
-                value=(value>maxValue)?maxValue:value;
-                [self.statePanelLayerPlayer.manaLayer setManaArrayAtIndex:i withValue:value];
-            }
-            
-        }
+//        for(int i=0;i<3;i++){
+//            
+//            matchedArray=[box findMatchedArray:tmp forValue:i+1];
+//            if (matchedArray) {
+//                int value=matchedArray.count;
+//                int curValue=[self.statePanelLayerPlayer.manaLayer.manaArray[i] intValue];
+//                int maxValue=[self.player.maxManaArray[i] intValue];
+//                value+=curValue;
+//                value=(value>maxValue)?maxValue:value;
+//                [self.statePanelLayerPlayer.manaLayer setManaArrayAtIndex:i withValue:value];
+//            }
+//            
+//        }
         matchedArray=[box findMatchedArray:tmp forValue:5];  //5 is PlayerAttack
         if (matchedArray) {
             float delayTime=0.5f;
@@ -756,6 +758,12 @@
     float poisonStateCD=20.0;
     float poisonEffect=1+0.005; //减1%的血
     __block PlayLayer* obj=self;
+    
+    if([name isEqualToString:@"fireBall"]){
+        [self.player magicAttackByName:name];
+    }
+    return;
+    
     
 
     bool hasSmallEnemy=NO;
@@ -921,10 +929,17 @@
 }
 
 -(void) onEnterTransitionDidFinish{
-    Person* person=self.player;
-    int point1=[[person.pointDict valueForKey:@"skill1"] intValue];
-    int point2=[[person.pointDict valueForKey:@"skill2"] intValue];
-    int point3=[[person.pointDict valueForKey:@"skill3"] intValue];
+    
+    if (!self.player) {
+        [[Person sharedPlayer] setStateDict:[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0.0,@"fired",@0.0,@"poisoned", nil]];//清空状态
+        
+        self.player=[[Player alloc]initWithAllObjectArray:self.allObjectsArray];
+        [self addChild:self.player z:-1];
+    }
+    Player* player=self.player;
+    int point1=[[player.pointDict valueForKey:@"skill1"] intValue];
+    int point2=[[player.pointDict valueForKey:@"skill2"] intValue];
+    int point3=[[player.pointDict valueForKey:@"skill3"] intValue];
     
     
     [self updateStatePanel];
@@ -941,11 +956,10 @@
     
     CGSize winSize=[[CCDirector sharedDirector] winSize];
     
-    //[self.statePanelLayerPlayer addMagicLayerWithMagicName:@"fireBall"];
+
     
-    //self.player=[Person defaultPlayer]; // 测试版清空player数据,state自动重置
-    //初始化player数据
-    self.statePanelLayerPlayer.person=self.player;
+
+
     
     int value=[[self.player.moneyBuyDict objectForKey:@"hpPlus"] intValue];
     self.player.maxHP+=value;
@@ -953,16 +967,12 @@
     value=[[self.player.moneyBuyDict objectForKey:@"shakeStopFire"] intValue];
     if (value)self.shakeStopFire=YES;
     
-    self.player.stateDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0.0,@"fired",@0.0,@"poisoned", nil];
     
     
-    [self.statePanelLayerPlayer addPersonSpriteAtPosition:ccp(zPlayerMarginLeft,winSize.height-zPlayerMarginTop)];
-    box.lockedPlayer=self.statePanelLayerPlayer.personSprite;
     
-    //[self.statePanelLayerPlayer addBorderOfMagic];
-    [self.statePanelLayerPlayer addMoneyExpLabel];
-    [self.statePanelLayerPlayer addScoreLayer];
-    //[self.statePanelLayerPlayer addManaLayer];
+    [self.player addPersonSpriteAtPosition:ccp(zPlayerMarginLeft,winSize.height-zPlayerMarginTop)];
+    box.lockedPlayer=self.player.sprite;
+    
     
     
     self.statePanelLayerEnemy.person=self.enemy;
@@ -973,6 +983,9 @@
     self.enemy.attackType=2;
     
     self.isSoundEnabled=YES;  //soundEnable
+    
+    //[self.allObjectsArray addObject:self.player];
+    [self.allObjectsArray addObject:self.statePanelLayerEnemy];
     
     if(self.level==1){
         if (point1+point2+point3<=0) {
@@ -1007,6 +1020,8 @@
     }];
     
     [self setTimeOut:0.0f withSelect:@selector(addBackLayer)];
+    
+    
     
     
     
@@ -1167,16 +1182,16 @@
     if(self.enemy.curStep>=self.enemy.maxStep){   //turnFinished
         
         self.lockTouch=YES;
-        bool magicAttack=YES;
-        
-        int minTimes=0;
+//        bool magicAttack=YES;
+//        
+//        int minTimes=0;
         
         finalDam=self.player.damage;
-        if(magicAttack){
-            finalDam+=self.player.magicDamage*minTimes;
-        }
+//        if(magicAttack){
+//            finalDam+=self.player.magicDamage*minTimes;
+//        }
         
-        [Actions shakeSprite:self.statePanelLayerPlayer.personSprite delay:0];
+        [Actions shakeSprite:self.player.sprite delay:0];
         
         self.enemy.curHP-=finalDam;
         self.player.curHP-=enemy_dam;
@@ -1241,30 +1256,9 @@
     
     self.enemy.curStep=0;
     self.lockTouch=NO;
-    for(int i=0;i<4;i++){
-        //[self.statePanelLayerPlayer.manaLayer setManaArrayAtIndex:i withValue:0];
-    }
+
 }
--(int)getManaWithNumberInPicName:(int)num{
-    return [self.statePanelLayerPlayer.manaArray[num-1] intValue];
-}
--(void)converManaAtIndex:(int)index{
-    int convertRate=5;
-    int skull=[self getManaWithNumberInPicName:5];
-    if (skull<5) {
-        return;
-    }
-    if(0<=index && index<4){  //按下的是四色
-        [self.statePanelLayerPlayer.manaLayer addManaArrayAtIndex:index withValue:1];
-        [self.statePanelLayerPlayer.manaLayer addManaArrayAtIndex:4 withValue:-convertRate];
-        return;
-    }
-    if(index==4){  //按下的是骷髅
-        //        [self.statePanelLayerPlayer.manaLayer addManaArrayAtIndex:index withValue:1];
-        //        [self.statePanelLayerPlayer.manaLayer addManaArrayAtIndex:4 withValue:-5];
-        //        return;
-    }
-}
+
 //-(void)ccTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
 //    UITouch* touch = [touches anyObject];
 //	CGPoint location = [touch locationInView: touch.view];

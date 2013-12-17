@@ -89,7 +89,7 @@
                       nil];
     person.moneyBuyDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0,@"hpPlus",@0,@"shakeStopFire", nil];
     
-    person.starsOfLevelArray=[[NSMutableArray alloc] initWithCapacity:100];
+    person.starsOfLevelArray=[[NSMutableArray alloc]init];
     for (int i=0; i<100;i++) {
         [person.starsOfLevelArray addObject:@0];
     }
@@ -177,9 +177,9 @@
         person.maxHP=140;
     }
 
-    person.damage=1+2*(int)((raw_level-1));
-    person.maxHP=18+55*(int)((raw_level-1));
-    person.apSpeed=4.0f+1*(int)((raw_level-1)/6);
+    person.damage=1+1*(int)((raw_level-1));
+    person.maxHP=18+35*(int)((raw_level-1));
+    person.apSpeed=3.0f+1*(int)((raw_level-1)/6);
     
     person.curHP=person.maxHP;
     person.spriteName=[NSString stringWithFormat:@"enemy_%d.png",level];

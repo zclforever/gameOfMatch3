@@ -3,15 +3,7 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[PlayLayer ccTouchesEnded:withEvent:]:PlayLayer.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "i">
-            </PersistentString>
-            <PersistentString
-               value = "location">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "-[PlayLayer initWithPlayer:withEnemy:]:PlayLayer.m">
       </ContextState>
       <ContextState
          contextName = "-[Box checkWith:]:Box.m">
@@ -21,6 +13,124 @@
             </PersistentString>
             <PersistentString
                value = "self.removeResultArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer onEnterTransitionDidFinish]:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.level">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy getBoundingBox]:SmallEnemy.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.sprite.boundingBox">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AiObject updateForCommon]:AiObject.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self boundingBox]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer checkGameOver]:PlayLayer.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer handleTimeOut]:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.shakeCount">
+            </PersistentString>
+            <PersistentString
+               value = "self.shakeStopFire">
+            </PersistentString>
+            <PersistentString
+               value = "self.enemy.curStep">
+            </PersistentString>
+            <PersistentString
+               value = "self.enemy.stateDict">
+            </PersistentString>
+            <PersistentString
+               value = "self.firedShakeCount">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[Actions fireBallToSpriteB:fromSpriteA:withFinishedBlock:]:Actions.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "spriteB.position">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__20-[PlayLayer update:]_block_invoke_3:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.lastTipTime">
+            </PersistentString>
+            <PersistentString
+               value = "self.gameTime">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[GameLevelLayer init]:GameLevelLayer.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy handleCollision]:SmallEnemy.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "obj.sprite.boundingBox">
+            </PersistentString>
+            <PersistentString
+               value = "obj.objectName">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Projectile update]:Projectile.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.moveSpeed">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Player hurtByObject:]:Player.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.curHP">
+            </PersistentString>
+            <PersistentString
+               value = "obj.damage">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Player magicAttackByName:]:Player.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.sprite.position">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer ccTouchesEnded:withEvent:]:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "i">
+            </PersistentString>
+            <PersistentString
+               value = "location">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -45,57 +155,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[PlayLayer handleTimeOut]:PlayLayer.m">
+         contextName = "-[AiObject updateCollisionObjectArray]:AiObject.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.shakeCount">
+               value = "self.spriteEntity">
             </PersistentString>
             <PersistentString
-               value = "self.shakeStopFire">
-            </PersistentString>
-            <PersistentString
-               value = "self.enemy.curStep">
-            </PersistentString>
-            <PersistentString
-               value = "self.enemy.stateDict">
-            </PersistentString>
-            <PersistentString
-               value = "self.firedShakeCount">
+               value = "self.allObjectsArray">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[PlayLayer checkGameOver]:PlayLayer.m">
-      </ContextState>
-      <ContextState
-         contextName = "+[Actions fireBallToSpriteB:fromSpriteA:withFinishedBlock:]:Actions.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "spriteB.position">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[PlayLayer onEnterTransitionDidFinish]:PlayLayer.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.level">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[GameLevelLayer init]:GameLevelLayer.m">
-      </ContextState>
-      <ContextState
-         contextName = "__20-[PlayLayer update:]_block_invoke_3:PlayLayer.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.lastTipTime">
-            </PersistentString>
-            <PersistentString
-               value = "self.gameTime">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "-[AiObject sortAllObjectsByDistanceFromPosition:]:AiObject.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

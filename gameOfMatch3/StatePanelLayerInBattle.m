@@ -31,6 +31,9 @@
     CGSize winSize=[CCDirector sharedDirector].winSize;
     
     self=[super initWithColor:ccc4(0,0,0,0) width:zStatePanelWidth height:winSize.height];
+    
+    self.objectName=@"statePanel";
+    
     self.anchorPoint=ccp(0,0);
     self.position=pos;
     
@@ -197,7 +200,9 @@
     return retLayer;
     
 }
-
+-(CGRect)getBoundingBox{
+    return self.personSprite?self.personSprite.boundingBox:CGRectZero;
+}
 -(void)update:(ccTime)delta{
     //if(self.expLabel){[self.expLabel setString:[NSString stringWithFormat:@"经验:%d",self.person.expInBattle]];}
 //    if(self.moneyLabel){[self.moneyLabel setString:[NSString stringWithFormat:@"金钱:%d",self.moneyInBattle]];}
