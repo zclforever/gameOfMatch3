@@ -189,8 +189,9 @@
     person.level=raw_level;
     
     person.smallEnemyCount=5+3*(int)((raw_level-1));
-    person.smallEnemyHp=3+1*(int)((raw_level-1)/4);
-    
+    person.smallEnemyHp=3+1*(int)((raw_level-1)/6);
+    person.attackType=2;
+
     return person;
     
 }

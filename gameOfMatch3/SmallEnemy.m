@@ -44,22 +44,7 @@
     }
     return self;
 }
-//-(void)setTimeOutOfUpdateWithDelay:(float)timeOut{
-//    [self runAction:
-//     [CCSequence actions:
-//      [CCDelayTime actionWithDuration:timeOut],
-//      [CCCallFunc actionWithTarget:self selector:@selector(update)],
-//      nil]];
-//    
-//}
-//-(CGRect)getBoundingBox{
-//    if (self.sprite) {
-//        return self.sprite.boundingBox;
-//    }else{
-//        return CGRectZero;
-//    }
-//    
-//}
+
 -(void)appearAtX:(int)x Y:(int)y{
     self.sprite.position=ccp(x,y);
    
@@ -97,9 +82,10 @@
 
 }
 -(void)hurtByObject:(AiObject *)obj{
-    if ([obj.objectName isEqualToString:@"fireBall"]) {
-        self.curHP-=6;
-    }
+    self.curHP-=obj.damage;
+//    if ([obj.objectName isEqualToString:@"fireBall"]) {
+//        self.curHP-=6;
+//    }
     
 }
 -(void)nomalAttack{

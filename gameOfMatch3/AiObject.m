@@ -65,7 +65,7 @@
     
 }
 -(void)handleCollision{
-    NSLog(@"in the collisionHandler");
+    //NSLog(@"in the collisionHandler");
 }
 -(void)hurtByObject:(AiObject*)obj{
     
@@ -74,9 +74,17 @@
     return self.sprite?self.sprite.boundingBox:CGRectZero;
 }
 
+
 -(void)setTimeOutOfUpdateWithDelay:(float)timeOut{
     [self setTimeOutWithDelay:timeOut withSelector:@selector(update)];
     
+}
+-(void)setTimeOutWithDelay:(float)timeOut withBlock:(void(^)())block{
+    [self runAction:
+     [CCSequence actions:
+      [CCDelayTime actionWithDuration:timeOut],
+      [CCCallBlock actionWithBlock:block],
+      nil]];
 }
 -(void)setTimeOutWithDelay:(float)timeOut withSelector:(SEL)selector{
     [self runAction:

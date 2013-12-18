@@ -457,7 +457,7 @@
             if (tile.skillBall) {
                 
                 
-                [Actions explosionAtPosition:[tile pixPosition] withFinishedBlock:^{
+                [Actions explosionAtPosition:[tile pixPosition]  withFinishedBlock:^{
                     
                 }];
             }

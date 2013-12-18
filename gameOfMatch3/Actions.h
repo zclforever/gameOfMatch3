@@ -24,6 +24,7 @@
 +(void)fireSpriteEndByTag:(int)useTag;
 
 +(void)explosionAtPosition:(CGPoint)position withFinishedBlock:(void(^)())block;
++(void)explosionAtPosition:(CGPoint)position withDelay:(float)delay withFinishedBlock:(void(^)())block;
 
 +(void)moveSprite:(CCSprite*)sprite toPosition:(CGPoint)position withDuration:(float)duration withFinishedBlock:(void(^)())block;
 

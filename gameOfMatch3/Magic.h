@@ -15,6 +15,7 @@
 @property (strong,nonatomic) NSString* name; //用途
 @property (strong,nonatomic) NSString* showName; //展示
 @property (strong,nonatomic) NSString* type;
+@property float damage;
 @property  int value;
 @property  float CD;
 
@@ -22,6 +23,8 @@
 +(NSMutableArray*)allMagicNameList;
 +(NSString *)getNameByCountArray:(NSMutableArray *)manaArray withMagicNameList:(NSMutableArray*)magicNameList;
 +(NSString *)getNameByCountArray:(NSMutableArray *)manaArray;
++(NSDictionary*)magicDict;
+
 -(Magic*)initWithName:(NSString*)name;
 -(Magic*)initWithID:(int)ID; //接轨101 value
 @end

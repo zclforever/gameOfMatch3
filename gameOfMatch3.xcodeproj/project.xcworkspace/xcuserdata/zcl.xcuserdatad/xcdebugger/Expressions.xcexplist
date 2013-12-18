@@ -3,28 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[Box check]:Box.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[StatePanelLayer update:]:StatePanelLayer.m">
-      </ContextState>
-      <ContextState
-         contextName = "__22-[Box removeAndRepair]_block_invoke:Box.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "node">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[StatePanelLayer magicLayerTouchedAtIndex:]:StatePanelLayer.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "node.position">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "-[ManaLayer initWithWidth:withHeight:]:ManaLayer.m">
          <PersistentStrings>
             <PersistentString
@@ -34,9 +12,6 @@
                value = "self.contentSize">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[Box swapWithTile:B:]:Box.m">
       </ContextState>
       <ContextState
          contextName = "-[Tile update]:Tile.m">
@@ -50,36 +25,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[Box scanSwapMatch]:Box.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[Box scanMaxLineAtRow:]:Box.m">
-      </ContextState>
-      <ContextState
          contextName = "-[GameOverLayer initWithWon:FromBattle:]:GameOverLayer.m">
          <PersistentStrings>
             <PersistentString
                value = "[Global sharedManager] nameOfGameLevelArray]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[PlayLayer changeWithTileA:TileB:]:PlayLayer.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[Box repairSingleColumn:]:Box.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "kTileSize/kMoveTileTime">
-            </PersistentString>
-            <PersistentString
-               value = "kStartX">
-            </PersistentString>
-            <PersistentString
-               value = "ccpDistance(sprite.position, destTile.pixPosition)">
-            </PersistentString>
-            <PersistentString
-               value = "tile.pixPositon.x">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -92,7 +41,40 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[Box findSwapMatchAtColumnIndex:]:Box.m">
+         contextName = "-[Magic initWithName:]:Magic.m">
+      </ContextState>
+      <ContextState
+         contextName = "pthread_mutex_lock:(null)">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__20-[Projectile update]_block_invoke:Projectile.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "nearestObj.curHP">
+            </PersistentString>
+            <PersistentString
+               value = "obj.damage">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Box swapWithTile:B:]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "__22-[Box removeAndRepair]_block_invoke:Box.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "node">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[StatePanelLayer update:]:StatePanelLayer.m">
       </ContextState>
       <ContextState
          contextName = "-[Box findSwapMatchAtRowIndex:]:Box.m">
@@ -106,12 +88,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[Tile trade:]:Tile.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[PlayLayer afterTurn:]:PlayLayer.m">
-      </ContextState>
-      <ContextState
          contextName = "-[Box removeAndRepair]:Box.m">
       </ContextState>
       <ContextState
@@ -123,6 +99,53 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "__26-[Box repairSingleColumn:]_block_invoke:Box.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "extension">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AI findOneMatchWithOrder:]:AI.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy hurtByObject:]:SmallEnemy.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.curHP">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer endingZoom]:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "i*0.5f">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Box check]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Box setObjectAtX:Y:withTile:]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer handleTimeOut]:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.enemy.stateDict">
+            </PersistentString>
+            <PersistentString
+               value = "self.enemy.curHP">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer ccTouchesBegan:withEvent:]:PlayLayer.m">
+      </ContextState>
+      <ContextState
          contextName = "-[PlayLayer moveSuccess]:PlayLayer.m">
          <PersistentStrings>
             <PersistentString
@@ -131,21 +154,35 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[AI findOneMatchWithOrder:]:AI.m">
-      </ContextState>
-      <ContextState
-         contextName = "pthread_mutex_lock:(null)">
+         contextName = "-[Player hurtByObject:]:Player.m">
          <PersistentStrings>
             <PersistentString
-               value = "">
+               value = "self.curHP">
+            </PersistentString>
+            <PersistentString
+               value = "obj.damage">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[Box addColumnExtensionAtIndex:withValue:]:Box.m">
+         contextName = "-[Box scanSwapMatch]:Box.m">
       </ContextState>
       <ContextState
-         contextName = "-[PlayLayer ccTouchesBegan:withEvent:]:PlayLayer.m">
+         contextName = "-[Tile trade:]:Tile.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[BossEnemy dataByLevel:]:BossEnemy.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.stateDict">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Box scanMaxLineAtRow:]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Box addColumnExtensionAtIndex:withValue:]:Box.m">
       </ContextState>
       <ContextState
          contextName = "-[StatePanelLayer initWithPositon:]:StatePanelLayer.m">
@@ -162,7 +199,24 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[Box setObjectAtX:Y:withTile:]:Box.m">
+         contextName = "-[Box repairSingleColumn:]:Box.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "tile.pixPositon.x">
+            </PersistentString>
+            <PersistentString
+               value = "kStartX">
+            </PersistentString>
+            <PersistentString
+               value = "ccpDistance(sprite.position, destTile.pixPosition)">
+            </PersistentString>
+            <PersistentString
+               value = "kTileSize/kMoveTileTime">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Box findSwapMatchAtColumnIndex:]:Box.m">
       </ContextState>
       <ContextState
          contextName = "-[Box initWithSize:factor:]:Box.m">
@@ -179,17 +233,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "__26-[Box repairSingleColumn:]_block_invoke:Box.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "extension">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[Box findMatchedArray:forValue:]:Box.m">
-      </ContextState>
-      <ContextState
          contextName = "-[StatePanelLayer addMagicLayerWithMagicName:]:StatePanelLayer.m">
          <PersistentStrings>
             <PersistentString
@@ -202,6 +245,34 @@
                value = "(40- magicIconSize-magicIconBottom*2)-nameLabel.contentSize.height*nameLabel.scaleY)">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Box findMatchedArray:forValue:]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[StatePanelLayer magicLayerTouchedAtIndex:]:StatePanelLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "node.position">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer changeWithTileA:TileB:]:PlayLayer.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Projectile update]:Projectile.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.damage">
+            </PersistentString>
+            <PersistentString
+               value = "obj.damage">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer afterTurn:]:PlayLayer.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

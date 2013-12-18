@@ -8,31 +8,52 @@
 
 #import "BossEnemy.h"
 
+@interface BossEnemy()
 
+
+@end
 @implementation BossEnemy
 
 
--(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray{
+-(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withLevel:(int)level{
     self = [super initWithAllObjectArray:allObjectsArray];
     if (self) {
-        self.objectName=@"player";
+        self.objectName=@"bossEnemy";
         
-        
-        [self copyFromSharedPerson];
+        self.level=level;
+        [self dataByLevel:level];
+        [self updateOfBossEnemy];
 
     }
     return self;
 }
--(void)copyFromSharedPerson{
-    Person* defaultPerson=[Person sharedPlayer];
+
+-(void)dataByLevel:(int)level{
+    Person* defaultPerson=[Person enemyWithLevel:level];
+
     self.curHP=defaultPerson.curHP;
     self.maxHP=defaultPerson.maxHP;
     self.damage=defaultPerson.damage;
     self.spriteName=defaultPerson.spriteName;
     self.stateDict=defaultPerson.stateDict ;
-    self.starsOfLevelArray=defaultPerson.starsOfLevelArray;
-    self.pointDict=defaultPerson.pointDict;
-    self.moneyBuyDict=defaultPerson.moneyBuyDict;
+    self.maxStep=defaultPerson.maxStep;
+    self.curStep=defaultPerson.curStep;
+    self.apSpeed=defaultPerson.apSpeed;
+
+
+    self.smallEnemyCount=defaultPerson.smallEnemyCount;
+    self.smallEnemyHp=defaultPerson.smallEnemyHp;
+    self.attackType=defaultPerson.attackType;
     
+}
+
+-(void)updateOfBossEnemy{
+    
+    
+    
+    
+    
+    
+    [self setTimeOutWithDelay:self.delayTime withSelector:@selector(updateOfBossEnemy)];
 }
 @end

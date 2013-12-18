@@ -14,12 +14,15 @@
     
 }
 
-@property (weak,nonatomic) NSString* spriteName;
-@property (weak,nonatomic) NSMutableArray* starsOfLevelArray; //星星数 [0]=level 1的star
-@property (weak,nonatomic) NSMutableDictionary* stateDict;  //战斗时的状态
-@property (weak,nonatomic) NSMutableDictionary* pointDict;
-@property (weak,nonatomic) NSMutableDictionary* moneyBuyDict;
+@property (strong,nonatomic) NSString* spriteName;
+@property (strong,nonatomic) NSMutableArray* starsOfLevelArray; //星星数 [0]=level 1的star
+@property (strong,nonatomic) NSMutableDictionary* stateDict;  //战斗时的状态
+@property (strong,nonatomic) NSMutableDictionary* pointDict;
+@property (strong,nonatomic) NSMutableDictionary* moneyBuyDict;
 //@property (strong,nonatomic) NSMutableArray* maxManaArray;
+@property (strong,nonatomic) CCProgressTimer* apBar;
+@property float curStep;
+@property float maxStep;
 
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray;
 

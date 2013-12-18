@@ -59,6 +59,8 @@
 @property bool isStarting;
 @property bool moveSuccessReady;
 
+@property bool isGameOver;
+
 @property bool usingMagic;
 @property float lastSelectTimeOfMagic;
 @property float lastTipTime;
@@ -75,7 +77,7 @@
 @implementation PlayLayer
 @synthesize selectedTile=_selectedTile;
 
--(id)initWithPlayer:(Person*)player withEnemy:(Person*)enemy{
+-(id)initWithLevel:(int)level{
 	self = [super init];
     
     //    [[NSNotificationCenter defaultCenter] addObserver:self
@@ -86,7 +88,7 @@
     [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1/60];
     [[UIAccelerometer sharedAccelerometer] setDelegate:self];
     
-    
+    [self addChild:[[Global sharedManager] setTimeOut]];
     //添加手势  跟cocos2d冲突
     //    UITapGestureRecognizer* tapRecognizer =
     //    [[UITapGestureRecognizer alloc]
@@ -122,12 +124,12 @@
     //float kStartX=[[consts sharedManager] kStartX];
     
     
-    //StatePanelLayer *statePanelLayerEnemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
-    StatePanelLayerInBattle *statePanelLayerEnemy=[[StatePanelLayerInBattle alloc]initWithPositon:ccp(0,0)];
-    [self addChild:statePanelLayerEnemy z:-1];
-    
-
-    self.statePanelLayerEnemy=statePanelLayerEnemy;
+    //StatePanelLayer *enemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
+//    StatePanelLayerInBattle *enemy=[[StatePanelLayerInBattle alloc]initWithPositon:ccp(0,0)];
+//    [self addChild:enemy z:-1];
+//    
+//
+//    self.enemy=enemy;
     
     //init Box
 	box = [[Box alloc] initWithSize:CGSizeMake(kBoxWidth,kBoxHeight) factor:6];
@@ -137,19 +139,12 @@
     
     ai=[[AI alloc]initWithBox:box];
     self.player=nil;
-    self.enemy=enemy;
+    self.enemy=nil;
     
-
-    
-    if(!enemy){
-        self.enemy=[Person defaultEnemy];
-    }
-    
-    
-    self.level=self.enemy.level;
+    self.level=level;
     
     [self updateStatePanel];
-    self.turnOfPersons=[NSArray arrayWithObjects:self.player, self.enemy, nil];
+    //self.turnOfPersons=[NSArray arrayWithObjects:self.player, self.enemy, nil];
     
     //    self.whosTurn=Turn_Enemy;
     self.lockTouch=YES;
@@ -207,7 +202,7 @@
     label.color = ccc3(255,255,230);
     label.anchorPoint=ccp(0,0);
     label.position = ccp(250,415);
-    [self addChild:label z:4];
+    //[self addChild:label z:4];
     self.stepLabel=label;
     
     
@@ -217,7 +212,7 @@
     label.color = ccc3(255,255,230);
     label.anchorPoint=ccp(0,0);
     label.position = ccp(200,435);
-    [self addChild:label z:4];
+    //[self addChild:label z:4];
     self.stateLabel=label;
     
     
@@ -232,9 +227,8 @@
     [self removeAllChildrenWithCleanup:YES];
     
     
-    
-    self.statePanelLayerPlayer=nil;
-    self.statePanelLayerEnemy=nil;
+    [[[Global sharedManager] setTimeOut] removeFromParent];
+
     self.player=nil;
     self.enemy=nil;
     self.testLabel=nil;
@@ -337,6 +331,9 @@
 }
 
 -(void)handleTimeOut{  //.handletimeout.handle.
+
+    
+    
     float firedDamage=.5+self.enemy.level/9;
     
     float timeInterval=0.04f;
@@ -401,14 +398,14 @@
         CGPoint position;
         
         if(self.enemy.curStep<20){
-            position=ccp(self.player.sprite.position.x+minDistance+(zEnemyMarginLeft-zPlayerMarginLeft-minDistance)*(self.enemy.curStep/20),self.statePanelLayerEnemy.personSprite.position.y);
+            position=ccp(self.player.sprite.position.x+minDistance+(zEnemyMarginLeft-zPlayerMarginLeft-minDistance)*(self.enemy.curStep/20),self.enemy.sprite.position.y);
             
-            self.statePanelLayerEnemy.personSprite.position=position;
+            self.enemy.sprite.position=position;
         }
         if(self.enemy.curStep>=20){
-            position=ccp(self.player.sprite.position.x+minDistance+(zEnemyMarginLeft-zPlayerMarginLeft-minDistance)*(1-(self.enemy.curStep-20)/(self.enemy.maxStep-20)),self.statePanelLayerEnemy.personSprite.position.y);
+            position=ccp(self.player.sprite.position.x+minDistance+(zEnemyMarginLeft-zPlayerMarginLeft-minDistance)*(1-(self.enemy.curStep-20)/(self.enemy.maxStep-20)),self.enemy.sprite.position.y);
             
-            self.statePanelLayerEnemy.personSprite.position=position;
+            self.enemy.sprite.position=position;
         }
         
     }
@@ -441,7 +438,7 @@
         [self.smallEnemyArray addObject:smallEnemy];
 
         
-        CGPoint pos=self.statePanelLayerEnemy.personSprite.position; //设置开始结束
+        CGPoint pos=self.enemy.sprite.position; //设置开始结束
         [smallEnemy appearAtX:pos.x Y:pos.y];
         pos=self.player.sprite.position;
         smallEnemy.destPos=ccp(pos.x+40,pos.y);
@@ -647,11 +644,11 @@
 //            matchedArray=[box findMatchedArray:tmp forValue:i+1];
 //            if (matchedArray) {
 //                int value=matchedArray.count;
-//                int curValue=[self.statePanelLayerPlayer.manaLayer.manaArray[i] intValue];
+//                int curValue=[self.player.manaLayer.manaArray[i] intValue];
 //                int maxValue=[self.player.maxManaArray[i] intValue];
 //                value+=curValue;
 //                value=(value>maxValue)?maxValue:value;
-//                [self.statePanelLayerPlayer.manaLayer setManaArrayAtIndex:i withValue:value];
+//                [self.player.manaLayer setManaArrayAtIndex:i withValue:value];
 //            }
 //            
 //        }
@@ -662,28 +659,28 @@
             if(self.enemy.curHP<=reduceHp){
                 //self.scale=1.5;
                 //self.position=ccp(-100,-100);
-                delayTime=4.0f;
+                delayTime=2.5f;
                 CCSprite* sword=[CCSprite spriteWithFile:@"block_5.png"];
                 sword.position=ccp(250,300);
                 
                 [self addChild:sword];
-                [self endingZoom];
+                //[self endingZoom];
                 
                 [sword runAction:[CCSequence actions:
                                   [CCDelayTime actionWithDuration:1.0],
                                   [CCSpawn actions:
                                    [CCRotateBy actionWithDuration:1.5 angle:720],
-                                   [CCMoveTo actionWithDuration:1.5 position:self.statePanelLayerEnemy.personSprite.position],
+                                   [CCMoveTo actionWithDuration:1.5 position:self.enemy.sprite.position],
                                    
                                    nil],
                                   [CCMoveTo actionWithDuration:.5 position:ccp(350,490)],
                                   nil]];
-                [Actions shakeSprite:obj.statePanelLayerEnemy.personSprite delay:2.5];
+                [Actions shakeSprite:obj.enemy.sprite delay:2.5];
                 
             }
             
             [self.actionHandler addActionWithBlock:^{
-                [Actions shakeSprite:obj.statePanelLayerEnemy.personSprite delay:delayTime withFinishedBlock:^{
+                [Actions shakeSprite:obj.enemy.sprite delay:delayTime withFinishedBlock:^{
                     obj.enemy.curHP-=reduceHp;;}];
             }];
             
@@ -699,10 +696,7 @@
         tmp=nil;
         
         [box removeAndRepair];
-        //        if(self.moveSuccessReady){
-        //            [self setTimeOut:0.1 withSelect:@selector(moveSuccess)];
-        //            self.moveSuccessReady=NO;
-        //        }
+
         //NSLog(@"in check is value 5 finished");
         self.lastTipTime=self.gameTime;
     }else{
@@ -759,6 +753,22 @@
     float poisonEffect=1+0.005; //减1%的血
     __block PlayLayer* obj=self;
     
+    
+    if([name isEqualToString:@"bigFireBall"]){
+        if (self.enemy.curHP<=50) {
+            //[self endingZoom];
+        }
+        [self.actionHandler addActionWithBlock:^{
+            [Actions bigFireBallToSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
+                obj.enemy.curHP-=50;}];
+            
+        }];
+        return;
+    }
+    
+    [self.player magicAttackByName:name];
+    return;
+    
     if([name isEqualToString:@"fireBall"]){
         [self.player magicAttackByName:name];
     }
@@ -791,7 +801,7 @@
             [self endingZoom];
         }
         [self.actionHandler addActionWithBlock:^{
-            [Actions bigFireBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+            [Actions bigFireBallToSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
                 obj.enemy.curHP-=50;}];
             
         }];
@@ -802,7 +812,7 @@
     if([name isEqualToString:@"hammer"]){
         
         [self.actionHandler addActionWithBlock:^{
-            [Actions hammerToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+            [Actions hammerToSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
                 obj.enemy.curStep=35;
                 
             }];
@@ -816,7 +826,7 @@
             if(smallEnemy.curHP<=6)smallEnemy.readyToDie=YES;  //为了避免两个连续火球 打到同一个小兵
                 
             [self.actionHandler addActionWithBlock:^{
-                [Actions fireBallToSpriteB:smallEnemy.sprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+                [Actions fireBallToSpriteB:smallEnemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
                     smallEnemy.curHP-=6;}];
                 
             }];
@@ -826,7 +836,7 @@
             }
             
             [self.actionHandler addActionWithBlock:^{
-                [Actions fireBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+                [Actions fireBallToSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
                     obj.enemy.curHP-=6;}];
                 
             }];
@@ -841,7 +851,7 @@
         }
         
         [self.actionHandler addActionWithBlock:^{
-            [Actions iceBallToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+            [Actions iceBallToSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
                 obj.enemy.curHP-=1;
                 
                 float value=[[obj.enemy.stateDict valueForKey:@"slow"] floatValue]*iceEffect;
@@ -865,7 +875,7 @@
     if([name isEqualToString:@"poison"]){
         
         [self.actionHandler addActionWithBlock:^{
-            [Actions poisonToSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+            [Actions poisonToSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
                 //obj.enemy.curHP-=5;
                 float value=[[obj.enemy.stateDict valueForKey:@"poison"] floatValue];
                 value*=poisonEffect;
@@ -889,7 +899,7 @@
     if([name isEqualToString:@"bloodAbsorb"]){
         
         [self.actionHandler addActionWithBlock:^{
-            [Actions bloodAbsorbSpriteB:obj.statePanelLayerEnemy.personSprite fromSpriteA:obj.statePanelLayerPlayer.personSprite withFinishedBlock:^{
+            [Actions bloodAbsorbSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
                 obj.enemy.curHP-=1;
                 obj.player.curHP+=4;
             }];
@@ -901,10 +911,7 @@
     if (self.player.curHP>self.player.maxHP) {
         self.player.curHP=self.player.maxHP;
     }
-    self.statePanelLayerPlayer.curHP=[NSString stringWithFormat:@"%d",(int)self.player.curHP];
-    self.statePanelLayerPlayer.maxHP=[NSString stringWithFormat:@"%d",(int)self.player.maxHP];
-    self.statePanelLayerEnemy.curHP=[NSString stringWithFormat:@"%d",(int)self.enemy.curHP];
-    self.statePanelLayerEnemy.maxHP=[NSString stringWithFormat:@"%d",(int)self.enemy.maxHP];
+
     
     [self.stepLabel setString:[NSString stringWithFormat:@"AP %f/%f",self.enemy.curStep,self.enemy.maxStep]];
     NSString* key=@"poison";
@@ -936,6 +943,11 @@
         self.player=[[Player alloc]initWithAllObjectArray:self.allObjectsArray];
         [self addChild:self.player z:-1];
     }
+    if (!self.enemy) {
+        self.enemy=[[BossEnemy alloc]initWithAllObjectArray:self.allObjectsArray withLevel:self.level];
+        [self addChild:self.enemy z:-1];
+    }
+    
     Player* player=self.player;
     int point1=[[player.pointDict valueForKey:@"skill1"] intValue];
     int point2=[[player.pointDict valueForKey:@"skill2"] intValue];
@@ -975,17 +987,16 @@
     
     
     
-    self.statePanelLayerEnemy.person=self.enemy;
-    [self.statePanelLayerEnemy addPersonSpriteAtPosition:ccp(zEnemyMarginLeft,winSize.height-zPlayerMarginTop)];
-    [self.statePanelLayerEnemy addApBar];
-    box.lockedEnemy=self.statePanelLayerEnemy.personSprite;
+
+    [self.enemy addPersonSpriteAtPosition:ccp(zEnemyMarginLeft,winSize.height-zPlayerMarginTop)];
+    [self.enemy addApBar];
+    box.lockedEnemy=self.enemy.sprite;
     self.enemy.curStep=20;  //配合返回
-    self.enemy.attackType=2;
+    
     
     self.isSoundEnabled=YES;  //soundEnable
     
-    //[self.allObjectsArray addObject:self.player];
-    [self.allObjectsArray addObject:self.statePanelLayerEnemy];
+
     
     if(self.level==1){
         if (point1+point2+point3<=0) {
@@ -1162,56 +1173,62 @@
     [box pushTilesToRemoveForValue:4];
     [box pushTilesToRemoveForValue:5];
     [box pushTilesToRemoveForValue:6];
-    for(int i=0;i<4;i++){
-        [self.statePanelLayerPlayer.manaLayer setManaArrayAtIndex:i withValue:0];
-    }
+
 }
 
 -(void)moveFailed{
     [[SimpleAudioEngine sharedEngine] playEffect:@"deny.wav"];
     return;
     self.player.curHP-=5;
-    [self moveSuccess];
+
 }
--(void)moveSuccess{
-    
-    int finalDam=0;
-    int enemy_dam=self.enemy.damage;
-    
-    self.enemy.curStep++;
-    if(self.enemy.curStep>=self.enemy.maxStep){   //turnFinished
-        
-        self.lockTouch=YES;
-//        bool magicAttack=YES;
-//        
-//        int minTimes=0;
-        
-        finalDam=self.player.damage;
-//        if(magicAttack){
-//            finalDam+=self.player.magicDamage*minTimes;
-//        }
-        
-        [Actions shakeSprite:self.player.sprite delay:0];
-        
-        self.enemy.curHP-=finalDam;
-        self.player.curHP-=enemy_dam;
-        [self setTimeOut:1.0 withSelect:@selector(battleFinish)];
-        return;
-    }else{
-        [self checkGameOver];
-    }
-}
+
 -(void)endingZoom{
     self.lockTouch=YES;
+    CGPoint pos=self.enemy.sprite.position;
     [self runAction:[CCSpawn actions:
                      [CCScaleTo actionWithDuration:3.0 scale:1.5],
                      [CCMoveTo actionWithDuration:2.0 position:ccp(-100,-100)],
                      nil]];
+
+    for (int i=0; i<18; i++) {
+        int randomX=-25+arc4random()%50;
+        int randomY=-25+arc4random()%50;
+        [Actions shakeSprite:self.enemy.sprite delay:i*0.5];
+        [Actions explosionAtPosition:ccp(pos.x+zPersonWidth/2+randomX,pos.y+zPersonHeight/2+randomY) withDelay:i*0.2 withFinishedBlock:^{
+
+            
+        }];
+        
+        NSLog(@"%d",i);
+    }
+
+    
+
+
+
 }
 
-
 -(void)checkGameOver{
+    if(self.isGameOver)return;
     if (self.enemy.curHP<=0) {
+        self.isGameOver=YES;
+        [self endingZoom];
+        [self setTimeOut:3.0 withSelect:@selector(win)];
+
+    }
+    else if (self.player.curHP<=0){
+        self.isGameOver=YES;
+        [self pauseSchedulerAndActions];
+        [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:NO]];
+        
+    }
+}
+-(void)lose{
+    
+}
+-(void)win{
+    
         [self pauseSchedulerAndActions];
         int moneyWin=15+self.level*10;
         
@@ -1243,12 +1260,8 @@
         
         
         [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:YES withGameInfo:gameInfo]];
-    }
-    else if (self.player.curHP<=0){
-        [self pauseSchedulerAndActions];
-        [[CCDirector sharedDirector]replaceScene:[GameOverLayer sceneWithWon:NO]];
-        
-    }
+    
+
 }
 -(void)battleFinish{
     [self checkGameOver];

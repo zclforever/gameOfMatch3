@@ -15,7 +15,7 @@
 #import "Person.h"
 #import "ManaLayer.h"
 #import "Player.h"
-
+#import "BossEnemy.h"
 @interface MyPoint:NSObject{
     
 }
@@ -31,10 +31,10 @@
     AI *ai;
 }
 
-@property (strong,nonatomic) StatePanelLayerInBattle* statePanelLayerPlayer;
-@property (strong,nonatomic) StatePanelLayerInBattle* statePanelLayerEnemy;
+//@property (strong,nonatomic) StatePanelLayerInBattle* statePanelLayerPlayer;
+//@property (strong,nonatomic) StatePanelLayerInBattle* statePanelLayerEnemy;
 @property (strong,nonatomic) Player* player;
-@property (strong,nonatomic) Person* enemy;
+@property (strong,nonatomic) BossEnemy* enemy;
 @property int gameLevel; //第几关
 
 
@@ -42,5 +42,5 @@
 -(bool) changeWithTileA: (Tile *) a TileB: (Tile *) b;
 //-(void) check: (id) sender data: (id) data;
 
--(id)initWithPlayer:(Person*)player withEnemy:(Person*)enemy;
+-(id)initWithLevel:(int)level;
 @end

@@ -34,7 +34,7 @@
     
         
         [self copyFromSharedPerson];
-        [self update];
+        [self updateOfPlayer];
     }
     return self;
 }
@@ -109,28 +109,50 @@
 -(void)magicAttackByName:(NSString*)magicName{
     NSString* name=magicName;
     if([name isEqualToString:@"fireBall"]){
-        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth,self.sprite.position.y+zPersonHeight/2) byName:@"fireBall"];
+        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth,self.sprite.position.y+zPersonHeight/2) byName:name];
         [self addChild:projectile];
         [projectile attackNearest];
-
+        
+    }
+  
+    if([name isEqualToString:@"iceBall"]){
+        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth,self.sprite.position.y+zPersonHeight/2) byName:name];
+        [self addChild:projectile];
+        [projectile attackNearest];
         
     }
     
 }
--(void)update{
-    float delayTime=self.delayTime;
+-(void)addApBar{
+    
+    CCSprite* progressSprite=[CCSprite spriteWithFile:@"circle.png"];
+    progressSprite.scale=2.5f;
+	CCProgressTimer* progressBar = [CCProgressTimer progressWithSprite:progressSprite];
+	progressBar.type = kCCProgressTimerTypeRadial;
+	[self addChild:progressBar z:1];
+	[progressBar setAnchorPoint: ccp(0,0)];
+    self.apBar=progressBar;
+    
+    progressBar.scale=2.5f;
+}
+-(void)updateOfPlayer{
+
     
     if(self.lifeBar){
         
         
-        if(self.curHP&&self.maxHP){
+        if(1){
+            if(self.curHP<0) self.curHP=0;
             //updatePosition
             self.lifeBar.position=ccp(self.sprite.position.x,self.sprite.position.y+55);
             self.lifeBarBorder.position=self.lifeBar.position;
             float lifeBarFixY=self.lifeBar.position.y+zStatePanel_LifeBarHeight/2;
             self.HPLabel.position = ccp(self.lifeBar.position.x+zStatePanel_LifeBarWidth/2,lifeBarFixY);
             
-
+            if(self.apBar){
+                self.apBar.position=ccp(self.lifeBar.position.x+20,self.lifeBar.position.y+20);
+                self.apBar.percentage=self.curStep;
+            }
             
             [self.HPLabel setString:[NSString stringWithFormat:@"%d/%d",(int)self.curHP,(int)self.maxHP]];
             
@@ -138,7 +160,7 @@
         }
     }
  
-    [self setTimeOutOfUpdateWithDelay:delayTime];
+    [self setTimeOutWithDelay:self.delayTime withSelector:@selector(updateOfPlayer)];
 
 }
 

@@ -19,5 +19,5 @@
 
 // returns a CCScene that contains the HelloWorldLayer as the only child
 +(CCScene *) sceneWithLevel:(int)level;
-+(CCScene *) sceneWithPlayer:(Person*)player withEnemy:(Person*)enemy;
+
 @end

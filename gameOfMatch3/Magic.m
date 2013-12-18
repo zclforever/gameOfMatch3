@@ -112,26 +112,20 @@
     
      
 }
+
 -(Magic*)initWithName:(NSString*)name{
     self=[super init];
 
     self.name=name;
-    self.needSkillPoint=[NSMutableArray arrayWithObjects:@0,@0,@0, nil];
-    int value;
     //蓝 红 黄
     
-    if ([name isEqualToString:@"bigFireBall"]) {
-        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
-        self.sprite=sprite;
-        self.value=5;
-        self.type=@"damage";
-        self.CD=12.0f;
-        self.showName=@"炎爆术";
-        self.needSkillPoint=[NSMutableArray arrayWithObjects:@0,@3,@0, nil];
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@0,@3,@0,@0, nil];
-        
-        
-    }
+    NSDictionary* magicDict=[[Magic magicDict] valueForKey:name];
+    self.showName=[magicDict valueForKey:@"showName"];
+    self.damage=[[magicDict valueForKey:@"damage"] floatValue];
+    self.needSkillPoint=[magicDict valueForKey:@"requirePoint"];
+    self.manaCostArray=[magicDict valueForKey:@"cost"];
+    
+    return self;
     
     if ([name isEqualToString:@"firedClear"]) {
         CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
@@ -144,90 +138,63 @@
         
         //蓝 红 黄       
     }
-   
-    if ([name isEqualToString:@"hammer"]) {
-        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
-        self.sprite=sprite;
-        self.value=5;
-        self.type=@"damage";
-        self.CD=12.0f;
-        self.showName=@"圣锤";
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@0,@1,@2,@0, nil];
-        
-        
-    }
-    
-    if ([name isEqualToString:@"fireBall"]) {
-        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
-        self.sprite=sprite;
-        self.value=2;
-        self.type=@"damage";
-        self.CD=12.0f;
-        self.showName=@"火球";
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@0,@1,@0,@0, nil];
 
-        
-    }
-    
-    if ([name isEqualToString:@"iceBall"]) {
-        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
-        self.sprite=sprite;
-        self.value=4;
-        self.type=@"damage";
-        self.CD=12.0f;
-        self.showName=@"冰弹";
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@1,@0,@0,@0, nil];
-        
-        
-    }
-    if ([name isEqualToString:@"poison"]) {
-        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
-        self.sprite=sprite;
-        self.value=1;
-        self.type=@"damage";
-        self.CD=12.0f;
-        self.showName=@"毒气";
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@0,@0,@0,@1, nil];
-        
-        
-    }
-    if ([name isEqualToString:@"bloodAbsorb"]) {
-        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
-        self.sprite=sprite;
-        self.value=3;
-        self.type=@"damage";
-        self.CD=12.0f;
-        self.showName=@"吸血";
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@0,@0,@1,@0, nil];
-        
-        
-    }
-    if ([name isEqualToString:@"magicAttackType_1"]) {
-        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"transparent.png"]];
-        self.sprite=sprite;
-        self.value=value;
-        self.type=@"magicAttack";
-        self.CD=12.0f;
-        self.showName=@"魔法集齐自动攻击";
-        self.manaCostArray=[NSMutableArray arrayWithObjects:@4,@1,@1,@1, nil];
-
-    }
-    //    range=[name rangeOfString:@"removeValue_"];
-    //    if (range.location!=NSNotFound) {
-    //        value=[name substringFromIndex:range.length];
-    //        CCSprite* sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"block_%d.png",value]];
-    //        //sprite.position=ccp(zStatePanel_LifeBarWidth/2,self.contentSize.height/2+50);
-    //        //        sprite.scaleX=24.0f/sprite.contentSize.width;
-    //        //        sprite.scaleY=24.0f/sprite.contentSize.height;
-    //        //[self addChild:sprite];
-    //        self.sprite=sprite;
-    //        self.value=value;
-    //        self.type=@"removeValue";
-    //    }
-    
-    
     
     return self;
 }
++(NSDictionary*)magicDict{
+    NSDictionary* magicDict=[NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSDictionary dictionaryWithObjectsAndKeys:
+                              @"bigFireBall",@"name",
+                              @"流星火",@"showName",
+                              @50.0,@"damage",
+                              [NSArray arrayWithObjects:@0,@3,@0, nil],@"requirePoint",
+                              [NSArray arrayWithObjects:@0,@3,@0,@0, nil],@"cost",
+                              nil],@"bigFireBall",
 
+                             
+                             [NSDictionary dictionaryWithObjectsAndKeys:
+                              @"fireBall",@"name",
+                              @"火球",@"showName",
+                              @6.0,@"damage",
+                              [NSArray arrayWithObjects:@0,@1,@0, nil],@"requirePoint",
+                              [NSArray arrayWithObjects:@0,@1,@0,@0, nil],@"cost",
+                              nil],@"fireBall",
+                             
+                             [NSDictionary dictionaryWithObjectsAndKeys:
+                              @"iceBall",@"name",
+                              @"冰弹",@"showName",
+                              @2.0,@"damage",
+                              [NSArray arrayWithObjects:@1,@0,@0, nil],@"requirePoint",
+                              [NSArray arrayWithObjects:@1,@0,@0,@0, nil],@"cost",
+                              nil],@"iceBall",
+                             
+                             [NSDictionary dictionaryWithObjectsAndKeys:
+                              @"bloodAbsorb",@"name",
+                              @"南瓜吸吸",@"showName",
+                              @1.0,@"damage",
+                              [NSArray arrayWithObjects:@0,@0,@1, nil],@"requirePoint",
+                              [NSArray arrayWithObjects:@0,@0,@1,@0, nil],@"cost",
+                              nil],@"bloodAbsorb",
+                             
+                             [NSDictionary dictionaryWithObjectsAndKeys:
+                              @"hammer",@"name",
+                              @"光明之锤",@"showName",
+                              @0.0,@"damage",
+                              [NSArray arrayWithObjects:@0,@0,@3, nil],@"requirePoint",
+                              [NSArray arrayWithObjects:@0,@1,@2,@0, nil],@"cost",
+                              nil],@"hammer",
+                             
+                             [NSDictionary dictionaryWithObjectsAndKeys:
+                              @"poison",@"name",
+                              @"炎爆",@"showName",
+                              @1.0,@"damage",
+                              [NSArray arrayWithObjects:@0,@0,@0, nil],@"requirePoint",
+                              [NSArray arrayWithObjects:@0,@0,@0,@1, nil],@"cost",
+                              nil],@"poison",
+                             
+                             
+                             nil];
+    return magicDict;
+}
 @end

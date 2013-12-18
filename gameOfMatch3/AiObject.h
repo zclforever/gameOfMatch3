@@ -42,6 +42,7 @@
 -(void)updateCollisionObjectArray;
 -(void)setTimeOutOfUpdateWithDelay:(float)timeOut;
 -(void)setTimeOutWithDelay:(float)timeOut withSelector:(SEL)selector;
+-(void)setTimeOutWithDelay:(float)timeOut withBlock:(void(^)())block;
 -(void)hurtByObject:(AiObject*)obj;
 -(void)magicAttackByName:(NSString*)magicName;
 -(NSArray*)sortAllObjectsByDistanceFromPosition:(CGPoint)position;

@@ -63,6 +63,10 @@
 //        CCParticleSystem* test = [CCParticleSystemQuad particleWithFile:@"bigFireBall.plist"];
 //        
 //        [self addChild:test];
+        
+        [[Global sharedManager] setSetTimeOut:[CCSprite spriteWithFile:@"transparent.png"]];
+        
+        
 
 
 	}

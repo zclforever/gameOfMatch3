@@ -12,5 +12,15 @@
 @interface BossEnemy : Player {
     
 }
--(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray;
+
+
+@property float apSpeed;
+@property int smallEnemyCount;
+@property float smallEnemyHp;
+@property int level;
+@property int attackType; //敌人会用上 哪种攻击
+
+-(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withLevel:(int)level;
+-(void)addApBar;
+
 @end

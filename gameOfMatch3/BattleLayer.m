@@ -20,13 +20,7 @@
 
 @implementation BattleLayer
 
-+(CCScene *) sceneWithPlayer:(Person*)player withEnemy:(Person*)enemy{
-    
-	CCScene *scene = [CCScene node];
-	BattleLayer *layer = [[BattleLayer alloc]initWithPlayer:player withEnemy:enemy];
-	[scene addChild: layer];
-	return scene;
-}
+
 +(CCScene *) sceneWithLevel:(int)level
 {
 	CCScene *scene = [CCScene node];
@@ -34,7 +28,7 @@
 	[scene addChild: layer];
 	return scene;
 }
--(id) initWithPlayer:(Person*)player withEnemy:(Person*)enemy
+-(id) initWithLevel:(int)level
 {
     
 	if( (self=[super init]) ) {
@@ -44,7 +38,7 @@
         float kStartY=1.0;
         [[Global sharedManager] setKStartX:kStartX];
         [[Global sharedManager] setKStartY:kStartY];
-        PlayLayer  *playLayer = [[PlayLayer alloc]initWithPlayer:player withEnemy:enemy];
+        PlayLayer  *playLayer = [[PlayLayer alloc]initWithLevel:level];
         [self addChild: playLayer z:0];
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"superMario.mp3"];
         
@@ -52,12 +46,6 @@
 	return self;
 }
 
--(id) initWithLevel:(int)level
-{
-    Person  *playLayer = [Person sharedPlayerCopy];
-    Person  *enemy=[Person enemyWithLevel:level];
- 	return [self initWithPlayer:playLayer withEnemy:enemy];
-}
 
 
 #pragma mark GameKit delegate

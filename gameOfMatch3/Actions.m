@@ -182,9 +182,17 @@ static id sharedManager = nil;
 
     [Actions shakeSprite:spriteB delay:2.2 withFinishedBlock:block];
 }
-
++(void)explosionAtPosition:(CGPoint)position withDelay:(float)delay withFinishedBlock:(void(^)())block{
+    [[[Global sharedManager] setTimeOut] runAction:[CCSequence actions:
+                                                [CCDelayTime actionWithDuration:delay],
+                                                [CCCallBlock actionWithBlock:^{
+                                                [Actions explosionAtPosition:position withFinishedBlock:block];
+                                                    }]
+                                                 ,nil]];
+}
 +(void)explosionAtPosition:(CGPoint)position withFinishedBlock:(void(^)())block{
-    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"explosion.plist"];
+    //CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"explosion.plist"];
+    CCParticleSystem* particle_system = [[CCParticleSystemQuad alloc] initWithFile:@"explosion.plist"];
     
     CCParticleSystem* fire=particle_system;
     //fire.anchorPoint=ccp(0,0);
@@ -202,7 +210,7 @@ static id sharedManager = nil;
 //                     [CCScaleTo actionWithDuration:1.0 scale:.25],
 //                     [CCScaleTo actionWithDuration:.5 scale:0],
                      [CCCallBlockN actionWithBlock:^(CCNode *node) {
-        [node removeFromParentAndCleanup:YES];
+        [node removeFromParent];
         //[Actions decActionCount];
         
     }],

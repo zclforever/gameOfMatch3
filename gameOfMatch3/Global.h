@@ -80,5 +80,6 @@ typedef enum Orientation Orientation;
 @property int currentLevelOfGame;
 @property (strong,nonatomic) NSString* lastSelectedString;
 @property (strong,nonatomic) NSMutableArray* nameOfGameLevelArray;
+@property (strong,nonatomic) CCSprite* setTimeOut;
 @end
 
