@@ -37,6 +37,15 @@ static id sharedManager = nil;
 + (id)sharedManager {
     return sharedManager;
 }
++(bool)rectInsect:(CGRect)rect1 :(CGRect)rect2{
+    float distanceX=rect1.origin.x-rect2.origin.x;
+    float distanceY=rect1.origin.y-rect2.origin.y;
+    float widthMax=rect1.size.width/2+rect2.size.width/2;
+    float heightMax=rect1.size.height/2+rect2.size.height/2;
+
+    return (abs(distanceX)<=widthMax&&abs(distanceY<=heightMax))?YES:NO;
+    
+}
 +(id)menuOfBackTo:(CCScene*)scene{
 
     

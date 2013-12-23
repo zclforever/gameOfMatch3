@@ -16,7 +16,6 @@
 @property bool readyToEnd;
 @property bool readyToDie;  //马上要死了，但可能还要放动画，再减血
 @property bool alive;
-@property bool atDest;
 @property bool startMove;
 @property bool isAttacking;
 

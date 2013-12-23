@@ -25,10 +25,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[SmallEnemy getBoundingBox]:SmallEnemy.m">
+         contextName = "-[SmallEnemy handleCollision]:SmallEnemy.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.sprite.boundingBox">
+               value = "obj.sprite.boundingBox">
+            </PersistentString>
+            <PersistentString
+               value = "obj.objectName">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -41,16 +44,46 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "__20-[PlayLayer update:]_block_invoke_3:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.gameTime">
+            </PersistentString>
+            <PersistentString
+               value = "self.lastTipTime">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[PlayLayer checkGameOver]:PlayLayer.m">
+      </ContextState>
+      <ContextState
+         contextName = "+[Actions fireBallToSpriteB:fromSpriteA:withFinishedBlock:]:Actions.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "spriteB.position">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy getBoundingBox]:SmallEnemy.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.sprite.boundingBox">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[GameLevelLayer init]:GameLevelLayer.m">
       </ContextState>
       <ContextState
          contextName = "-[PlayLayer handleTimeOut]:PlayLayer.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.shakeCount">
+               value = "self.shakeStopFire">
             </PersistentString>
             <PersistentString
-               value = "self.shakeStopFire">
+               value = "self.shakeCount">
             </PersistentString>
             <PersistentString
                value = "self.enemy.curStep">
@@ -64,32 +97,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "+[Actions fireBallToSpriteB:fromSpriteA:withFinishedBlock:]:Actions.m">
+         contextName = "-[Projectile updateCollisionObjectArray]:Projectile.m">
          <PersistentStrings>
             <PersistentString
-               value = "spriteB.position">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "__20-[PlayLayer update:]_block_invoke_3:PlayLayer.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.lastTipTime">
-            </PersistentString>
-            <PersistentString
-               value = "self.gameTime">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[GameLevelLayer init]:GameLevelLayer.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[SmallEnemy handleCollision]:SmallEnemy.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "obj.sprite.boundingBox">
+               value = "[obj getBoundingBox]">
             </PersistentString>
             <PersistentString
                value = "obj.objectName">
@@ -100,7 +111,13 @@
          contextName = "-[Projectile update]:Projectile.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.moveSpeed">
+               value = "self.particle.boundingBox">
+            </PersistentString>
+            <PersistentString
+               value = "self.collisionObjectArray">
+            </PersistentString>
+            <PersistentString
+               value = "[nearestObj getBoundingBox]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -158,10 +175,10 @@
          contextName = "-[AiObject updateCollisionObjectArray]:AiObject.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.spriteEntity">
+               value = "self.allObjectsArray">
             </PersistentString>
             <PersistentString
-               value = "self.allObjectsArray">
+               value = "self.spriteEntity">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

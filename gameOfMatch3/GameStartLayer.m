@@ -60,7 +60,7 @@
         
         [self addChild:particle_system];
 //        
-//        CCParticleSystem* test = [CCParticleSystemQuad particleWithFile:@"bigFireBall.plist"];
+//        CCParticleSystem* test = [CCParticleSystemQuad particleWithFile:@"snowBall.plist"];
 //        
 //        [self addChild:test];
         

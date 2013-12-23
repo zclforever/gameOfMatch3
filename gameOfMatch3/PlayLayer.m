@@ -1305,7 +1305,7 @@
 - (void)ccTouchesEnded:(NSSet*)touches withEvent:(UIEvent*)event{
     
     //test.
-    //[self magicShootByName:@"bigFireBall"];
+    //[self.player magicAttackByName:@"snowBall"];
     //    CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"explosion.plist"];
     //
     //    [self addChild:particle_system];

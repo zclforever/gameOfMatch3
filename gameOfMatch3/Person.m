@@ -75,17 +75,17 @@
     person.maxManaArray=[NSMutableArray arrayWithObjects:@10,@10,@10,@10, nil];
     person.stateDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0.0,@"fired",@0.0,@"poisoned", nil];
     person.pointDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:
-                      @0,@"skill1",
-                      @0,@"skill2",
+                      @1,@"skill1",
+                      @1,@"skill2",
                       @0,@"skill3",
                       @0,@"bigFireBall",
-                      @0,@"fireBall",
+                      @1,@"fireBall",
                       @0,@"iceShield",
-                      @0,@"iceBall",
+                      @1,@"iceBall",
+                      @1,@"snowBall",
                       @0,@"bloodAbsorb",
                       @0,@"poison",
                       @0,@"hammer",
-                      
                       nil];
     person.moneyBuyDict=[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0,@"hpPlus",@0,@"shakeStopFire", nil];
     

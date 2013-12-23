@@ -26,7 +26,7 @@
 @property float attackCD;
 @property float moveSpeed;
 @property bool alive;
-
+@property bool atDest;
 
 @property (nonatomic,strong) CCSprite* sprite;
 @property (nonatomic,strong) NSString* objectName;
@@ -36,6 +36,7 @@
 
 //-----------------------------
 @property float delayTime; //update的延时
+@property bool autoUpdateCollision;
 
 -(CGRect)getBoundingBox;
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray;
@@ -45,6 +46,7 @@
 -(void)setTimeOutWithDelay:(float)timeOut withBlock:(void(^)())block;
 -(void)hurtByObject:(AiObject*)obj;
 -(void)magicAttackByName:(NSString*)magicName;
+-(void)magicAttackByName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict;
 -(NSArray*)sortAllObjectsByDistanceFromPosition:(CGPoint)position;
 
 @end

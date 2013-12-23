@@ -13,7 +13,7 @@
 +(NSMutableArray*)allMagicNameList{  //决定优先权
     return [
             [NSMutableArray alloc]initWithObjects:
-            @"bigFireBall",@"firedClear",@"hammer",
+            @"bigFireBall",@"snowBall",@"firedClear",@"hammer",
             @"iceBall",@"fireBall",@"bloodAbsorb",@"poison",
             
             
@@ -187,12 +187,20 @@
                              
                              [NSDictionary dictionaryWithObjectsAndKeys:
                               @"poison",@"name",
-                              @"炎爆",@"showName",
+                              @"巫毒",@"showName",
                               @1.0,@"damage",
                               [NSArray arrayWithObjects:@0,@0,@0, nil],@"requirePoint",
                               [NSArray arrayWithObjects:@0,@0,@0,@1, nil],@"cost",
                               nil],@"poison",
                              
+                             
+                             [NSDictionary dictionaryWithObjectsAndKeys:
+                              @"snowBall",@"name",
+                              @"雪崩",@"showName",
+                              @2.0,@"damage",
+                              [NSArray arrayWithObjects:@0,@0,@0, nil],@"requirePoint",
+                              [NSArray arrayWithObjects:@3,@0,@0,@1, nil],@"cost",
+                              nil],@"snowBall",
                              
                              nil];
     return magicDict;

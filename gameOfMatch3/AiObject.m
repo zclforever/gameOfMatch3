@@ -23,6 +23,7 @@
     //self.contentSize=[[CCDirector sharedDirector]winSize];
     if (self) {
         self.delayTime=0.04;
+        self.autoUpdateCollision=YES;
         
         self.alive=YES;
         self.collisionObjectArray=[[NSMutableArray alloc]init];
@@ -102,10 +103,13 @@
 -(void)updateForCommon{
     float delayTime=self.delayTime;
     
-    [self updateCollisionObjectArray];
-    if(self.collisionObjectArray.count>0){
-        [self handleCollision];
+    if(self.autoUpdateCollision){
+        [self updateCollisionObjectArray];
+        if(self.collisionObjectArray.count>0){
+            [self handleCollision];
+        }
     }
+
     
     
     

@@ -86,7 +86,13 @@
 //    if ([obj.objectName isEqualToString:@"fireBall"]) {
 //        self.curHP-=6;
 //    }
-    
+    if ([obj.objectName isEqualToString:@"snowBall"]) {
+        self.moveSpeed=0;
+        __block SmallEnemy* blockObj=self;
+        [self setTimeOutWithDelay:5.0f withBlock:^{
+            blockObj.moveSpeed=14.0f;
+        }];
+    }
 }
 -(void)nomalAttack{
     if(self.collisionObjectArray.count>0){
@@ -111,7 +117,9 @@
     if (self.startMove) {
         if (self.curHP<=0) {
             self.alive=NO;
+            [self.allObjectsArray removeObject:self];
             [self dieAction];
+
         }
     }
     

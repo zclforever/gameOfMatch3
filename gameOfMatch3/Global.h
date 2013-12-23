@@ -71,9 +71,10 @@ typedef enum Orientation Orientation;
 
 
 #endif
+
+
 @interface Global :CCLayer
-+ (id)sharedManager;
-+(id)menuOfBackTo:(CCScene*)scene;
+
 @property int debugTest;
 @property float kStartX;
 @property float kStartY;
@@ -81,5 +82,9 @@ typedef enum Orientation Orientation;
 @property (strong,nonatomic) NSString* lastSelectedString;
 @property (strong,nonatomic) NSMutableArray* nameOfGameLevelArray;
 @property (strong,nonatomic) CCSprite* setTimeOut;
+
++ (id)sharedManager;
++(id)menuOfBackTo:(CCScene*)scene;
++(bool)rectInsect:(CGRect)rect1 :(CGRect)rect2;
 @end
 

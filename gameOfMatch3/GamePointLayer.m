@@ -177,7 +177,14 @@
                          [NSArray arrayWithObjects: @"需要寒冰1.减速敌人！并造成伤害(少是少了点)。",@"减速敌人！并造成伤害(少是少了点)。满级",nil],
                          [NSArray arrayWithObjects:@1,@0,@0,@0,nil],
                          nil],@"iceBall",
-
+                        
+                        [NSArray arrayWithObjects:
+                         [NSArray arrayWithObjects:@1,@0,nil],
+                         [NSArray arrayWithObjects:@"雪崩",@"雪崩√",nil],
+                         [NSArray arrayWithObjects: @"需要寒冰1.范围减速敌人！并造成伤害(少是少了点)。",@"范围减速敌人！并造成伤害(少是少了点)。满级",nil],
+                         [NSArray arrayWithObjects:@1,@0,@0,@0,nil],
+                         nil],@"snowBall",
+                        
                         [NSArray arrayWithObjects:
                          [NSArray arrayWithObjects:@1,@0,nil],
                          [NSArray arrayWithObjects:@"南瓜吸吸",@"南瓜吸吸√",nil],
@@ -297,7 +304,7 @@
         
         NSMutableArray* smallSkillLabelArray=[[NSMutableArray alloc]init];
         NSArray* smallSkillArray=[NSArray arrayWithObjects:
-                                  [NSArray arrayWithObjects:@"iceBall",@"iceShield", nil],
+                                  [NSArray arrayWithObjects:@"iceBall",@"snowBall", nil],
                                   [NSArray arrayWithObjects:@"fireBall",@"bigFireBall", nil],
                                   [NSArray arrayWithObjects:@"bloodAbsorb",@"hammer", nil],
                                   nil];
