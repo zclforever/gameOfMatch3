@@ -33,9 +33,9 @@
         self.sprite.visible=NO;
         [self addChild:self.sprite];
         
-        self.damage=1.0;
+        self.damage=2.0;
         self.attackCD=2.0f;
-        self.moveSpeed=14.0f;
+        self.moveSpeed=8.0f;
 
         //self.spriteEntity=self;
         [self update];
@@ -82,17 +82,21 @@
 
 }
 -(void)hurtByObject:(AiObject *)obj{
-    self.curHP-=obj.damage;
-//    if ([obj.objectName isEqualToString:@"fireBall"]) {
-//        self.curHP-=6;
-//    }
+    bool needHurt=YES;
+    
     if ([obj.objectName isEqualToString:@"snowBall"]) {
-        self.moveSpeed=0;
-        __block SmallEnemy* blockObj=self;
-        [self setTimeOutWithDelay:5.0f withBlock:^{
-            blockObj.moveSpeed=14.0f;
-        }];
+        if(!self.state.frozen){
+            self.state.frozen=YES;
+            self.state.frozenStartTime=[[Global sharedManager] gameTime];
+        }
+        else{  //如果已经冻结;
+            needHurt=NO;
+        }
+
     }
+    
+    
+   if(needHurt) self.curHP-=obj.damage;
 }
 -(void)nomalAttack{
     if(self.collisionObjectArray.count>0){
@@ -112,6 +116,7 @@
         return;
     }
     
+    
     //-------------是否还活着--------------
     
     if (self.startMove) {
@@ -127,6 +132,15 @@
     //---------------是否开始移动 且未到目的地---------------------
     float moveSpeed=self.moveSpeed;
     if (self.startMove&&!self.atDest) {
+        
+        if(self.state.frozen){
+            moveSpeed=0;
+            if ([[Global sharedManager] gameTime]-self.state.frozenStartTime>=5.0f) {
+                self.state.frozen=NO;
+                moveSpeed=self.moveSpeed;
+            }
+        }
+        
         CGPoint pos=self.sprite.position;
         if (pos.x>self.destPos.x) {   //没有到达目的地
             self.sprite.position=ccp(pos.x-moveSpeed*delayTime,pos.y);

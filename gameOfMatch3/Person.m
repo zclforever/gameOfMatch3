@@ -78,7 +78,7 @@
                       @1,@"skill1",
                       @1,@"skill2",
                       @0,@"skill3",
-                      @0,@"bigFireBall",
+                      @1,@"bigFireBall",
                       @1,@"fireBall",
                       @0,@"iceShield",
                       @1,@"iceBall",
@@ -177,9 +177,9 @@
         person.maxHP=140;
     }
 
-    person.damage=1+1*(int)((raw_level-1));
+    person.damage=1+1*(int)((raw_level-1)/3);
     person.maxHP=18+35*(int)((raw_level-1));
-    person.apSpeed=3.0f+1*(int)((raw_level-1)/6);
+    person.apSpeed=1.0f+1*(int)((raw_level-1)/6);
     
     person.curHP=person.maxHP;
     person.spriteName=[NSString stringWithFormat:@"enemy_%d.png",level];
@@ -189,7 +189,7 @@
     person.level=raw_level;
     
     person.smallEnemyCount=5+3*(int)((raw_level-1));
-    person.smallEnemyHp=3+1*(int)((raw_level-1)/6);
+    person.smallEnemyHp=3+1*(int)((raw_level-1)/3);
     person.attackType=2;
 
     return person;

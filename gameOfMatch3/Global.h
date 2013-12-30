@@ -76,6 +76,7 @@ typedef enum Orientation Orientation;
 @interface Global :CCLayer
 
 @property int debugTest;
+@property float gameTime;
 @property float kStartX;
 @property float kStartY;
 @property int currentLevelOfGame;

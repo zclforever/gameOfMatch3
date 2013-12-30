@@ -33,6 +33,8 @@
         if ([name isEqualToString:@"snowBall"]) {
             CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"snowBall.plist"];
             CCParticleSystem* fire=particle_system;
+            self.speedX=100.0f;
+            self.speedY=70.0f;
             self.anchorPoint=ccp(0,0);
             self.particle=fire;
             fire.position=pos;
@@ -40,7 +42,8 @@
             fire.scale=.6;
             fire.speed=0;
             fire.duration=-1;
-            self.attackRange=CGSizeMake(100, 200);
+            self.attackRange=CGSizeMake(100, 50);
+            self.attackCD=2.0f;
             
         }
         
@@ -134,12 +137,12 @@
     for (AiObject* obj in self.allObjectsArray) {
         if(obj==self)continue;
         CGRect selfRect=[self getBoundingBox];
-        selfRect.origin.x=selfRect.origin.x+selfRect.size.width/2;
-        selfRect.origin.y=selfRect.origin.y+selfRect.size.height/2;
+//        selfRect.origin.x=selfRect.origin.x+selfRect.size.width/2;
+//        selfRect.origin.y=selfRect.origin.y+selfRect.size.height/2;
         
         CGRect objRect=[(id)obj getBoundingBox];
-        objRect.origin.x=objRect.origin.x+objRect.size.width/2;
-        objRect.origin.y=objRect.origin.y+objRect.size.height/2;
+//        objRect.origin.x=objRect.origin.x+objRect.size.width/2;
+//        objRect.origin.y=objRect.origin.y+objRect.size.height/2;
 
         if ([Global rectInsect:objRect :selfRect]) {
             [self.collisionObjectArray addObject:obj];
@@ -151,22 +154,33 @@
     
 
     //-------------攻击某个位置
+    float attackPastTime=[[Global sharedManager]gameTime]-self.lastAttackTime;
+    
     if(self.attackingPostion&&self.particle){
+
+        
+        
         if(!self.moving){
             self.moving=YES;
         }
         [self move];
-        [self updateCollisionObjectArray];
-        for (AiObject* collisionObj in self.collisionObjectArray) {
-            if (![[NSArray arrayWithObjects:@"smallEnemy",@"bossEnemy", nil] containsObject:collisionObj.objectName]) {
-                continue;
+        
+        //------------攻击cd到后 允许攻击 并检测碰撞 
+        if (attackPastTime>=self.attackCD) {
+            [self updateCollisionObjectArray];
+            for (AiObject* collisionObj in self.collisionObjectArray) {
+                if (![[NSArray arrayWithObjects:@"smallEnemy",@"bossEnemy", nil] containsObject:collisionObj.objectName]) {
+                    continue;
+                }
+                if (!collisionObj.alive) {
+                    continue;
+                }
+                self.lastAttackTime=[[Global sharedManager] gameTime];
+                [collisionObj hurtByObject:self];
+                
             }
-            if (!collisionObj.alive) {
-                continue;
-            }
-            [collisionObj hurtByObject:self];
-          
         }
+
         
         if (self.atDest) {
             self.attackingPostion=NO;
@@ -195,15 +209,24 @@
                 break;
             }
         }
-        
+        //-----------找不到目标就销毁
+        if (!nearestObj) {
+            self.attackingNearest=NO;
+            self.alive=NO;
+            [self.allObjectsArray removeObject:self];
+            [self removeFromParentAndCleanup:YES];
+            return;
+        }
+        //------------找到最近目标
         if (nearestObj) {
+            CGRect rect=[nearestObj getBoundingBox];
+            CGPoint pos=rect.origin;
+            pos.x+=rect.size.width/2;
+            pos.y+=rect.size.height/2;
+            self.moveDestPosition=pos;
             if(!self.moving){
                 self.moving=YES;
-                CGRect rect=[nearestObj getBoundingBox];
-                CGPoint pos=rect.origin;
-                pos.x+=rect.size.width/2;
-                pos.y+=rect.size.height/2;
-                self.moveDestPosition=pos;
+
             }
             [self move];
             
@@ -224,7 +247,7 @@
                     }
                     else{
                         __block Projectile* obj=self;
-                        [self setTimeOutWithDelay:self.delayTime*3 withBlock:^{
+                        [self setTimeOutWithDelay:self.delayTime withBlock:^{
                             obj.damage-=enemyCurHP;
                             [obj update];
                         }];

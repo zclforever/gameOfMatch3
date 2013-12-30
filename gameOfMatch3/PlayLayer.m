@@ -500,6 +500,7 @@
     float tipCD=2.0f;  //notips....
     
     self.gameTime+=delta;
+    [[Global sharedManager] setGameTime:self.gameTime];
     //self.gameTime+=updateInterval;
     
     
@@ -1188,7 +1189,7 @@
     CGPoint pos=self.enemy.sprite.position;
     [self runAction:[CCSpawn actions:
                      [CCScaleTo actionWithDuration:3.0 scale:1.5],
-                     [CCMoveTo actionWithDuration:2.0 position:ccp(-100,-100)],
+                     [CCMoveTo actionWithDuration:2.0 position:ccp(-100,-120)],
                      nil]];
 
     for (int i=0; i<18; i++) {

@@ -16,6 +16,13 @@
 //
 //
 //@end
+@interface State : NSObject{
+    
+}
+@property bool frozen;
+@property float frozenStartTime;
+
+@end
 @interface AiObject : CCLayer {
     
 }
@@ -24,6 +31,7 @@
 @property float maxHP;
 @property float damage;
 @property float attackCD;
+@property float lastAttackTime;
 @property float moveSpeed;
 @property bool alive;
 @property bool atDest;
@@ -32,6 +40,8 @@
 @property (nonatomic,strong) NSString* objectName;
 @property (nonatomic,weak) NSMutableArray* allObjectsArray;
 @property (nonatomic,strong) NSMutableArray* collisionObjectArray;
+@property (strong,nonatomic) NSMutableDictionary* stateDict;  //战斗时的状态
+@property (strong,nonatomic) State* state;  //战斗时的状态
 //@property (weak) id <AiObject>	spriteEntity ;
 
 //-----------------------------

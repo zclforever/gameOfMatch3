@@ -33,6 +33,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "__20-[Projectile update]_block_invoke:Projectile.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "nearestObj.curHP">
+            </PersistentString>
+            <PersistentString
+               value = "obj.damage">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[StatePanelLayer findMagicTouchedIndex:]:StatePanelLayer.m">
          <PersistentStrings>
             <PersistentString
@@ -48,17 +59,6 @@
          <PersistentStrings>
             <PersistentString
                value = "">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "__20-[Projectile update]_block_invoke:Projectile.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "nearestObj.curHP">
-            </PersistentString>
-            <PersistentString
-               value = "obj.damage">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -88,15 +88,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[Box removeAndRepair]:Box.m">
-      </ContextState>
-      <ContextState
          contextName = "-[HelloWorldLayer init]:HelloWorldLayer.m">
          <PersistentStrings>
             <PersistentString
                value = "self.contentSize.width">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Box removeAndRepair]:Box.m">
       </ContextState>
       <ContextState
          contextName = "__26-[Box repairSingleColumn:]_block_invoke:Box.m">
@@ -114,6 +114,12 @@
          <PersistentStrings>
             <PersistentString
                value = "self.curHP">
+            </PersistentString>
+            <PersistentString
+               value = "obj.damage">
+            </PersistentString>
+            <PersistentString
+               value = "self.state">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -135,10 +141,10 @@
          contextName = "-[PlayLayer handleTimeOut]:PlayLayer.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.enemy.stateDict">
+               value = "self.enemy.curHP">
             </PersistentString>
             <PersistentString
-               value = "self.enemy.curHP">
+               value = "self.enemy.stateDict">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -166,6 +172,17 @@
       </ContextState>
       <ContextState
          contextName = "-[Box scanSwapMatch]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Projectile updateCollisionObjectArray]:Projectile.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.allObjectsArray">
+            </PersistentString>
+            <PersistentString
+               value = "[self getBoundingBox]">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[Tile trade:]:Tile.m">
@@ -202,7 +219,7 @@
          contextName = "-[Box repairSingleColumn:]:Box.m">
          <PersistentStrings>
             <PersistentString
-               value = "tile.pixPositon.x">
+               value = "kTileSize/kMoveTileTime">
             </PersistentString>
             <PersistentString
                value = "kStartX">
@@ -211,7 +228,7 @@
                value = "ccpDistance(sprite.position, destTile.pixPosition)">
             </PersistentString>
             <PersistentString
-               value = "kTileSize/kMoveTileTime">
+               value = "tile.pixPositon.x">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

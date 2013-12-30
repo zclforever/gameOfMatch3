@@ -8,7 +8,18 @@
 
 #import "AiObject.h"
 
+@implementation State
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+@end
 @interface AiObject()
 
 
@@ -26,6 +37,7 @@
         self.autoUpdateCollision=YES;
         
         self.alive=YES;
+        self.state=[[State alloc]init];
         self.collisionObjectArray=[[NSMutableArray alloc]init];
         self.allObjectsArray=allObjectsArray;
         [self.allObjectsArray addObject:self];
@@ -96,8 +108,10 @@
     
 }
 
--(void)magicAttackByName:(NSString*)magicName{
-    
+-(void)magicAttackByName:(NSString *)magicName{
+    [self magicAttackByName:magicName withParameter:nil];
+}
+-(void)magicAttackByName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
 }
 
 -(void)updateForCommon{
