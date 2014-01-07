@@ -53,20 +53,37 @@
     
 }
 -(void)addPersonSpriteAtPosition:(CGPoint)position{
-
     
-    CCSprite* sprite=[CCSprite spriteWithFile:self.spriteName];
+    
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"person002.plist"];
+    
+    CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"person002.png"];
+    CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:@"person002_000.gif"];
     sprite.anchorPoint=ccp(0,0);
     sprite.position=position;
     sprite.scaleX=zPersonWidth/sprite.contentSize.width;
     sprite.scaleY=zPersonHeight/sprite.contentSize.height;
-    self.sprite=sprite;
     [self addChild:sprite];
-    
+    self.sprite=sprite;
     [self addLifeBar];
+    
+    //[batchNode addChild:sprite];
+    [self addChild:batchNode];
+    
+    
+    NSMutableArray* frames=[[NSMutableArray alloc]init];
+    for (int i=0; i<=7; i+=1) {
+        NSString* name=[NSString stringWithFormat:@"person002_%03d.gif",i];
+        [frames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:name]];
+    }
+    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:0.1f];
+    CCAction* action=[CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:animation]];
+    
+    [sprite runAction:action ];
     
     
 }
+
 -(void)addLifeBar{
     //init LifeBar
     self.lifeBar=[CCSprite spriteWithFile:@"lifeBar.png" ];
@@ -154,9 +171,9 @@
         if(1){
             if(self.curHP<0) self.curHP=0;
             //updatePosition
-            self.lifeBar.position=ccp(self.sprite.position.x,self.sprite.position.y+55);
+            self.lifeBar.position=ccp(self.sprite.position.x,self.sprite.position.y+65);
             self.lifeBarBorder.position=self.lifeBar.position;
-            float lifeBarFixY=self.lifeBar.position.y+zStatePanel_LifeBarHeight/2;
+            float lifeBarFixY=self.lifeBar.position.y+zStatePanel_LifeBarHeight/2+10;
             self.HPLabel.position = ccp(self.lifeBar.position.x+zStatePanel_LifeBarWidth/2,lifeBarFixY);
             
             if(self.apBar){

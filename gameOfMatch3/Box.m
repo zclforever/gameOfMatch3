@@ -258,11 +258,10 @@
         }
         if(tile.value==5&&self.lockedEnemy){  //剑的话
             
-            CGPoint pos=self.lockedEnemy.position;
             for (int i=0; i<removeArray.count; i++) {
                 tile=removeArray[i];
-                CCAction* moveAction=[CCMoveTo actionWithDuration:.4 position:pos];
-                [tile.actionSequence addObject:moveAction];
+                CCAction* action=[CCScaleTo actionWithDuration:0 scale:0];
+                [tile.actionSequence addObject:action];
             }
             continue;
         }

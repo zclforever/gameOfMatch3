@@ -80,6 +80,7 @@
 -(id)initWithLevel:(int)level{
 	self = [super init];
     
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeUnusedSpriteFrames];
     //    [[NSNotificationCenter defaultCenter] addObserver:self
     //                                             selector:@selector(shakeEvent)
     //                                                 name:@"MyiPhoneShakeEvent" object:nil];
@@ -113,29 +114,30 @@
     
     self.isSoundEnabled=NO;
     //init BG
-	CCSprite *bg = [CCSprite spriteWithFile: @"playLayer.jpg"];
+	CCSprite *bg = [CCSprite spriteWithFile: @"map01.jpg"];
     CGSize winSize = [CCDirector sharedDirector].winSize;
-    [bg setScaleX: winSize.width/bg.contentSize.width];
-    [bg setScaleY: winSize.height/bg.contentSize.height];
-	bg.position = ccp(winSize.width/2,winSize.height/2);
-	//[self addChild: bg z:-2];
+    [bg setScaleX: 400/bg.contentSize.width];
+//    [bg setScaleY: bg.scaleX];
+	bg.position = ccp(winSize.width/2+10,winSize.height/2+180);
+	[self addChild: bg z:-20];
+
     
-    //init StateLayer
-    //float kStartX=[[consts sharedManager] kStartX];
-    
-    
-    //StatePanelLayer *enemy=[[StatePanelLayer alloc]initWithPositon:ccp(kStartX+kBoxWidth*kTileSize,0)];
-//    StatePanelLayerInBattle *enemy=[[StatePanelLayerInBattle alloc]initWithPositon:ccp(0,0)];
-//    [self addChild:enemy z:-1];
-//    
-//
-//    self.enemy=enemy;
+    CCSprite *bgBox = [CCSprite spriteWithFile: @"tilesColored.png"];
+
+    [bgBox setScaleX: 300/bgBox.contentSize.width];
+    [bgBox setScaleY: bgBox.scaleX];
+    bgBox.anchorPoint=ccp(0.5,0);
+    bgBox.opacity=150;
+	bgBox.position = ccp(winSize.width/2,0);
+	[self addChild: bgBox z:-22];
+
+
     
     //init Box
 	box = [[Box alloc] initWithSize:CGSizeMake(kBoxWidth,kBoxHeight) factor:6];
 	//box.layer = self;
 	box.lock = YES;
-    [self addChild:box];
+    [self addChild:box z:-21];
     
     ai=[[AI alloc]initWithBox:box];
     self.player=nil;
@@ -441,13 +443,18 @@
         CGPoint pos=self.enemy.sprite.position; //设置开始结束
         [smallEnemy appearAtX:pos.x Y:pos.y];
         pos=self.player.sprite.position;
-        smallEnemy.destPos=ccp(pos.x+40,pos.y);
+        smallEnemy.destPos=ccp(pos.x+60,pos.y);
         
         smallEnemy.maxHP=self.enemy.smallEnemyHp;
         smallEnemy.curHP=smallEnemy.maxHP;
         
         self.enemy.smallEnemyCount--;
         
+        //动画移动测试 test
+        [smallEnemy moveAnimation];
+        
+        smallEnemy.sprite.scaleX=-smallEnemy.sprite.scaleX;
+        //[smallEnemy attackAnimation];
     }
     
             //----------------判断攻击
@@ -674,11 +681,34 @@
                                    [CCMoveTo actionWithDuration:1.5 position:self.enemy.sprite.position],
                                    
                                    nil],
-                                  [CCMoveTo actionWithDuration:.5 position:ccp(350,490)],
+                                  [CCMoveTo actionWithDuration:.5 position:ccp(350,530)],
                                   nil]];
                 [Actions shakeSprite:obj.enemy.sprite delay:2.5];
                 
             }
+            for (Tile* tile in matchedArray) {
+                CCSprite* sword=[CCSprite spriteWithFile:@"block_5.png"];
+                sword.position=tile.sprite.position;
+                sword.scaleX=tile.sprite.scaleX;
+                sword.scaleY=tile.sprite.scaleY;
+                sword.anchorPoint=tile.sprite.anchorPoint;
+                [self addChild:sword];
+                
+                
+                
+                CGPoint pos=self.enemy.sprite.position;
+
+                __block CCSprite* obj=sword;
+                [sword  runAction:[CCSequence actions:
+                                   [CCMoveTo actionWithDuration:.4 position:pos],
+                                   [CCCallBlock actionWithBlock:^{
+                                        [obj removeFromParentAndCleanup:YES];
+                                    }]
+                                   , nil] ];
+
+            }
+            
+
             
             [self.actionHandler addActionWithBlock:^{
                 [Actions shakeSprite:obj.enemy.sprite delay:delayTime withFinishedBlock:^{
@@ -937,6 +967,8 @@
 }
 
 -(void) onEnterTransitionDidFinish{
+    [self addFlag2];
+    [self addWindmill];
     
     if (!self.player) {
         [[Person sharedPlayer] setStateDict:[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0.0,@"fired",@0.0,@"poisoned", nil]];//清空状态
@@ -988,11 +1020,11 @@
     
     
     
-
     [self.enemy addPersonSpriteAtPosition:ccp(zEnemyMarginLeft,winSize.height-zPlayerMarginTop)];
     [self.enemy addApBar];
     box.lockedEnemy=self.enemy.sprite;
     self.enemy.curStep=20;  //配合返回
+
     
     
     self.isSoundEnabled=YES;  //soundEnable
@@ -1037,6 +1069,67 @@
     
     
     
+}
+
+-(void)addWindmill{
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"windmill.plist"];
+    
+    CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"windmill.png"];
+    CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:@"image1771.png"];
+    sprite.position=ccp(100,400);
+    [batchNode addChild:sprite];
+    [self addChild:batchNode];
+    
+    
+    NSMutableArray* frames=[[NSMutableArray alloc]init];
+    for (int i=1771; i<=1785; i+=2) {
+        NSString* name=[NSString stringWithFormat:@"image%d.png",i];
+        [frames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:name]];
+    }
+    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:0.1f];
+    CCAction* action=[CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:animation]];
+    
+    [sprite runAction:action ];
+}
+-(void)addFlag2{
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"flag2.plist"];
+    
+    CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"flag2.png"];
+    CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:@"image2099.png"];
+    sprite.position=ccp(150,440);
+    [batchNode addChild:sprite];
+    [self addChild:batchNode];
+    
+    
+    NSMutableArray* frames=[[NSMutableArray alloc]init];
+    for (int i=2099; i<=2107; i+=2) {
+        NSString* name=[NSString stringWithFormat:@"image%d.png",i];
+        [frames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:name]];
+    }
+    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:0.1f];
+    CCAction* action=[CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:animation]];
+    
+    [sprite runAction:action ];
+}
+-(void)addFlag{
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"flag.plist"];
+    
+    CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"flag.png"];
+    CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:@"image1845.png"];
+    sprite.position=ccp(160,430);
+    [batchNode addChild:sprite];
+    [self addChild:batchNode];
+    
+    
+    NSMutableArray* frames=[[NSMutableArray alloc]init];
+    for (int i=1845; i<=1861; i+=2) {
+        NSString* name=[NSString stringWithFormat:@"image%d.png",i];
+        [frames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:name]];
+    }
+    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:0.1f];
+    CCAction* action=[CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:animation]];
+
+    [sprite runAction:action ];
 }
 -(void)addBackLayer{
     CCLabelTTF* label = [CCLabelTTF labelWithString:@"返回" fontName:@"Arial" fontSize:18];

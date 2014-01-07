@@ -108,6 +108,8 @@
     
 }
 
+
+
 -(void)magicAttackByName:(NSString *)magicName{
     [self magicAttackByName:magicName withParameter:nil];
 }

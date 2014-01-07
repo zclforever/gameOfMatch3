@@ -26,5 +26,6 @@
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray;
 -(void)appearAtX:(int)x Y:(int)y;
 -(void)dieAction;
-
+-(void)moveAnimation;
+-(void)attackAnimation;
 @end

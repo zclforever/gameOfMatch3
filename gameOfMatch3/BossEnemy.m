@@ -27,6 +27,37 @@
     }
     return self;
 }
+-(void)addPersonSpriteAtPosition:(CGPoint)position{
+   
+    
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"person001.plist"];
+    
+    CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"person001.png"];
+    CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:@"frame_000.gif"];
+    sprite.anchorPoint=ccp(0,0);
+    sprite.position=position;
+    sprite.scaleX=zPersonWidth/sprite.contentSize.width;
+    sprite.scaleY=zPersonHeight/sprite.contentSize.height;
+    [self addChild:sprite];
+    self.sprite=sprite;
+    [self addLifeBar];
+    
+    //[batchNode addChild:sprite];
+    [self addChild:batchNode];
+    
+    
+    NSMutableArray* frames=[[NSMutableArray alloc]init];
+    for (int i=0; i<=31; i+=1) {
+        NSString* name=[NSString stringWithFormat:@"frame_%03d.gif",i];
+        [frames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:name]];
+    }
+    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:0.1f];
+    CCAction* action=[CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:animation]];
+    
+    [sprite runAction:action ];
+    
+
+}
 
 -(void)dataByLevel:(int)level{
     Person* defaultPerson=[Person enemyWithLevel:level];

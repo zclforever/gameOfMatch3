@@ -26,5 +26,5 @@
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray;
 
 -(void)addPersonSpriteAtPosition:(CGPoint)position;
-
+-(void)addLifeBar;
 @end
