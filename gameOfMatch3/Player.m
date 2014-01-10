@@ -55,10 +55,10 @@
 -(void)addPersonSpriteAtPosition:(CGPoint)position{
     
     
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"person002.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"person003.plist"];
     
-    CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"person002.png"];
-    CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:@"person002_000.gif"];
+    CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"person003.png"];
+    CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:@"person03_000.gif"];
     sprite.anchorPoint=ccp(0,0);
     sprite.position=position;
     sprite.scaleX=zPersonWidth/sprite.contentSize.width;
@@ -73,7 +73,7 @@
     
     NSMutableArray* frames=[[NSMutableArray alloc]init];
     for (int i=0; i<=7; i+=1) {
-        NSString* name=[NSString stringWithFormat:@"person002_%03d.gif",i];
+        NSString* name=[NSString stringWithFormat:@"person03_%03d.gif",i];
         [frames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:name]];
     }
     CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:0.1f];

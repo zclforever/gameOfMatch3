@@ -51,7 +51,7 @@
         NSString* name=[NSString stringWithFormat:@"frame_%03d.gif",i];
         [frames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:name]];
     }
-    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:0.05f];
+    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:0.07f];
     CCAction* action=[CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:animation]];
     
     [sprite runAction:action ];

@@ -69,6 +69,8 @@
 		02AF55A2188014B20065999C /* softHit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 02AF55A1188014B20065999C /* softHit.wav */; };
 		02AF55A4188017830065999C /* explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 02AF55A3188017830065999C /* explosion.wav */; };
 		02AF55A618801A8D0065999C /* explosion02.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 02AF55A518801A8C0065999C /* explosion02.mp3 */; };
+		02AF55A9188021030065999C /* person003.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02AF55A7188021030065999C /* person003.plist */; };
+		02AF55AA188021030065999C /* person003.png in Resources */ = {isa = PBXBuildFile; fileRef = 02AF55A8188021030065999C /* person003.png */; };
 		02B1740817C5C6D60057DA00 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B1740717C5C6D60057DA00 /* QuartzCore.framework */; };
 		02B1740A17C5C6D60057DA00 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B1740917C5C6D60057DA00 /* OpenGLES.framework */; };
 		02B1740C17C5C6D60057DA00 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B1740B17C5C6D60057DA00 /* OpenAL.framework */; };
@@ -342,6 +344,8 @@
 		02AF55A1188014B20065999C /* softHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = softHit.wav; sourceTree = "<group>"; };
 		02AF55A3188017830065999C /* explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion.wav; sourceTree = "<group>"; };
 		02AF55A518801A8C0065999C /* explosion02.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = explosion02.mp3; sourceTree = "<group>"; };
+		02AF55A7188021030065999C /* person003.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = person003.plist; sourceTree = "<group>"; };
+		02AF55A8188021030065999C /* person003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person003.png; sourceTree = "<group>"; };
 		02B1740417C5C6D60057DA00 /* gameOfMatch3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gameOfMatch3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02B1740717C5C6D60057DA00 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		02B1740917C5C6D60057DA00 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -838,6 +842,8 @@
 		0278B11B187BFFFB00A3AECA /* person */ = {
 			isa = PBXGroup;
 			children = (
+				02AF55A7188021030065999C /* person003.plist */,
+				02AF55A8188021030065999C /* person003.png */,
 				0278B134187C126B00A3AECA /* person002.plist */,
 				0278B135187C126B00A3AECA /* person002.png */,
 				0278B138187C141600A3AECA /* person001.plist */,
@@ -1542,6 +1548,8 @@
 				02AF55A2188014B20065999C /* softHit.wav in Resources */,
 				02AF55A4188017830065999C /* explosion.wav in Resources */,
 				02AF55A618801A8D0065999C /* explosion02.mp3 in Resources */,
+				02AF55A9188021030065999C /* person003.plist in Resources */,
+				02AF55AA188021030065999C /* person003.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
