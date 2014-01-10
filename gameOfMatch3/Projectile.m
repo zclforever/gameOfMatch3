@@ -12,7 +12,9 @@
 @property int count;
 @property float speedX;
 @property float speedY;
-
+@property bool attackOnce;
+@property (strong,nonatomic) NSMutableArray* attackedObjectsArray;
+@property (strong,nonatomic) NSString* hitSound;
 @end
 
 @implementation Projectile
@@ -27,9 +29,12 @@
         self.moveSpeed=250.0f;
         self.speedX=self.moveSpeed;
         self.speedY=self.moveSpeed;
-        self.attackRange=CGSizeMake(0, 10);
+        self.attackRange=CGSizeMake(0, 20);
+        self.attackOnce=NO;
         
+        self.attackedObjectsArray=[[NSMutableArray alloc]init];
         
+       
         if ([name isEqualToString:@"snowBall"]) {
             CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"snowBall.plist"];
             CCParticleSystem* fire=particle_system;
@@ -65,7 +70,8 @@
             fire.rotation=-22.5;
             fire.duration=-1.0f;
             fire.gravity=ccp(-90,-45);
-           
+            self.hitSound=@"heavyHit.wav";
+             
         }
         if ([name isEqualToString:@"iceBall"]) {
             CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"iceBall.plist"];
@@ -76,6 +82,9 @@
             fire.scale=.6;
             fire.speed=100;
             fire.duration=-1;
+            self.attackOnce=YES;
+            self.attackRange=CGSizeMake(0, 30);
+            self.hitSound=@"softHit.wav";
         }
         self.particle.visible=NO;
         
@@ -126,7 +135,8 @@
 
     self.particle.position=ccp( position.x+xMoveDistance,position.y+yMoveDistance);
     
-    if(abs(xDistance)<3&&abs(yDistance)<3){
+    float destMinDistance=max(moveDistanceX,3);
+    if(abs(xDistance)<destMinDistance&&abs(yDistance)<destMinDistance){
         self.atDest=YES;
     }
     
@@ -169,6 +179,12 @@
         if (attackPastTime>=self.attackCD) {
             [self updateCollisionObjectArray];
             for (AiObject* collisionObj in self.collisionObjectArray) {
+                if(self.attackOnce){
+                    if ([self.attackedObjectsArray containsObject:collisionObj]) {
+                        continue;
+                    }
+                }
+                
                 if (![[NSArray arrayWithObjects:@"smallEnemy",@"bossEnemy", nil] containsObject:collisionObj.objectName]) {
                     continue;
                 }
@@ -176,7 +192,12 @@
                     continue;
                 }
                 self.lastAttackTime=[[Global sharedManager] gameTime];
+                
+                //hitsound
+                if(self.hitSound){[[SimpleAudioEngine sharedEngine]playEffect:self.hitSound];}
+                    
                 [collisionObj hurtByObject:self];
+                if(self.attackOnce){[self.attackedObjectsArray addObject:collisionObj];}
                 
             }
         }
@@ -185,6 +206,7 @@
         if (self.atDest) {
             self.attackingPostion=NO;
             self.alive=NO;
+            [self.allObjectsArray removeObject:self];
             [self removeFromParentAndCleanup:YES];
             return;
 
@@ -235,6 +257,10 @@
                 if(collisionObj==nearestObj){
                     self.moving=NO;
                     int enemyCurHP=nearestObj.curHP;
+
+                    //hitSound
+                    if(self.hitSound){[[SimpleAudioEngine sharedEngine]playEffect:self.hitSound];}
+                    
                     [nearestObj hurtByObject:self];
                     
                     if(self.damage<=enemyCurHP||[nearestObj.objectName isEqualToString:@"bossEnemy"]){

@@ -44,8 +44,8 @@
     [self addChild:particle_system];
     
     
-    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"marioWorld.mp3"];
-    
+    //[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"marioWorld.mp3"];
+    [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"backgroundMusic01.mp3"];
     CCLabelTTF* label;
     CCMenuItemLabel* menuLabel;
     

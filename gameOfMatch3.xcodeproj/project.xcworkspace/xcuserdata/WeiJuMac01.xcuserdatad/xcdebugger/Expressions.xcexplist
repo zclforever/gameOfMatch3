@@ -3,6 +3,122 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[AiObject sortAllObjectsByDistanceFromPosition:]:AiObject.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.allObjectsArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy update]:SmallEnemy.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.allObjectsArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy handleCollision]:SmallEnemy.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self allObjectsArray]">
+            </PersistentString>
+            <PersistentString
+               value = "self.collisionObjectArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Projectile updateCollisionObjectArray]:Projectile.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.objectName">
+            </PersistentString>
+            <PersistentString
+               value = "obj.sprite.position">
+            </PersistentString>
+            <PersistentString
+               value = "obj.objectName">
+            </PersistentString>
+            <PersistentString
+               value = "self.particle.position">
+            </PersistentString>
+            <PersistentString
+               value = "self.allObjectsArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Player initWithAllObjectArray:]:Player.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Projectile initWithAllObjectArray:withPostion:byName:]:Projectile.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.objectName">
+            </PersistentString>
+            <PersistentString
+               value = "self.particle.position">
+            </PersistentString>
+            <PersistentString
+               value = "self.allObjectsArray">
+            </PersistentString>
+            <PersistentString
+               value = "self.particle.boundingBox">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy addLifeBar]:SmallEnemy.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.lifeBar">
+            </PersistentString>
+            <PersistentString
+               value = "self.lifeBar.scaleX">
+            </PersistentString>
+            <PersistentString
+               value = "self.lifeBar.scaleY">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Player magicAttackByName:withParameter:]:Player.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.sprite.position">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Projectile update]:Projectile.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.collisionObjectArray">
+            </PersistentString>
+            <PersistentString
+               value = "self.allObjectsArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AiObject initWithAllObjectArray:]:AiObject.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "allObjectsArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[Global rectInsect::]:Global.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "abs(distanceX)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[PlayLayer update:]:PlayLayer.m">
          <PersistentStrings>
             <PersistentString
@@ -10,6 +126,22 @@
             </PersistentString>
             <PersistentString
                value = "sword.scaleX">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AiObject updateCollisionObjectArray]:AiObject.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.allObjectsArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy dieAction]:SmallEnemy.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.allObjectsArray">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

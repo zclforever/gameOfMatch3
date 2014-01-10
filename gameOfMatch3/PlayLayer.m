@@ -562,6 +562,7 @@
             int magicId=tile.value;
             magicCountArray[magicId-101]=[NSNumber numberWithInt:[magicCountArray[magicId-101] intValue]+1];
             [box.readyToRemoveTiles addObject:tile];
+            
         }
         
         //NSString* name=[Magic getNameByCountArray:magicCountArray];
@@ -633,10 +634,10 @@
             int mul=1;
             int mount=result.count;
             if(mount==3){
-                if(self.isSoundEnabled)[[SimpleAudioEngine sharedEngine]playEffect:@"coinDing.wav"];
+                if(self.isSoundEnabled)[[SimpleAudioEngine sharedEngine]playEffect:@"ding.wav"];
             }
             if(mount>3) {
-                if(self.isSoundEnabled)[[SimpleAudioEngine sharedEngine]playEffect:@"thunderDone.wav"];
+                if(self.isSoundEnabled)[[SimpleAudioEngine sharedEngine]playEffect:@"ding.wav"];
                 mul=pow(2, mount-2);
                 //self.player.curStep+=mount-3;
             }
@@ -709,10 +710,13 @@
             }
             
 
-            
+            __block AiObject* hurtObj=[[AiObject alloc]initWithAllObjectArray:nil];
+            hurtObj.damage=3;
             [self.actionHandler addActionWithBlock:^{
                 [Actions shakeSprite:obj.enemy.sprite delay:delayTime withFinishedBlock:^{
-                    obj.enemy.curHP-=reduceHp;;}];
+                    [obj.enemy hurtByObject:hurtObj];
+                    //obj.enemy.curHP-=reduceHp;
+                     }];
             }];
             
         }
@@ -789,8 +793,14 @@
         if (self.enemy.curHP<=50) {
             //[self endingZoom];
         }
+        [[SimpleAudioEngine sharedEngine]playEffect:@"explosion.wav"];
+        
         [self.actionHandler addActionWithBlock:^{
             [Actions bigFireBallToSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
+                [obj setTimeOut:0.2f withBlock:^{
+                    [[SimpleAudioEngine sharedEngine]playEffect:@"explosion02.mp3"];
+                }];
+                //[[SimpleAudioEngine sharedEngine]playEffect:@"explosion02.mp3"];
                 obj.enemy.curHP-=50;}];
             
         }];
@@ -1307,6 +1317,13 @@
     if(self.isGameOver)return;
     if (self.enemy.curHP<=0) {
         self.isGameOver=YES;
+        
+        if(self.isSoundEnabled){
+            [self setTimeOut:1.0f withBlock:^{
+                [[SimpleAudioEngine sharedEngine]playEffect:@"girl_no.wav"];
+            }];
+        }
+        
         [self endingZoom];
         [self setTimeOut:3.0 withSelect:@selector(win)];
 
@@ -1536,6 +1553,10 @@
         }
         tile.selected=YES;
         [self.magicSelectedArray addObject:tile];
+        
+        //skillBall sound
+        [[SimpleAudioEngine sharedEngine] playEffect:@"heavyDing.wav"];
+        
         self.lastSelectTimeOfMagic=self.gameTime;
         self.selectedTile=nil;
         return;

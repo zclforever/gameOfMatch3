@@ -35,9 +35,20 @@
 		[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"Contra.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"superMario.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"marioWorld.mp3"];
+        [[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"battleMusic01.mp3"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"coinDing.wav"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"thunderDone.wav"];
         [[SimpleAudioEngine sharedEngine] preloadEffect:@"deny.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"boy_ah.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"girl_ah.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"fire_fly.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"ice_fly.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"heavyHit.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"ding.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"heavyDing.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"softHit.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"explosion.wav"];
+        [[SimpleAudioEngine sharedEngine] preloadEffect:@"explosion02.mp3"];
         
         CCLabelTTF* start=[CCLabelTTF labelWithString:@"新的开始" fontName:@"Arial" fontSize:48];
         
@@ -52,8 +63,8 @@
         self.isTouchEnabled=YES;
         [Person initSharedPlayer];
         
-        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Contra.mp3"];
-        
+        //[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Contra.mp3"];
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"battleMusic01.mp3"];
 
         
         CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"fired.plist"];

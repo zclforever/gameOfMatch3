@@ -6,7 +6,7 @@
 //  Copyright (c) 2013年 Wei Ju. All rights reserved.
 //
 #import "cocos2d.h"
-
+#import "SimpleAudioEngine.h"
 
 #ifndef gameOfMatch3_const_h
 #define gameOfMatch3_const_h
@@ -30,6 +30,8 @@
 #define zStatePanel_LifeBarMarginLeft 5.0f
 #define zStatePanel_LifeBarMarginTop 10.0f
 
+#define  zSmallEnemy_LifeBarWidth 20.0f
+#define  zSmallEnemy_LifeBarHeight 5.0f
 
 #define zStatePanel_MagicLayerMarginLeft 100.0f
 #define zStatePanel_MagicLayerMarginTop 150.0f

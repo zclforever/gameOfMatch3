@@ -31,7 +31,7 @@
         
         self.sprite=[CCSprite spriteWithFile:@"skeleton_left.png"];
         self.sprite.anchorPoint=ccp(0.5,0);
-        self.sprite.scale=1.0f;
+        self.sprite.scale=1.5f;
         self.sprite.visible=NO;
         [self addChild:self.sprite];
         
@@ -40,6 +40,7 @@
         self.moveSpeed=8.0f;
 
         //self.spriteEntity=self;
+        [self addLifeBar];
         [self update];
         
         
@@ -56,23 +57,26 @@
 }
 -(void)dieAction{
    
-    
+    [[SimpleAudioEngine sharedEngine] playEffect:@"boy_ah.wav"];
     
     
     int x=100+arc4random()%400;
-    int y=self.sprite.position.y+30+arc4random()%500;
+    int y=500+arc4random()%100;
     if (arc4random()%2==1) {
-        y=-(arc4random()%300);
+        y=-(arc4random()%100);
     }
-    float delayTime=0.5+arc4random()%300/100;
+    float delayTime=1+arc4random()%250/100;
     
+    self.sprite.anchorPoint=ccp(0.5,0.5);
     [self.sprite runAction:[CCSpawn actions:
                                 [CCRotateBy actionWithDuration:delayTime angle:4145],
                             
+                                [CCScaleTo actionWithDuration:delayTime scale:1+delayTime*4],
                                 [CCSequence actions:
                                                 [CCMoveTo actionWithDuration:delayTime position:ccp(x,y)],
-                                                
+                                                //[CCDelayTime actionWithDuration:0.2f],
                                                 [CCCallBlockN actionWithBlock:^(CCNode *node) {
+                                                [node stopAllActions];
                                                 [node removeFromParentAndCleanup:YES];
                                                 }],
                                                 
@@ -83,8 +87,13 @@
     self.readyToEnd=YES;
 }
 -(void)handleCollision{
+    if (!self.alive) {
+        //[self removeFromParentAndCleanup:YES];
+        return;
+    }
     for (int i=0; i<self.collisionObjectArray.count; i++) {
         AiObject* obj=self.collisionObjectArray[i];
+        
         if([[obj objectName] isEqualToString:@"player"]&&!self.isAttacking){
             self.isAttacking=YES;
             [self setTimeOutWithDelay:self.attackCD withSelector:@selector(nomalAttack)];
@@ -109,6 +118,13 @@
             needHurt=NO;
         }
 
+    }
+    
+
+    if ([obj.objectName isEqualToString:@"iceBall"]) {
+        self.moveSpeed-=1;
+        self.position=ccp(self.position.x+10,self.position.y);
+    
     }
     
     
@@ -166,11 +182,49 @@
     [self.sprite runAction:action ];
     
 }
+-(void)addLifeBar{
+    //init LifeBar
+    self.lifeBar=[CCSprite spriteWithFile:@"lifeBar.png" ];
+    self.lifeBar.anchorPoint=ccp(0,0);
+    self.lifeBar.scaleX=zSmallEnemy_LifeBarWidth/self.lifeBar.contentSize.width;
+    self.lifeBar.scaleY=zSmallEnemy_LifeBarHeight/self.lifeBar.contentSize.height;
+
+    
+    [self addChild:self.lifeBar];
+    
+    self.lifeBarBorder=[CCSprite spriteWithFile:@"border.png"];
+    self.lifeBarBorder.anchorPoint=ccp(0,0);
+    self.lifeBarBorder.scaleX=zSmallEnemy_LifeBarWidth/self.lifeBarBorder.contentSize.width;
+    self.lifeBarBorder.scaleY=zSmallEnemy_LifeBarHeight/self.lifeBarBorder.contentSize.height;
+
+    
+    [self addChild:self.lifeBarBorder];
+
+
+  
+}
+-(void)updateLifeBar{
+
+        if(self.curHP<0) self.curHP=0;
+        //updatePosition
+        self.lifeBar.position=ccp(self.sprite.position.x-10,self.sprite.position.y+25);
+        self.lifeBarBorder.position=self.lifeBar.position;
+        
+        self.lifeBar.scaleX=self.curHP/self.maxHP*zSmallEnemy_LifeBarWidth/self.lifeBar.contentSize.width;
+
+}
+
 -(void)update{
+    
     float delayTime=0.04;
+    if(self.lifeBar){[self updateLifeBar];};
     
     //--------------结束标志----------------------
     if (self.readyToEnd) {
+        if(self.lifeBar){
+            [self.lifeBar removeFromParentAndCleanup:YES];
+            [self.lifeBarBorder removeFromParentAndCleanup:YES];
+        }
         return;
     }
     
@@ -182,7 +236,8 @@
             self.alive=NO;
             [self.allObjectsArray removeObject:self];
             [self dieAction];
-
+            [self setTimeOutOfUpdateWithDelay:delayTime];
+            return;
         }
     }
     

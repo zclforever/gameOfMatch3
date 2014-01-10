@@ -132,13 +132,18 @@
         Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth,self.sprite.position.y+zPersonHeight/2) byName:name];
         [self addChild:projectile];
         [projectile attackNearest];
+
+        [[SimpleAudioEngine sharedEngine] playEffect:@"fire_fly.wav"];
+
         
     }
   
     if([name isEqualToString:@"iceBall"]){
-        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth,self.sprite.position.y+zPersonHeight/2) byName:name];
+        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth+5,self.sprite.position.y+zPersonHeight/2-10) byName:name];
         [self addChild:projectile];
-        [projectile attackNearest];
+        [projectile attackPosition:ccp(zEnemyMarginLeft,self.sprite.position.y+zPersonHeight/2-10)];
+        
+        [[SimpleAudioEngine sharedEngine] playEffect:@"ice_fly.wav"];
         
     }
     

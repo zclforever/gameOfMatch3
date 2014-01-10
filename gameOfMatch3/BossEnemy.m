@@ -7,7 +7,7 @@
 //
 
 #import "BossEnemy.h"
-
+#import "SimpleAudioEngine.h"
 @interface BossEnemy()
 
 
@@ -51,7 +51,7 @@
         NSString* name=[NSString stringWithFormat:@"frame_%03d.gif",i];
         [frames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:name]];
     }
-    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:0.1f];
+    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:0.05f];
     CCAction* action=[CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:animation]];
     
     [sprite runAction:action ];
@@ -59,6 +59,12 @@
 
 }
 
+-(void)hurtByObject:(AiObject *)obj{
+    [[SimpleAudioEngine sharedEngine] playEffect:@"girl_ah.wav"];
+    [Actions shakeSprite:self.sprite  delay:0];
+    self.curHP-=obj.damage;
+    
+}
 -(void)dataByLevel:(int)level{
     Person* defaultPerson=[Person enemyWithLevel:level];
 

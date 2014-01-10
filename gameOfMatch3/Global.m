@@ -23,6 +23,7 @@
 */
 
 #import "Global.h"
+
 /* 线程安全的实现 */
 @implementation Global
 
@@ -42,8 +43,10 @@ static id sharedManager = nil;
     float distanceY=rect1.origin.y-rect2.origin.y;
     float widthMax=rect1.size.width/2+rect2.size.width/2;
     float heightMax=rect1.size.height/2+rect2.size.height/2;
+    
+    bool ret=(abs(distanceX)<=widthMax&&abs(distanceY)<=heightMax);
 
-    return (abs(distanceX)<=widthMax&&abs(distanceY<=heightMax))?YES:NO;
+    return ret;
     
 }
 +(id)menuOfBackTo:(CCScene*)scene{

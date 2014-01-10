@@ -40,7 +40,8 @@
         [[Global sharedManager] setKStartY:kStartY];
         PlayLayer  *playLayer = [[PlayLayer alloc]initWithLevel:level];
         [self addChild: playLayer z:0];
-        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"superMario.mp3"];
+        //[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"superMario.mp3"];
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"battleMusic02.mp3"];
         
 	}
 	return self;

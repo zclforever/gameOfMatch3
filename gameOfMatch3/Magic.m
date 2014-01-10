@@ -164,7 +164,7 @@
                              [NSDictionary dictionaryWithObjectsAndKeys:
                               @"iceBall",@"name",
                               @"冰弹",@"showName",
-                              @2.0,@"damage",
+                              @1.0,@"damage",
                               [NSArray arrayWithObjects:@1,@0,@0, nil],@"requirePoint",
                               [NSArray arrayWithObjects:@1,@0,@0,@0, nil],@"cost",
                               nil],@"iceBall",

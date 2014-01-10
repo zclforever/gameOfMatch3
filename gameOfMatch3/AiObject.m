@@ -33,6 +33,9 @@
     self = [super init];
     //self.contentSize=[[CCDirector sharedDirector]winSize];
     if (self) {
+        if (!allObjectsArray) {
+            return self;
+        }
         self.delayTime=0.04;
         self.autoUpdateCollision=YES;
         

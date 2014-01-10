@@ -36,6 +36,11 @@
 @property bool alive;
 @property bool atDest;
 
+@property (strong,nonatomic) CCSprite* lifeBar;
+@property (strong,nonatomic) CCSprite* lifeBarBorder;
+@property (strong,nonatomic) CCLabelTTF* HPLabel;
+
+
 @property (nonatomic,strong) CCSprite* sprite;
 @property (nonatomic,strong) NSString* objectName;
 @property (nonatomic,weak) NSMutableArray* allObjectsArray;
