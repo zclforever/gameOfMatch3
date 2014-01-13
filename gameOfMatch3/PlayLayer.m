@@ -433,7 +433,13 @@
     float smallEnemyAppearCD=3.0f;
     count=smallEnemyAppearCD/timeInterval;
     if (self.timeCount%count==0&&self.enemy.smallEnemyCount>0) {
-        SmallEnemy* smallEnemy=[[SmallEnemy alloc]initWithAllObjectArray:self.allObjectsArray];
+        
+        NSString* name=@"mouse";
+         if(self.enemy.smallEnemyCount==4) name=@"stoneMan";
+        if(self.enemy.smallEnemyCount<=self.level) name=@"stoneMan";
+       
+        
+        SmallEnemy* smallEnemy=[[SmallEnemy alloc]initWithAllObjectArray:self.allObjectsArray withType:name];
         
         
         [self addChild:smallEnemy z:-10];
@@ -445,8 +451,8 @@
         pos=self.player.sprite.position;
         smallEnemy.destPos=ccp(pos.x+60,pos.y);
         
-        smallEnemy.maxHP=self.enemy.smallEnemyHp;
-        smallEnemy.curHP=smallEnemy.maxHP;
+        //smallEnemy.maxHP=self.enemy.smallEnemyHp;
+        //smallEnemy.curHP=smallEnemy.maxHP;
         
         self.enemy.smallEnemyCount--;
         
@@ -711,7 +717,7 @@
             
 
             __block AiObject* hurtObj=[[AiObject alloc]initWithAllObjectArray:nil];
-            hurtObj.damage=3;
+            hurtObj.damage=reduceHp;
             [self.actionHandler addActionWithBlock:^{
                 [Actions shakeSprite:obj.enemy.sprite delay:delayTime withFinishedBlock:^{
                     [obj.enemy hurtByObject:hurtObj];
@@ -1304,7 +1310,6 @@
             
         }];
         
-        NSLog(@"%d",i);
     }
 
     

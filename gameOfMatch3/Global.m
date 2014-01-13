@@ -32,15 +32,19 @@ static id sharedManager = nil;
 + (void)initialize {
     if (self == [Global class]) {
         sharedManager = [[self alloc] init];
+        [sharedManager setAiObjectsAttributeDict:[NSMutableDictionary dictionaryWithContentsOfFile:[[CCFileUtils sharedFileUtils] fullPathForFilename:@"AiObject.plist"]]];
+        
+        [sharedManager setAllEnemys:[NSMutableArray arrayWithObjects:@"smallEnemy_mouse",@"smallEnemy_knight",@"smallEnemy_stoneMan", @"bossEnemy",nil]];
     }
 }
 
 + (id)sharedManager {
     return sharedManager;
 }
+
 +(bool)rectInsect:(CGRect)rect1 :(CGRect)rect2{
-    float distanceX=rect1.origin.x-rect2.origin.x;
-    float distanceY=rect1.origin.y-rect2.origin.y;
+    float distanceX=rect1.origin.x+rect1.size.width/2-rect2.origin.x-rect2.size.width/2;
+    float distanceY=rect1.origin.y+rect1.size.height/2-rect2.origin.y-rect2.size.height/2;
     float widthMax=rect1.size.width/2+rect2.size.width/2;
     float heightMax=rect1.size.height/2+rect2.size.height/2;
     

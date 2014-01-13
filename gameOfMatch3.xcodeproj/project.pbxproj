@@ -24,6 +24,15 @@
 		0212EC73187FCF9800F8A633 /* sword.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0212EC6D187FCF9700F8A633 /* sword.wav */; };
 		0212EC74187FCF9800F8A633 /* battleMusic01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0212EC6E187FCF9700F8A633 /* battleMusic01.mp3 */; };
 		0214C9C0184C6FC2001ADFBD /* GameMoneyBuyLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0214C9BF184C6FC2001ADFBD /* GameMoneyBuyLayer.m */; };
+		021B544F1883C206001D1020 /* AiObject.plist in Resources */ = {isa = PBXBuildFile; fileRef = 021B544E1883C206001D1020 /* AiObject.plist */; };
+		021B54521883D770001D1020 /* smallEnemy_stoneMan.plist in Resources */ = {isa = PBXBuildFile; fileRef = 021B54501883D770001D1020 /* smallEnemy_stoneMan.plist */; };
+		021B54531883D770001D1020 /* smallEnemy_stoneMan.png in Resources */ = {isa = PBXBuildFile; fileRef = 021B54511883D770001D1020 /* smallEnemy_stoneMan.png */; };
+		021B54561883D800001D1020 /* smallEnemy_stoneManAttack.plist in Resources */ = {isa = PBXBuildFile; fileRef = 021B54541883D800001D1020 /* smallEnemy_stoneManAttack.plist */; };
+		021B54571883D800001D1020 /* smallEnemy_stoneManAttack.png in Resources */ = {isa = PBXBuildFile; fileRef = 021B54551883D800001D1020 /* smallEnemy_stoneManAttack.png */; };
+		021B545C1883FDD2001D1020 /* smallEnemy_mouse.plist in Resources */ = {isa = PBXBuildFile; fileRef = 021B54581883FDD1001D1020 /* smallEnemy_mouse.plist */; };
+		021B545D1883FDD2001D1020 /* smallEnemy_mouse.png in Resources */ = {isa = PBXBuildFile; fileRef = 021B54591883FDD1001D1020 /* smallEnemy_mouse.png */; };
+		021B54621883FE98001D1020 /* smallEnemy_mouseAttack.plist in Resources */ = {isa = PBXBuildFile; fileRef = 021B54601883FE97001D1020 /* smallEnemy_mouseAttack.plist */; };
+		021B54631883FE98001D1020 /* smallEnemy_mouseAttack.png in Resources */ = {isa = PBXBuildFile; fileRef = 021B54611883FE98001D1020 /* smallEnemy_mouseAttack.png */; };
 		0259BBD717DDB02D0033F345 /* GameLevelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259BBD617DDB02D0033F345 /* GameLevelLayer.m */; };
 		0259BBDB17DDB25D0033F345 /* enemy_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD817DDB25D0033F345 /* enemy_1.png */; };
 		0259BBDC17DDB25D0033F345 /* enemy_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD917DDB25D0033F345 /* enemy_2.png */; };
@@ -291,6 +300,15 @@
 		0212EC6E187FCF9700F8A633 /* battleMusic01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = battleMusic01.mp3; sourceTree = "<group>"; };
 		0214C9BE184C6FC2001ADFBD /* GameMoneyBuyLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMoneyBuyLayer.h; sourceTree = "<group>"; };
 		0214C9BF184C6FC2001ADFBD /* GameMoneyBuyLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMoneyBuyLayer.m; sourceTree = "<group>"; };
+		021B544E1883C206001D1020 /* AiObject.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AiObject.plist; sourceTree = "<group>"; };
+		021B54501883D770001D1020 /* smallEnemy_stoneMan.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = smallEnemy_stoneMan.plist; sourceTree = "<group>"; };
+		021B54511883D770001D1020 /* smallEnemy_stoneMan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallEnemy_stoneMan.png; sourceTree = "<group>"; };
+		021B54541883D800001D1020 /* smallEnemy_stoneManAttack.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = smallEnemy_stoneManAttack.plist; sourceTree = "<group>"; };
+		021B54551883D800001D1020 /* smallEnemy_stoneManAttack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallEnemy_stoneManAttack.png; sourceTree = "<group>"; };
+		021B54581883FDD1001D1020 /* smallEnemy_mouse.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = smallEnemy_mouse.plist; sourceTree = "<group>"; };
+		021B54591883FDD1001D1020 /* smallEnemy_mouse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallEnemy_mouse.png; sourceTree = "<group>"; };
+		021B54601883FE97001D1020 /* smallEnemy_mouseAttack.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = smallEnemy_mouseAttack.plist; sourceTree = "<group>"; };
+		021B54611883FE98001D1020 /* smallEnemy_mouseAttack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallEnemy_mouseAttack.png; sourceTree = "<group>"; };
 		0259BBD517DDB02D0033F345 /* GameLevelLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLevelLayer.h; sourceTree = "<group>"; };
 		0259BBD617DDB02D0033F345 /* GameLevelLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLevelLayer.m; sourceTree = "<group>"; };
 		0259BBD817DDB25D0033F345 /* enemy_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_1.png; sourceTree = "<group>"; };
@@ -818,6 +836,14 @@
 		0278B0C3187B98D900A3AECA /* smallEnemy */ = {
 			isa = PBXGroup;
 			children = (
+				021B54601883FE97001D1020 /* smallEnemy_mouseAttack.plist */,
+				021B54611883FE98001D1020 /* smallEnemy_mouseAttack.png */,
+				021B54581883FDD1001D1020 /* smallEnemy_mouse.plist */,
+				021B54591883FDD1001D1020 /* smallEnemy_mouse.png */,
+				021B54541883D800001D1020 /* smallEnemy_stoneManAttack.plist */,
+				021B54551883D800001D1020 /* smallEnemy_stoneManAttack.png */,
+				021B54501883D770001D1020 /* smallEnemy_stoneMan.plist */,
+				021B54511883D770001D1020 /* smallEnemy_stoneMan.png */,
 				0278B0F4187BA30500A3AECA /* smallEnemyMove.plist */,
 				0278B0F5187BA30500A3AECA /* smallEnemyMove.png */,
 				0278B104187BB1B100A3AECA /* smallEnemyAttack.plist */,
@@ -891,14 +917,14 @@
 			children = (
 				02B175AC17C5C6D90057DA00 /* AppDelegate.h */,
 				02B175AD17C5C6D90057DA00 /* AppDelegate.m */,
+				02B175B217C5C6D90057DA00 /* IntroLayer.h */,
+				02B175B317C5C6D90057DA00 /* IntroLayer.m */,
 				02B175BA17C5C9C40057DA00 /* Tile.h */,
 				02B175BB17C5C9C40057DA00 /* Tile.m */,
 				02B175BE17C5CD780057DA00 /* Box.h */,
 				02B175BF17C5CD780057DA00 /* Box.m */,
 				02B175D017C5F3F60057DA00 /* AI.h */,
 				02B175D117C5F3F70057DA00 /* AI.m */,
-				02B175B217C5C6D90057DA00 /* IntroLayer.h */,
-				02B175B317C5C6D90057DA00 /* IntroLayer.m */,
 				02B175BD17C5CA140057DA00 /* Global.h */,
 				75C908D117C6755000068714 /* Global.m */,
 				0279080217D48C8100CF5ED4 /* Magic.h */,
@@ -953,6 +979,7 @@
 		02B1741C17C5C6D60057DA00 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				021B544E1883C206001D1020 /* AiObject.plist */,
 				0278B0C2187B98CB00A3AECA /* animations */,
 				7571AE3917E9D3220049D790 /* sound */,
 				0278B119187BEE0F00A3AECA /* tilesColored.png */,
@@ -1550,6 +1577,15 @@
 				02AF55A618801A8D0065999C /* explosion02.mp3 in Resources */,
 				02AF55A9188021030065999C /* person003.plist in Resources */,
 				02AF55AA188021030065999C /* person003.png in Resources */,
+				021B544F1883C206001D1020 /* AiObject.plist in Resources */,
+				021B54521883D770001D1020 /* smallEnemy_stoneMan.plist in Resources */,
+				021B54531883D770001D1020 /* smallEnemy_stoneMan.png in Resources */,
+				021B54561883D800001D1020 /* smallEnemy_stoneManAttack.plist in Resources */,
+				021B54571883D800001D1020 /* smallEnemy_stoneManAttack.png in Resources */,
+				021B545C1883FDD2001D1020 /* smallEnemy_mouse.plist in Resources */,
+				021B545D1883FDD2001D1020 /* smallEnemy_mouse.png in Resources */,
+				021B54621883FE98001D1020 /* smallEnemy_mouseAttack.plist in Resources */,
+				021B54631883FE98001D1020 /* smallEnemy_mouseAttack.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

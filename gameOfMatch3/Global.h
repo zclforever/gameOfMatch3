@@ -85,6 +85,8 @@ typedef enum Orientation Orientation;
 @property (strong,nonatomic) NSString* lastSelectedString;
 @property (strong,nonatomic) NSMutableArray* nameOfGameLevelArray;
 @property (strong,nonatomic) CCSprite* setTimeOut;
+@property (strong,nonatomic) NSMutableDictionary* aiObjectsAttributeDict;
+@property (strong,nonatomic) NSMutableArray* allEnemys;
 
 + (id)sharedManager;
 +(id)menuOfBackTo:(CCScene*)scene;

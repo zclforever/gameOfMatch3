@@ -31,6 +31,8 @@
 @property int smallEnemyCount;
 @property float smallEnemyHp;
 
+
+
 +(void)initSharedPlayer;
 +(void)copyWith:(Person*)oriPerson to:(Person*)destPerson;
 +(Person*)copyWith:(Person*)oriPerson;

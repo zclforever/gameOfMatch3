@@ -19,8 +19,9 @@
     self = [super initWithAllObjectArray:allObjectsArray];
     if (self) {
         self.objectName=@"bossEnemy";
-        
+        self.type=@"enemy";
         self.level=level;
+        //self.showBoundingBox=YES;
         [self dataByLevel:level];
         [self updateOfBossEnemy];
 

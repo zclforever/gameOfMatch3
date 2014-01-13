@@ -18,26 +18,40 @@
 
 
 
--(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray;
+-(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withType:(NSString*)type;
 {
     self = [super initWithAllObjectArray:allObjectsArray];
     if (self) {
+        //self.showBoundingBox=YES;
         
-        self.objectName=@"smallEnemy";
+        self.objectName=[NSString stringWithFormat:@"smallEnemy_%@",type];
         self.readyToEnd=NO;
         self.alive=YES;
         self.atDest=NO;
         self.startMove=NO;
         
-        self.sprite=[CCSprite spriteWithFile:@"skeleton_left.png"];
+        //初始化属性
+        self.attributeDict=[[[Global sharedManager]aiObjectsAttributeDict] valueForKey:self.objectName];
+        
+        
+        self.animationMovePlist=[self.attributeDict valueForKey:@"animationMovePlist"];
+        self.damage=[[self.attributeDict valueForKey:@"damage"] floatValue];
+        self.attackCD=[[self.attributeDict valueForKey:@"attackCD"] floatValue];
+        self.moveSpeed=[[self.attributeDict valueForKey:@"moveSpeed"] floatValue];
+        self.maxHP=[[self.attributeDict valueForKey:@"maxHP"] floatValue];
+        self.curHP=self.maxHP;
+        
+        float scale=[[self.attributeDict valueForKey:@"spriteScale"] floatValue];
+        
+        self.sprite=[CCSprite spriteWithFile:@"transparent.png"];
         self.sprite.anchorPoint=ccp(0.5,0);
-        self.sprite.scale=1.5f;
+        self.sprite.scale=scale;
         self.sprite.visible=NO;
         [self addChild:self.sprite];
         
-        self.damage=2.0;
-        self.attackCD=2.0f;
-        self.moveSpeed=8.0f;
+        self.node=self.sprite;
+        
+
 
         //self.spriteEntity=self;
         [self addLifeBar];
@@ -47,7 +61,26 @@
     }
     return self;
 }
-
+-(CGRect)getBoundingBox{
+    if (!self.sprite) {
+        return CGRectZero;
+    }
+    float width=[[self.attributeDict valueForKey:@"width"] floatValue];
+    float height=[[self.attributeDict valueForKey:@"height"] floatValue];
+    CGRect rect=self.sprite.boundingBox;
+    CGRect ret;
+    float x,y;
+    if (width==0) width=rect.size.width;
+    if (height==0) height=rect.size.height;
+    //boundingBox的origin是在左下角！！！ 这里要根据自定义宽度作调整
+    x=rect.origin.x+ (rect.size.width-width)/2;
+    y=rect.origin.y+ (rect.size.height-height)/2;
+    ret=CGRectMake(x, y, width, height);
+    return ret;
+}
+-(void)loadAttributeFromDict{
+    
+}
 -(void)appearAtX:(int)x Y:(int)y{
     self.sprite.position=ccp(x,y);
    
@@ -65,13 +98,13 @@
     if (arc4random()%2==1) {
         y=-(arc4random()%100);
     }
-    float delayTime=1+arc4random()%250/100;
+    float delayTime=1+arc4random()%200/100;
     
     self.sprite.anchorPoint=ccp(0.5,0.5);
     [self.sprite runAction:[CCSpawn actions:
                                 [CCRotateBy actionWithDuration:delayTime angle:4145],
                             
-                                [CCScaleTo actionWithDuration:delayTime scale:1+delayTime*4],
+                                [CCScaleTo actionWithDuration:delayTime scale:1+delayTime*3],
                                 [CCSequence actions:
                                                 [CCMoveTo actionWithDuration:delayTime position:ccp(x,y)],
                                                 //[CCDelayTime actionWithDuration:0.2f],
@@ -122,7 +155,7 @@
     
 
     if ([obj.objectName isEqualToString:@"iceBall"]) {
-        self.moveSpeed-=1;
+        if(self.moveSpeed>1)self.moveSpeed-=1;
         self.position=ccp(self.position.x+10,self.position.y);
     
     }
@@ -142,19 +175,9 @@
 -(void)moveAnimation{
     [self.sprite stopAllActions];
     self.animatingTag=1;
+    float delay=[[self.attributeDict valueForKey:@"animationMoveDelay"] floatValue];
 
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"smallEnemyMove.plist"];
-
-    CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"smallEnemyMove.png"];
-    [self addChild:batchNode];
-    
-    
-    NSMutableArray* frames=[[NSMutableArray alloc]init];
-    for (int i=2669; i<=2677; i+=2) {
-        NSString* name=[NSString stringWithFormat:@"image%d.png",i];
-        [frames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:name]];
-    }
-    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:0.1f];
+    CCAnimation* animation=[self animationByPlist:self.animationMovePlist withDelay:delay];
     CCAction* action=[CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:animation]];
     self.animatingTag=1;
     [self.sprite runAction:action ];
@@ -163,61 +186,33 @@
 -(void)attackAnimation{
     [self.sprite stopAllActions];
     self.animatingTag=2;
-    
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"smallEnemyAttack.plist"];
-    
-    CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"smallEnemyAttack.png"];
-    [self addChild:batchNode];
-    
 
-    
-    NSMutableArray* frames=[[NSMutableArray alloc]init];
-    for (int i=2679; i<=2703; i+=2) {
-        NSString* name=[NSString stringWithFormat:@"image%d.png",i];
-        [frames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:name]];
-    }
-    float attackDelay=self.attackCD/10;
-    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:attackDelay];
+    float delay=[[self.attributeDict valueForKey:@"animationAttackDelay"] floatValue];
+    CCAnimation* animation=[self animationByPlist:[self.attributeDict valueForKey:@"animationAttackPlist"] withDelay:delay];
+//    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"smallEnemyAttack.plist"];
+//    
+//    CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"smallEnemyAttack.png"];
+//    [self addChild:batchNode];
+//    
+//
+//    
+//    NSMutableArray* frames=[[NSMutableArray alloc]init];
+//    for (int i=2679; i<=2703; i+=2) {
+//        NSString* name=[NSString stringWithFormat:@"image%d.png",i];
+//        [frames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:name]];
+//    }
+//    float attackDelay=self.attackCD/10;
+//    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:attackDelay];
     CCAction* action=[CCAnimate actionWithAnimation:animation];
     [self.sprite runAction:action ];
     
 }
--(void)addLifeBar{
-    //init LifeBar
-    self.lifeBar=[CCSprite spriteWithFile:@"lifeBar.png" ];
-    self.lifeBar.anchorPoint=ccp(0,0);
-    self.lifeBar.scaleX=zSmallEnemy_LifeBarWidth/self.lifeBar.contentSize.width;
-    self.lifeBar.scaleY=zSmallEnemy_LifeBarHeight/self.lifeBar.contentSize.height;
 
-    
-    [self addChild:self.lifeBar];
-    
-    self.lifeBarBorder=[CCSprite spriteWithFile:@"border.png"];
-    self.lifeBarBorder.anchorPoint=ccp(0,0);
-    self.lifeBarBorder.scaleX=zSmallEnemy_LifeBarWidth/self.lifeBarBorder.contentSize.width;
-    self.lifeBarBorder.scaleY=zSmallEnemy_LifeBarHeight/self.lifeBarBorder.contentSize.height;
-
-    
-    [self addChild:self.lifeBarBorder];
-
-
-  
-}
--(void)updateLifeBar{
-
-        if(self.curHP<0) self.curHP=0;
-        //updatePosition
-        self.lifeBar.position=ccp(self.sprite.position.x-10,self.sprite.position.y+25);
-        self.lifeBarBorder.position=self.lifeBar.position;
-        
-        self.lifeBar.scaleX=self.curHP/self.maxHP*zSmallEnemy_LifeBarWidth/self.lifeBar.contentSize.width;
-
-}
 
 -(void)update{
     
     float delayTime=0.04;
-    if(self.lifeBar){[self updateLifeBar];};
+   
     
     //--------------结束标志----------------------
     if (self.readyToEnd) {
@@ -228,7 +223,7 @@
         return;
     }
     
-    
+
     //-------------是否还活着--------------
     
     if (self.startMove) {
@@ -248,7 +243,7 @@
         
         if(self.state.frozen){
             moveSpeed=0;
-            if ([[Global sharedManager] gameTime]-self.state.frozenStartTime>=5.0f) {
+            if ([[Global sharedManager] gameTime]-self.state.frozenStartTime>=15.0f) {
                 self.state.frozen=NO;
                 moveSpeed=self.moveSpeed;
                 [self moveAnimation];

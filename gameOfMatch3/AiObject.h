@@ -27,6 +27,11 @@
     
 }
 //--------基本属性-----------
+@property (strong,nonatomic) NSMutableDictionary* attributeDict;
+
+@property (strong,nonatomic) NSString* type;
+
+
 @property float curHP;
 @property float maxHP;
 @property float damage;
@@ -40,8 +45,11 @@
 @property (strong,nonatomic) CCSprite* lifeBarBorder;
 @property (strong,nonatomic) CCLabelTTF* HPLabel;
 
+@property float width;
+@property float height;
 
 @property (nonatomic,strong) CCSprite* sprite;
+@property (nonatomic,strong) CCNode* node;
 @property (nonatomic,strong) NSString* objectName;
 @property (nonatomic,weak) NSMutableArray* allObjectsArray;
 @property (nonatomic,strong) NSMutableArray* collisionObjectArray;
@@ -53,7 +61,11 @@
 @property float delayTime; //update的延时
 @property bool autoUpdateCollision;
 
+//debug
+@property bool showBoundingBox;
+
 -(CGRect)getBoundingBox;
+-(CGPoint)getCenterPoint;
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray;
 -(void)updateCollisionObjectArray;
 -(void)setTimeOutOfUpdateWithDelay:(float)timeOut;
@@ -64,4 +76,7 @@
 -(void)magicAttackByName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict;
 -(NSArray*)sortAllObjectsByDistanceFromPosition:(CGPoint)position;
 
+-(CCAnimation* )animationByPlist:(NSString*)name withDelay:(float)delay;
+-(NSArray*)getNameOfFramesFromPlist:(NSString*)name;
+-(void)addLifeBar;
 @end

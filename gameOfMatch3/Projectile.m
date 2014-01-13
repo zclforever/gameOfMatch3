@@ -48,7 +48,7 @@
             fire.speed=0;
             fire.duration=-1;
             self.attackRange=CGSizeMake(100, 50);
-            self.attackCD=2.0f;
+            self.attackCD=1.0f;
             
         }
         
@@ -83,7 +83,7 @@
             fire.speed=100;
             fire.duration=-1;
             self.attackOnce=YES;
-            self.attackRange=CGSizeMake(0, 30);
+            self.attackRange=CGSizeMake(0, 10);
             self.hitSound=@"softHit.wav";
         }
         self.particle.visible=NO;
@@ -91,6 +91,8 @@
         
         
         [self addChild:self.particle];
+        
+        self.node=self.particle;
         [self update];
     }
     return self;
@@ -101,7 +103,8 @@
     if (self.particle) {
         CGRect selfRect=self.particle.boundingBox;
         selfRect.size=self.attackRange;
-        return selfRect;
+        
+        return CGRectMake(selfRect.origin.x-self.attackRange.width/2, selfRect.origin.y-self.attackRange.height/2, self.attackRange.width, self.attackRange.height);
     }else return CGRectZero;
 
 }
@@ -147,12 +150,9 @@
     for (AiObject* obj in self.allObjectsArray) {
         if(obj==self)continue;
         CGRect selfRect=[self getBoundingBox];
-//        selfRect.origin.x=selfRect.origin.x+selfRect.size.width/2;
-//        selfRect.origin.y=selfRect.origin.y+selfRect.size.height/2;
-        
+       
         CGRect objRect=[(id)obj getBoundingBox];
-//        objRect.origin.x=objRect.origin.x+objRect.size.width/2;
-//        objRect.origin.y=objRect.origin.y+objRect.size.height/2;
+
 
         if ([Global rectInsect:objRect :selfRect]) {
             [self.collisionObjectArray addObject:obj];
@@ -162,7 +162,7 @@
 -(void)update{
     self.delayTime=0.04;
     
-
+    NSArray* allAttackTargets=[[Global sharedManager] allEnemys];
     //-------------攻击某个位置
     float attackPastTime=[[Global sharedManager]gameTime]-self.lastAttackTime;
     
@@ -185,7 +185,7 @@
                     }
                 }
                 
-                if (![[NSArray arrayWithObjects:@"smallEnemy",@"bossEnemy", nil] containsObject:collisionObj.objectName]) {
+                if (![allAttackTargets containsObject:collisionObj.objectName]) {
                     continue;
                 }
                 if (!collisionObj.alive) {
@@ -223,7 +223,7 @@
         AiObject* nearestObj;
         for (AiObject* obj in nearestArray) {
             
-            if (obj==self||![[NSArray arrayWithObjects:@"smallEnemy",@"bossEnemy", nil] containsObject:obj.objectName]) {
+            if (obj==self||![allAttackTargets containsObject:obj.objectName]) {
                 continue;
             }
             if (obj.alive) {
@@ -279,7 +279,7 @@
                         }];
                     }
                     
-                    //return;
+                    return;
                 }
             }
  

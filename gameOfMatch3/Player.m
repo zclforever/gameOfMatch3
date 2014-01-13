@@ -23,6 +23,8 @@
     self = [super init];
     if (self) {
         self.objectName=@"player";
+        self.type=@"player";
+        
         [self copyFromSharedPerson];
     }
     return self;
@@ -32,7 +34,7 @@
     if (self) {
         self.objectName=@"player";
     
-        
+        //self.showBoundingBox=YES;
         [self copyFromSharedPerson];
         [self updateOfPlayer];
     }
@@ -66,6 +68,8 @@
     [self addChild:sprite];
     self.sprite=sprite;
     [self addLifeBar];
+    
+    self.node=self.sprite;
     
     //[batchNode addChild:sprite];
     [self addChild:batchNode];

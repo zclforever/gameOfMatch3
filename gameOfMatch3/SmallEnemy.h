@@ -20,10 +20,12 @@
 @property bool isAttacking;
 
 @property (nonatomic,strong) CCSprite* sprite;
+@property (nonatomic,strong) NSString* animationMovePlist;
+
 
 @property CGPoint destPos;
 
--(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray;
+-(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withType:(NSString*)type;
 -(void)appearAtX:(int)x Y:(int)y;
 -(void)dieAction;
 -(void)moveAnimation;
