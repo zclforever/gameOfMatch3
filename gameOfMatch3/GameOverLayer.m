@@ -11,7 +11,7 @@
 #import "SimpleAudioEngine.h"
 @interface GameOverLayer()
 @property int touchCount;
-
+@property bool won;
 @end
 @implementation GameOverLayer
 
@@ -33,8 +33,9 @@
     if ((self = [super initWithColor:ccc4(255, 255, 255, 255)])) {
         self.isTouchEnabled=YES;
         CGSize winSize = [[CCDirector sharedDirector] winSize];
-        
+        self.won=won;
         float duration=8.0f;
+        bool backwards=NO;
         NSString * message;
         if (won) {
             message = @"胜利";
@@ -97,6 +98,7 @@
             [self addChild:[CCParticleFire node]];
             //[self addChild:[CCParticleSmoke node]];
             duration=6.0f;
+            backwards=YES;
         }
         
         
@@ -109,7 +111,8 @@
          [CCSequence actions:
           [CCDelayTime actionWithDuration:duration],
           [CCCallBlockN actionWithBlock:^(CCNode *node) {
-             [[CCDirector sharedDirector] replaceScene:[GameLevelLayer scene]];
+             [[CCDirector sharedDirector] replaceScene:[CCTransitionPageTurn transitionWithDuration:.5 scene:[GameLevelLayer scene] backwards:backwards]];
+             //[[CCDirector sharedDirector] replaceScene:[GameLevelLayer scene]];
          }],
           nil]];
         
@@ -125,7 +128,7 @@
     
     if(self.touchCount>1){
         [self stopAllActions];
-        [[CCDirector sharedDirector] replaceScene:[GameLevelLayer scene]];
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionPageTurn transitionWithDuration:.5 scene:[GameLevelLayer scene] backwards:!self.won]];
     }
 
 
