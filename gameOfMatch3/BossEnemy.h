@@ -21,6 +21,6 @@
 @property int attackType; //敌人会用上 哪种攻击
 
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withLevel:(int)level;
--(void)addApBar;
+
 
 @end

@@ -53,8 +53,11 @@
         CCLabelTTF* start=[CCLabelTTF labelWithString:@"新的开始" fontName:@"Arial" fontSize:48];
         
         CCMenuItemLabel* menuLabel=[[CCMenuItemLabel alloc]initWithLabel:start block:^(id sender) {
-            
-            [[CCDirector sharedDirector] replaceScene:[GameLevelLayer scene]];
+
+            //[[CCDirector sharedDirector] replaceScene:[CCTransitionSplitCols transitionWithDuration:2 scene:[GameLevelLayer scene] ]];
+
+            [[CCDirector sharedDirector] replaceScene:[CCTransitionJumpZoom transitionWithDuration:2 scene:[GameLevelLayer scene] ]];
+            //[[CCDirector sharedDirector] replaceScene:[GameLevelLayer scene]];
         }];
         CCMenu* menu=[CCMenu menuWithItems:menuLabel, nil];
         menu.position=ccp(self.contentSize.width/2,self.contentSize.height/2);

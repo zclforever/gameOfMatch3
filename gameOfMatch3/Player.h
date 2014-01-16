@@ -27,4 +27,5 @@
 
 -(void)addPersonSpriteAtPosition:(CGPoint)position;
 -(void)addLifeBar;
+-(void)addApBar;
 @end

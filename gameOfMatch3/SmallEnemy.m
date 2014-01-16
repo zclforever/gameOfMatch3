@@ -10,7 +10,7 @@
 
 @interface SmallEnemy()
 @property int animatingTag;
-
+@property (weak,nonatomic) AiObject* attackTarget;
 @end
 
 
@@ -88,6 +88,10 @@
     self.startMove=YES;
         
 }
+-(void)attackTarget:(AiObject *)target{
+    self.attackTarget=target;
+    
+}
 -(void)dieAction{
    
     [[SimpleAudioEngine sharedEngine] playEffect:@"boy_ah.wav"];
@@ -100,10 +104,14 @@
     }
     float delayTime=1+arc4random()%200/100;
     
+
+    
     self.sprite.anchorPoint=ccp(0.5,0.5);
+
+    
     [self.sprite runAction:[CCSpawn actions:
                                 [CCRotateBy actionWithDuration:delayTime angle:4145],
-                            
+
                                 [CCScaleTo actionWithDuration:delayTime scale:1+delayTime*3],
                                 [CCSequence actions:
                                                 [CCMoveTo actionWithDuration:delayTime position:ccp(x,y)],
@@ -125,11 +133,13 @@
         return;
     }
     for (int i=0; i<self.collisionObjectArray.count; i++) {
-        AiObject* obj=self.collisionObjectArray[i];
-        
+        __block AiObject* obj=self.collisionObjectArray[i];
+        __block SmallEnemy* selfObj=self;
         if([[obj objectName] isEqualToString:@"player"]&&!self.isAttacking){
             self.isAttacking=YES;
-            [self setTimeOutWithDelay:self.attackCD withSelector:@selector(nomalAttack)];
+            [self setTimeOutWithDelay:self.attackCD withBlock:^{
+                [selfObj normalAttack:obj];
+            }];
             
             //攻击动画
             //[self.sprite stopAllActions];
@@ -146,6 +156,7 @@
             self.state.frozen=YES;
             [self.sprite stopAllActions];
             self.state.frozenStartTime=[[Global sharedManager] gameTime];
+            [self.sprite runAction:[CCTintBy actionWithDuration:1 red:-120 green:-120 blue:0]];
         }
         else{  //如果已经冻结;
             needHurt=NO;
@@ -155,21 +166,28 @@
     
 
     if ([obj.objectName isEqualToString:@"iceBall"]) {
-        if(self.moveSpeed>1)self.moveSpeed-=1;
-        self.position=ccp(self.position.x+10,self.position.y);
+        if(self.moveSpeed>1){
+            self.moveSpeed-=1;
+            [self.sprite runAction:[CCTintBy actionWithDuration:1 red:-45 green:-45 blue:0]];
+
+        }
+            
+        self.sprite.position=ccp(self.sprite.position.x+10,self.sprite.position.y);
+        
+                //[self.sprite runAction:[CCTintTo actionWithDuration:3 red:160 green:160 blue:255]];
     
     }
     
     
    if(needHurt) self.curHP-=obj.damage;
 }
--(void)nomalAttack{
-    if(self.collisionObjectArray.count>0){
+-(void)normalAttack:(AiObject*)target{
+   
         
-        AiObject* obj=self.collisionObjectArray[0];
+        AiObject* obj=target;
         [obj hurtByObject:self];
         self.isAttacking=NO;
-    }
+    
 
 }
 -(void)moveAnimation{
@@ -189,20 +207,7 @@
 
     float delay=[[self.attributeDict valueForKey:@"animationAttackDelay"] floatValue];
     CCAnimation* animation=[self animationByPlist:[self.attributeDict valueForKey:@"animationAttackPlist"] withDelay:delay];
-//    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"smallEnemyAttack.plist"];
-//    
-//    CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"smallEnemyAttack.png"];
-//    [self addChild:batchNode];
-//    
-//
-//    
-//    NSMutableArray* frames=[[NSMutableArray alloc]init];
-//    for (int i=2679; i<=2703; i+=2) {
-//        NSString* name=[NSString stringWithFormat:@"image%d.png",i];
-//        [frames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:name]];
-//    }
-//    float attackDelay=self.attackCD/10;
-//    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:attackDelay];
+
     CCAction* action=[CCAnimate actionWithAnimation:animation];
     [self.sprite runAction:action ];
     
@@ -235,7 +240,13 @@
             return;
         }
     }
-    
+    if(self.attackTarget){
+        CGRect rect=[self.attackTarget getBoundingBox];
+        CGPoint centerPos=[self.attackTarget getCenterPoint];
+        
+        self.destPos=ccp(centerPos.x,rect.origin.y);
+        
+    }
     
     //---------------是否开始移动 且未到目的地---------------------
     float moveSpeed=self.moveSpeed;
@@ -247,15 +258,19 @@
                 self.state.frozen=NO;
                 moveSpeed=self.moveSpeed;
                 [self moveAnimation];
+                [self.sprite runAction:[[CCTintBy actionWithDuration:1 red:-120 green:-120 blue:0] reverse] ];
             }
         }
         
-        CGPoint pos=self.sprite.position;
-        if (pos.x>self.destPos.x) {   //没有到达目的地
-            self.sprite.position=ccp(pos.x-moveSpeed*delayTime,pos.y);
-        }else{
-            self.atDest=YES;
+        if (!self.isAttacking) {
+            CGPoint pos=self.sprite.position;
+            if (pos.x>self.destPos.x) {   //没有到达目的地
+                self.sprite.position=ccp(pos.x-moveSpeed*delayTime,pos.y);
+            }else{
+                self.atDest=YES;
+            }
         }
+
        
     }
     

@@ -108,7 +108,19 @@
             CCMenuItemLabel* menuLabel=[CCMenuItemLabel itemWithLabel:levelLabel block:^(id sender) {
                 if (!lockLevel) {
                     [[Global sharedManager] setCurrentLevelOfGame:level];
-                    [[CCDirector sharedDirector] replaceScene:[BattleLayer sceneWithLevel:level]];
+                    //[[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:1 scene:[BattleLayer sceneWithLevel:level] ]];
+                    [[CCDirector sharedDirector] replaceScene:[CCTransitionRotoZoom transitionWithDuration:1 scene:[BattleLayer sceneWithLevel:level] ]];
+                    
+//                    [self runAction:[CCSequence actions:
+//                                     [CCShaky3D actionWithDuration:.5 size:CGSizeMake(30, 30) range:5 shakeZ:YES],
+//                                     [CCCallBlock actionWithBlock:^{
+//                        
+//                        [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:1 scene:[BattleLayer sceneWithLevel:level] ]];
+//                        //[[CCDirector sharedDirector] replaceScene:[CCTransitionFadeTR transitionWithDuration:1 scene:[BattleLayer sceneWithLevel:level]]];
+//                    }]
+//                                     , nil]];
+                    
+                    //[[CCDirector sharedDirector] replaceScene:[BattleLayer sceneWithLevel:level]];
                 }
             }];
             
@@ -170,6 +182,12 @@
         menu.position = ccp(150,30);
         [menu alignItemsHorizontallyWithPadding:60.0f];
         [self addChild:menu z:4];
+    
+    
+    //[self runAction:[CCShaky3D actionWithDuration:5 size:CGSizeMake(30, 30) range:5 shakeZ:YES]];
+    //[self runAction:[CCWaves actionWithDuration:5 size:CGSizeMake(30, 30) waves:5 amplitude:20 horizontal:YES vertical:NO]];
+    
+
     
     
     return self;

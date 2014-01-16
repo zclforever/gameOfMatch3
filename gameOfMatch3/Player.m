@@ -62,7 +62,8 @@
     CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"person003.png"];
     CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:@"person03_000.gif"];
     sprite.anchorPoint=ccp(0,0);
-    sprite.position=position;
+    sprite.position=ccp(-60, position.y);
+    
     sprite.scaleX=zPersonWidth/sprite.contentSize.width;
     sprite.scaleY=zPersonHeight/sprite.contentSize.height;
     [self addChild:sprite];
@@ -70,6 +71,11 @@
     [self addLifeBar];
     
     self.node=self.sprite;
+    [self.sprite runAction:[CCSequence actions:
+                            [CCDelayTime actionWithDuration:3.5],
+                            [CCJumpTo actionWithDuration:0.5 position:position height:30 jumps:1]
+                            ,nil]];
+    
     
     //[batchNode addChild:sprite];
     [self addChild:batchNode];
@@ -85,7 +91,9 @@
     
     [sprite runAction:action ];
     
+    //[self.sprite runAction:[CCSkewBy actionWithDuration:3 skewX:0 skewY:50]];
     
+    //[self.sprite runAction:[CCJumpTiles3D actionWithDuration:10 size:CGSizeMake(3, 3) jumps:3 amplitude:10]];
 }
 
 -(void)addLifeBar{

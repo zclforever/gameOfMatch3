@@ -449,7 +449,7 @@
         CGPoint pos=self.enemy.sprite.position; //设置开始结束
         [smallEnemy appearAtX:pos.x Y:pos.y];
         pos=self.player.sprite.position;
-        smallEnemy.destPos=ccp(pos.x+60,pos.y);
+        [smallEnemy attackTarget:self.player];
         
         //smallEnemy.maxHP=self.enemy.smallEnemyHp;
         //smallEnemy.curHP=smallEnemy.maxHP;
