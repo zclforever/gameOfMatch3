@@ -44,7 +44,7 @@
 		<key>attackCD</key>
 		<real>2.5</real>
 		<key>maxHP</key>
-		<integer>20</integer>
+		<integer>60</integer>
 		<key>moveSpeed</key>
 		<integer>5</integer>
 		<key>damage</key>

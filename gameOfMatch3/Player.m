@@ -135,11 +135,22 @@
     [Actions shakeSprite:self.sprite  delay:0];
     self.curHP-=obj.damage;
 }
--(void)magicAttackByName:(NSString *)magicName{
-    [self magicAttackByName:magicName withParameter:nil];
+-(void)magicAttackWithName:(NSString *)magicName{
+    [self magicAttackWithName:magicName withParameter:nil];
 }
--(void)magicAttackByName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
+-(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
     NSString* name=magicName;
+    if([name isEqualToString:@"bigFireBall"]){
+        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth/2,self.sprite.position.y+zPersonHeight/2+40) byName:name];
+        [self addChild:projectile];
+        [projectile attackPosition:ccp(zEnemyMarginLeft+zPersonWidth/2,self.sprite.position.y+zPersonHeight/2)];
+        
+        [[SimpleAudioEngine sharedEngine] playEffect:@"explosion.wav"];
+        
+        
+    }
+    
+    
     if([name isEqualToString:@"fireBall"]){
         Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth,self.sprite.position.y+zPersonHeight/2) byName:name];
         [self addChild:projectile];
@@ -160,9 +171,11 @@
     }
     
     if([name isEqualToString:@"snowBall"]){
-        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(160,460) byName:name];
-        [self addChild:projectile];
-        [projectile attackPosition:ccp(160,self.sprite.position.y)];
+        float randomX=50+arc4random()%220;
+        
+        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(randomX,460) byName:name];
+        [self addChild:projectile z:5];
+        [projectile attackPosition:ccp(0,self.sprite.position.y)];
         
     }
     

@@ -6,6 +6,9 @@
          contextName = "-[SmallEnemy moveAnimation]:SmallEnemy.m">
       </ContextState>
       <ContextState
+         contextName = "-[Projectile accelerometer:didAccelerate:]:Projectile.m">
+      </ContextState>
+      <ContextState
          contextName = "-[AiObject initWithAllObjectArray:]:AiObject.m">
          <PersistentStrings>
             <PersistentString
@@ -33,16 +36,19 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "+[Global initialize]:Global.m">
+      </ContextState>
+      <ContextState
          contextName = "-[Projectile update]:Projectile.m">
          <PersistentStrings>
             <PersistentString
                value = "self.particle.position">
             </PersistentString>
             <PersistentString
-               value = "self.collisionObjectArray">
+               value = "self.allObjectsArray">
             </PersistentString>
             <PersistentString
-               value = "self.allObjectsArray">
+               value = "self.collisionObjectArray">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -51,6 +57,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.allObjectsArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Projectile attackPosition:]:Projectile.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.attackPositionIgnoreX">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -166,6 +180,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[PlayLayer update:]:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "sword.position">
+            </PersistentString>
+            <PersistentString
+               value = "sword.scaleX">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[AiObject updateLifeBar]:AiObject.m">
          <PersistentStrings>
             <PersistentString
@@ -177,13 +202,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[PlayLayer update:]:PlayLayer.m">
+         contextName = "-[PlayLayer initWithLevel:]:PlayLayer.m">
          <PersistentStrings>
             <PersistentString
-               value = "sword.position">
-            </PersistentString>
-            <PersistentString
-               value = "sword.scaleX">
+               value = "[[Global sharedManager] levelDataDict]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -200,6 +222,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.attributeDict">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer handleTimeOut]:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.enemyMountOfThisWave">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

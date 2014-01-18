@@ -18,13 +18,13 @@
 
 
 
--(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withType:(NSString*)type;
+-(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withName:(NSString*)name;
 {
     self = [super initWithAllObjectArray:allObjectsArray];
     if (self) {
         //self.showBoundingBox=YES;
         
-        self.objectName=[NSString stringWithFormat:@"smallEnemy_%@",type];
+        self.objectName=name;
         self.readyToEnd=NO;
         self.alive=YES;
         self.atDest=NO;
@@ -112,9 +112,12 @@
     [self.sprite runAction:[CCSpawn actions:
                                 [CCRotateBy actionWithDuration:delayTime angle:4145],
 
-                                [CCScaleTo actionWithDuration:delayTime scale:1+delayTime*3],
+                                //[CCScaleTo actionWithDuration:delayTime scale:1+delayTime*3],
+                            
                                 [CCSequence actions:
                                                 [CCMoveTo actionWithDuration:delayTime position:ccp(x,y)],
+                                                //[CCJumpTo actionWithDuration:delayTime/3*2 position:ccp(320,[self getBoundingBox].origin.y) height:20 jumps:6],
+                                                //[CCJumpTo actionWithDuration:delayTime/3 position:ccp(360,-50) height:20 jumps:1],
                                                 //[CCDelayTime actionWithDuration:0.2f],
                                                 [CCCallBlockN actionWithBlock:^(CCNode *node) {
                                                 [node stopAllActions];
@@ -135,7 +138,7 @@
     for (int i=0; i<self.collisionObjectArray.count; i++) {
         __block AiObject* obj=self.collisionObjectArray[i];
         __block SmallEnemy* selfObj=self;
-        if([[obj objectName] isEqualToString:@"player"]&&!self.isAttacking){
+        if([[obj objectName] isEqualToString:@"player"]&&!self.isAttacking&&!self.state.frozen){
             self.isAttacking=YES;
             [self setTimeOutWithDelay:self.attackCD withBlock:^{
                 [selfObj normalAttack:obj];

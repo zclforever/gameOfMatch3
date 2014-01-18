@@ -63,7 +63,7 @@
         menu.position=ccp(self.contentSize.width/2,self.contentSize.height/2);
         [self addChild:menu];
         
-        self.isTouchEnabled=YES;
+        self.touchEnabled=YES;
         [Person initSharedPlayer];
         
         //[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Contra.mp3"];

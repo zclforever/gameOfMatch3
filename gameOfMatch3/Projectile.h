@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "AiObject.h"
-@interface Projectile : AiObject {
+@interface Projectile : AiObject  <UIAccelerometerDelegate>{
     
 }
 

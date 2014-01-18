@@ -72,8 +72,8 @@
 -(void)setTimeOutWithDelay:(float)timeOut withSelector:(SEL)selector;
 -(void)setTimeOutWithDelay:(float)timeOut withBlock:(void(^)())block;
 -(void)hurtByObject:(AiObject*)obj;
--(void)magicAttackByName:(NSString*)magicName;
--(void)magicAttackByName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict;
+-(void)magicAttackWithName:(NSString*)magicName;
+-(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict;
 -(NSArray*)sortAllObjectsByDistanceFromPosition:(CGPoint)position;
 
 -(CCAnimation* )animationByPlist:(NSString*)name withDelay:(float)delay;

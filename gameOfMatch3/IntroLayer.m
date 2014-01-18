@@ -61,6 +61,9 @@
 -(void) onEnter
 {
 	[super onEnter];
-	[[CCDirector sharedDirector] replaceScene:[CCTransitionShrinkGrow transitionWithDuration:2.0 scene:[GameStartLayer scene] ]];
+    [self runAction:[CCSequence actions:[CCDelayTime actionWithDuration:1.0],[CCCallBlock actionWithBlock:^{
+        [[CCDirector sharedDirector] replaceScene:[CCTransitionShrinkGrow transitionWithDuration:2.0 scene:[GameStartLayer scene] ]];
+    }], nil]];
+	
 }
 @end

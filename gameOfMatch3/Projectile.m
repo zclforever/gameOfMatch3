@@ -13,6 +13,8 @@
 @property float speedX;
 @property float speedY;
 @property bool attackOnce;
+@property bool attackPostionIgnoreX;
+@property bool attackPostionIgnoreY;
 @property (strong,nonatomic) NSMutableArray* attackedObjectsArray;
 @property (strong,nonatomic) NSString* hitSound;
 @end
@@ -34,21 +36,25 @@
         
         self.attackedObjectsArray=[[NSMutableArray alloc]init];
         
+        self.accelerometerEnabled = NO;
+
+        
        
         if ([name isEqualToString:@"snowBall"]) {
             CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"snowBall.plist"];
             CCParticleSystem* fire=particle_system;
-            self.speedX=100.0f;
-            self.speedY=70.0f;
+            self.speedX=0.0f;
+            self.speedY=40.0f;
             self.anchorPoint=ccp(0,0);
             self.particle=fire;
             fire.position=pos;
             fire.startSize=36;
-            fire.scale=.6;
+            fire.scale=.4;
             fire.speed=0;
             fire.duration=-1;
             self.attackRange=CGSizeMake(100, 50);
             self.attackCD=1.0f;
+            self.accelerometerEnabled=YES;
             
         }
         
@@ -86,19 +92,55 @@
             self.attackRange=CGSizeMake(0, 10);
             self.hitSound=@"softHit.wav";
         }
+        
+        if ([name isEqualToString:@"bigFireBall"]) {
+            CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"bigFireBall.plist"];
+            CCParticleSystem* fire=particle_system;
+            fire.blendFunc= (ccBlendFunc) {GL_SRC_ALPHA,GL_DST_ALPHA};
+            self.particle=fire;
+            fire.position=pos;
+
+            self.attackOnce=YES;
+            self.attackRange=CGSizeMake(100, 20);
+            self.hitSound=@"explosion02.mp3";
+    
+            
+        }
+        
+        
         self.particle.visible=NO;
         
         
         
-        [self addChild:self.particle];
+        [self addChild:self.particle z:5];
         
         self.node=self.particle;
+        
+        if (self.accelerometerEnabled) {
+            [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1/60];
+            [[UIAccelerometer sharedAccelerometer] setDelegate:self];
+        }
+        
         [self update];
     }
     return self;
     
 }
+-(void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
+    float THRESHOLD = 2;
+    
+    if (acceleration.x > THRESHOLD || acceleration.x < -THRESHOLD ||
+        acceleration.y > THRESHOLD || acceleration.y < -THRESHOLD ||
+        acceleration.z > THRESHOLD || acceleration.z < -THRESHOLD) {
+        
+        CCLOG(@"zcl shake");
+        
+    }
 
+    self.node.position=ccp(self.node.position.x+acceleration.x*8,self.node.position.y);
+
+
+}
 -(CGRect)getBoundingBox{
     if (self.particle) {
         CGRect selfRect=self.particle.boundingBox;
@@ -109,6 +151,10 @@
 
 }
 -(void)attackPosition:(CGPoint)position{
+
+    self.attackPostionIgnoreX=!position.x;
+    self.attackPostionIgnoreY=!position.y;
+    
     self.attackingPostion=YES;
     self.particle.visible=YES;
     self.moveDestPosition=position;
@@ -139,7 +185,10 @@
     self.particle.position=ccp( position.x+xMoveDistance,position.y+yMoveDistance);
     
     float destMinDistance=max(moveDistanceX,3);
-    if(abs(xDistance)<destMinDistance&&abs(yDistance)<destMinDistance){
+    if(
+       (abs(xDistance)<destMinDistance||self.speedX==0)&&
+       (abs(yDistance)<destMinDistance||self.speedY==0)
+       ){
         self.atDest=YES;
     }
     
@@ -168,12 +217,14 @@
     
     if(self.attackingPostion&&self.particle){
 
-        
+        if (self.attackPostionIgnoreX) self.moveDestPosition=ccp(self.node.position.x,self.moveDestPosition.y);
+        if(self.attackPostionIgnoreY) self.moveDestPosition=ccp(self.moveDestPosition.x,self.node.position.y);
         
         if(!self.moving){
             self.moving=YES;
         }
         [self move];
+        
         
         //------------攻击cd到后 允许攻击 并检测碰撞 
         if (attackPastTime>=self.attackCD) {

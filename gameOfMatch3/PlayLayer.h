@@ -24,7 +24,7 @@
 @property int y;
 @end
 
-@interface PlayLayer : CCLayer<UIAccelerometerDelegate> {
+@interface PlayLayer : CCLayer <UIAccelerometerDelegate>{
 	Box *box;
 	//Tile *selectedTile;
 	Tile *firstOne;

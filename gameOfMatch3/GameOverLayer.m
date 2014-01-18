@@ -31,7 +31,7 @@
 
 - (id)initWithWon:(BOOL)won withGameInfo:(NSDictionary*) info{
     if ((self = [super initWithColor:ccc4(255, 255, 255, 255)])) {
-        self.isTouchEnabled=YES;
+        self.touchEnabled=YES;
         CGSize winSize = [[CCDirector sharedDirector] winSize];
         self.won=won;
         float duration=8.0f;

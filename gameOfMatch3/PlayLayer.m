@@ -50,6 +50,10 @@
 @property (strong,nonatomic) NSMutableArray* touchesBeganArray;
 @property (strong,nonatomic) NSMutableArray* touchesEndArray;
 
+@property (strong,nonatomic) NSMutableDictionary* levelDataDict;
+@property (strong,nonatomic) NSMutableArray* troopsOrder;
+@property int enemyMountOfThisWave;
+
 @property int swapCount;
 @property bool updating;
 @property bool lockUpdate;
@@ -85,7 +89,7 @@
     //                                             selector:@selector(shakeEvent)
     //                                                 name:@"MyiPhoneShakeEvent" object:nil];
     
-    self.isAccelerometerEnabled = YES;
+    self.accelerometerEnabled = YES;
     [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1/60];
     [[UIAccelerometer sharedAccelerometer] setDelegate:self];
     
@@ -105,6 +109,9 @@
     //    [[[CCDirector sharedDirector] view]
     //     addGestureRecognizer:swipeRecognizer];
     
+    
+    self.levelDataDict=[NSMutableDictionary dictionaryWithDictionary:[[[Global sharedManager] levelDataDict] valueForKey:[NSString stringWithFormat:@"%d",level]]];
+    self.troopsOrder=[NSMutableArray arrayWithArray:[self.levelDataDict valueForKey:@"troopsOrder"]];
     
     self.actionHandler=[[ActionQueue alloc]init];
     [self addChild:self.actionHandler]; //为了runaction update
@@ -162,7 +169,7 @@
     self.smallEnemyArray=[[NSMutableArray alloc]init];
     self.allObjectsArray=[[NSMutableArray alloc]init];
     
-	self.isTouchEnabled = YES;
+	self.touchEnabled = YES;
     //[CCDirector sharedDirector] ism
     
 	//[self schedule:@selector(changeTurn:) interval:.3];
@@ -430,16 +437,23 @@
   
     
             //------------生成smallEnemy
-    float smallEnemyAppearCD=3.0f;
+    
+    NSMutableDictionary* troops;
+    if (self.troopsOrder.count>0) {
+        troops=self.troopsOrder[0];
+    }
+    if(!self.enemyMountOfThisWave&&self.troopsOrder.count>0) {
+        
+        self.enemyMountOfThisWave=[[troops valueForKey:@"mount"] intValue];
+        
+    }    
+    float smallEnemyAppearCD=[[troops valueForKey:@"interval"] floatValue];
     count=smallEnemyAppearCD/timeInterval;
-    if (self.timeCount%count==0&&self.enemy.smallEnemyCount>0) {
-        
-        NSString* name=@"mouse";
-         if(self.enemy.smallEnemyCount==4) name=@"stoneMan";
-        if(self.enemy.smallEnemyCount<=self.level) name=@"stoneMan";
-       
-        
-        SmallEnemy* smallEnemy=[[SmallEnemy alloc]initWithAllObjectArray:self.allObjectsArray withType:name];
+    
+    NSString* name=[troops valueForKey:@"name"];
+    
+    if (self.enemyMountOfThisWave>0&&self.timeCount%count==0) {
+     SmallEnemy* smallEnemy=[[SmallEnemy alloc]initWithAllObjectArray:self.allObjectsArray withName:name];
         
         
         [self addChild:smallEnemy z:-10];
@@ -447,14 +461,15 @@
 
         
         CGPoint pos=self.enemy.sprite.position; //设置开始结束
-        [smallEnemy appearAtX:pos.x Y:pos.y];
+        [smallEnemy appearAtX:zEnemyMarginLeft Y:480-zPlayerMarginTop];
         pos=self.player.sprite.position;
         [smallEnemy attackTarget:self.player];
         
         //smallEnemy.maxHP=self.enemy.smallEnemyHp;
         //smallEnemy.curHP=smallEnemy.maxHP;
         
-        self.enemy.smallEnemyCount--;
+        self.enemyMountOfThisWave--;
+        if(self.troopsOrder.count>0&&self.enemyMountOfThisWave==0) [self.troopsOrder removeObjectAtIndex:0];
         
         //动画移动测试 test
         [smallEnemy moveAnimation];
@@ -795,7 +810,7 @@
     __block PlayLayer* obj=self;
     
     
-    if([name isEqualToString:@"bigFireBall"]){
+    if([name isEqualToString:@"1bigFireBall"]){
         if (self.enemy.curHP<=50) {
             //[self endingZoom];
         }
@@ -813,11 +828,11 @@
         return;
     }
     
-    [self.player magicAttackByName:name];
+    [self.player magicAttackWithName:name];
     return;
     
     if([name isEqualToString:@"fireBall"]){
-        [self.player magicAttackByName:name];
+        [self.player magicAttackWithName:name];
     }
     return;
     
@@ -1051,7 +1066,7 @@
         if (point1+point2+point3<=0) {
             [self addTipWithString:@"试试消除剑来干她^_^"];
         }else{
-            [self addTipWithString:@"刷钱来的吧..."];
+            [self addTipWithString:@"本关推荐技能球:火，冰"];
         }
         
     }
@@ -1060,12 +1075,12 @@
         if (point1+point2+point3<=0) {
             [self addTipWithString:@"打不过？试试加点"];
         }else{
-            [self addTipWithString:@"圆圆的技能球,要摸哦~~"];
+            [self addTipWithString:@"怪很矮，单冰打不到的哟。本关推荐技能球:火，冰冰冰"];
         }
         
     }
-    if(self.level==3)[self addTipWithString:@"星星不够？过关保存血量50%以上可得一星！"];
-    
+    if(self.level==3)[self addTipWithString:@"怪很硬，试试秒BOSS。本关推荐技能球:火火火"];
+
     
     //add back layer
     __block PlayLayer* obj=self;

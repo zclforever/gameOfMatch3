@@ -25,7 +25,7 @@
 
 @property CGPoint destPos;
 
--(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withType:(NSString*)type;
+-(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withName:(NSString*)name;
 -(void)attackTarget:(AiObject*)target;
 -(void)appearAtX:(int)x Y:(int)y;
 -(void)dieAction;

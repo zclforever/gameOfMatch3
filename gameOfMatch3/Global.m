@@ -33,6 +33,8 @@ static id sharedManager = nil;
     if (self == [Global class]) {
         sharedManager = [[self alloc] init];
         [sharedManager setAiObjectsAttributeDict:[NSMutableDictionary dictionaryWithContentsOfFile:[[CCFileUtils sharedFileUtils] fullPathForFilename:@"AiObject.plist"]]];
+        [sharedManager setLevelDataDict:[NSMutableDictionary dictionaryWithContentsOfFile:[[CCFileUtils sharedFileUtils] fullPathForFilename:@"levelData.plist"]]];
+        
         
         [sharedManager setAllEnemys:[NSMutableArray arrayWithObjects:@"smallEnemy_mouse",@"smallEnemy_knight",@"smallEnemy_stoneMan", @"bossEnemy",nil]];
     }

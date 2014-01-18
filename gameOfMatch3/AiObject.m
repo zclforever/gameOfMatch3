@@ -151,10 +151,10 @@
 
 
 
--(void)magicAttackByName:(NSString *)magicName{
-    [self magicAttackByName:magicName withParameter:nil];
+-(void)magicAttackWithName:(NSString *)magicName{
+    [self magicAttackWithName:magicName withParameter:nil];
 }
--(void)magicAttackByName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
+-(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
 }
 -(void)addLifeBar{
     //init LifeBar

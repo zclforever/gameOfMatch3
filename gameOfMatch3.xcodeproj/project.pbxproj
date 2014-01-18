@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02015D5F188A618C00C77FBE /* levelData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02015D5E188A618C00C77FBE /* levelData.plist */; };
 		0209D2531820DFF200FAFD26 /* iceBall.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2521820DFF200FAFD26 /* iceBall.plist */; };
 		0209D2551820E81100FAFD26 /* poison.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2541820E81100FAFD26 /* poison.plist */; };
 		0209D2571820EE5600FAFD26 /* poisonTo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2561820EE5600FAFD26 /* poisonTo.plist */; };
@@ -281,6 +282,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02015D5E188A618C00C77FBE /* levelData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = levelData.plist; sourceTree = "<group>"; };
 		0209D2521820DFF200FAFD26 /* iceBall.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iceBall.plist; sourceTree = "<group>"; };
 		0209D2541820E81100FAFD26 /* poison.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = poison.plist; sourceTree = "<group>"; };
 		0209D2561820EE5600FAFD26 /* poisonTo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = poisonTo.plist; sourceTree = "<group>"; };
@@ -980,6 +982,7 @@
 			isa = PBXGroup;
 			children = (
 				021B544E1883C206001D1020 /* AiObject.plist */,
+				02015D5E188A618C00C77FBE /* levelData.plist */,
 				0278B0C2187B98CB00A3AECA /* animations */,
 				7571AE3917E9D3220049D790 /* sound */,
 				0278B119187BEE0F00A3AECA /* tilesColored.png */,
@@ -1586,6 +1589,7 @@
 				021B545D1883FDD2001D1020 /* smallEnemy_mouse.png in Resources */,
 				021B54621883FE98001D1020 /* smallEnemy_mouseAttack.plist in Resources */,
 				021B54631883FE98001D1020 /* smallEnemy_mouseAttack.png in Resources */,
+				02015D5F188A618C00C77FBE /* levelData.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
