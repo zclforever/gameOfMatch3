@@ -17,6 +17,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[Player updateCollisionObjectArray]:Player.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.attackRange.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[SmallEnemy handleCollision]:SmallEnemy.m">
          <PersistentStrings>
             <PersistentString
@@ -39,16 +47,24 @@
          contextName = "+[Global initialize]:Global.m">
       </ContextState>
       <ContextState
+         contextName = "-[Player handleCollision]:Player.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.objectName">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[Projectile update]:Projectile.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.particle.position">
+               value = "self.collisionObjectArray">
             </PersistentString>
             <PersistentString
                value = "self.allObjectsArray">
             </PersistentString>
             <PersistentString
-               value = "self.collisionObjectArray">
+               value = "self.particle.position">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -75,10 +91,10 @@
                value = "self.lifeBar">
             </PersistentString>
             <PersistentString
-               value = "self.lifeBar.scaleY">
+               value = "self.lifeBar.scaleX">
             </PersistentString>
             <PersistentString
-               value = "self.lifeBar.scaleX">
+               value = "self.lifeBar.scaleY">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

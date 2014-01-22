@@ -21,6 +21,8 @@
 @property (readonly) int magicDamage;
 @property int experience;
 @property int money;
+@property float curEnergy;
+@property float maxEnergy;
 @property (strong,nonatomic) NSString* spriteName;
 @property float spriteScale;
 @property (strong,nonatomic) NSMutableArray* maxManaArray;

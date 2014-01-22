@@ -277,6 +277,7 @@
         }
         
         if(tile.value<=0||tile.value>3)continue;
+        if(removeArray.count<=3)continue;
         
         //产生技能球.skill.skillball.
         Person* person=[Person sharedPlayerCopy];
@@ -353,12 +354,12 @@
     float delayTime=0;
     if(needWaitForVertialSkillBallAppear)delayTime=kMoveTileTime+.3;
     //为了技能球出现而延迟  //已经取消
-    [self runAction:[CCSequence actions:
-                     [CCDelayTime actionWithDuration:0],
-                     [CCCallFunc actionWithTarget:self selector:@selector(repair)]
-                     , nil]];
+//    [self runAction:[CCSequence actions:
+//                     [CCDelayTime actionWithDuration:0],
+//                     [CCCallFunc actionWithTarget:self selector:@selector(repair)]
+//                     , nil]];
     
-    //[self repair];
+    [self repair];
     
     //[self.readyToRemoveTiles removeAllObjects];
     

@@ -29,6 +29,10 @@
 #define zStatePanel_LifeBarHeight 8.0f
 #define zStatePanel_LifeBarMarginLeft 5.0f
 #define zStatePanel_LifeBarMarginTop 10.0f
+#define zStatePanel_EnegryBarWidth 300.0f
+#define zStatePanel_EnegryBarHeight 20.0f
+#define zStatePanel_EnegryBarMarginLeft 9.0f
+#define zStatePanel_EnegryBarMarginTop 177.0f
 
 #define  zSmallEnemy_LifeBarWidth 20.0f
 #define  zSmallEnemy_LifeBarHeight 5.0f

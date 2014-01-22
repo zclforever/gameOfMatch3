@@ -41,6 +41,8 @@
     Person* person=destPerson;
     person.curHP=defaultPerson.curHP;
     person.maxHP=defaultPerson.maxHP;
+    person.curEnergy=defaultPerson.curEnergy;
+    person.maxEnergy=defaultPerson.maxEnergy;
     person.maxStep=defaultPerson.maxStep;
     person.curStep=defaultPerson.curStep;
     person.damage=defaultPerson.damage;
@@ -63,7 +65,8 @@
     
     Person* person=[[Person alloc] init];
     
-
+    person.curEnergy=0;
+    person.maxEnergy=100;
     person.experience=0;
     person.curHP=100;
     person.maxHP=100;

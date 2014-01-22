@@ -13,7 +13,7 @@
 @property (strong,nonatomic) CCSprite* lifeBar;
 @property (strong,nonatomic) CCSprite* lifeBarBorder;
 @property (strong,nonatomic) CCLabelTTF* HPLabel;
-
+@property bool isAttacking;
 @end
 
 @implementation Player
@@ -24,7 +24,6 @@
     if (self) {
         self.objectName=@"player";
         self.type=@"player";
-        
         [self copyFromSharedPerson];
     }
     return self;
@@ -33,7 +32,8 @@
     self = [super initWithAllObjectArray:allObjectsArray];
     if (self) {
         self.objectName=@"player";
-    
+        self.attackRange=CGSizeMake(400, 60);
+        self.attackCD=1.0;
         //self.showBoundingBox=YES;
         [self copyFromSharedPerson];
         [self updateOfPlayer];
@@ -46,6 +46,8 @@
     Person* defaultPerson=[Person sharedPlayer];
     self.curHP=defaultPerson.curHP;
     self.maxHP=defaultPerson.maxHP;
+    self.curEnergy=defaultPerson.curEnergy;
+    self.maxEnergy=defaultPerson.maxEnergy;
     self.damage=defaultPerson.damage;
     self.spriteName=defaultPerson.spriteName;
     self.stateDict=defaultPerson.stateDict ;
@@ -129,7 +131,49 @@
     self.HPLabel=label;
     
 }
+-(void)updateCollisionObjectArray{  //collision.coll.
+    
+    [self.collisionObjectArray removeAllObjects];
+    for (AiObject* obj in self.allObjectsArray) {
+        if(obj==self)continue;
+        CGRect selfRect=[self getBoundingBox];
+        selfRect.size=CGSizeMake(selfRect.size.width+self.attackRange.width, selfRect.size.height+self.attackRange.height);
+        CGRect objRect=[(id)obj getBoundingBox];
 
+        
+        if ([Global rectInsect:objRect :selfRect]) {
+            [self.collisionObjectArray addObject:obj];
+        }
+    }
+}
+-(void)handleCollision{
+    if (!self.alive) {
+        //[self removeFromParentAndCleanup:YES];
+        return;
+    }
+    for (int i=0; i<self.collisionObjectArray.count; i++) {
+        __block AiObject* obj=self.collisionObjectArray[i];
+        __block Player* selfObj=self;
+        if([[[Global sharedManager]allEnemys] containsObject:[obj objectName]]&&!self.isAttacking&&!self.state.frozen){
+            if (selfObj.curEnergy<5) {
+                break;
+            }
+            self.isAttacking=YES;
+            
+            [self setTimeOutWithDelay:self.attackCD withBlock:^{
+                selfObj.curEnergy-=5;
+                [selfObj magicAttackWithName:@"fireBall"];
+                
+                selfObj.isAttacking=NO;
+            }];
+            
+            //攻击动画
+            //[self.sprite stopAllActions];
+            //[self attackAnimation];
+        }
+    }
+    
+}
 
 -(void)hurtByObject:(AiObject *)obj{
     [Actions shakeSprite:self.sprite  delay:0];
@@ -141,7 +185,7 @@
 -(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
     NSString* name=magicName;
     if([name isEqualToString:@"bigFireBall"]){
-        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth/2,self.sprite.position.y+zPersonHeight/2+40) byName:name];
+        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(100,460) byName:name];
         [self addChild:projectile];
         [projectile attackPosition:ccp(zEnemyMarginLeft+zPersonWidth/2,self.sprite.position.y+zPersonHeight/2)];
         

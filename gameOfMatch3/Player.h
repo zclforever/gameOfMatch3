@@ -22,6 +22,9 @@
 @property (strong,nonatomic) CCProgressTimer* apBar;
 @property float curStep;
 @property float maxStep;
+@property float curEnergy;
+@property float maxEnergy;
+@property CGSize attackRange;
 
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray;
 

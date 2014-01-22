@@ -96,6 +96,7 @@
         if ([name isEqualToString:@"bigFireBall"]) {
             CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"bigFireBall.plist"];
             CCParticleSystem* fire=particle_system;
+            self.moveSpeed=100.0f;
             fire.blendFunc= (ccBlendFunc) {GL_SRC_ALPHA,GL_DST_ALPHA};
             self.particle=fire;
             fire.position=pos;

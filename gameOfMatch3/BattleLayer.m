@@ -16,7 +16,10 @@
 #import "AppDelegate.h"
 #import "SimpleAudioEngine.h"
 #pragma mark - HelloWorldLayer
+@interface BattleLayer()
+@property int level;
 
+@end
 
 @implementation BattleLayer
 
@@ -26,13 +29,16 @@
 	CCScene *scene = [CCScene node];
 	BattleLayer *layer = [[BattleLayer alloc]initWithLevel:level];
 	[scene addChild: layer];
+    layer.scene=scene;
+    
+    //[[CCDirector sharedDirector] replaceScene:[CCTransitionFadeBL transitionWithDuration:1 scene:scene]];
 	return scene;
 }
 -(id) initWithLevel:(int)level
 {
     
 	if( (self=[super init]) ) {
-		
+		self.level=level;
         
         float kStartX=1.0*(self.contentSize.width-kBoxWidth*kTileSize)/2;
         float kStartY=1.0;

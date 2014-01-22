@@ -149,16 +149,16 @@
                               @"流星火",@"showName",
                               @50.0,@"damage",
                               [NSArray arrayWithObjects:@0,@3,@0, nil],@"requirePoint",
-                              [NSArray arrayWithObjects:@0,@3,@0,@0, nil],@"cost",
+                              [NSArray arrayWithObjects:@0,@1,@0,@0, nil],@"cost",
                               nil],@"bigFireBall",
 
                              
                              [NSDictionary dictionaryWithObjectsAndKeys:
                               @"fireBall",@"name",
                               @"火球",@"showName",
-                              @6.0,@"damage",
+                              @3.0,@"damage",
                               [NSArray arrayWithObjects:@0,@1,@0, nil],@"requirePoint",
-                              [NSArray arrayWithObjects:@0,@1,@0,@0, nil],@"cost",
+                              [NSArray arrayWithObjects:@0,@4,@0,@0, nil],@"cost",
                               nil],@"fireBall",
                              
                              [NSDictionary dictionaryWithObjectsAndKeys:
@@ -166,7 +166,7 @@
                               @"冰弹",@"showName",
                               @1.0,@"damage",
                               [NSArray arrayWithObjects:@1,@0,@0, nil],@"requirePoint",
-                              [NSArray arrayWithObjects:@1,@0,@0,@0, nil],@"cost",
+                              [NSArray arrayWithObjects:@4,@0,@0,@0, nil],@"cost",
                               nil],@"iceBall",
                              
                              [NSDictionary dictionaryWithObjectsAndKeys:
@@ -199,7 +199,7 @@
                               @"雪崩",@"showName",
                               @2.0,@"damage",
                               [NSArray arrayWithObjects:@0,@0,@0, nil],@"requirePoint",
-                              [NSArray arrayWithObjects:@3,@0,@0,@1, nil],@"cost",
+                              [NSArray arrayWithObjects:@1,@0,@0,@1, nil],@"cost",
                               nil],@"snowBall",
                              
                              nil];

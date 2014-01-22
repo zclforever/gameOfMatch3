@@ -108,17 +108,23 @@
             CCMenuItemLabel* menuLabel=[CCMenuItemLabel itemWithLabel:levelLabel block:^(id sender) {
                 if (!lockLevel) {
                     [[Global sharedManager] setCurrentLevelOfGame:level];
+                    //[[CCDirector sharedDirector] replaceScene:[CCTransitionFadeTR transitionWithDuration:1 scene:[BattleLayer sceneWithLevel:level] ]];
                     //[[CCDirector sharedDirector] replaceScene:[CCTransitionFlipAngular transitionWithDuration:1 scene:[BattleLayer sceneWithLevel:level] ]];
-                    [[CCDirector sharedDirector] replaceScene:[CCTransitionRotoZoom transitionWithDuration:1 scene:[BattleLayer sceneWithLevel:level] ]];
-                    
-//                    [self runAction:[CCSequence actions:
-//                                     [CCShaky3D actionWithDuration:.5 size:CGSizeMake(30, 30) range:5 shakeZ:YES],
-//                                     [CCCallBlock actionWithBlock:^{
-//                        
-//                        [[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:1 scene:[BattleLayer sceneWithLevel:level] ]];
-//                        //[[CCDirector sharedDirector] replaceScene:[CCTransitionFadeTR transitionWithDuration:1 scene:[BattleLayer sceneWithLevel:level]]];
-//                    }]
-//                                     , nil]];
+                    //[[CCDirector sharedDirector] replaceScene:[CCTransitionRotoZoom transitionWithDuration:1 scene:[BattleLayer sceneWithLevel:level] ]];
+
+                    [self runAction:[CCSequence actions:
+                                     //[CCShaky3D actionWithDuration:.5 size:CGSizeMake(30, 30) range:5 shakeZ:YES],
+                                    [CCFadeOutTRTiles actionWithDuration:1 size:CGSizeMake(16,16)],
+                                     //[CCDelayTime actionWithDuration:1.0],
+                                     [CCCallBlock actionWithBlock:^{
+                        //[[CCDirector sharedDirector] replaceScene:[CCTransitionCrossFade transitionWithDuration:1 scene:[BattleLayer sceneWithLevel:level] ]];
+                        //[[CCDirector sharedDirector] replaceScene:[CCTransitionFadeTR transitionWithDuration:1 scene:[BattleLayer sceneWithLevel:level] ]];
+                        
+                        //[[CCDirector sharedDirector] replaceScene:[CCTransitionFade transitionWithDuration:1 scene:[BattleLayer sceneWithLevel:level]]];
+                        //[BattleLayer sceneWithLevel:level];
+                        [[CCDirector sharedDirector] replaceScene:[BattleLayer sceneWithLevel:level]];
+                    }]
+                                     , nil]];
                     
                     //[[CCDirector sharedDirector] replaceScene:[BattleLayer sceneWithLevel:level]];
                 }

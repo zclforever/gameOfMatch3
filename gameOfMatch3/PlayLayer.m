@@ -30,6 +30,8 @@
 @property (strong,nonatomic) CCLabelTTF *testLabel;
 @property (strong,nonatomic) CCLabelTTF *stepLabel;
 @property (strong,nonatomic) CCLabelTTF *stateLabel;
+@property (strong,nonatomic) CCSprite *energyBar;
+@property (strong,nonatomic) CCSprite *energyBarBorder;
 @property (strong,nonatomic) NSArray* turnOfPersons;
 @property (weak,nonatomic) Tile *selectedTile;
 @property (strong,nonatomic)  CCMotionStreak* touchStreak;
@@ -83,152 +85,7 @@
 
 -(id)initWithLevel:(int)level{
 	self = [super init];
-    
-    [[CCSpriteFrameCache sharedSpriteFrameCache] removeUnusedSpriteFrames];
-    //    [[NSNotificationCenter defaultCenter] addObserver:self
-    //                                             selector:@selector(shakeEvent)
-    //                                                 name:@"MyiPhoneShakeEvent" object:nil];
-    
-    self.accelerometerEnabled = YES;
-    [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1/60];
-    [[UIAccelerometer sharedAccelerometer] setDelegate:self];
-    
-    [self addChild:[[Global sharedManager] setTimeOut]];
-    //添加手势  跟cocos2d冲突
-    //    UITapGestureRecognizer* tapRecognizer =
-    //    [[UITapGestureRecognizer alloc]
-    //      initWithTarget:self action:@selector(handleTaped:)];
-    //
-    //    [[[CCDirector sharedDirector] view]
-    //     addGestureRecognizer:tapRecognizer];
-    //
-    //    UISwipeGestureRecognizer* swipeRecognizer =
-    //    [[UISwipeGestureRecognizer alloc]
-    //     initWithTarget:self action:@selector(handleSwiped:)];
-    //
-    //    [[[CCDirector sharedDirector] view]
-    //     addGestureRecognizer:swipeRecognizer];
-    
-    
-    self.levelDataDict=[NSMutableDictionary dictionaryWithDictionary:[[[Global sharedManager] levelDataDict] valueForKey:[NSString stringWithFormat:@"%d",level]]];
-    self.troopsOrder=[NSMutableArray arrayWithArray:[self.levelDataDict valueForKey:@"troopsOrder"]];
-    
-    self.actionHandler=[[ActionQueue alloc]init];
-    [self addChild:self.actionHandler]; //为了runaction update
-    
-    self.effectOn=NO;
-    self.effectOn=YES;
-    
-    self.isSoundEnabled=NO;
-    //init BG
-	CCSprite *bg = [CCSprite spriteWithFile: @"map01.jpg"];
-    CGSize winSize = [CCDirector sharedDirector].winSize;
-    [bg setScaleX: 400/bg.contentSize.width];
-//    [bg setScaleY: bg.scaleX];
-	bg.position = ccp(winSize.width/2+10,winSize.height/2+180);
-	[self addChild: bg z:-20];
-
-    
-    CCSprite *bgBox = [CCSprite spriteWithFile: @"tilesColored.png"];
-
-    [bgBox setScaleX: 300/bgBox.contentSize.width];
-    [bgBox setScaleY: bgBox.scaleX];
-    bgBox.anchorPoint=ccp(0.5,0);
-    bgBox.opacity=150;
-	bgBox.position = ccp(winSize.width/2,0);
-	[self addChild: bgBox z:-22];
-
-
-    
-    //init Box
-	box = [[Box alloc] initWithSize:CGSizeMake(kBoxWidth,kBoxHeight) factor:6];
-	//box.layer = self;
-	box.lock = YES;
-    [self addChild:box z:-21];
-    
-    ai=[[AI alloc]initWithBox:box];
-    self.player=nil;
-    self.enemy=nil;
-    
     self.level=level;
-    
-    [self updateStatePanel];
-    //self.turnOfPersons=[NSArray arrayWithObjects:self.player, self.enemy, nil];
-    
-    //    self.whosTurn=Turn_Enemy;
-    self.lockTouch=YES;
-    self.whosTurn=Turn_Player;
-    self.lockTouch=YES;
-    self.isStarting=NO;
-    self.updating=NO;
-    self.updateCount=0;
-    self.magicCastArray=[[NSMutableArray alloc]init];
-    self.magicSelectedArray=[[NSMutableArray alloc]init];
-    self.touchesBeganArray=[[NSMutableArray alloc]init];
-    self.touchesEndArray=[[NSMutableArray alloc]init];
-    self.smallEnemyArray=[[NSMutableArray alloc]init];
-    self.allObjectsArray=[[NSMutableArray alloc]init];
-    
-	self.touchEnabled = YES;
-    //[CCDirector sharedDirector] ism
-    
-	//[self schedule:@selector(changeTurn:) interval:.3];
-    self.updating=NO;
-    self.swapCount=0;
-    self.lockUpdate=NO;
-    self.moveSuccessReady=NO;
-    [self schedule:@selector(update:) interval:0 repeat:kCCRepeatForever delay:3];
-    
-    //system=[CCParticleRain node];
-    
-    
-    if (self.effectOn) {
-        //[self addChild:[CCParticleGalaxy node]];
-        [self addChild:[CCParticleRain node]];
-        self.touchStreak=[[CCMotionStreak alloc]initWithFade:.99f minSeg:16 width:96 color:ccc3(255,0,255) textureFilename:@"fire.png"];
-        //[self addChild:self.touchStreak];
-    }
-    
-    
-    
-    
-    
-    
-    //[self setTimeOut:0.0f];
-    
-    CCLabelTTF * label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:64];
-    label.opacity=75;
-    label.color = ccc3(255,255,230);
-    label.anchorPoint=ccp(0,0);
-    label.position = ccp(10,150);
-    //[self addChild:label z:4];
-    
-    self.testLabel=label;
-    
-    label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:12];     //stepLabel
-    
-    label.opacity=250;
-    label.color = ccc3(255,255,230);
-    label.anchorPoint=ccp(0,0);
-    label.position = ccp(250,415);
-    //[self addChild:label z:4];
-    self.stepLabel=label;
-    
-    
-    label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:12];     //stateLabel
-    
-    label.opacity=250;
-    label.color = ccc3(255,255,230);
-    label.anchorPoint=ccp(0,0);
-    label.position = ccp(200,435);
-    //[self addChild:label z:4];
-    self.stateLabel=label;
-    
-    
-    CCLayerColor* layer=[[CCLayerColor alloc]initWithColor:ccc4(0, 0, 0, 200)];
-    [self addChild:layer z:100];
-    self.maskLayer=layer;
-    
 	return self;
 }
 -(void)onExit{
@@ -541,6 +398,7 @@
     
     [self updateStatePanel];
     
+    if(self.updating)return;
     if (self.updating||!(self.swapCount<=0)) {
         //[self setTimeOut:updateInterval withSelect:@selector(update:)];
         return;
@@ -652,6 +510,10 @@
         
         
         for (NSArray* result in box.removeResultArray) {
+            for (Tile* tile in result) {
+                NSLog(@"@x:%d,y:%d",tile.x,tile.y);
+            }
+            
             int mul=1;
             int mount=result.count;
             if(mount==3){
@@ -666,6 +528,8 @@
                 NSLog(@"combo mount:%d",mount);
             }
             self.scoreInBattle+=mount*10*mul;
+            
+            if(mount>=3)self.player.curEnergy+=mount;
         }
         
         NSArray* tmp=[box.readyToRemoveTiles allObjects];
@@ -755,7 +619,9 @@
 
         //NSLog(@"in check is value 5 finished");
         self.lastTipTime=self.gameTime;
-    }else{
+    }
+    else
+    {
         if(self.tradeTile1){self.tradeTile1.tradeTile=NO;self.tradeTile1=nil;}
         if(self.tradeTile2){self.tradeTile2.tradeTile=NO;self.tradeTile2=nil;}
         
@@ -974,7 +840,11 @@
         self.player.curHP=self.player.maxHP;
     }
 
-    
+    if(self.player.curEnergy>self.player.maxEnergy){
+        self.player.curEnergy=self.player.maxEnergy;
+    }
+    if(self.energyBar){self.energyBar.scaleX=zStatePanel_EnegryBarWidth*self.player.curEnergy/self.player.maxEnergy/self.energyBar.contentSize.width;}
+    //self.enegyBar.scaleX=1;
     [self.stepLabel setString:[NSString stringWithFormat:@"AP %f/%f",self.enemy.curStep,self.enemy.maxStep]];
     NSString* key=@"poison";
     float value=[[self.enemy.stateDict valueForKey:key] floatValue];
@@ -998,6 +868,189 @@
 }
 
 -(void) onEnterTransitionDidFinish{
+    [self runAction:[[CCFadeOutTRTiles actionWithDuration:1 size:CGSizeMake(16, 16)] reverse]];
+    CCLayerColor* layer=[[CCLayerColor alloc]initWithColor:ccc4(0, 0, 0, 200)];
+    [self addChild:layer z:100];
+    self.maskLayer=layer;
+    
+    
+    [[CCSpriteFrameCache sharedSpriteFrameCache] removeUnusedSpriteFrames];
+    //    [[NSNotificationCenter defaultCenter] addObserver:self
+    //                                             selector:@selector(shakeEvent)
+    //                                                 name:@"MyiPhoneShakeEvent" object:nil];
+    
+    self.accelerometerEnabled = YES;
+    [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1/60];
+    [[UIAccelerometer sharedAccelerometer] setDelegate:self];
+    
+    [self addChild:[[Global sharedManager] setTimeOut]];
+    //添加手势  跟cocos2d冲突
+    //    UITapGestureRecognizer* tapRecognizer =
+    //    [[UITapGestureRecognizer alloc]
+    //      initWithTarget:self action:@selector(handleTaped:)];
+    //
+    //    [[[CCDirector sharedDirector] view]
+    //     addGestureRecognizer:tapRecognizer];
+    //
+    //    UISwipeGestureRecognizer* swipeRecognizer =
+    //    [[UISwipeGestureRecognizer alloc]
+    //     initWithTarget:self action:@selector(handleSwiped:)];
+    //
+    //    [[[CCDirector sharedDirector] view]
+    //     addGestureRecognizer:swipeRecognizer];
+    
+    
+    self.levelDataDict=[NSMutableDictionary dictionaryWithDictionary:[[[Global sharedManager] levelDataDict] valueForKey:[NSString stringWithFormat:@"%d",self.level]]];
+    self.troopsOrder=[NSMutableArray arrayWithArray:[self.levelDataDict valueForKey:@"troopsOrder"]];
+    
+    self.actionHandler=[[ActionQueue alloc]init];
+    [self addChild:self.actionHandler]; //为了runaction update
+    
+    self.effectOn=NO;
+    self.effectOn=YES;
+    
+    self.isSoundEnabled=NO;
+    //init BG
+	CCSprite *bg = [CCSprite spriteWithFile: @"map01.jpg"];
+    CGSize winSize = [CCDirector sharedDirector].winSize;
+    [bg setScaleX: 400/bg.contentSize.width];
+    //    [bg setScaleY: bg.scaleX];
+	bg.position = ccp(winSize.width/2+10,winSize.height/2+200);
+	[self addChild: bg z:-20];
+    
+    
+    CCSprite *bgBox = [CCSprite spriteWithFile: @"tilesColored.png"];
+    
+    [bgBox setScaleX: 300/bgBox.contentSize.width];
+    [bgBox setScaleY: bgBox.scaleX];
+    bgBox.anchorPoint=ccp(0.5,0);
+    bgBox.opacity=150;
+	bgBox.position = ccp(winSize.width/2,0);
+	[self addChild: bgBox z:-22];
+    
+    
+    
+    //init Box
+	box = [[Box alloc] initWithSize:CGSizeMake(kBoxWidth,kBoxHeight) factor:6];
+	//box.layer = self;
+	box.lock = YES;
+    [self addChild:box z:-21];
+    
+    ai=[[AI alloc]initWithBox:box];
+    self.player=nil;
+    self.enemy=nil;
+    
+    
+    
+    [self updateStatePanel];
+    //self.turnOfPersons=[NSArray arrayWithObjects:self.player, self.enemy, nil];
+    
+    //    self.whosTurn=Turn_Enemy;
+    self.lockTouch=YES;
+    self.whosTurn=Turn_Player;
+    self.lockTouch=YES;
+    self.isStarting=NO;
+    self.updating=NO;
+    self.updateCount=0;
+    self.magicCastArray=[[NSMutableArray alloc]init];
+    self.magicSelectedArray=[[NSMutableArray alloc]init];
+    self.touchesBeganArray=[[NSMutableArray alloc]init];
+    self.touchesEndArray=[[NSMutableArray alloc]init];
+    self.smallEnemyArray=[[NSMutableArray alloc]init];
+    self.allObjectsArray=[[NSMutableArray alloc]init];
+    
+	self.touchEnabled = YES;
+    //[CCDirector sharedDirector] ism
+    
+	//[self schedule:@selector(changeTurn:) interval:.3];
+    self.updating=NO;
+    self.swapCount=0;
+    self.lockUpdate=NO;
+    self.moveSuccessReady=NO;
+    [self schedule:@selector(update:) interval:0 repeat:kCCRepeatForever delay:3];
+    
+    //system=[CCParticleRain node];
+    
+    
+    if (self.effectOn) {
+        //[self addChild:[CCParticleGalaxy node]];
+        [self addChild:[CCParticleRain node]];
+        self.touchStreak=[[CCMotionStreak alloc]initWithFade:.99f minSeg:16 width:96 color:ccc3(255,0,255) textureFilename:@"fire.png"];
+        //[self addChild:self.touchStreak];
+    }
+    
+    
+    
+    
+    
+    
+    //[self setTimeOut:0.0f];
+    
+    CCLabelTTF * label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:64];
+    label.opacity=75;
+    label.color = ccc3(255,255,230);
+    label.anchorPoint=ccp(0,0);
+    label.position = ccp(10,150);
+    //[self addChild:label z:4];
+    
+    self.testLabel=label;
+    
+    label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:12];     //stepLabel
+    
+    label.opacity=250;
+    label.color = ccc3(255,255,230);
+    label.anchorPoint=ccp(0,0);
+    label.position = ccp(250,415);
+    //[self addChild:label z:4];
+    self.stepLabel=label;
+    
+    
+    label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:12];     //stateLabel
+    
+    label.opacity=250;
+    label.color = ccc3(255,255,230);
+    label.anchorPoint=ccp(0,0);
+    label.position = ccp(200,435);
+    //[self addChild:label z:4];
+    self.stateLabel=label;
+    
+    
+    //add enegry bar
+    self.energyBar=[CCSprite spriteWithFile:@"bar_yellow.png" ];
+    self.energyBar.anchorPoint=ccp(0,0);
+    self.energyBar.scaleY=(zStatePanel_EnegryBarHeight)/self.energyBar.contentSize.height;
+    self.energyBar.scaleX=0/self.energyBar.contentSize.width;
+    self.energyBar.position=ccp(zStatePanel_EnegryBarMarginLeft,480-zStatePanel_EnegryBarMarginTop);
+    [self addChild:self.energyBar z:10];
+    
+    self.energyBarBorder=[CCSprite spriteWithFile:@"border_yellow_gray.png"];
+    self.energyBarBorder.anchorPoint=ccp(0,0);
+    self.energyBarBorder.scaleY=zStatePanel_EnegryBarHeight/self.energyBarBorder.contentSize.height;
+    self.energyBarBorder.scaleX=zStatePanel_EnegryBarWidth/self.energyBarBorder.contentSize.width;
+    self.energyBarBorder.position=ccp(zStatePanel_EnegryBarMarginLeft,480-zStatePanel_EnegryBarMarginTop);
+    [self addChild:self.energyBarBorder z:9];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     [self addFlag2];
     [self addWindmill];
     
@@ -1030,7 +1083,7 @@
     //    }
     
     
-    CGSize winSize=[[CCDirector sharedDirector] winSize];
+    //CGSize winSize=[[CCDirector sharedDirector] winSize];
     
 
     
@@ -1567,7 +1620,7 @@
     
     
     if(!self.selectedTile&&tile.value>100&&(!tile.selected)){
-        if (self.magicSelectedArray.count>=3) {
+        if (self.magicSelectedArray.count>=2) {
             self.selectedTile=nil;
             return;
         }
