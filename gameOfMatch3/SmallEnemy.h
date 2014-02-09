@@ -27,6 +27,7 @@
 
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withName:(NSString*)name;
 -(void)attackTarget:(AiObject*)target;
+-(void)attackTargets:(NSMutableArray*)targets;
 -(void)appearAtX:(int)x Y:(int)y;
 -(void)dieAction;
 -(void)moveAnimation;

@@ -22,6 +22,7 @@
 }
 @end
 @interface PlayLayer()
+@property  int whosTurn;
 @property bool effectOn;
 @property int level;
 @property bool isSoundEnabled;
@@ -157,6 +158,44 @@
     
 }
 
+
+
+-(void)addReadyGo{
+    CGSize size=[CCDirector sharedDirector].winSize;
+    CCLabelTTF * ready = [CCLabelTTF labelWithString:@"Ready" fontName:@"AYummyApology" fontSize:72];
+    ready.color = ccc3(255,255,255);
+    //label.anchorPoint=ccp(0,0);
+    ready.position = ccp(size.width/2,size.height/2);
+    [self addChild:ready z:4];
+    
+    CCLabelTTF * go = [CCLabelTTF labelWithString:@"Go" fontName:@"AYummyApology" fontSize:72];
+    go.color = ccc3(255,255,255);
+    //label.anchorPoint=ccp(0,0);
+    go.position = ccp(size.width/2,size.height/2);
+    [self addChild:go z:4];
+    
+    
+    ready.scale=0;
+    go.scale=0;
+    
+    [ready runAction:[CCSequence actions:
+                      [CCDelayTime actionWithDuration:0.0f],
+                      [CCScaleTo actionWithDuration:.5f scale:.5f],
+                      [CCScaleTo actionWithDuration:3.0f scale:1.5f],
+                      [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+    }],
+                      nil]];
+    [go runAction:[CCSequence actions:
+                   [CCDelayTime actionWithDuration:3.5f],
+                   [CCScaleTo actionWithDuration:0.0f scale:1.5f],
+                   [CCScaleTo actionWithDuration:0.3f scale:4.0f],
+                   [CCCallBlockN actionWithBlock:^(CCNode *node) {
+        [node removeFromParentAndCleanup:YES];
+    }],
+                   nil]];
+}
+
 -(void)handleTimeOut{  //.handletimeout.handle.
     
     float timeInterval=0.04f;
@@ -165,7 +204,6 @@
 
     
     //---------------small Enemy---------------------   small.smallEnemy.
-    
     //--------------判断存活
     count=0;
     while (count<self.smallEnemyArray.count) {   
@@ -179,6 +217,8 @@
         }
     }
 
+  
+    
             //------------生成smallEnemy
     
     NSMutableDictionary* troops;
@@ -257,12 +297,12 @@
 
 -(void)update:(ccTime)delta{   //.update.
     
-
+    //float updateInterval=0.01;
     float tipCD=2.0f;  //notips....
     
     self.gameTime+=delta;
     [[Global sharedManager] setGameTime:self.gameTime];
-
+    //self.gameTime+=updateInterval;
     
     
     
@@ -328,13 +368,20 @@
             [self setTimeOut:comboShootInterval*(j+1) withBlock:^{
                 [obj magicShootByName:name];
             }];
-
+            //[obj magicShootByName:name];
             for(int i=0;i<3;i++){
                 magicCountArray[i]=[NSNumber numberWithInt:[magicCountArray[i] intValue]-[magic.manaCostArray[i] intValue] ];
             }
             name=[Magic getNameByCountArray:magicCountArray withMagicNameList:[Magic getNameListByPointDict:self.player.pointDict]];
             j++;
         }
+//        if(name){
+//            Magic* magic=[[Magic alloc]initWithName:name];
+//            [obj magicShootByName:name];
+//            for(int i=0;i<3;i++){
+//                magicCountArray[i]=[NSNumber numberWithInt:[magicCountArray[i] intValue]-[magic.manaCostArray[i] intValue] ];
+//            }
+//        }
         
         
         for(int i=0;i<3;i++){
@@ -393,13 +440,14 @@
             if(mount>3) {
                 if(self.isSoundEnabled)[[SimpleAudioEngine sharedEngine]playEffect:@"ding.wav"];
                 mul=pow(2, mount-2);
-
+                //self.player.curStep+=mount-3;
             }
             if(mount>6){
                 NSLog(@"combo mount:%d",mount);
             }
             self.scoreInBattle+=mount*10*mul;
             
+            //if(mount>=3)self.player.curEnergy+=mount;
 
             if(mount>=3&&(1<=value&&value<=3)){
                 Hero* hero=self.heroArray[value-1];
@@ -409,7 +457,19 @@
         }
         
         NSArray* tmp=[box.readyToRemoveTiles allObjects];
-
+//        for(int i=0;i<3;i++){
+//            
+//            matchedArray=[box findMatchedArray:tmp forValue:i+1];
+//            if (matchedArray) {
+//                int value=matchedArray.count;
+//                int curValue=[self.player.manaLayer.manaArray[i] intValue];
+//                int maxValue=[self.player.maxManaArray[i] intValue];
+//                value+=curValue;
+//                value=(value>maxValue)?maxValue:value;
+//                [self.player.manaLayer setManaArrayAtIndex:i withValue:value];
+//            }
+//            
+//        }
         matchedArray=[box findMatchedArray:tmp forValue:5];  //5 is PlayerAttack
         if (matchedArray) {
             float delayTime=0.5f;
@@ -474,10 +534,8 @@
         matchedArray=[box findMatchedArray:tmp forValue:6];
         //if (matchedArray) {self.expInBattle+=matchedArray.count;}
         matchedArray=[box findMatchedArray:tmp forValue:7];
-        if (matchedArray) {
-                //7的时候
-        
-        }
+        if (matchedArray) {self.player.curHP+=matchedArray.count;
+            self.player.curHP=self.player.curHP<=self.player.maxHP?self.player.curHP:self.player.maxHP;}
         
         tmp=nil;
         
@@ -813,7 +871,7 @@
     
     //    self.whosTurn=Turn_Enemy;
     self.lockTouch=YES;
-
+    self.whosTurn=Turn_Player;
     self.lockTouch=YES;
     self.isStarting=NO;
     self.updating=NO;
@@ -1133,7 +1191,9 @@
 -(bool) changeWithTileA: (Tile *) a TileB: (Tile *) b{
     
     float moveTime=kMoveTileTime;
-
+    if (self.whosTurn==Turn_Enemy) {
+        //moveTime=moveTime*4;
+    }
     CCAction *actionA;
     CCAction *actionB;
     NSMutableArray* matched=[box findMatchWithSwap:a B:b];

@@ -11,6 +11,7 @@
 @interface SmallEnemy()
 @property int animatingTag;
 @property (weak,nonatomic) AiObject* attackTarget;
+@property (weak,nonatomic) NSMutableArray* attackTargets;
 @end
 
 
@@ -90,6 +91,10 @@
 }
 -(void)attackTarget:(AiObject *)target{
     self.attackTarget=target;
+    
+}
+-(void)attackTargets:(NSMutableArray *)targets{
+    self.attackTargets=targets;
     
 }
 -(void)dieAction{
@@ -249,7 +254,20 @@
         
         self.destPos=ccp(centerPos.x,rect.origin.y);
         
+    }else if(self.attackTargets){
+        for (AiObject* attackTarget in self.attackTargets) {
+            if (attackTarget.curHP>0) {
+                CGRect rect=[attackTarget getBoundingBox];
+                CGPoint centerPos=[attackTarget getCenterPoint];
+                
+                self.destPos=ccp(centerPos.x,rect.origin.y);
+                break;
+            }
+        }
+
+        
     }
+    
     
     //---------------是否开始移动 且未到目的地---------------------
     float moveSpeed=self.moveSpeed;

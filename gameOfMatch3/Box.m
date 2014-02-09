@@ -16,7 +16,7 @@
 @property NSMutableArray* columnExtension;
 @property (nonatomic,strong) NSMutableArray* removedTilesExecuteRemove; //缓冲制 当前要强制消除的
 @property (nonatomic,strong) NSMutableArray* removedTiles;
-
+@property (nonatomic,strong) NSMutableArray* blockNameArray; //决定上场角色
 @property int debugCount;
 @end
 @implementation Box
@@ -37,7 +37,7 @@
 	self.content = [NSMutableArray arrayWithCapacity: size.height];
 	self.checkMarkSpriteArray=[NSMutableArray arrayWithCapacity:size.height*size.width];
     self.removedTiles=[[NSMutableArray alloc]init];
-    
+    self.blockNameArray=[NSMutableArray arrayWithObjects:@"block_1.png",@"block_2.png",@"block_3.png",@"block_4.png",@"block_7.png", nil];
 	for (int y=0; y<size.height; y++) {
 		
 		NSMutableArray *rowContent = [NSMutableArray arrayWithCapacity:size.width];
@@ -511,6 +511,11 @@
         
         [self addChild:destTile];
         [self setObjectAtX:columnIndex Y:kBoxHeight-extension+i withTile:destTile];
+        
+        //NSString *name = self.blockNameArray[value-1];
+        if (value==5) {
+            value=7;
+        }
 		NSString *name = [NSString stringWithFormat:@"block_%d.png",value];
         
 		CCSprite *sprite = [CCSprite spriteWithFile:name];
