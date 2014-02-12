@@ -12,11 +12,13 @@
 @interface Box()
 -(int) repair;
 -(int) repairSingleColumn: (int) columnIndex;
+@property (nonatomic,strong) NSMutableArray* tileDelegatesArray; //决定上场角色
+
 @property (nonatomic,strong) NSMutableArray* checkMarkSpriteArray;
 @property NSMutableArray* columnExtension;
 @property (nonatomic,strong) NSMutableArray* removedTilesExecuteRemove; //缓冲制 当前要强制消除的
 @property (nonatomic,strong) NSMutableArray* removedTiles;
-@property (nonatomic,strong) NSMutableArray* blockNameArray; //决定上场角色
+
 @property int debugCount;
 @end
 @implementation Box
@@ -31,28 +33,32 @@
     
 	self = [super init];
 	size = aSize;
-	self.OutBorderTile = [[Tile alloc] initWithX:-1 Y:-1];
-    self.OutBorderTile.value=-1;
-    [self addChild:self.OutBorderTile];
+    
+    self.tileDelegatesArray=[NSMutableArray arrayWithObjects: nil];
+    
+	self.OutBorderTile =nil;
+    /*
+     [[Tile alloc] initWithX:-1 Y:-1];
+     self.OutBorderTile.value=-1;
+     [self addChild:self.OutBorderTile];
+     */
+    
+    
 	self.content = [NSMutableArray arrayWithCapacity: size.height];
-	self.checkMarkSpriteArray=[NSMutableArray arrayWithCapacity:size.height*size.width];
-    self.removedTiles=[[NSMutableArray alloc]init];
-    self.blockNameArray=[NSMutableArray arrayWithObjects:@"block_1.png",@"block_2.png",@"block_3.png",@"block_4.png",@"block_7.png", nil];
+	//self.checkMarkSpriteArray=[NSMutableArray arrayWithCapacity:size.height*size.width];
+    //self.removedTiles=[[NSMutableArray alloc]init];
+    
 	for (int y=0; y<size.height; y++) {
 		
 		NSMutableArray *rowContent = [NSMutableArray arrayWithCapacity:size.width];
 		for (int x=0; x < size.width; x++) {
-			Tile *tile = [[Tile alloc] initWithX:x Y:y];
+            int value = (arc4random()%kKindCount+1);
+			Tile *tile = [[Tile alloc] initWithX:x Y:y delegate:self.tileDelegatesArray[value-1]];
+            tile.value=value;
             [self addChild:tile];
+            
 			[rowContent addObject:tile];
             
-            //init checkMark;
-            CCSprite* checkedSprite;
-            checkedSprite=[CCSprite spriteWithFile:@"checkMark_White.png"];
-            checkedSprite.position=[tile pixPosition];
-            checkedSprite.visible=NO;
-            [self.checkMarkSpriteArray addObject:checkedSprite];
-            [self addChild:checkedSprite z:8];
             
 		}
 		[self.content addObject:rowContent];
@@ -140,24 +146,10 @@
             
             
 			Tile *tile = [self objectAtX:((orient == OrientationHori) ?i :j)  Y:((orient == OrientationHori) ?j :i)];
-            //checkMark
-            int index=tile.y*size.width+tile.x;
-            CCSprite* checkedSprite=self.checkMarkSpriteArray[index];
-            if (tile.selected) {
-                checkedSprite.visible=YES;
-            }else{
-                checkedSprite.visible=NO;
-            }
-            
-            
-            if(tile.skillBall){
-                value=arc4random();
-            }
+
             
             if(tile.value == value){
-                if(value>0){
-                    //[tmpRemoveArray addObject:tile];
-                }
+
 				count++;
 				if (count > 3) {
 					[self.readyToRemoveTiles addObject:tile];
@@ -246,7 +238,8 @@
 -(BOOL)removeAndRepair{
     bool needWaitForVertialSkillBallAppear=NO;
     
-    
+    //这一段要改，问英雄得到result 决定生成什么，消失什么
+
     for(NSMutableArray* removeArray in self.removeResultArray){
         bool vertical=NO;
         Tile* firstTile=removeArray[0];
@@ -256,37 +249,9 @@
             tile=removeArray[0];
             vertical=YES;
         }
-        if(tile.value==5&&self.lockedEnemy){  //剑的话
-            
-            for (int i=0; i<removeArray.count; i++) {
-                tile=removeArray[i];
-                CCAction* action=[CCScaleTo actionWithDuration:0 scale:0];
-                [tile.actionSequence addObject:action];
-            }
-            continue;
-        }
-        if(tile.value==7&&self.lockedPlayer){  //医药箱的话
-            
-            CGPoint pos=self.lockedPlayer.position;
-            for (int i=0; i<removeArray.count; i++) {
-                tile=removeArray[i];
-                CCAction* moveAction=[CCMoveTo actionWithDuration:.4 position:ccp(pos.x+zPersonWidth,pos.y)];
-                [tile.actionSequence addObject:moveAction];
-            }
-            continue;
-        }
-        
-        if(tile.value<=0||tile.value>3)continue;
-        if(removeArray.count<=3)continue;
-        
+
         //产生技能球.skill.skillball.
-        Person* person=[Person sharedPlayerCopy];
-        int point1=[[person.pointDict valueForKey:@"skill1"] intValue];
-        int point2=[[person.pointDict valueForKey:@"skill2"] intValue];
-        int point3=[[person.pointDict valueForKey:@"skill3"] intValue];
-        if(point1==0&&tile.value==1)continue;
-        if(point2==0&&tile.value==2)continue;
-        if(point3==0&&tile.value==3)continue;
+
         
         for (int i=0; i<removeArray.count; i++) {
             
@@ -299,24 +264,25 @@
             
         }
         
+        NSDictionary* result=[tile.tileDelegate removeByMount:removeArray.count];
         [removeArray removeObject:tile];
         //[self.readyToRemoveTiles removeObject:tile];
         //[tile.actionSequence addObject:tile.disappareAction]; //统一消失
         //[tile scaleToNone];
         
+        id newDelegate= [result valueForKey:@"newDelegate"];
+        if(!newDelegate) continue;
+        
         CGPoint pos=[tile pixPosition];
         
-        Tile *destTile = [[Tile alloc]initWithX:tile.x Y:tile.y];
-        CCSprite* sprite;
+        Tile *destTile = [[Tile alloc]initWithX:tile.x Y:tile.y delegate:newDelegate];
         destTile.value+=tile.value+100;
-        sprite=[CCSprite spriteWithFile:[NSString stringWithFormat:@"block_%d.png",destTile.value]];
-        destTile.skillBall=3*(removeArray.count-1);
-        sprite.position=pos;
-        sprite.scale=0;
-        destTile.sprite=sprite;
+        destTile.sprite.position=pos;
+        destTile.sprite.scale=0;
+
         [self addChild:destTile];
         [self setObjectAtX:tile.x Y:tile.y withTile:destTile];
-        [destTile addChild:destTile.sprite];
+
         [destTile.actionSequence addObject:[destTile appareActionWithDelay:0]];
         destTile.newSkillBall=YES; //用这个来控制 出现后的移动
         if(vertical)needWaitForVertialSkillBallAppear=YES;
@@ -328,9 +294,9 @@
         
         
         //[self.removedTiles addObject:tile];
-        
+
     }
-    
+
     
     NSArray *objects = [[self.readyToRemoveTiles objectEnumerator] allObjects];
     if ([objects count] == 0) {
@@ -351,22 +317,9 @@
         
     }
     
-    float delayTime=0;
-    if(needWaitForVertialSkillBallAppear)delayTime=kMoveTileTime+.3;
-    //为了技能球出现而延迟  //已经取消
-//    [self runAction:[CCSequence actions:
-//                     [CCDelayTime actionWithDuration:0],
-//                     [CCCallFunc actionWithTarget:self selector:@selector(repair)]
-//                     , nil]];
     
     [self repair];
-    
-    //[self.readyToRemoveTiles removeAllObjects];
-    
-    
-    //        [layer runAction: [CCSequence actions: [CCDelayTime actionWithDuration: kMoveTileTime * maxCount + 0.03f],
-    //                           [CCCallFunc actionWithTarget:self selector:@selector(afterAllMoveDone)],
-    //                           nil]];
+
     
     return YES;
 }

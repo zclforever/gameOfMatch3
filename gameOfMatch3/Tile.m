@@ -8,6 +8,9 @@
 
 #import "Tile.h"
 #import "Magic.h"
+
+
+
 @interface Tile()
 
 
@@ -21,12 +24,33 @@
 
 
 
--(id) initWithX: (int) posX Y: (int) posY{
+-(id) initWithX: (int) posX Y: (int) posY delegate:(id<tileDelegate>)tileDelegate{
 	self = [super init];
     //debug
     Global* dbg=[Global sharedManager];
     dbg.debugTest++;
     //NSLog(@"init x:%d y:%d",posX,posY);
+    
+    
+    self.tileDelegate=tileDelegate;
+    self.sprite=[CCSprite spriteWithFile:self.tileDelegate.tileSpriteName];
+    
+    //init checkMark;
+//    CCSprite* checkedSprite;
+//    checkedSprite=[CCSprite spriteWithFile:@"checkMark_White.png"];
+//    checkedSprite.position=[tile pixPosition];
+//    checkedSprite.visible=NO;
+//    [self.checkMarkSpriteArray addObject:checkedSprite];
+//    [self addChild:checkedSprite z:8];
+    
+//    //checkMark
+//    int index=tile.y*size.width+tile.x;
+//    CCSprite* checkedSprite=self.checkMarkSpriteArray[index];
+//    if (tile.selected) {
+//        checkedSprite.visible=YES;
+//    }else{
+//        checkedSprite.visible=NO;
+//    }
     
 	self.x = posX;
 	self.y = posY;
@@ -38,10 +62,12 @@
     self.ccSequnce2=nil;
     self.readyToEnd=NO;
     self.skillBall=0;
+    
     self.selected=NO;
     self.tradeTile=NO;
     [self update];
 
+    
     //[[[CCDirector sharedDirector] scheduler] scheduleSelector:@selector(update) forTarget:self interval:0.1 repeat:kCCRepeatForever delay:0 paused:NO] ;
 	return self;
 }
@@ -214,7 +240,7 @@
     self.locking=NO;
 }
 -(Tile*)copyTile{
-    Tile* tmpTile=[[Tile alloc]initWithX:self.x Y:self.y];
+    Tile* tmpTile=[[Tile alloc]initWithX:self.x Y:self.y delegate:self.tileDelegate];
     tmpTile.value=self.value;
     NSString *name = [NSString stringWithFormat:@"block_%d.png",self.value];
     tmpTile.sprite=[CCSprite spriteWithFile:name];

@@ -35,7 +35,6 @@
 		021B54621883FE98001D1020 /* smallEnemy_mouseAttack.plist in Resources */ = {isa = PBXBuildFile; fileRef = 021B54601883FE97001D1020 /* smallEnemy_mouseAttack.plist */; };
 		021B54631883FE98001D1020 /* smallEnemy_mouseAttack.png in Resources */ = {isa = PBXBuildFile; fileRef = 021B54611883FE98001D1020 /* smallEnemy_mouseAttack.png */; };
 		022AB7FA18A767B500F570BF /* Hero.m in Sources */ = {isa = PBXBuildFile; fileRef = 022AB7F918A767B500F570BF /* Hero.m */; };
-		022AB7FE18A783FE00F570BF /* OLDPlayLayer.m in Resources */ = {isa = PBXBuildFile; fileRef = 022AB7FD18A783FE00F570BF /* OLDPlayLayer.m */; };
 		022AB80018A7841900F570BF /* OLDPlayLayer.h in Resources */ = {isa = PBXBuildFile; fileRef = 022AB7FF18A7841800F570BF /* OLDPlayLayer.h */; };
 		0259BBD717DDB02D0033F345 /* GameLevelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259BBD617DDB02D0033F345 /* GameLevelLayer.m */; };
 		0259BBDB17DDB25D0033F345 /* enemy_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD817DDB25D0033F345 /* enemy_1.png */; };
@@ -1613,7 +1612,6 @@
 				02D87783188FA5B5007F05CA /* bar_yellow.png in Resources */,
 				02D87784188FA5B5007F05CA /* border_yellow.png in Resources */,
 				02D87786188FACC8007F05CA /* border_yellow_gray.png in Resources */,
-				022AB7FE18A783FE00F570BF /* OLDPlayLayer.m in Resources */,
 				022AB80018A7841900F570BF /* OLDPlayLayer.h in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

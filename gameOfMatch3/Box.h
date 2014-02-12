@@ -19,6 +19,9 @@
 
     BOOL allMoveDone;
 }
+
+
+
 @property(nonatomic, strong) NSMutableArray *content;
 @property(nonatomic) BOOL allMoveDone;
 @property(nonatomic, strong) CCSprite* lockedEnemy;

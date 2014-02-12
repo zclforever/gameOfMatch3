@@ -455,7 +455,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "1444"
          endingLineNumber = "1444"
-         landmarkName = "-ccTouchesBegan:withEvent:"
+         landmarkName = "-ccTouchesEnded:withEvent:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -468,7 +468,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "1584"
          endingLineNumber = "1584"
-         landmarkName = "-touchedSingleTileOnPointX:Y:"
+         landmarkName = "-touchedOnPointX:Y:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

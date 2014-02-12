@@ -10,10 +10,15 @@
 #import "cocos2d.h"
 #import "AiObject.h"
 #import "Person.h"
-
-@interface Hero : AiObject {
+#import "Tile.h"
+@interface Hero : AiObject <tileDelegate> {
     
 }
+
+//protocol
+@property (strong,nonatomic) NSString* tileSpriteName;
+
+
 
 @property (strong,nonatomic) NSString* spriteName;
 @property (strong,nonatomic) NSMutableArray* starsOfLevelArray; //星星数 [0]=level 1的star
