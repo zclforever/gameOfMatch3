@@ -24,8 +24,9 @@
 
 
 
--(id) initWithX: (int) posX Y: (int) posY delegate:(id<tileDelegate>)tileDelegate{
+-(id) initWithX: (int) posX Y: (int) posY delegate:(id<tileDelegate>)tileDelegate hide:(bool)hide{
 	self = [super init];
+    if(hide)self.visible=NO;
     //debug
     Global* dbg=[Global sharedManager];
     dbg.debugTest++;
@@ -54,6 +55,10 @@
     
 	self.x = posX;
 	self.y = posY;
+    [self scaleToTileSize];
+    [self spriteToTilePosition];
+    [self addChild:self.sprite];
+    
     
     self.actionSequence=[[NSMutableArray alloc]init];
     self.cache=[[NSMutableArray alloc]init];
@@ -205,6 +210,12 @@
     [self.sprite setScaleX: kTileSize/self.sprite.contentSize.width];
     [self.sprite setScaleY: kTileSize/self.sprite.contentSize.height];
 }
+-(void)spriteToTilePosition{
+    self.sprite.position=[self pixPosition];
+}
+-(void)show{
+    self.visible=YES;
+}
 -(BOOL) nearTile: (Tile *)othertile{
 	return
 	(self.x == othertile.x && abs(self.y - othertile.y)==1)
@@ -240,7 +251,7 @@
     self.locking=NO;
 }
 -(Tile*)copyTile{
-    Tile* tmpTile=[[Tile alloc]initWithX:self.x Y:self.y delegate:self.tileDelegate];
+    Tile* tmpTile=[[Tile alloc]initWithX:self.x Y:self.y delegate:self.tileDelegate hide:NO];
     tmpTile.value=self.value;
     NSString *name = [NSString stringWithFormat:@"block_%d.png",self.value];
     tmpTile.sprite=[CCSprite spriteWithFile:name];

@@ -29,12 +29,12 @@
 @synthesize readyToRemoveTiles;
 @synthesize columnExtension=_columnExtension;
 
--(id) initWithSize: (CGSize) aSize factor: (int) aFactor{
+-(id) initWithSize: (CGSize) aSize delegateArray:(NSMutableArray*)tileDelegateArray{
     
 	self = [super init];
 	size = aSize;
     
-    self.tileDelegatesArray=[NSMutableArray arrayWithObjects: nil];
+    self.tileDelegatesArray=tileDelegateArray;
     
 	self.OutBorderTile =nil;
     /*
@@ -53,9 +53,12 @@
 		NSMutableArray *rowContent = [NSMutableArray arrayWithCapacity:size.width];
 		for (int x=0; x < size.width; x++) {
             int value = (arc4random()%kKindCount+1);
-			Tile *tile = [[Tile alloc] initWithX:x Y:y delegate:self.tileDelegatesArray[value-1]];
+            //CCLOG(@"value=%d",value);
+			Tile *tile = [[Tile alloc] initWithX:x Y:y delegate:self.tileDelegatesArray[value-1] hide:NO];
             tile.value=value;
             [self addChild:tile];
+            
+
             
 			[rowContent addObject:tile];
             
@@ -146,7 +149,10 @@
             
             
 			Tile *tile = [self objectAtX:((orient == OrientationHori) ?i :j)  Y:((orient == OrientationHori) ?j :i)];
-
+            if(tile.value==0){
+                [self.readyToRemoveTiles addObject:tile];
+                continue;
+            }
             
             if(tile.value == value){
 
@@ -275,11 +281,12 @@
         
         CGPoint pos=[tile pixPosition];
         
-        Tile *destTile = [[Tile alloc]initWithX:tile.x Y:tile.y delegate:newDelegate];
+        Tile *destTile = [[Tile alloc]initWithX:tile.x Y:tile.y delegate:newDelegate hide:YES];
         destTile.value+=tile.value+100;
         destTile.sprite.position=pos;
         destTile.sprite.scale=0;
-
+        [destTile show];
+        
         [self addChild:destTile];
         [self setObjectAtX:tile.x Y:tile.y withTile:destTile];
 
@@ -460,25 +467,19 @@
         [self.removedTiles addObject:sourceTile];
         
         
-        Tile *destTile = [[Tile alloc]initWithX:columnIndex Y:kBoxHeight-extension+i];
+        Tile *destTile = [[Tile alloc]initWithX:columnIndex Y:kBoxHeight-extension+i delegate:self.tileDelegatesArray[value-1] hide:NO];
         
         [self addChild:destTile];
         [self setObjectAtX:columnIndex Y:kBoxHeight-extension+i withTile:destTile];
         
         //NSString *name = self.blockNameArray[value-1];
-        if (value==5) {
-            value=7;
-        }
-		NSString *name = [NSString stringWithFormat:@"block_%d.png",value];
-        
-		CCSprite *sprite = [CCSprite spriteWithFile:name];
-        [sprite setScaleX: kTileSize/sprite.contentSize.width];
-        [sprite setScaleY: kTileSize/sprite.contentSize.height];
+
+
         CGPoint topPoint=[self getLocalPosition:topTile.sprite.position];
         int topY=MAX(topPoint.y+1, kBoxHeight);
         
-		sprite.position = ccp(kStartX + columnIndex * kTileSize + kTileSize/2, kStartY + (topY + i) * kTileSize + kTileSize/2);
-        float moveTime=ccpDistance(sprite.position, destTile.pixPosition)/(kTileSize/kMoveTileTime);
+		destTile.sprite.position = ccp(kStartX + columnIndex * kTileSize + kTileSize/2, kStartY + (topY + i) * kTileSize + kTileSize/2);
+        float moveTime=ccpDistance(destTile.sprite.position, destTile.pixPosition)/(kTileSize/kMoveTileTime);
         if(moveTime>4.0f){
             NSLog(@"%f",moveTime);
             moveTime=2;
@@ -491,10 +492,10 @@
 							  [CCMoveTo actionWithDuration:moveTime position:[destTile pixPosition]],
 							  nil];
 		//action=[CCEaseInOut actionWithAction:action rate:2];
-        [destTile addChild: sprite];
+
 		//[sprite runAction: action];
 		destTile.value = value;
-		destTile.sprite = sprite;
+
         [destTile.actionSequence addObject:action];
 	}
     

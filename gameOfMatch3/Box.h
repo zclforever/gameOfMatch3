@@ -32,7 +32,8 @@
 @property(nonatomic,strong) NSMutableSet *readyToRemoveTiles;
 @property(nonatomic,strong) NSMutableArray *removeResultArray;
 @property bool isSoundEnabled;
--(id) initWithSize: (CGSize) size factor: (int) factor;
+
+-(id) initWithSize: (CGSize) aSize delegateArray:(NSMutableArray*)tileDelegateArray;
 -(Tile *) objectAtX: (int) posX Y: (int) posY;
 -(BOOL) check;
 -(BOOL)removeAndRepair;

@@ -87,8 +87,10 @@
 	</dict>
 	<key>hero_mage</key>
 	<dict>
+		<key>tileSpriteName</key>
+		<string>block_1.png</string>
 		<key>damage</key>
-		<real>3</real>
+		<integer>3</integer>
 		<key>attackCD</key>
 		<integer>2</integer>
 		<key>moveSpeed</key>
@@ -96,11 +98,63 @@
 		<key>maxHP</key>
 		<integer>50</integer>
 		<key>skill_0</key>
-		<string>iceBall</string>
+		<string>skill_iceBall</string>
 		<key>skill_1</key>
-		<string>bigFireBall</string>
+		<string>skill_bigFireBall</string>
 	</dict>
-	<key>warrior</key>
-	<string></string>
+	<key>hero_warrior</key>
+	<dict>
+		<key>tileSpriteName</key>
+		<string>block_2.png</string>
+		<key>damage</key>
+		<integer>3</integer>
+		<key>attackCD</key>
+		<integer>2</integer>
+		<key>moveSpeed</key>
+		<integer>14</integer>
+		<key>maxHP</key>
+		<integer>50</integer>
+		<key>skill_0</key>
+		<string>skill_iceBall</string>
+		<key>skill_1</key>
+		<string>skill_bigFireBall</string>
+	</dict>
+	<key>hero_hunter</key>
+	<dict>
+		<key>tileSpriteName</key>
+		<string>block_3.png</string>
+		<key>damage</key>
+		<integer>3</integer>
+		<key>attackCD</key>
+		<integer>2</integer>
+		<key>moveSpeed</key>
+		<integer>14</integer>
+		<key>maxHP</key>
+		<integer>50</integer>
+		<key>skill_0</key>
+		<string>skill_iceBall</string>
+		<key>skill_1</key>
+		<string>skill_bigFireBall</string>
+	</dict>
+	<key>item_hp</key>
+	<dict>
+		<key>tileSpriteName</key>
+		<string>block_7.png</string>
+	</dict>
+	<key>item_money</key>
+	<dict>
+		<key>tileSpriteName</key>
+		<string>block_4.png</string>
+	</dict>
+	<key>skill_iceBall</key>
+	<dict>
+		<key>tileSpriteName</key>
+		<string>block_101.png</string>
+	</dict>
+	<key>skill_bigFireBall</key>
+	<dict>
+		<key>tileSpriteName</key>
+		<string>block_102.png</string>
+	</dict>
 </dict>
 </plist>

@@ -8,6 +8,7 @@
 
 #import "Hero.h"
 #import "Projectile.h"
+#import "SkillDelegate.h"
 @interface Hero()
 @property (strong,nonatomic) CCSprite* lifeBar;
 @property (strong,nonatomic) CCSprite* lifeBarBorder;
@@ -19,7 +20,16 @@
 
 @implementation Hero
 
-
+-(NSDictionary *)removeByMount:(int)mount{
+    NSDictionary* result=[[NSMutableDictionary alloc] init];
+    NSString* skill_big=[self.attributeDict valueForKey:@"skill_1"];
+    SkillDelegate* skillDelegate=[[SkillDelegate alloc]initWithName:skill_big];
+    skillDelegate.parent=self;
+    [result setValue:skillDelegate forKey:@"newDelegate"];
+    
+    
+    return result;
+}
 
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray  withName:(NSString*)name{
     self = [super initWithAllObjectArray:allObjectsArray];
@@ -45,6 +55,7 @@
     
     //self.animationMovePlist=[self.attributeDict valueForKey:@"animationMovePlist"];
 //    self.damage=[[self.attributeDict valueForKey:@"damage"] floatValue];
+    self.tileSpriteName=[self.attributeDict valueForKey:@"tileSpriteName"];
     self.attackCD=[[self.attributeDict valueForKey:@"attackCD"] floatValue];
     self.moveSpeed=[[self.attributeDict valueForKey:@"moveSpeed"] floatValue];
     self.maxHP=[[self.attributeDict valueForKey:@"maxHP"] floatValue];
@@ -204,7 +215,7 @@
 }
 -(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
     NSString* name=magicName;
-    if([name isEqualToString:@"bigFireBall"]){
+    if([name isEqualToString:@"skill_bigFireBall"]){
         Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(100,460) byName:name];
         [self addChild:projectile];
         [projectile attackPosition:ccp(zEnemyMarginLeft+zPersonWidth/2,self.sprite.position.y+zPersonHeight/2)];
@@ -215,7 +226,7 @@
     }
     
     
-    if([name isEqualToString:@"fireBall"]){
+    if([name isEqualToString:@"skill_fireBall"]){
         Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth,self.sprite.position.y+zPersonHeight/2) byName:name];
         [self addChild:projectile];
         [projectile attackNearest];
@@ -225,7 +236,7 @@
         
     }
     
-    if([name isEqualToString:@"iceBall"]){
+    if([name isEqualToString:@"skill_iceBall"]){
         Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth+5,self.sprite.position.y+zPersonHeight/2-10) byName:name];
         [self addChild:projectile];
         [projectile attackPosition:ccp(zEnemyMarginLeft,self.sprite.position.y+zPersonHeight/2-10)];
@@ -234,7 +245,7 @@
         
     }
     
-    if([name isEqualToString:@"snowBall"]){
+    if([name isEqualToString:@"skill_snowBall"]){
         float randomX=50+arc4random()%220;
         
         Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(randomX,460) byName:name];

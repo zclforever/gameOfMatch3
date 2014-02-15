@@ -40,7 +40,7 @@
 
         
        
-        if ([name isEqualToString:@"snowBall"]) {
+        if ([name isEqualToString:@"skill_snowBall"]) {
             CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"snowBall.plist"];
             CCParticleSystem* fire=particle_system;
             self.speedX=0.0f;
@@ -61,7 +61,7 @@
 
         
         
-        if ([name isEqualToString:@"fireBall"]) {
+        if ([name isEqualToString:@"skill_fireBall"]) {
             
             
             CCParticleFire *fire = [[CCParticleFire alloc]init];
@@ -79,7 +79,7 @@
             self.hitSound=@"heavyHit.wav";
              
         }
-        if ([name isEqualToString:@"iceBall"]) {
+        if ([name isEqualToString:@"skill_iceBall"]) {
             CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"iceBall.plist"];
             CCParticleSystem* fire=particle_system;
             self.particle=fire;
@@ -93,7 +93,7 @@
             self.hitSound=@"softHit.wav";
         }
         
-        if ([name isEqualToString:@"bigFireBall"]) {
+        if ([name isEqualToString:@"skill_bigFireBall"]) {
             CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"bigFireBall.plist"];
             CCParticleSystem* fire=particle_system;
             self.moveSpeed=100.0f;

@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/Box.m"
-         timestampString = "407932507.990352"
+         timestampString = "414129418.755291"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "181"
-         endingLineNumber = "181"
+         startingLineNumber = "187"
+         endingLineNumber = "187"
          landmarkName = "-checkWith:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/Box.m"
-         timestampString = "408702578.74237"
+         timestampString = "414129418.755291"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "212"
-         endingLineNumber = "212"
+         startingLineNumber = "218"
+         endingLineNumber = "218"
          landmarkName = "-checkWith:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -268,11 +268,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/Box.m"
-         timestampString = "407932507.990352"
+         timestampString = "414129418.755291"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "172"
-         endingLineNumber = "172"
+         startingLineNumber = "178"
+         endingLineNumber = "178"
          landmarkName = "-checkWith:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -281,11 +281,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/Box.m"
-         timestampString = "407932507.990352"
+         timestampString = "414129418.755291"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "171"
-         endingLineNumber = "171"
+         startingLineNumber = "177"
+         endingLineNumber = "177"
          landmarkName = "-checkWith:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -294,12 +294,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/Box.m"
-         timestampString = "413623046.473747"
+         timestampString = "414129418.755291"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "539"
-         endingLineNumber = "539"
-         landmarkName = "-repairSingleColumn:"
+         startingLineNumber = "540"
+         endingLineNumber = "540"
+         landmarkName = "-hasMatchAtColumn:withSwap:B:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -307,12 +307,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/Box.m"
-         timestampString = "412070047.337503"
+         timestampString = "414129418.755291"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "331"
-         endingLineNumber = "331"
-         landmarkName = "-removeAndRepair"
+         startingLineNumber = "338"
+         endingLineNumber = "338"
+         landmarkName = "-check"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -333,12 +333,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/Box.m"
-         timestampString = "407932507.990352"
+         timestampString = "414128936.451461"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "92"
-         endingLineNumber = "92"
-         landmarkName = "-swapWithTile:B:"
+         startingLineNumber = "95"
+         endingLineNumber = "95"
+         landmarkName = "-onExit"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -346,12 +346,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/Tile.m"
-         timestampString = "408456358.269181"
+         timestampString = "414128936.451461"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "64"
-         endingLineNumber = "64"
-         landmarkName = "-setTimeOutOfUpdateWithDelay:"
+         startingLineNumber = "69"
+         endingLineNumber = "69"
+         landmarkName = "-initWithX:Y:delegate:hide:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -372,12 +372,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/Box.m"
-         timestampString = "407932507.990352"
+         timestampString = "414128936.451461"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "77"
-         endingLineNumber = "77"
-         landmarkName = "-onExit"
+         startingLineNumber = "80"
+         endingLineNumber = "80"
+         landmarkName = "-initWithSize:delegateArray:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -385,12 +385,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/Tile.m"
-         timestampString = "408456358.269181"
+         timestampString = "414128936.451461"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "49"
-         endingLineNumber = "49"
-         landmarkName = "-onExit"
+         startingLineNumber = "50"
+         endingLineNumber = "50"
+         landmarkName = "-initWithX:Y:delegate:hide:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -437,11 +437,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/PlayLayer.m"
-         timestampString = "413631202.986702"
+         timestampString = "414129529.38861"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1461"
-         endingLineNumber = "1461"
+         startingLineNumber = "1244"
+         endingLineNumber = "1244"
          landmarkName = "-ccTouchesEnded:withEvent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -450,11 +450,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/PlayLayer.m"
-         timestampString = "413631202.986702"
+         timestampString = "414129529.38861"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1444"
-         endingLineNumber = "1444"
+         startingLineNumber = "1227"
+         endingLineNumber = "1227"
          landmarkName = "-ccTouchesEnded:withEvent:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -463,11 +463,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/PlayLayer.m"
-         timestampString = "413631202.986702"
+         timestampString = "414129529.38861"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1584"
-         endingLineNumber = "1584"
+         startingLineNumber = "1367"
+         endingLineNumber = "1367"
          landmarkName = "-touchedOnPointX:Y:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -489,25 +489,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/Box.m"
-         timestampString = "408702578.74237"
+         timestampString = "414129418.755291"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "194"
-         endingLineNumber = "194"
+         startingLineNumber = "200"
+         endingLineNumber = "200"
          landmarkName = "-checkWith:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "gameOfMatch3/PlayLayer.m"
-         timestampString = "413631202.986702"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1036"
-         endingLineNumber = "1036"
-         landmarkName = "-onEnterTransitionDidFinish"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -818,12 +805,181 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/PlayLayer.m"
-         timestampString = "413631202.986702"
+         timestampString = "414129529.38861"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1049"
-         endingLineNumber = "1049"
+         startingLineNumber = "586"
+         endingLineNumber = "586"
          landmarkName = "-onEnterTransitionDidFinish"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "gameOfMatch3/PlayLayer.m"
+         timestampString = "414129529.38861"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "695"
+         endingLineNumber = "695"
+         landmarkName = "-onEnterTransitionDidFinish"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "gameOfMatch3/PlayLayer.m"
+         timestampString = "414129529.38861"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "699"
+         endingLineNumber = "699"
+         landmarkName = "-onEnterTransitionDidFinish"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "gameOfMatch3/PlayLayer.m"
+         timestampString = "414129529.38861"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "740"
+         endingLineNumber = "740"
+         landmarkName = "-onEnterTransitionDidFinish"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "gameOfMatch3/Box.m"
+         timestampString = "414123977.999824"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "34"
+         endingLineNumber = "34"
+         landmarkName = "-initWithSize:delegateArray:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "gameOfMatch3/Box.m"
+         timestampString = "414124012.687481"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "51"
+         endingLineNumber = "51"
+         landmarkName = "-initWithSize:delegateArray:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "gameOfMatch3/Box.m"
+         timestampString = "414124201.23246"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "57"
+         endingLineNumber = "57"
+         landmarkName = "-initWithSize:delegateArray:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "gameOfMatch3/Tile.m"
+         timestampString = "414128936.451461"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "28"
+         endingLineNumber = "28"
+         landmarkName = "-initWithX:Y:delegate:hide:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "gameOfMatch3/Tile.m"
+         timestampString = "414128936.451461"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "37"
+         endingLineNumber = "37"
+         landmarkName = "-initWithX:Y:delegate:hide:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "gameOfMatch3/Item.m"
+         timestampString = "414124627.46527"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "28"
+         endingLineNumber = "28"
+         landmarkName = "-initFromPlist"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "gameOfMatch3/PlayLayer.m"
+         timestampString = "414129529.38861"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "771"
+         endingLineNumber = "771"
+         landmarkName = "-onEnterTransitionDidFinish"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "gameOfMatch3/PlayLayer.m"
+         timestampString = "414129529.38861"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "796"
+         endingLineNumber = "796"
+         landmarkName = "-onEnterTransitionDidFinish"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "gameOfMatch3/PlayLayer.m"
+         timestampString = "414129748.664503"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1292"
+         endingLineNumber = "1292"
+         landmarkName = "-touchedSingleTileOnPointX:Y:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "gameOfMatch3/PlayLayer.m"
+         timestampString = "414129765.204483"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1215"
+         endingLineNumber = "1215"
+         landmarkName = "-ccTouchesEnded:withEvent:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

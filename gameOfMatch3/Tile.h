@@ -43,13 +43,15 @@
 @property int skillBall;  // 看是消掉的等同于几个球。。过渡  已作废 （起初是以消掉个数来计量球的大波，后来以技能球的数量来决定技能大小
 
 
--(id) initWithX: (int) posX Y: (int) posY delegate:(id<tileDelegate>)tileDelegate;
+-(id) initWithX: (int) posX Y: (int) posY delegate:(id<tileDelegate>)tileDelegate hide:(bool)hide;
 
 -(void)lock;
 -(void)unlock;
 -(Tile*)copyTile;
 -(void)scaleToNone;
 -(void)scaleToTileSize;
+-(void)spriteToTilePosition;
+-(void)show;
 -(BOOL) nearTile: (Tile *)othertile;
 -(void) trade:(Tile *)otherTile;
 -(CGPoint) pixPosition;

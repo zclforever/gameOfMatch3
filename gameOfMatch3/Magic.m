@@ -13,8 +13,8 @@
 +(NSMutableArray*)allMagicNameList{  //决定优先权
     return [
             [NSMutableArray alloc]initWithObjects:
-            @"bigFireBall",@"snowBall",@"firedClear",@"hammer",
-            @"iceBall",@"fireBall",@"bloodAbsorb",@"poison",
+            @"skill_bigFireBall",@"skill_snowBall",@"skill_firedClear",@"skill_hammer",
+            @"skill_iceBall",@"skill_fireBall",@"skill_bloodAbsorb",@"skill_poison",
             
             
             nil];
@@ -145,62 +145,62 @@
 +(NSDictionary*)magicDict{
     NSDictionary* magicDict=[NSDictionary dictionaryWithObjectsAndKeys:
                              [NSDictionary dictionaryWithObjectsAndKeys:
-                              @"bigFireBall",@"name",
+                              @"skill_bigFireBall",@"name",
                               @"流星火",@"showName",
                               @50.0,@"damage",
                               [NSArray arrayWithObjects:@0,@3,@0, nil],@"requirePoint",
                               [NSArray arrayWithObjects:@0,@1,@0,@0, nil],@"cost",
-                              nil],@"bigFireBall",
+                              nil],@"skill_bigFireBall",
 
                              
                              [NSDictionary dictionaryWithObjectsAndKeys:
-                              @"fireBall",@"name",
+                              @"skill_fireBall",@"name",
                               @"火球",@"showName",
                               @3.0,@"damage",
                               [NSArray arrayWithObjects:@0,@1,@0, nil],@"requirePoint",
                               [NSArray arrayWithObjects:@0,@4,@0,@0, nil],@"cost",
-                              nil],@"fireBall",
+                              nil],@"skill_fireBall",
                              
                              [NSDictionary dictionaryWithObjectsAndKeys:
-                              @"iceBall",@"name",
+                              @"skill_iceBall",@"name",
                               @"冰弹",@"showName",
                               @1.0,@"damage",
                               [NSArray arrayWithObjects:@1,@0,@0, nil],@"requirePoint",
                               [NSArray arrayWithObjects:@4,@0,@0,@0, nil],@"cost",
-                              nil],@"iceBall",
+                              nil],@"skill_iceBall",
                              
                              [NSDictionary dictionaryWithObjectsAndKeys:
-                              @"bloodAbsorb",@"name",
+                              @"skill_bloodAbsorb",@"name",
                               @"南瓜吸吸",@"showName",
                               @1.0,@"damage",
                               [NSArray arrayWithObjects:@0,@0,@1, nil],@"requirePoint",
                               [NSArray arrayWithObjects:@0,@0,@1,@0, nil],@"cost",
-                              nil],@"bloodAbsorb",
+                              nil],@"skill_bloodAbsorb",
                              
                              [NSDictionary dictionaryWithObjectsAndKeys:
-                              @"hammer",@"name",
+                              @"skill_hammer",@"name",
                               @"光明之锤",@"showName",
                               @0.0,@"damage",
                               [NSArray arrayWithObjects:@0,@0,@3, nil],@"requirePoint",
                               [NSArray arrayWithObjects:@0,@1,@2,@0, nil],@"cost",
-                              nil],@"hammer",
+                              nil],@"skill_hammer",
                              
                              [NSDictionary dictionaryWithObjectsAndKeys:
-                              @"poison",@"name",
+                              @"skill_poison",@"name",
                               @"巫毒",@"showName",
                               @1.0,@"damage",
                               [NSArray arrayWithObjects:@0,@0,@0, nil],@"requirePoint",
                               [NSArray arrayWithObjects:@0,@0,@0,@1, nil],@"cost",
-                              nil],@"poison",
+                              nil],@"skill_poison",
                              
                              
                              [NSDictionary dictionaryWithObjectsAndKeys:
-                              @"snowBall",@"name",
+                              @"skill_snowBall",@"name",
                               @"雪崩",@"showName",
                               @2.0,@"damage",
                               [NSArray arrayWithObjects:@0,@0,@0, nil],@"requirePoint",
                               [NSArray arrayWithObjects:@1,@0,@0,@1, nil],@"cost",
-                              nil],@"snowBall",
+                              nil],@"skill_snowBall",
                              
                              nil];
     return magicDict;

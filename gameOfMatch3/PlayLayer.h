@@ -33,9 +33,9 @@
 
 //@property (strong,nonatomic) StatePanelLayerInBattle* statePanelLayerPlayer;
 //@property (strong,nonatomic) StatePanelLayerInBattle* statePanelLayerEnemy;
-@property (strong,nonatomic) Player* player;
+@property (strong,nonatomic) Person* player;
 @property (strong,nonatomic) BossEnemy* enemy;
-@property (strong,nonatomic) NSMutableArray* heroArray;
+@property (strong,nonatomic) NSMutableArray* tileDelegateArray;
 @property int gameLevel; //第几关
 
 

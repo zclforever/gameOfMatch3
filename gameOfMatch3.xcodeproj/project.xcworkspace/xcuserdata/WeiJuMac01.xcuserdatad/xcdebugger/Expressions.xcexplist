@@ -3,16 +3,33 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[SmallEnemy moveAnimation]:SmallEnemy.m">
+         contextName = "-[Projectile accelerometer:didAccelerate:]:Projectile.m">
       </ContextState>
       <ContextState
-         contextName = "-[Projectile accelerometer:didAccelerate:]:Projectile.m">
+         contextName = "-[SmallEnemy moveAnimation]:SmallEnemy.m">
       </ContextState>
       <ContextState
          contextName = "-[AiObject initWithAllObjectArray:]:AiObject.m">
          <PersistentStrings>
             <PersistentString
                value = "allObjectsArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Item initFromPlist]:Item.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.objectName">
+            </PersistentString>
+            <PersistentString
+               value = "[Global sharedManager]">
+            </PersistentString>
+            <PersistentString
+               value = "self.attributeDict">
+            </PersistentString>
+            <PersistentString
+               value = "self.tileSpriteName">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -58,13 +75,13 @@
          contextName = "-[Projectile update]:Projectile.m">
          <PersistentStrings>
             <PersistentString
+               value = "self.particle.position">
+            </PersistentString>
+            <PersistentString
                value = "self.collisionObjectArray">
             </PersistentString>
             <PersistentString
                value = "self.allObjectsArray">
-            </PersistentString>
-            <PersistentString
-               value = "self.particle.position">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -91,10 +108,10 @@
                value = "self.lifeBar">
             </PersistentString>
             <PersistentString
-               value = "self.lifeBar.scaleX">
+               value = "self.lifeBar.scaleY">
             </PersistentString>
             <PersistentString
-               value = "self.lifeBar.scaleY">
+               value = "self.lifeBar.scaleX">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -148,6 +165,14 @@
             </PersistentString>
             <PersistentString
                value = "self.particle.boundingBox">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Tile initWithX:Y:delegate:]:Tile.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "tileDelegate.tileSpriteName">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

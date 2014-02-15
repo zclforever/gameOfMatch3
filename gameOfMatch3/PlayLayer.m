@@ -13,6 +13,7 @@
 #import "Global.h"
 #import "SmallEnemy.h"
 #import "Hero.h"
+#import "ItemDelegate.h"
 @implementation MyPoint
 -(id)initWithX:(int)x Y:(int)y{
     self=[super init];
@@ -206,7 +207,7 @@
 
         [smallEnemy appearAtX:zEnemyMarginLeft Y:480-zPlayerMarginTop];
 
-        [smallEnemy attackTargets:self.heroArray];
+        [smallEnemy attackTargets:self.tileDelegateArray];
         
         //smallEnemy.maxHP=self.enemy.smallEnemyHp;
         //smallEnemy.curHP=smallEnemy.maxHP;
@@ -307,68 +308,13 @@
             count--;
         }
         
-        //统计技能球个数
-        float comboShootInterval=0.3f;
-        
-        NSMutableArray* magicCountArray=[[NSMutableArray alloc]initWithObjects:@0,@0,@0,@0, nil];
-        for(int i=0;i<count;i++){
-            Tile* tile=self.magicSelectedArray[0];
-            [self.magicSelectedArray removeObjectAtIndex:0];
-            int magicId=tile.value;
-            magicCountArray[magicId-101]=[NSNumber numberWithInt:[magicCountArray[magicId-101] intValue]+1];
+       
+        for (Tile* tile in self.magicSelectedArray) {
+            [tile.tileDelegate removeByMount:1];
             [box.readyToRemoveTiles addObject:tile];
-            
         }
+        [self.magicSelectedArray removeAllObjects];
         
-        //NSString* name=[Magic getNameByCountArray:magicCountArray];
-        NSString* name=[Magic getNameByCountArray:magicCountArray withMagicNameList:[Magic getNameListByPointDict:self.player.pointDict]];
-        int j=0;
-        while (name) {
-            Magic* magic=[[Magic alloc]initWithName:name];
-            [self setTimeOut:comboShootInterval*(j+1) withBlock:^{
-                [obj magicShootByName:name];
-            }];
-
-            for(int i=0;i<3;i++){
-                magicCountArray[i]=[NSNumber numberWithInt:[magicCountArray[i] intValue]-[magic.manaCostArray[i] intValue] ];
-            }
-            name=[Magic getNameByCountArray:magicCountArray withMagicNameList:[Magic getNameListByPointDict:self.player.pointDict]];
-            j++;
-        }
-        
-        
-        for(int i=0;i<3;i++){
-            continue;
-            
-            int point=[[self.player.pointDict valueForKey:[NSString stringWithFormat:@"skill%d",i+1]]intValue];
-            
-            
-            int magicId=101+i;
-            int mount=[magicCountArray[i] intValue];
-            
-            
-            Magic* magic=[[Magic alloc]initWithID:magicId];
-            
-            int shootTimes=0;
-            if(mount==0) continue;
-            if(mount==1) shootTimes=1;
-            if(mount==2) shootTimes=2;
-            if(mount==3) shootTimes=3;
-            
-            if (point>=2){
-                if(mount==1) shootTimes=2;
-                if(mount==2) shootTimes=3;
-                if(mount==3) shootTimes=4;
-            }
-            
-            for(int j=0;j<shootTimes;j++){
-                [self setTimeOut:comboShootInterval*(j+1) withBlock:^{
-                    [obj magicShootByName:magic.name];
-                }];
-            }
-            
-            
-        }
         
         self.lastSelectTimeOfMagic=0;
     }
@@ -402,7 +348,7 @@
             
 
             if(mount>=3&&(1<=value&&value<=3)){
-                Hero* hero=self.heroArray[value-1];
+                Hero* hero=self.tileDelegateArray[value-1];
                 hero.curEnergy+=mount;
             }
             
@@ -533,174 +479,6 @@
     return;
 }
 
--(void)magicShootByName:(NSString*)name{  //.shootbyname.shoot.
-    
-    float iceStateCD=15.0;
-    float iceEffect=0.8;  //影响90%
-    float poisonStateCD=20.0;
-    float poisonEffect=1+0.005; //减1%的血
-    __block PlayLayer* obj=self;
-    
-    
-    if([name isEqualToString:@"1bigFireBall"]){
-        if (self.enemy.curHP<=50) {
-            //[self endingZoom];
-        }
-        [[SimpleAudioEngine sharedEngine]playEffect:@"explosion.wav"];
-        
-        [self.actionHandler addActionWithBlock:^{
-            [Actions bigFireBallToSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
-                [obj setTimeOut:0.2f withBlock:^{
-                    [[SimpleAudioEngine sharedEngine]playEffect:@"explosion02.mp3"];
-                }];
-                //[[SimpleAudioEngine sharedEngine]playEffect:@"explosion02.mp3"];
-                obj.enemy.curHP-=50;}];
-            
-        }];
-        return;
-    }
-    
-    [self.player magicAttackWithName:name];
-    return;
-    
-    if([name isEqualToString:@"fireBall"]){
-        [self.player magicAttackWithName:name];
-    }
-    return;
-    
-    
-
-    bool hasSmallEnemy=NO;
-    __block SmallEnemy* smallEnemy;
-    //---------------判断是攻击随从还是BOSS-----------------
-    for (int i=0; i<self.smallEnemyArray.count; i++) {
-        smallEnemy=self.smallEnemyArray[i];
-        if (!smallEnemy.readyToDie) {
-            hasSmallEnemy=YES;
-            break;
-        }
-    }
-
-    
-    
-   if([name isEqualToString:@"firedClear"]){
-        if(self.firedTag)[Actions fireSpriteEndByTag:self.firedTag];
-            [self.player.stateDict setValue:@0.0 forKey:@"fired"];
-            self.firedTag=nil;
-        }
-
-    
-    if([name isEqualToString:@"bigFireBall"]){
-        if (self.enemy.curHP<=50) {
-            [self endingZoom];
-        }
-        [self.actionHandler addActionWithBlock:^{
-            [Actions bigFireBallToSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
-                obj.enemy.curHP-=50;}];
-            
-        }];
-    }
-    
-    
-    
-    if([name isEqualToString:@"hammer"]){
-        
-        [self.actionHandler addActionWithBlock:^{
-            [Actions hammerToSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
-                obj.enemy.curStep=35;
-                
-            }];
-            
-        }];        }
-    
-    
-    if([name isEqualToString:@"fireBall"]){
-        
-        if (hasSmallEnemy) {
-            if(smallEnemy.curHP<=6)smallEnemy.readyToDie=YES;  //为了避免两个连续火球 打到同一个小兵
-                
-            [self.actionHandler addActionWithBlock:^{
-                [Actions fireBallToSpriteB:smallEnemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
-                    smallEnemy.curHP-=6;}];
-                
-            }];
-        }else{
-            if (self.enemy.curHP<=6) {
-                [self endingZoom];
-            }
-            
-            [self.actionHandler addActionWithBlock:^{
-                [Actions fireBallToSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
-                    obj.enemy.curHP-=6;}];
-                
-            }];
-        }
-        
-
-    }
-    
-    if([name isEqualToString:@"iceBall"]){
-        if (self.enemy.curHP<=1) {
-            [self endingZoom];
-        }
-        
-        [self.actionHandler addActionWithBlock:^{
-            [Actions iceBallToSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
-                obj.enemy.curHP-=1;
-                
-                float value=[[obj.enemy.stateDict valueForKey:@"slow"] floatValue]*iceEffect;
-                [obj.enemy.stateDict setObject:[NSNumber numberWithFloat:value] forKey:@"slow"];
-                
-                
-                __block PlayLayer* obj2=obj;
-                [obj setTimeOut:iceStateCD withBlock:^{
-                    
-                    float value=[[obj2.enemy.stateDict valueForKey:@"slow"] floatValue]/iceEffect;
-                    if (value>1)value=1;
-                    [obj2.enemy.stateDict setObject:[NSNumber numberWithFloat:value] forKey:@"slow"];
-                    
-                }];
-                
-            }];
-            
-        }];
-    }
-    
-    if([name isEqualToString:@"poison"]){
-        
-        [self.actionHandler addActionWithBlock:^{
-            [Actions poisonToSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
-                //obj.enemy.curHP-=5;
-                float value=[[obj.enemy.stateDict valueForKey:@"poison"] floatValue];
-                value*=poisonEffect;
-                [obj.enemy.stateDict setObject:[NSNumber numberWithFloat:value] forKey:@"poison"];
-                
-                
-                __block PlayLayer* obj2=obj;
-                [obj setTimeOut:poisonStateCD withBlock:^{
-                    
-                    float value=[[obj2.enemy.stateDict valueForKey:@"poison"] floatValue]/poisonEffect;
-                    if (value<1)value=1;
-                    [obj2.enemy.stateDict setObject:[NSNumber numberWithFloat:value] forKey:@"poison"];
-                    
-                }];
-                
-            }];
-            
-        }];
-    }
-    
-    if([name isEqualToString:@"bloodAbsorb"]){
-        
-        [self.actionHandler addActionWithBlock:^{
-            [Actions bloodAbsorbSpriteB:obj.enemy.sprite fromSpriteA:obj.player.sprite withFinishedBlock:^{
-                obj.enemy.curHP-=1;
-                obj.player.curHP+=4;
-            }];
-            
-        }];
-    }
-}
 -(void)updateStatePanel{  //.state.updatestate.
     if (self.player.curHP>self.player.maxHP) {
         self.player.curHP=self.player.maxHP;
@@ -734,6 +512,9 @@
 }
 
 -(void) onEnterTransitionDidFinish{
+    
+    
+    
     [self runAction:[[CCFadeOutTRTiles actionWithDuration:1 size:CGSizeMake(16, 16)] reverse]];
     CCLayerColor* layer=[[CCLayerColor alloc]initWithColor:ccc4(0, 0, 0, 200)];
     [self addChild:layer z:100];
@@ -796,13 +577,7 @@
     
     
     
-    //init Box
-	box = [[Box alloc] initWithSize:CGSizeMake(kBoxWidth,kBoxHeight) factor:6];
-	//box.layer = self;
-	box.lock = YES;
-    [self addChild:box z:-21];
-    
-    ai=[[AI alloc]initWithBox:box];
+   
     self.player=nil;
     self.enemy=nil;
     
@@ -923,36 +698,55 @@
     if (!self.player) {
         [[Person sharedPlayer] setStateDict:[[NSMutableDictionary alloc ]initWithObjectsAndKeys:@0.0,@"fired",@0.0,@"poisoned", nil]];//清空状态
         
-        self.player=[[Player alloc]initWithAllObjectArray:self.allObjectsArray];
+        self.player=[Person copyWith:[Person sharedPlayer]];
+
         
-        self.heroArray=[[NSMutableArray alloc]init];
+        
+        self.tileDelegateArray=[[NSMutableArray alloc]init];
         
         Hero* hero;
+        float space=0;
+        
         
         hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_mage"];
-        [self.heroArray addObject:hero];
-         [self addChild:hero z:-1];
+        [self.tileDelegateArray addObject:hero];
+        [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];
+        space+=20.0f;
+        [self addChild:hero z:-1];        
         
-        hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_mage"];
-        [self.heroArray addObject:hero];
+        hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_warrior"];
+        [self.tileDelegateArray addObject:hero];
+        [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];
+        space+=20.0f;
         [self addChild:hero z:-1];
         
-        hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_mage"];
-        [self.heroArray addObject:hero];
+        hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_hunter"];
+        [self.tileDelegateArray addObject:hero];
+        [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];
+        space+=20.0f;
         [self addChild:hero z:-1];
         
+        ItemDelegate* item;
         
-        [self addChild:self.player z:-1];
+        item=[[ItemDelegate alloc] initWithName:@"item_money"];
+        [self.tileDelegateArray addObject:item];
+        [self addChild:item z:-1];
+        
+        item=[[ItemDelegate alloc] initWithName:@"item_hp"];
+        [self.tileDelegateArray addObject:item];
+        [self addChild:item z:-1];
+        
+        //init Box
+        box = [[Box alloc] initWithSize:CGSizeMake(kBoxWidth,kBoxHeight) delegateArray:self.tileDelegateArray];
+        box.lock = YES;
+        [self addChild:box z:-21];
+        
     }
     if (!self.enemy) {
         self.enemy=[[BossEnemy alloc]initWithAllObjectArray:self.allObjectsArray withLevel:self.level];
         [self addChild:self.enemy z:-1];
     }
     
-    Player* player=self.player;
-    int point1=[[player.pointDict valueForKey:@"skill1"] intValue];
-    int point2=[[player.pointDict valueForKey:@"skill2"] intValue];
-    int point3=[[player.pointDict valueForKey:@"skill3"] intValue];
     
     
     [self updateStatePanel];
@@ -983,17 +777,10 @@
     
     
     
-    [self.player addPersonSpriteAtPosition:ccp(zPlayerMarginLeft,winSize.height-zPlayerMarginTop)];
-    //box.lockedPlayer=self.player.sprite;
-    
-    float space=0;
-    for (Hero* hero in self.heroArray) {
+   
+
         
-        
-        [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];
-        space+=20.0f;
-        
-    }
+
 
 
     
@@ -1011,20 +798,16 @@
 
     
     if(self.level==1){
-        if (point1+point2+point3<=0) {
-            [self addTipWithString:@"试试消除剑来干她^_^"];
-        }else{
+
             [self addTipWithString:@"本关推荐技能球:火，冰"];
-        }
+
         
     }
     
     if(self.level==2){
-        if (point1+point2+point3<=0) {
-            [self addTipWithString:@"打不过？试试加点"];
-        }else{
+
             [self addTipWithString:@"怪很矮，单冰打不到的哟。本关推荐技能球:火，冰冰冰"];
-        }
+
         
     }
     if(self.level==3)[self addTipWithString:@"怪很硬，试试秒BOSS。本关推荐技能球:火火火"];
@@ -1295,7 +1078,7 @@
 
     }
     else {
-        for (Hero* hero in self.heroArray) {
+        for (Hero* hero in self.tileDelegateArray) {
             if(hero.curHP>0) return;
         }
         

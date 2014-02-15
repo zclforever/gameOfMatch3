@@ -224,6 +224,8 @@
 		02D87783188FA5B5007F05CA /* bar_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D87781188FA5B5007F05CA /* bar_yellow.png */; };
 		02D87784188FA5B5007F05CA /* border_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D87782188FA5B5007F05CA /* border_yellow.png */; };
 		02D87786188FACC8007F05CA /* border_yellow_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D87785188FACC7007F05CA /* border_yellow_gray.png */; };
+		02E0BB7518AEFC2600EF2408 /* ItemDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E0BB7418AEFC2600EF2408 /* ItemDelegate.m */; };
+		02E0BB7818AF134500EF2408 /* SkillDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E0BB7718AF134500EF2408 /* SkillDelegate.m */; };
 		02F05A8D1831EED900676308 /* singleHammer.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F05A8C1831EED900676308 /* singleHammer.plist */; };
 		02F05A8F1831FDB700676308 /* hammer_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F05A8E1831FDB700676308 /* hammer_yellow.png */; };
 		02F2AA78185FFA4700C4FD14 /* AiObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2AA77185FFA4700C4FD14 /* AiObject.m */; };
@@ -668,6 +670,10 @@
 		02D87781188FA5B5007F05CA /* bar_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bar_yellow.png; sourceTree = "<group>"; };
 		02D87782188FA5B5007F05CA /* border_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_yellow.png; sourceTree = "<group>"; };
 		02D87785188FACC7007F05CA /* border_yellow_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_yellow_gray.png; sourceTree = "<group>"; };
+		02E0BB7318AEFC2600EF2408 /* ItemDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemDelegate.h; sourceTree = "<group>"; };
+		02E0BB7418AEFC2600EF2408 /* ItemDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemDelegate.m; sourceTree = "<group>"; };
+		02E0BB7618AF134500EF2408 /* SkillDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkillDelegate.h; sourceTree = "<group>"; };
+		02E0BB7718AF134500EF2408 /* SkillDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkillDelegate.m; sourceTree = "<group>"; };
 		02F05A8C1831EED900676308 /* singleHammer.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = singleHammer.plist; sourceTree = "<group>"; };
 		02F05A8E1831FDB700676308 /* hammer_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer_yellow.png; sourceTree = "<group>"; };
 		02F2AA76185FFA4700C4FD14 /* AiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiObject.h; sourceTree = "<group>"; };
@@ -959,6 +965,10 @@
 				02A58038186033680042C083 /* Player.m */,
 				022AB7F818A767B400F570BF /* Hero.h */,
 				022AB7F918A767B500F570BF /* Hero.m */,
+				02E0BB7318AEFC2600EF2408 /* ItemDelegate.h */,
+				02E0BB7418AEFC2600EF2408 /* ItemDelegate.m */,
+				02E0BB7618AF134500EF2408 /* SkillDelegate.h */,
+				02E0BB7718AF134500EF2408 /* SkillDelegate.m */,
 				02A5803D186070A30042C083 /* BossEnemy.h */,
 				02A5803E186070A40042C083 /* BossEnemy.m */,
 				020AB227185BEADD0000BB3E /* SmallEnemy.h */,
@@ -1760,6 +1770,8 @@
 				02A5803C1860577B0042C083 /* Projectile.m in Sources */,
 				02A5803F186070A40042C083 /* BossEnemy.m in Sources */,
 				022AB7FA18A767B500F570BF /* Hero.m in Sources */,
+				02E0BB7518AEFC2600EF2408 /* ItemDelegate.m in Sources */,
+				02E0BB7818AF134500EF2408 /* SkillDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
