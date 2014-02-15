@@ -17,20 +17,20 @@
 #define zPlayerMarginTop 150.0f
 #define zEnemyMarginLeft 240.0f
 
-#define zPersonWidth 60.0f
-#define zPersonHeight 60.0f
+#define zPersonWidth 40.0f
+#define zPersonHeight 40.0f
 #define zStatePanel_MagicBorderMarginBottom 320.0f
 #define zStatePanel_MagicBorderHeight 60.0f
 
 #define zScoreLabelLeft 220.0f
 #define zScoreLabelBottom 1450.0f
 #define zStatePanelWidth 180.0f
-#define zStatePanel_LifeBarWidth 60.0f
-#define zStatePanel_LifeBarHeight 8.0f
+#define zStatePanel_LifeBarWidth 30.0f
+#define zStatePanel_LifeBarHeight 5.0f
 #define zStatePanel_LifeBarMarginLeft 5.0f
 #define zStatePanel_LifeBarMarginTop 10.0f
-#define zStatePanel_EnegryBarWidth 300.0f
-#define zStatePanel_EnegryBarHeight 20.0f
+#define zStatePanel_EnegryBarWidth 30.0f
+#define zStatePanel_EnegryBarHeight 5.0f
 #define zStatePanel_EnegryBarMarginLeft 9.0f
 #define zStatePanel_EnegryBarMarginTop 177.0f
 

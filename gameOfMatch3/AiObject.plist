@@ -95,12 +95,14 @@
 		<integer>2</integer>
 		<key>moveSpeed</key>
 		<integer>14</integer>
+		<key>maxEnergy</key>
+		<integer>40</integer>
 		<key>maxHP</key>
 		<integer>50</integer>
 		<key>skill_0</key>
 		<string>skill_iceBall</string>
 		<key>skill_1</key>
-		<string>skill_bigFireBall</string>
+		<string>skill_fireBall</string>
 	</dict>
 	<key>hero_warrior</key>
 	<dict>
@@ -114,10 +116,12 @@
 		<integer>14</integer>
 		<key>maxHP</key>
 		<integer>50</integer>
+		<key>maxEnergy</key>
+		<integer>10</integer>
 		<key>skill_0</key>
 		<string>skill_iceBall</string>
 		<key>skill_1</key>
-		<string>skill_bigFireBall</string>
+		<string>skill_iceBall</string>
 	</dict>
 	<key>hero_hunter</key>
 	<dict>
@@ -131,6 +135,8 @@
 		<integer>14</integer>
 		<key>maxHP</key>
 		<integer>50</integer>
+		<key>maxEnergy</key>
+		<integer>20</integer>
 		<key>skill_0</key>
 		<string>skill_iceBall</string>
 		<key>skill_1</key>
@@ -152,6 +158,11 @@
 		<string>block_101.png</string>
 	</dict>
 	<key>skill_bigFireBall</key>
+	<dict>
+		<key>tileSpriteName</key>
+		<string>block_105.png</string>
+	</dict>
+	<key>skill_fireBall</key>
 	<dict>
 		<key>tileSpriteName</key>
 		<string>block_102.png</string>

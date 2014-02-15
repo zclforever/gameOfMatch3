@@ -21,10 +21,16 @@
 @implementation Hero
 
 -(NSDictionary *)removeByMount:(int)mount{
+    if (mount>=3) {
+        self.curEnergy+=mount;
+    }
+    
     NSDictionary* result=[[NSMutableDictionary alloc] init];
     NSString* skill_big=[self.attributeDict valueForKey:@"skill_1"];
-    SkillDelegate* skillDelegate=[[SkillDelegate alloc]initWithName:skill_big];
-    skillDelegate.parent=self;
+    SkillDelegate* skillDelegate=nil;
+    if(mount>3){
+    skillDelegate=[[SkillDelegate alloc]initWithName:skill_big];
+        skillDelegate.parent=self;}
     [result setValue:skillDelegate forKey:@"newDelegate"];
     
     
@@ -36,13 +42,10 @@
     if (self) {
         self.objectName=name;
         self.attackRange=CGSizeMake(400, 60);
-        self.attackCD=1.0;
         self.type=@"hero";
         //self.showBoundingBox=YES;
         //[self updateOfPlayer];
         
-        self.curEnergy=0;
-        self.maxEnergy=100;
         [self initFromPlist];
         [self start];
     }
@@ -60,6 +63,9 @@
     self.moveSpeed=[[self.attributeDict valueForKey:@"moveSpeed"] floatValue];
     self.maxHP=[[self.attributeDict valueForKey:@"maxHP"] floatValue];
     self.curHP=self.maxHP;
+    self.curEnergy=0;
+    self.maxEnergy=[[self.attributeDict valueForKey:@"maxEnergy"] floatValue];
+
 }
 -(void)start{
     [self updateOfPlayer];
@@ -115,14 +121,13 @@
     self.energyBar.scaleY=zStatePanel_LifeBarHeight/self.energyBar.contentSize.height;
     self.energyBar.scaleX=zStatePanel_LifeBarWidth/self.energyBar.contentSize.width;
     
-    [self addChild:self.energyBar];
-    
     self.energyBarBorder=[CCSprite spriteWithFile:@"border_yellow_gray.png"];
     self.energyBarBorder.anchorPoint=ccp(0,0);
     self.energyBarBorder.scaleY=zStatePanel_LifeBarHeight/self.energyBarBorder.contentSize.height;
     self.energyBarBorder.scaleX=zStatePanel_LifeBarWidth/self.energyBarBorder.contentSize.width;
     
     [self addChild:self.energyBarBorder];
+    [self addChild:self.energyBar];
     //init LifeBarLabel
 
     
@@ -272,7 +277,7 @@
     if(self.energyBar){
         if(self.curEnergy<0) self.curEnergy=0;
         //updatePosition
-        self.energyBar.position=ccp(self.sprite.position.x,self.sprite.position.y+65);
+        self.energyBar.position=ccp(self.sprite.position.x,self.sprite.position.y+self.sprite.boundingBox.size.height);
         self.energyBarBorder.position=self.energyBar.position;
         
         self.energyBar.scaleX=self.curEnergy/self.maxEnergy*zStatePanel_LifeBarWidth/self.energyBar.contentSize.width;
@@ -286,7 +291,7 @@
         if(1){
             if(self.curHP<0) self.curHP=0;
             //updatePosition
-            self.lifeBar.position=ccp(self.sprite.position.x,self.sprite.position.y+85);
+            self.lifeBar.position=ccp(self.sprite.position.x,self.sprite.position.y+self.sprite.boundingBox.size.height+20);
             self.lifeBarBorder.position=self.lifeBar.position;
             float lifeBarFixY=self.lifeBar.position.y+zStatePanel_LifeBarHeight/2;
             self.HPLabel.position = ccp(self.lifeBar.position.x+zStatePanel_LifeBarWidth/2,lifeBarFixY);

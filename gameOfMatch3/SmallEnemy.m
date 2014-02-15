@@ -143,7 +143,7 @@
     for (int i=0; i<self.collisionObjectArray.count; i++) {
         __block AiObject* obj=self.collisionObjectArray[i];
         __block SmallEnemy* selfObj=self;
-        if([[obj objectName] isEqualToString:@"player"]&&!self.isAttacking&&!self.state.frozen){
+        if([obj.type isEqualToString:@"hero"]&&!self.isAttacking&&!self.state.frozen){
             self.isAttacking=YES;
             [self setTimeOutWithDelay:self.attackCD withBlock:^{
                 [selfObj normalAttack:obj];

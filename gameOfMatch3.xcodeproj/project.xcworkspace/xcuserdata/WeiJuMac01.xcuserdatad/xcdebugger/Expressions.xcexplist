@@ -45,6 +45,9 @@
          contextName = "-[SmallEnemy handleCollision]:SmallEnemy.m">
          <PersistentStrings>
             <PersistentString
+               value = "obj.type">
+            </PersistentString>
+            <PersistentString
                value = "self.collisionObjectArray">
             </PersistentString>
             <PersistentString

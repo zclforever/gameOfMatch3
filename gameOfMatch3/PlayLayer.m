@@ -207,7 +207,7 @@
 
         [smallEnemy appearAtX:zEnemyMarginLeft Y:480-zPlayerMarginTop];
 
-        [smallEnemy attackTargets:self.tileDelegateArray];
+        [smallEnemy attackTargets:self.heroArray];
         
         //smallEnemy.maxHP=self.enemy.smallEnemyHp;
         //smallEnemy.curHP=smallEnemy.maxHP;
@@ -288,16 +288,15 @@
     self.updating=YES;
     self.updateCount++;
     
-    __block PlayLayer* obj=self;
+
     
     
     [box.removeResultArray removeAllObjects];
     [box check];
-    NSArray* matchedArray;
-    //Person* nextPerson=self.turnOfPersons[(self.whosTurn+1) % 2];
-    
-    if((self.gameTime-self.lastSelectTimeOfMagic>=zMagicCD&&(self.lastSelectTimeOfMagic!=0))||self.magicSelectedArray.count>=3) //在技能球队列里 发射选中技能球
-    {
+
+    //在技能球队列里 发射选中技能球
+
+    if((self.gameTime-self.lastSelectTimeOfMagic>=zMagicCD&&(self.lastSelectTimeOfMagic!=0))||self.magicSelectedArray.count>=3)     {
         int count=self.magicSelectedArray.count;
         while(count>3){
             Tile* tile=self.magicSelectedArray[count-1];
@@ -318,118 +317,16 @@
         
         self.lastSelectTimeOfMagic=0;
     }
+    
+    //修复
     if(box.readyToRemoveTiles.count>0){
-        //NSLog(@"in check is value 5");
         if(self.tradeTile1&&![box.readyToRemoveTiles containsObject:self.tradeTile1]){self.tradeTile1.tradeTile=NO;self.tradeTile1=nil;}
         if(self.tradeTile2&&![box.readyToRemoveTiles containsObject:self.tradeTile2]){self.tradeTile2.tradeTile=NO;self.tradeTile2=nil;}
-        
-        
-        for (NSArray* result in box.removeResultArray) {
-            int value;
-            for (Tile* tile in result) {
-                value=tile.value;
-                NSLog(@"@x:%d,y:%d",tile.x,tile.y);
-            }
-            
-            int mul=1;
-            int mount=result.count;
-            if(mount==3){
-                if(self.isSoundEnabled)[[SimpleAudioEngine sharedEngine]playEffect:@"ding.wav"];
-            }
-            if(mount>3) {
-                if(self.isSoundEnabled)[[SimpleAudioEngine sharedEngine]playEffect:@"ding.wav"];
-                mul=pow(2, mount-2);
 
-            }
-            if(mount>6){
-                NSLog(@"combo mount:%d",mount);
-            }
-            self.scoreInBattle+=mount*10*mul;
-            
-
-            if(mount>=3&&(1<=value&&value<=3)){
-                Hero* hero=self.tileDelegateArray[value-1];
-                hero.curEnergy+=mount;
-            }
-            
-        }
-        
-        NSArray* tmp=[box.readyToRemoveTiles allObjects];
-
-        matchedArray=[box findMatchedArray:tmp forValue:5];  //5 is PlayerAttack
-        if (matchedArray) {
-            float delayTime=0.5f;
-            int reduceHp=matchedArray.count;
-            if(self.enemy.curHP<=reduceHp){
-                //self.scale=1.5;
-                //self.position=ccp(-100,-100);
-                delayTime=2.5f;
-                CCSprite* sword=[CCSprite spriteWithFile:@"block_5.png"];
-                sword.position=ccp(250,300);
-                
-                [self addChild:sword];
-                //[self endingZoom];
-                
-                [sword runAction:[CCSequence actions:
-                                  [CCDelayTime actionWithDuration:1.0],
-                                  [CCSpawn actions:
-                                   [CCRotateBy actionWithDuration:1.5 angle:720],
-                                   [CCMoveTo actionWithDuration:1.5 position:self.enemy.sprite.position],
-                                   
-                                   nil],
-                                  [CCMoveTo actionWithDuration:.5 position:ccp(350,530)],
-                                  nil]];
-                [Actions shakeSprite:obj.enemy.sprite delay:2.5];
-                
-            }
-            for (Tile* tile in matchedArray) {
-                CCSprite* sword=[CCSprite spriteWithFile:@"block_5.png"];
-                sword.position=tile.sprite.position;
-                sword.scaleX=tile.sprite.scaleX;
-                sword.scaleY=tile.sprite.scaleY;
-                sword.anchorPoint=tile.sprite.anchorPoint;
-                [self addChild:sword];
-                
-                
-                
-                CGPoint pos=self.enemy.sprite.position;
-
-                __block CCSprite* obj=sword;
-                [sword  runAction:[CCSequence actions:
-                                   [CCMoveTo actionWithDuration:.4 position:pos],
-                                   [CCCallBlock actionWithBlock:^{
-                                        [obj removeFromParentAndCleanup:YES];
-                                    }]
-                                   , nil] ];
-
-            }
-            
-
-            __block AiObject* hurtObj=[[AiObject alloc]initWithAllObjectArray:nil];
-            hurtObj.damage=reduceHp;
-            [self.actionHandler addActionWithBlock:^{
-                [Actions shakeSprite:obj.enemy.sprite delay:delayTime withFinishedBlock:^{
-                    [obj.enemy hurtByObject:hurtObj];
-                    //obj.enemy.curHP-=reduceHp;
-                     }];
-            }];
-            
-        }
-        matchedArray=[box findMatchedArray:tmp forValue:4];
-        if (matchedArray) {self.moneyInBattle+=matchedArray.count;}
-        matchedArray=[box findMatchedArray:tmp forValue:6];
-        //if (matchedArray) {self.expInBattle+=matchedArray.count;}
-        matchedArray=[box findMatchedArray:tmp forValue:7];
-        if (matchedArray) {
-                //7的时候
-        
-        }
-        
-        tmp=nil;
         
         [box removeAndRepair];
 
-        //NSLog(@"in check is value 5 finished");
+
         self.lastTipTime=self.gameTime;
     }
     else
@@ -522,29 +419,12 @@
     
     
     [[CCSpriteFrameCache sharedSpriteFrameCache] removeUnusedSpriteFrames];
-    //    [[NSNotificationCenter defaultCenter] addObserver:self
-    //                                             selector:@selector(shakeEvent)
-    //                                                 name:@"MyiPhoneShakeEvent" object:nil];
     
     self.accelerometerEnabled = YES;
     [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1/60];
     [[UIAccelerometer sharedAccelerometer] setDelegate:self];
     
     [self addChild:[[Global sharedManager] setTimeOut]];
-    //添加手势  跟cocos2d冲突
-    //    UITapGestureRecognizer* tapRecognizer =
-    //    [[UITapGestureRecognizer alloc]
-    //      initWithTarget:self action:@selector(handleTaped:)];
-    //
-    //    [[[CCDirector sharedDirector] view]
-    //     addGestureRecognizer:tapRecognizer];
-    //
-    //    UISwipeGestureRecognizer* swipeRecognizer =
-    //    [[UISwipeGestureRecognizer alloc]
-    //     initWithTarget:self action:@selector(handleSwiped:)];
-    //
-    //    [[[CCDirector sharedDirector] view]
-    //     addGestureRecognizer:swipeRecognizer];
     
     
     self.levelDataDict=[NSMutableDictionary dictionaryWithDictionary:[[[Global sharedManager] levelDataDict] valueForKey:[NSString stringWithFormat:@"%d",self.level]]];
@@ -584,9 +464,7 @@
     
     
     [self updateStatePanel];
-    //self.turnOfPersons=[NSArray arrayWithObjects:self.player, self.enemy, nil];
-    
-    //    self.whosTurn=Turn_Enemy;
+
     self.lockTouch=YES;
 
     self.lockTouch=YES;
@@ -656,27 +534,7 @@
     self.stateLabel=label;
     
     
-    //add enegry bar
-    self.energyBar=[CCSprite spriteWithFile:@"bar_yellow.png" ];
-    self.energyBar.anchorPoint=ccp(0,0);
-    self.energyBar.scaleY=(zStatePanel_EnegryBarHeight)/self.energyBar.contentSize.height;
-    self.energyBar.scaleX=0/self.energyBar.contentSize.width;
-    self.energyBar.position=ccp(zStatePanel_EnegryBarMarginLeft,480-zStatePanel_EnegryBarMarginTop);
-    [self addChild:self.energyBar z:10];
-    
-    self.energyBarBorder=[CCSprite spriteWithFile:@"border_yellow_gray.png"];
-    self.energyBarBorder.anchorPoint=ccp(0,0);
-    self.energyBarBorder.scaleY=zStatePanel_EnegryBarHeight/self.energyBarBorder.contentSize.height;
-    self.energyBarBorder.scaleX=zStatePanel_EnegryBarWidth/self.energyBarBorder.contentSize.width;
-    self.energyBarBorder.position=ccp(zStatePanel_EnegryBarMarginLeft,480-zStatePanel_EnegryBarMarginTop);
-    [self addChild:self.energyBarBorder z:9];
-    
-    
-    
-    
-    
-    
-    
+ 
     
     
     
@@ -703,6 +561,7 @@
         
         
         self.tileDelegateArray=[[NSMutableArray alloc]init];
+        self.heroArray=[[NSMutableArray alloc]init];
         
         Hero* hero;
         float space=0;
@@ -710,20 +569,23 @@
         
         hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_mage"];
         [self.tileDelegateArray addObject:hero];
+        [self.heroArray addObject:hero];
         [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];
-        space+=20.0f;
+        space+=40.0f;
         [self addChild:hero z:-1];        
         
         hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_warrior"];
         [self.tileDelegateArray addObject:hero];
+        [self.heroArray addObject:hero];
         [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];
-        space+=20.0f;
+        space+=40.0f;
         [self addChild:hero z:-1];
         
         hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_hunter"];
         [self.tileDelegateArray addObject:hero];
+        [self.heroArray addObject:hero];
         [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];
-        space+=20.0f;
+        space+=40.0f;
         [self addChild:hero z:-1];
         
         ItemDelegate* item;
@@ -806,11 +668,11 @@
     
     if(self.level==2){
 
-            [self addTipWithString:@"怪很矮，单冰打不到的哟。本关推荐技能球:火，冰冰冰"];
+            [self addTipWithString:@"怪很矮，单冰打不到的哟。"];
 
         
     }
-    if(self.level==3)[self addTipWithString:@"怪很硬，试试秒BOSS。本关推荐技能球:火火火"];
+    if(self.level==3)[self addTipWithString:@"怪很硬，试试秒BOSS。"];
 
     
     //add back layer
@@ -838,7 +700,7 @@
     
     CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"windmill.png"];
     CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:@"image1771.png"];
-    sprite.position=ccp(100,400);
+    sprite.position=ccp(100,500);
     [batchNode addChild:sprite];
     [self addChild:batchNode];
     

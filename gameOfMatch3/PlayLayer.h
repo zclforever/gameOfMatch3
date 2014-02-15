@@ -36,6 +36,7 @@
 @property (strong,nonatomic) Person* player;
 @property (strong,nonatomic) BossEnemy* enemy;
 @property (strong,nonatomic) NSMutableArray* tileDelegateArray;
+@property (strong,nonatomic) NSMutableArray* heroArray;
 @property int gameLevel; //第几关
 
 
