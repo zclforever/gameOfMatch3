@@ -15,19 +15,27 @@
 @property (strong,nonatomic) CCSprite* energyBar;
 @property (strong,nonatomic) CCSprite* energyBarBorder;
 @property (strong,nonatomic) CCLabelTTF* HPLabel;
+@property bool readyToEnd;
 @property bool isAttacking;
 @end
 
 @implementation Hero
 
 -(NSDictionary *)removeByMount:(int)mount{
+    NSDictionary* result=[[NSMutableDictionary alloc] init];
+    NSString* skill_big=[self.attributeDict valueForKey:@"skill_1"];
+    SkillDelegate* skillDelegate=nil;
+
+    if (!self.alive) {
+    [result setValue:nil forKey:@"newDelegate"];
+        return result;
+    }
+    
+    
     if (mount>=3) {
         self.curEnergy+=mount;
     }
     
-    NSDictionary* result=[[NSMutableDictionary alloc] init];
-    NSString* skill_big=[self.attributeDict valueForKey:@"skill_1"];
-    SkillDelegate* skillDelegate=nil;
     if(mount>3){
     skillDelegate=[[SkillDelegate alloc]initWithName:skill_big];
         skillDelegate.parent=self;}
@@ -42,6 +50,7 @@
     if (self) {
         self.objectName=name;
         self.attackRange=CGSizeMake(400, 60);
+        self.tileType=@"hero";
         self.type=@"hero";
         //self.showBoundingBox=YES;
         //[self updateOfPlayer];
@@ -73,12 +82,20 @@
 
 
 -(void)addPersonSpriteAtPosition:(CGPoint)position{
-    
-    
+    NSString* standSpriteName=[self.attributeDict valueForKey:@"standSpriteName"];
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"person003.plist"];
     
     CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"person003.png"];
-    CCSprite *sprite = [CCSprite spriteWithSpriteFrameName:@"person03_000.gif"];
+    CCSprite *sprite;
+    if(standSpriteName){
+        sprite=[CCSprite spriteWithFile:standSpriteName];
+
+    }else{
+
+        sprite = [CCSprite spriteWithSpriteFrameName:@"person03_000.gif"];
+    }
+    
+
     sprite.anchorPoint=ccp(0,0);
     sprite.position=ccp(-60, position.y);
     
@@ -97,18 +114,18 @@
     
     
     //[batchNode addChild:sprite];
-    [self addChild:batchNode];
-    
-    
-    NSMutableArray* frames=[[NSMutableArray alloc]init];
-    for (int i=0; i<=7; i+=1) {
-        NSString* name=[NSString stringWithFormat:@"person03_%03d.gif",i];
-        [frames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:name]];
-    }
-    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:0.1f];
-    CCAction* action=[CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:animation]];
-    
-    [sprite runAction:action ];
+//    [self addChild:batchNode];
+//    
+//    
+//    NSMutableArray* frames=[[NSMutableArray alloc]init];
+//    for (int i=0; i<=7; i+=1) {
+//        NSString* name=[NSString stringWithFormat:@"person03_%03d.gif",i];
+//        [frames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:name]];
+//    }
+//    CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:0.1f];
+//    CCAction* action=[CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:animation]];
+//    
+//    [sprite runAction:action ];
     
     //[self.sprite runAction:[CCSkewBy actionWithDuration:3 skewX:0 skewY:50]];
     
@@ -149,7 +166,7 @@
     [self addChild:self.lifeBarBorder];
     //init LifeBarLabel
     
-    int fontSize=10;
+    int fontSize=8;
     
     
     //float lifeBarFixY=self.lifeBar.position.y;//缩放修正过
@@ -272,7 +289,33 @@
     
     progressBar.scale=2.5f;
 }
+-(void)dieAction{
+    [self.sprite removeFromParentAndCleanup:YES];
+    
+    self.readyToEnd=YES;
+}
 -(void)updateOfPlayer{
+    if (self.readyToEnd) {
+        if(self.lifeBar){
+            [self.lifeBar removeFromParentAndCleanup:YES];
+            [self.lifeBarBorder removeFromParentAndCleanup:YES];
+            [self.HPLabel removeFromParentAndCleanup:YES];
+        }
+        if(self.energyBar){
+             [self.energyBar removeFromParentAndCleanup:YES];
+            [self.energyBarBorder removeFromParentAndCleanup:YES];
+        }
+        return;
+    }
+    
+    if (self.curHP<=0) {
+        self.alive=NO;
+        [self.allObjectsArray removeObject:self];
+        [self dieAction];
+        [self setTimeOutWithDelay:self.delayTime withSelector:@selector(updateOfPlayer)];
+        return;
+    }
+    
     
     if(self.energyBar){
         if(self.curEnergy<0) self.curEnergy=0;

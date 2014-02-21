@@ -88,7 +88,9 @@
 	<key>hero_mage</key>
 	<dict>
 		<key>tileSpriteName</key>
-		<string>block_1.png</string>
+		<string>mage001_stand.png</string>
+		<key>standSpriteName</key>
+		<string>mage001_stand.png</string>
 		<key>damage</key>
 		<integer>3</integer>
 		<key>attackCD</key>
@@ -107,7 +109,9 @@
 	<key>hero_warrior</key>
 	<dict>
 		<key>tileSpriteName</key>
-		<string>block_2.png</string>
+		<string>warrior001_stand.png</string>
+		<key>standSpriteName</key>
+		<string>warrior001_stand.png</string>
 		<key>damage</key>
 		<integer>3</integer>
 		<key>attackCD</key>
@@ -126,7 +130,9 @@
 	<key>hero_hunter</key>
 	<dict>
 		<key>tileSpriteName</key>
-		<string>block_3.png</string>
+		<string>hunter001_stand.png</string>
+		<key>standSpriteName</key>
+		<string>hunter001_stand.png</string>
 		<key>damage</key>
 		<integer>3</integer>
 		<key>attackCD</key>

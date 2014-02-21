@@ -14,6 +14,7 @@
 @protocol tileDelegate <NSObject>
 
 -(NSDictionary*) removeByMount:(int)mount;
+@property (strong,nonatomic) NSString* tileType;
 @property (strong,nonatomic) NSString* tileSpriteName;
 
 @end

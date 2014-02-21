@@ -567,21 +567,21 @@
         float space=0;
         
         
-        hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_mage"];
+        hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_hunter"];
         [self.tileDelegateArray addObject:hero];
         [self.heroArray addObject:hero];
         [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];
         space+=40.0f;
         [self addChild:hero z:-1];        
         
-        hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_warrior"];
+        hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_mage"];
         [self.tileDelegateArray addObject:hero];
         [self.heroArray addObject:hero];
         [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];
         space+=40.0f;
         [self addChild:hero z:-1];
         
-        hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_hunter"];
+        hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_warrior"];
         [self.tileDelegateArray addObject:hero];
         [self.heroArray addObject:hero];
         [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];
@@ -941,6 +941,9 @@
     }
     else {
         for (Hero* hero in self.tileDelegateArray) {
+            if (!([hero.tileType isEqualToString:@"hero"])) {
+                continue;
+            }
             if(hero.curHP>0) return;
         }
         

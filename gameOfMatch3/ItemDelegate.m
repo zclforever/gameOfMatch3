@@ -14,6 +14,7 @@
     self = [super init];
     if (self) {
         self.objectName=name;
+        self.tileType=@"item";
         [self initFromPlist];
 
     }

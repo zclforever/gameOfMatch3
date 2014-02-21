@@ -17,7 +17,7 @@
 
 //protocol
 @property (strong,nonatomic) NSString* tileSpriteName;
-
+@property (strong,nonatomic) NSString* tileType;
 
 
 @property (strong,nonatomic) NSString* spriteName;

@@ -25,6 +25,11 @@
 		0212EC73187FCF9800F8A633 /* sword.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0212EC6D187FCF9700F8A633 /* sword.wav */; };
 		0212EC74187FCF9800F8A633 /* battleMusic01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0212EC6E187FCF9700F8A633 /* battleMusic01.mp3 */; };
 		0214C9C0184C6FC2001ADFBD /* GameMoneyBuyLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0214C9BF184C6FC2001ADFBD /* GameMoneyBuyLayer.m */; };
+		021AC90A18B73A8500FAA3AB /* hunter001.plist in Resources */ = {isa = PBXBuildFile; fileRef = 021AC90818B73A8400FAA3AB /* hunter001.plist */; };
+		021AC90B18B73A8500FAA3AB /* hunter001.png in Resources */ = {isa = PBXBuildFile; fileRef = 021AC90918B73A8400FAA3AB /* hunter001.png */; };
+		021AC90D18B73B9A00FAA3AB /* hunter001_stand.png in Resources */ = {isa = PBXBuildFile; fileRef = 021AC90C18B73B9900FAA3AB /* hunter001_stand.png */; };
+		021AC90F18B7408500FAA3AB /* mage001_stand.png in Resources */ = {isa = PBXBuildFile; fileRef = 021AC90E18B7408500FAA3AB /* mage001_stand.png */; };
+		021AC91118B740A900FAA3AB /* warrior001_stand.png in Resources */ = {isa = PBXBuildFile; fileRef = 021AC91018B740A900FAA3AB /* warrior001_stand.png */; };
 		021B544F1883C206001D1020 /* AiObject.plist in Resources */ = {isa = PBXBuildFile; fileRef = 021B544E1883C206001D1020 /* AiObject.plist */; };
 		021B54521883D770001D1020 /* smallEnemy_stoneMan.plist in Resources */ = {isa = PBXBuildFile; fileRef = 021B54501883D770001D1020 /* smallEnemy_stoneMan.plist */; };
 		021B54531883D770001D1020 /* smallEnemy_stoneMan.png in Resources */ = {isa = PBXBuildFile; fileRef = 021B54511883D770001D1020 /* smallEnemy_stoneMan.png */; };
@@ -309,6 +314,11 @@
 		0212EC6E187FCF9700F8A633 /* battleMusic01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = battleMusic01.mp3; sourceTree = "<group>"; };
 		0214C9BE184C6FC2001ADFBD /* GameMoneyBuyLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameMoneyBuyLayer.h; sourceTree = "<group>"; };
 		0214C9BF184C6FC2001ADFBD /* GameMoneyBuyLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameMoneyBuyLayer.m; sourceTree = "<group>"; };
+		021AC90818B73A8400FAA3AB /* hunter001.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = hunter001.plist; sourceTree = "<group>"; };
+		021AC90918B73A8400FAA3AB /* hunter001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hunter001.png; sourceTree = "<group>"; };
+		021AC90C18B73B9900FAA3AB /* hunter001_stand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hunter001_stand.png; sourceTree = "<group>"; };
+		021AC90E18B7408500FAA3AB /* mage001_stand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mage001_stand.png; sourceTree = "<group>"; };
+		021AC91018B740A900FAA3AB /* warrior001_stand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warrior001_stand.png; sourceTree = "<group>"; };
 		021B544E1883C206001D1020 /* AiObject.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AiObject.plist; sourceTree = "<group>"; };
 		021B54501883D770001D1020 /* smallEnemy_stoneMan.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = smallEnemy_stoneMan.plist; sourceTree = "<group>"; };
 		021B54511883D770001D1020 /* smallEnemy_stoneMan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallEnemy_stoneMan.png; sourceTree = "<group>"; };
@@ -888,6 +898,11 @@
 		0278B11B187BFFFB00A3AECA /* person */ = {
 			isa = PBXGroup;
 			children = (
+				021AC91018B740A900FAA3AB /* warrior001_stand.png */,
+				021AC90E18B7408500FAA3AB /* mage001_stand.png */,
+				021AC90818B73A8400FAA3AB /* hunter001.plist */,
+				021AC90918B73A8400FAA3AB /* hunter001.png */,
+				021AC90C18B73B9900FAA3AB /* hunter001_stand.png */,
 				02AF55A7188021030065999C /* person003.plist */,
 				02AF55A8188021030065999C /* person003.png */,
 				0278B134187C126B00A3AECA /* person002.plist */,
@@ -1623,6 +1638,11 @@
 				02D87784188FA5B5007F05CA /* border_yellow.png in Resources */,
 				02D87786188FACC8007F05CA /* border_yellow_gray.png in Resources */,
 				022AB80018A7841900F570BF /* OLDPlayLayer.h in Resources */,
+				021AC90A18B73A8500FAA3AB /* hunter001.plist in Resources */,
+				021AC90B18B73A8500FAA3AB /* hunter001.png in Resources */,
+				021AC90D18B73B9A00FAA3AB /* hunter001_stand.png in Resources */,
+				021AC90F18B7408500FAA3AB /* mage001_stand.png in Resources */,
+				021AC91118B740A900FAA3AB /* warrior001_stand.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

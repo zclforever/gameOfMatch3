@@ -17,6 +17,7 @@
 }
 //protocol
 @property (strong,nonatomic) NSString* tileSpriteName;
+@property (strong,nonatomic) NSString* tileType;
 -(NSDictionary*) removeByMount:(int)mount;
 
 //基本属性
