@@ -605,7 +605,7 @@
         
     }
     if (!self.enemy) {
-        self.enemy=[[BossEnemy alloc]initWithAllObjectArray:self.allObjectsArray withLevel:self.level];
+        self.enemy=[[BossEnemy alloc]initWithAllObjectArray:self.allObjectsArray withLevel:self.level with:@"boss_01"];
         [self addChild:self.enemy z:-1];
     }
     

@@ -26,7 +26,7 @@
 @property float maxEnergy;
 @property CGSize attackRange;
 
--(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray;
+-(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withName:(NSString *)name;
 
 -(void)addPersonSpriteAtPosition:(CGPoint)position;
 -(void)addLifeBar;

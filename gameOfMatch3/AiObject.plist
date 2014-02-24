@@ -4,6 +4,14 @@
 <dict>
 	<key>smallEnemy_knight</key>
 	<dict>
+		<key>tags</key>
+		<array>
+			<string>enemy</string>
+		</array>
+		<key>targetTags</key>
+		<array>
+			<string>hero</string>
+		</array>
 		<key>animationMovePlist</key>
 		<string>smallEnemyMove.plist</string>
 		<key>animationMoveDelay</key>
@@ -13,7 +21,7 @@
 		<key>animationAttackDelay</key>
 		<real>0.2</real>
 		<key>moveSpeed</key>
-		<integer>8</integer>
+		<integer>30</integer>
 		<key>maxHP</key>
 		<integer>3</integer>
 		<key>attackCD</key>
@@ -85,8 +93,45 @@
 		<key>lifeBarMarginHead</key>
 		<integer>3</integer>
 	</dict>
+	<key>boss_01</key>
+	<dict>
+		<key>sightRange</key>
+		<string>50,5</string>
+		<key>attackRange</key>
+		<string>50,5</string>
+		<key>tileSpriteName</key>
+		<string>mage001_stand.png</string>
+		<key>standSpriteName</key>
+		<string>mage001_stand.png</string>
+		<key>damage</key>
+		<integer>3</integer>
+		<key>attackCD</key>
+		<integer>2</integer>
+		<key>moveSpeed</key>
+		<integer>14</integer>
+		<key>maxEnergy</key>
+		<integer>40</integer>
+		<key>maxHP</key>
+		<integer>50</integer>
+		<key>skill_0</key>
+		<string>skill_iceBall</string>
+		<key>skill_1</key>
+		<string>skill_fireBall</string>
+	</dict>
 	<key>hero_mage</key>
 	<dict>
+		<key>tags</key>
+		<array>
+			<string>hero</string>
+		</array>
+		<key>targetTags</key>
+		<array>
+			<string>enemy</string>
+		</array>
+		<key>sightRange</key>
+		<string>{50,5}</string>
+		<key>attackRange</key>
+		<string>{50,5}</string>
 		<key>tileSpriteName</key>
 		<string>mage001_stand.png</string>
 		<key>standSpriteName</key>
@@ -108,6 +153,18 @@
 	</dict>
 	<key>hero_warrior</key>
 	<dict>
+		<key>tags</key>
+		<array>
+			<string>hero</string>
+		</array>
+		<key>targetTags</key>
+		<array>
+			<string>enemy</string>
+		</array>
+		<key>sightRange</key>
+		<string>{300,55}</string>
+		<key>attackRange</key>
+		<string>{1,55}</string>
 		<key>tileSpriteName</key>
 		<string>warrior001_stand.png</string>
 		<key>standSpriteName</key>
@@ -123,12 +180,24 @@
 		<key>maxEnergy</key>
 		<integer>10</integer>
 		<key>skill_0</key>
-		<string>skill_iceBall</string>
+		<string>skill_fireBall</string>
 		<key>skill_1</key>
 		<string>skill_iceBall</string>
 	</dict>
 	<key>hero_hunter</key>
 	<dict>
+		<key>tags</key>
+		<array>
+			<string>hero</string>
+		</array>
+		<key>targetTags</key>
+		<array>
+			<string>enemy</string>
+		</array>
+		<key>sightRange</key>
+		<string>{50,5}</string>
+		<key>attackRange</key>
+		<string>{50,5}</string>
 		<key>tileSpriteName</key>
 		<string>hunter001_stand.png</string>
 		<key>standSpriteName</key>

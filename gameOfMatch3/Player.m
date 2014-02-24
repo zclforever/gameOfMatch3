@@ -28,10 +28,10 @@
     }
     return self;
 }
--(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray{
-    self = [super initWithAllObjectArray:allObjectsArray];
+-(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withName:(NSString *)name{
+    self = [super initWithAllObjectArray:allObjectsArray withName:name];
     if (self) {
-        self.objectName=@"player";
+        self.objectName=name;
         self.attackRange=CGSizeMake(400, 60);
         self.attackCD=1.0;
         //self.showBoundingBox=YES;
@@ -133,7 +133,7 @@
 }
 -(void)updateCollisionObjectArray{  //collision.coll.
     
-    [self.collisionObjectArray removeAllObjects];
+    [self.collisionObjects removeAllObjects];
     for (AiObject* obj in self.allObjectsArray) {
         if(obj==self)continue;
         CGRect selfRect=[self getBoundingBox];
@@ -142,7 +142,7 @@
 
         
         if ([Global rectInsect:objRect :selfRect]) {
-            [self.collisionObjectArray addObject:obj];
+            [self.collisionObjects addObject:obj];
         }
     }
 }
@@ -151,8 +151,8 @@
         //[self removeFromParentAndCleanup:YES];
         return;
     }
-    for (int i=0; i<self.collisionObjectArray.count; i++) {
-        __block AiObject* obj=self.collisionObjectArray[i];
+    for (int i=0; i<self.collisionObjects.count; i++) {
+        __block AiObject* obj=self.collisionObjects[i];
         __block Player* selfObj=self;
         if([[[Global sharedManager]allEnemys] containsObject:[obj objectName]]&&!self.isAttacking&&!self.state.frozen){
             if (selfObj.curEnergy<5) {

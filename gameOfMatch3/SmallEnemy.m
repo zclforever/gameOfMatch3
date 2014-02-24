@@ -21,7 +21,7 @@
 
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withName:(NSString*)name;
 {
-    self = [super initWithAllObjectArray:allObjectsArray];
+    self = [super initWithAllObjectArray:allObjectsArray withName:name];
     if (self) {
         //self.showBoundingBox=YES;
         
@@ -140,8 +140,8 @@
         //[self removeFromParentAndCleanup:YES];
         return;
     }
-    for (int i=0; i<self.collisionObjectArray.count; i++) {
-        __block AiObject* obj=self.collisionObjectArray[i];
+    for (int i=0; i<self.collisionObjects.count; i++) {
+        __block AiObject* obj=self.collisionObjects[i];
         __block SmallEnemy* selfObj=self;
         if([obj.type isEqualToString:@"hero"]&&!self.isAttacking&&!self.state.frozen){
             self.isAttacking=YES;

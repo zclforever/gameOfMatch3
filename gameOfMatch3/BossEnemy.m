@@ -15,8 +15,8 @@
 @implementation BossEnemy
 
 
--(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withLevel:(int)level{
-    self = [super initWithAllObjectArray:allObjectsArray];
+-(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withLevel:(int)level with:(NSString*)name{
+    self = [super initWithAllObjectArray:allObjectsArray withName:name];
     if (self) {
         self.objectName=@"bossEnemy";
         self.type=@"enemy";

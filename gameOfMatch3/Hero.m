@@ -17,6 +17,7 @@
 @property (strong,nonatomic) CCLabelTTF* HPLabel;
 @property bool readyToEnd;
 @property bool isAttacking;
+@property CGPoint startPosition;
 @end
 
 @implementation Hero
@@ -46,7 +47,7 @@
 }
 
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray  withName:(NSString*)name{
-    self = [super initWithAllObjectArray:allObjectsArray];
+    self = [super initWithAllObjectArray:allObjectsArray withName:name];
     if (self) {
         self.objectName=name;
         self.attackRange=CGSizeMake(400, 60);
@@ -55,25 +56,18 @@
         //self.showBoundingBox=YES;
         //[self updateOfPlayer];
         
-        [self initFromPlist];
+        //[self initFromPlist];
         [self start];
     }
     return self;
 }
 
 -(void)initFromPlist{
-    self.attributeDict=[[[Global sharedManager]aiObjectsAttributeDict] valueForKey:self.objectName];
+        
     
-    
-    //self.animationMovePlist=[self.attributeDict valueForKey:@"animationMovePlist"];
-//    self.damage=[[self.attributeDict valueForKey:@"damage"] floatValue];
+    [super initFromPlist];
     self.tileSpriteName=[self.attributeDict valueForKey:@"tileSpriteName"];
-    self.attackCD=[[self.attributeDict valueForKey:@"attackCD"] floatValue];
-    self.moveSpeed=[[self.attributeDict valueForKey:@"moveSpeed"] floatValue];
-    self.maxHP=[[self.attributeDict valueForKey:@"maxHP"] floatValue];
-    self.curHP=self.maxHP;
-    self.curEnergy=0;
-    self.maxEnergy=[[self.attributeDict valueForKey:@"maxEnergy"] floatValue];
+
 
 }
 -(void)start{
@@ -82,10 +76,12 @@
 
 
 -(void)addPersonSpriteAtPosition:(CGPoint)position{
+    self.startPosition=position;
+    
     NSString* standSpriteName=[self.attributeDict valueForKey:@"standSpriteName"];
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"person003.plist"];
     
-    CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"person003.png"];
+    //CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"person003.png"];
     CCSprite *sprite;
     if(standSpriteName){
         sprite=[CCSprite spriteWithFile:standSpriteName];
@@ -182,51 +178,51 @@
     self.HPLabel=label;
     
 }
--(void)updateCollisionObjectArray{  //collision.coll.
-    
-    [self.collisionObjectArray removeAllObjects];
-    for (AiObject* obj in self.allObjectsArray) {
-        if(obj==self)continue;
-        CGRect selfRect=[self getBoundingBox];
-        selfRect.size=CGSizeMake(selfRect.size.width+self.attackRange.width, selfRect.size.height+self.attackRange.height);
-        CGRect objRect=[(id)obj getBoundingBox];
-        
-        
-        if ([Global rectInsect:objRect :selfRect]) {
-            [self.collisionObjectArray addObject:obj];
-        }
-    }
-}
--(void)handleCollision{
-    if (!self.alive) {
-        //[self removeFromParentAndCleanup:YES];
-        return;
-    }
-    for (int i=0; i<self.collisionObjectArray.count; i++) {
-        __block AiObject* obj=self.collisionObjectArray[i];
-        __block Hero* selfObj=self;
-        if([[[Global sharedManager]allEnemys] containsObject:[obj objectName]]&&!self.isAttacking&&!self.state.frozen){
-            if (selfObj.curEnergy<5) {
-                break;
-            }
-            self.isAttacking=YES;
-            
-            [self setTimeOutWithDelay:self.attackCD withBlock:^{
-                selfObj.curEnergy-=5;
-                
-                
-                [selfObj magicAttackWithName:[selfObj.attributeDict valueForKey:@"skill_0"]];
-                
-                selfObj.isAttacking=NO;
-            }];
-            
-            //攻击动画
-            //[self.sprite stopAllActions];
-            //[self attackAnimation];
-        }
-    }
-    
-}
+//-(void)updateCollisionObjectArray{  //collision.coll.
+//    
+//    [self.collisionObjects removeAllObjects];
+//    for (AiObject* obj in self.allObjectsArray) {
+//        if(obj==self)continue;
+//        CGRect selfRect=[self getBoundingBox];
+//        selfRect.size=CGSizeMake(selfRect.size.width+self.attackRange.width, selfRect.size.height+self.attackRange.height);
+//        CGRect objRect=[(id)obj getBoundingBox];
+//        
+//        
+//        if ([Global rectInsect:objRect :selfRect]) {
+//            [self.collisionObjects addObject:obj];
+//        }
+//    }
+//}
+//-(void)handleCollision{
+//    if (!self.alive) {
+//        //[self removeFromParentAndCleanup:YES];
+//        return;
+//    }
+//    for (int i=0; i<self.collisionObjects.count; i++) {
+//        __block AiObject* obj=self.collisionObjects[i];
+//        __block Hero* selfObj=self;
+//        if([[[Global sharedManager]allEnemys] containsObject:[obj objectName]]&&!self.isAttacking&&!self.state.frozen){
+//            if (selfObj.curEnergy<5) {
+//                break;
+//            }
+//            self.isAttacking=YES;
+//            
+//            [self setTimeOutWithDelay:self.attackCD withBlock:^{
+//                selfObj.curEnergy-=5;
+//                
+//                
+//                [selfObj magicAttackWithName:[selfObj.attributeDict valueForKey:@"skill_0"]];
+//                
+//                selfObj.isAttacking=NO;
+//            }];
+//            
+//            //攻击动画
+//            //[self.sprite stopAllActions];
+//            //[self attackAnimation];
+//        }
+//    }
+//    
+//}
 
 -(void)hurtByObject:(AiObject *)obj{
     [Actions shakeSprite:self.sprite  delay:0];
@@ -275,6 +271,27 @@
         [projectile attackPosition:ccp(0,self.sprite.position.y)];
         
     }
+    
+}
+-(void)onAttackWantedButNotInAttackRangeFromObject:(AiObject*)obj{
+    if (!obj.node) {
+        return;
+    }
+    [self moveToPosition:obj.node.position];
+}
+-(bool)normalAttackTarget:(AiObject*)obj{
+    if (self.curEnergy<5) {
+        return NO;
+    }
+    NSString* skillName=[self.attributeDict valueForKey:@"skill_0"];
+    [self magicAttackWithName:skillName];
+    self.curEnergy-=5;
+    return YES;
+}
+-(void)nothingToDo{
+    
+    self.aiState=aiState_searchingInSight;
+    //[self moveToPosition:self.startPosition];
     
 }
 -(void)addApBar{

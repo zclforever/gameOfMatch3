@@ -21,7 +21,7 @@
 
 @implementation Projectile
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withPostion:(CGPoint)pos byName:(NSString*)name{
-    self = [super initWithAllObjectArray:allObjectsArray];
+    self = [super initWithAllObjectArray:allObjectsArray withName:name];
     if (self) {
         self.autoUpdateCollision=NO;
         
@@ -196,7 +196,7 @@
 }
 -(void)updateCollisionObjectArray{  //collision.coll.
     
-    [self.collisionObjectArray removeAllObjects];
+    [self.collisionObjects removeAllObjects];
     for (AiObject* obj in self.allObjectsArray) {
         if(obj==self)continue;
         CGRect selfRect=[self getBoundingBox];
@@ -205,7 +205,7 @@
 
 
         if ([Global rectInsect:objRect :selfRect]) {
-            [self.collisionObjectArray addObject:obj];
+            [self.collisionObjects addObject:obj];
         }
     }
 }
@@ -230,7 +230,7 @@
         //------------攻击cd到后 允许攻击 并检测碰撞 
         if (attackPastTime>=self.attackCD) {
             [self updateCollisionObjectArray];
-            for (AiObject* collisionObj in self.collisionObjectArray) {
+            for (AiObject* collisionObj in self.collisionObjects) {
                 if(self.attackOnce){
                     if ([self.attackedObjectsArray containsObject:collisionObj]) {
                         continue;
@@ -305,7 +305,7 @@
             [self move];
             
             [self updateCollisionObjectArray];
-            for (AiObject* collisionObj in self.collisionObjectArray) {
+            for (AiObject* collisionObj in self.collisionObjects) {
                 if(collisionObj==nearestObj){
                     self.moving=NO;
                     int enemyCurHP=nearestObj.curHP;

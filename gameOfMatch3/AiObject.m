@@ -21,7 +21,7 @@
 
 @end
 @interface AiObject()
-
+@property (strong,nonatomic) AiObject* wantedObject;
 
 @end
 
@@ -29,7 +29,7 @@
 
 
 
--(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray{
+-(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withName:(NSString *)name{
     self = [super init];
     //self.contentSize=[[CCDirector sharedDirector]winSize];
     if (self) {
@@ -37,16 +37,38 @@
             return self;
         }
         self.delayTime=0.04;
+        
+        self.objectName=name;
+        [self initFromPlist];
+        
+        self.aiState=aiState_nothingToDo;
+
         self.autoUpdateCollision=YES;
         
         self.alive=YES;
         self.state=[[State alloc]init];
-        self.collisionObjectArray=[[NSMutableArray alloc]init];
+        self.collisionObjects=[[NSMutableArray alloc]init];
         self.allObjectsArray=allObjectsArray;
         [self.allObjectsArray addObject:self];
         [self updateForCommon];
     }
     return self;
+}
+-(void)initFromPlist{
+    self.attributeDict=[[[Global sharedManager]aiObjectsAttributeDict] valueForKey:self.objectName];
+    
+    
+    //self.animationMovePlist=[self.attributeDict valueForKey:@"animationMovePlist"];
+    //    self.damage=[[self.attributeDict valueForKey:@"damage"] floatValue];
+    self.attackCD=[[self.attributeDict valueForKey:@"attackCD"] floatValue];
+    self.moveSpeed=[[self.attributeDict valueForKey:@"moveSpeed"] floatValue];
+    self.maxHP=[[self.attributeDict valueForKey:@"maxHP"] floatValue];
+    self.curHP=self.maxHP;
+    self.curEnergy=0;
+    self.maxEnergy=[[self.attributeDict valueForKey:@"maxEnergy"] floatValue];
+    self.targetTags=[self.attributeDict valueForKey:@"targetTags"];
+    self.tags=[self.attributeDict valueForKey:@"tags"];
+    
 }
 -(NSArray*)getNameOfFramesFromPlist:(NSString*)name{
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:name];
@@ -73,24 +95,46 @@
     CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:delay];
     return animation;
 }
-
--(void)updateCollisionObjectArray{
-
-    [self.collisionObjectArray removeAllObjects];
+-(NSMutableArray*)collisionObjectsByRect:(CGRect)rect{
+    NSMutableArray* ret=[[NSMutableArray alloc]init];
+    CGRect selfRect=rect;
     for (AiObject* obj in self.allObjectsArray) {
         if(obj==self)continue;
-        CGRect selfRect=[self getBoundingBox];
-        
-        CGRect objRect=[(id)obj getBoundingBox];
-        
+        CGRect objRect=[obj getBoundingBox];
         
         if ([Global rectInsect:objRect :selfRect]) {
-            [self.collisionObjectArray addObject:obj];
+            [ret addObject:obj];
         }
-//        if (CGRectIntersectsRect([(id)obj getBoundingBox],[self getBoundingBox])) {
-//            [self.collisionObjectArray addObject:obj];
-//        }
+
     }
+    return ret;
+}
+-(void)updateCollisionObjectArray{
+    CGRect rect;
+    CGSize size;
+
+    [self.collisionObjects removeAllObjects];
+    rect=[self getBoundingBox];
+    self.collisionObjects=[self collisionObjectsByRect:rect];
+    
+    //update collisionObjectsInSight 
+    size=CGSizeFromString([self.attributeDict valueForKey:@"sightRange"]);
+    rect=[self getBoundingBox];
+    rect.size=size;   //要把origin转换到左下角
+    rect.origin.x=[self getCenterPoint].x-size.width/2;
+    rect.origin.y=[self getCenterPoint].y-size.height/2;
+    self.collisionObjectsInSight=[self objectsByTags:self.targetTags from:[self collisionObjectsByRect:rect]];
+    
+    
+    //update collisionObjectsInAttankRange
+    size=CGSizeFromString([self.attributeDict valueForKey:@"attackRange"]);
+    rect=[self getBoundingBox];
+    rect.size=size;
+    rect.origin.x=[self getCenterPoint].x-size.width/2;
+    rect.origin.y=[self getCenterPoint].y-size.height/2;
+    self.collisionObjectsInAttankRange=[self objectsByTags:self.targetTags from:[self collisionObjectsByRect:rect]];
+    
+    
 }
 -(NSArray*)sortAllObjectsByDistanceFromPosition:(CGPoint)position{
     NSMutableArray* ret=[NSMutableArray arrayWithArray:self.allObjectsArray];
@@ -120,7 +164,21 @@
     
 }
 -(CGRect)getBoundingBox{
-    return self.sprite?self.sprite.boundingBox:CGRectZero;
+    if (!self.node) {
+        return CGRectZero;
+    }
+    float width=[[self.attributeDict valueForKey:@"width"] floatValue];
+    float height=[[self.attributeDict valueForKey:@"height"] floatValue];
+    CGRect rect=self.node.boundingBox;
+    CGRect ret;
+    float x,y;
+    if (width==0) width=rect.size.width;
+    if (height==0) height=rect.size.height;
+    //boundingBox的origin是在左下角！！！ 这里要根据自定义宽度作调整
+    x=rect.origin.x+ (rect.size.width-width)/2;
+    y=rect.origin.y+ (rect.size.height-height)/2;
+    ret=CGRectMake(x, y, width, height);
+    return ret;
 }
 -(CGPoint)getCenterPoint{
     CGRect rect =[self getBoundingBox];
@@ -214,17 +272,157 @@
         }         
     }
 }
--(void)updateForCommon{
-    float delayTime=self.delayTime;
-    
-    if(self.autoUpdateCollision){
-        [self updateCollisionObjectArray];
-        if(self.collisionObjectArray.count>0){
-            [self handleCollision];
+
+-(NSArray*)objectsByTags:(NSArray*)tags from:(NSArray*)objectsArray{
+    NSMutableArray* ret=[[NSMutableArray alloc]init];
+    for (NSString* tag in tags) {
+        for (AiObject* obj in objectsArray) {
+            if ([obj.tags containsObject:tag]) {
+                [ret addObject:obj];
+            }
         }
+    }
+    return ret;
+}
+
+
+-(void)onAttackWantedButNotInAttackRangeFromObject:(AiObject*)obj{
+    // 重载用
+}
+-(void)onNothingInSight{
+   // 重载用
+}
+-(void)nothingToDo{
+
+        self.aiState=aiState_searchingInSight;
+
+
+}
+-(void)moveToPosition:(CGPoint)pos{
+    if (isnan(pos.x)||isnan(pos.y)) {
+        return;
+    }
+    
+    CGPoint position=self.node.position;
+
+    float moveDistanceX=self.moveSpeed*self.delayTime;
+    float moveDistanceY=self.moveSpeed*self.delayTime;
+    float xDistance=pos.x-position.x;
+    float yDistance=pos.y-position.y;
+    float xMoveDistance=xDistance>0?moveDistanceX:-moveDistanceX;
+    float yMoveDistance=yDistance>0?moveDistanceY:-moveDistanceY;
+    
+    if (abs(xDistance)>abs(yDistance)){yMoveDistance/=abs(xDistance/yDistance);}
+    else{ xMoveDistance/=abs(yDistance/xDistance);   }
+    
+
+
+    
+    self.node.position=ccp( position.x+xMoveDistance,position.y+yMoveDistance);
+    
+    float destMinDistance=max(moveDistanceX,3);
+    if(
+       (abs(xDistance)<destMinDistance||self.moveSpeed==0)&&
+       (abs(yDistance)<destMinDistance||self.moveSpeed==0)
+       ){
+        self.atDest=YES;
+    }
+}
+-(void)searchingInSight{
+    if (self.collisionObjectsInSight.count>0) {//找到目标
+        self.aiState=aiState_attackWantedObject;
+        self.wantedObject=self.collisionObjectsInSight[0];
+    }else{//视线内找不到目标
+        self.aiState=aiState_nothingToDo;
+        [self onNothingInSight];
+     
+    }
+    
+}
+
+-(void)attackingWantedObject{  //不管有没有视线，直接攻击
+    AiObject* obj=self.wantedObject;
+    if (self.collisionObjectsInAttankRange.count>0) {
+        self.aiState=aiState_inAttackRange;
+    }else{
+        self.aiState=aiState_attackWantedObject;
+        [self onAttackWantedButNotInAttackRangeFromObject:obj];
+    }
+}
+
+
+
+-(void)doInAttackRange{
+    //目标在攻击范围内时，攻击目标 近身攻击，看成发出在目标身上即时碰撞的透明放射物。
+    //英雄攻击 能量有时 正常攻击，技能球时，主动放射攻击
+    //小怪 正常攻击，
+    if (self.collisionObjectsInAttankRange.count>0) {
+        float gameTime=[[Global sharedManager] gameTime];
+        if(self.lastAttackTime&&(gameTime-self.lastAttackTime<self.attackCD))
+        {
+            return;
+            
+        }else{
+            if ([self normalAttackTarget:self.wantedObject]) {
+                self.lastAttackTime=gameTime;
+            }
+            
+            
+        }
+
+    } else{ //目标逃出攻击范围 
+        
+      self.aiState=aiState_attackWantedObject;
+        return;
     }
 
 
+    
+}
+-(bool)normalAttackTarget:(AiObject*)obj{
+    NSString* skillName=[self.attributeDict valueForKey:@"skill_0"];
+    [self magicAttackWithName:skillName];
+    return YES;
+}
+-(void)updateForCommon{
+    float delayTime=self.delayTime;
+    if (!self.node) {
+        [self setTimeOutWithDelay:delayTime withSelector:@selector(updateForCommon)];
+    }
+    
+    //AI主体，视线范围是否找得到符合条件的目标，找得到做什么(移动并攻击)，找不到做什么(英雄站立，小兵移动)
+    
+    
+    if(self.wantedObject&&self.wantedObject.alive==NO){ //判断死亡 状态
+            self.wantedObject=nil;
+            self.aiState=aiState_nothingToDo;
+
+    }
+    
+    [self updateCollisionObjectArray];
+    
+
+    switch (self.aiState) {
+        case aiState_nothingToDo:
+            [self nothingToDo];
+            break;
+        case aiState_searchingInSight:
+            [self searchingInSight];
+            break;
+        case aiState_attackWantedObject:
+            [self attackingWantedObject];
+            break;
+        case aiState_inAttackRange:
+            [self doInAttackRange];
+            break;
+            
+        default:
+            break;
+    }
+   
+    
+
+    //todo lifeBar 之类做在这里
      if(self.lifeBar){[self updateLifeBar];};
     
     
