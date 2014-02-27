@@ -67,7 +67,7 @@
     self.curEnergy=0;
     self.maxEnergy=[[self.attributeDict valueForKey:@"maxEnergy"] floatValue];
     self.targetTags=[self.attributeDict valueForKey:@"targetTags"];
-    self.tags=[self.attributeDict valueForKey:@"tags"];
+    self.selfTags=[self.attributeDict valueForKey:@"tags"];
     
 }
 -(NSArray*)getNameOfFramesFromPlist:(NSString*)name{
@@ -277,18 +277,40 @@
     NSMutableArray* ret=[[NSMutableArray alloc]init];
     for (NSString* tag in tags) {
         for (AiObject* obj in objectsArray) {
-            if ([obj.tags containsObject:tag]) {
+            if ([obj.selfTags containsObject:tag]) {
                 [ret addObject:obj];
             }
         }
     }
     return ret;
 }
-
-
--(void)onAttackWantedButNotInAttackRangeFromObject:(AiObject*)obj{
-    // 重载用
+-(void)onInSightButNotInAttackRange{
+    //重载用
 }
+-(void)onNotReadyToAttackTargetInRange{
+    
+}
+-(bool)onReadyToAttackTargetInRange{
+    return NO;
+}
+-(void)onInAttackRange{
+    float gameTime=[[Global sharedManager] gameTime];
+    if(self.lastAttackTime&&(gameTime-self.lastAttackTime<self.attackCD))
+    {
+        [self onNotReadyToAttackTargetInRange];
+        return;
+        
+    }else{
+        if ([self onReadyToAttackTargetInRange]) {
+            self.lastAttackTime=gameTime;
+        }
+        
+        
+    }
+    
+    //重载用
+}
+
 -(void)onNothingInSight{
    // 重载用
 }
@@ -299,6 +321,7 @@
 
 }
 -(void)moveToPosition:(CGPoint)pos{
+    if(!self.node)return;
     if (isnan(pos.x)||isnan(pos.y)) {
         return;
     }
@@ -309,16 +332,13 @@
     float moveDistanceY=self.moveSpeed*self.delayTime;
     float xDistance=pos.x-position.x;
     float yDistance=pos.y-position.y;
-    float xMoveDistance=xDistance>0?moveDistanceX:-moveDistanceX;
-    float yMoveDistance=yDistance>0?moveDistanceY:-moveDistanceY;
+    float xMoveDistance=xDistance==0?0:(xDistance>0?moveDistanceX:-moveDistanceX);
+    float yMoveDistance=yDistance==0?0:(yDistance>0?moveDistanceY:-moveDistanceY);
     
-    if (abs(xDistance)>abs(yDistance)){yMoveDistance/=abs(xDistance/yDistance);}
-    else{ xMoveDistance/=abs(yDistance/xDistance);   }
+//    if (abs(xDistance)>abs(yDistance)){yMoveDistance=yDistance==0?0:yMoveDistance/abs(xDistance/yDistance);}
+//    else{ xMoveDistance=xDistance==0?0:xMoveDistance/abs(yDistance/xDistance);}
     
 
-
-    
-    self.node.position=ccp( position.x+xMoveDistance,position.y+yMoveDistance);
     
     float destMinDistance=max(moveDistanceX,3);
     if(
@@ -326,7 +346,10 @@
        (abs(yDistance)<destMinDistance||self.moveSpeed==0)
        ){
         self.atDest=YES;
+        return;
     }
+    
+    self.node.position=ccp( position.x+xMoveDistance,position.y+yMoveDistance);
 }
 -(void)searchingInSight{
     if (self.collisionObjectsInSight.count>0) {//找到目标
@@ -388,6 +411,7 @@
     float delayTime=self.delayTime;
     if (!self.node) {
         [self setTimeOutWithDelay:delayTime withSelector:@selector(updateForCommon)];
+        return;
     }
     
     //AI主体，视线范围是否找得到符合条件的目标，找得到做什么(移动并攻击)，找不到做什么(英雄站立，小兵移动)
@@ -401,24 +425,31 @@
     
     [self updateCollisionObjectArray];
     
-
-    switch (self.aiState) {
-        case aiState_nothingToDo:
-            [self nothingToDo];
-            break;
-        case aiState_searchingInSight:
-            [self searchingInSight];
-            break;
-        case aiState_attackWantedObject:
-            [self attackingWantedObject];
-            break;
-        case aiState_inAttackRange:
-            [self doInAttackRange];
-            break;
-            
-        default:
-            break;
+    if (self.collisionObjectsInAttankRange.count>0) {
+        [self onInAttackRange];
+    }else if (self.collisionObjectsInSight.count>0){
+        [self onInSightButNotInAttackRange];
+    }else{
+        [self onNothingInSight];
     }
+    
+//    switch (self.aiState) {
+//        case aiState_nothingToDo:
+//            [self nothingToDo];
+//            break;
+//        case aiState_searchingInSight:
+//            [self searchingInSight];
+//            break;
+//        case aiState_attackWantedObject:
+//            [self attackingWantedObject];
+//            break;
+//        case aiState_inAttackRange:
+//            [self doInAttackRange];
+//            break;
+//            
+//        default:
+//            break;
+//    }
    
     
 

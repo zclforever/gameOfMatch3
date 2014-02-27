@@ -102,10 +102,13 @@
     [self addLifeBar];
     [self addEnergyBar];
     
-    self.node=self.sprite;
+    __block AiObject* obj=self;
     [self.sprite runAction:[CCSequence actions:
                             [CCDelayTime actionWithDuration:3.5],
-                            [CCJumpTo actionWithDuration:0.5 position:position height:30 jumps:1]
+                            [CCJumpTo actionWithDuration:0.5 position:position height:30 jumps:1],
+                            [CCCallBlock actionWithBlock:^{
+        obj.node=obj.sprite;
+    }]
                             ,nil]];
     
     
@@ -273,12 +276,7 @@
     }
     
 }
--(void)onAttackWantedButNotInAttackRangeFromObject:(AiObject*)obj{
-    if (!obj.node) {
-        return;
-    }
-    [self moveToPosition:obj.node.position];
-}
+
 -(bool)normalAttackTarget:(AiObject*)obj{
     if (self.curEnergy<5) {
         return NO;
@@ -288,10 +286,27 @@
     self.curEnergy-=5;
     return YES;
 }
+-(bool)onReadyToAttackTargetInRange{
+    AiObject* obj=self.collisionObjectsInAttankRange[0];
+    if (self.curEnergy<5) {
+        return NO;
+    }
+    NSString* skillName=[self.attributeDict valueForKey:@"skill_0"];
+    [self magicAttackWithName:skillName];
+    self.curEnergy-=5;
+    return YES;
+}
+
+-(void)onInSightButNotInAttackRange{
+    AiObject* obj=self.collisionObjectsInSight[0];
+    [self moveToPosition:obj.node.position];
+}
+-(void)onNothingInSight{
+    [self moveToPosition:self.startPosition];
+}
 -(void)nothingToDo{
     
-    self.aiState=aiState_searchingInSight;
-    //[self moveToPosition:self.startPosition];
+    //
     
 }
 -(void)addApBar{

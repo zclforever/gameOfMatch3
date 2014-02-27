@@ -174,7 +174,7 @@
 		<key>attackCD</key>
 		<integer>2</integer>
 		<key>moveSpeed</key>
-		<integer>14</integer>
+		<integer>18</integer>
 		<key>maxHP</key>
 		<integer>50</integer>
 		<key>maxEnergy</key>

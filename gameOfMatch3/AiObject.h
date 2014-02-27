@@ -36,7 +36,7 @@
 @property (strong,nonatomic) NSMutableDictionary* attributeDict;
 @property int aiState;
 @property (strong,nonatomic) NSMutableArray* targetTags;
-@property (strong,nonatomic) NSMutableArray* tags;
+@property (strong,nonatomic) NSMutableArray* selfTags;
 
 @property (strong,nonatomic) NSString* type;
 
@@ -71,6 +71,8 @@
 @property (nonatomic,strong) NSArray* collisionObjectsInSight;
 @property (nonatomic,strong) NSArray* collisionObjectsInAttankRange;
 
+
+
 @property (strong,nonatomic) NSMutableDictionary* stateDict;  //战斗时的状态
 @property (strong,nonatomic) State* state;  //战斗时的状态
 //@property (weak) id <AiObject>	spriteEntity ;
@@ -90,6 +92,15 @@
 -(void)moveToPosition:(CGPoint)pos;
 
 -(void)updateCollisionObjectArray;
+
+-(void)onInSightButNotInAttackRange;
+-(void)onInAttackRange;
+-(void)onNothingInSight;
+-(void)nothingToDo;
+-(void)onNotReadyToAttackTargetInRange;   //攻击CD未到
+-(bool)onReadyToAttackTargetInRange;    //CD OK可以攻击了。
+
+
 -(void)setTimeOutOfUpdateWithDelay:(float)timeOut;
 -(void)setTimeOutWithDelay:(float)timeOut withSelector:(SEL)selector;
 -(void)setTimeOutWithDelay:(float)timeOut withBlock:(void(^)())block;
