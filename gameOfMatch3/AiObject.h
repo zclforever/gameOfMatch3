@@ -10,6 +10,7 @@
 #import "cocos2d.h"
 #import "Actions.h"
 #import "Global.h"
+#import "BarHelper.h"
 //@protocol AiObject 
 //@required
 //-(CGRect)getBoundingBox;
@@ -56,9 +57,7 @@
 @property bool alive;
 @property bool atDest;
 
-@property (strong,nonatomic) CCSprite* lifeBar;
-@property (strong,nonatomic) CCSprite* lifeBarBorder;
-@property (strong,nonatomic) CCLabelTTF* HPLabel;
+
 
 @property float width;
 @property float height;
@@ -70,7 +69,7 @@
 @property (nonatomic,strong) NSMutableArray* collisionObjects;
 @property (nonatomic,strong) NSArray* collisionObjectsInSight;
 @property (nonatomic,strong) NSArray* collisionObjectsInAttankRange;
-
+@property (strong,nonatomic) AiObject* wantedObject;
 
 
 @property (strong,nonatomic) NSMutableDictionary* stateDict;  //战斗时的状态
@@ -84,6 +83,8 @@
 //debug
 @property bool showBoundingBox;
 
+
+-(void)onEnterFrame;
 -(CGRect)getBoundingBox;
 -(CGPoint)getCenterPoint;
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withName:(NSString*)name;

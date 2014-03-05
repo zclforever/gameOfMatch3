@@ -55,7 +55,11 @@
 
 
         //self.spriteEntity=self;
-        [self addLifeBar];
+        //[self addLifeBar];
+        BarHelper* barHelper=[[BarHelper alloc]initWithOwner:self];
+        [barHelper addLifeBar];
+        [self addChild:barHelper];
+        
         [self update];
         
         
@@ -229,10 +233,10 @@
     
     //--------------结束标志----------------------
     if (self.readyToEnd) {
-        if(self.lifeBar){
-            [self.lifeBar removeFromParentAndCleanup:YES];
-            [self.lifeBarBorder removeFromParentAndCleanup:YES];
-        }
+//        if(self.lifeBar){
+//            [self.lifeBar removeFromParentAndCleanup:YES];
+//            [self.lifeBarBorder removeFromParentAndCleanup:YES];
+//        }
         return;
     }
     

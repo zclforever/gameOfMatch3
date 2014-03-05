@@ -231,16 +231,22 @@
 	<dict>
 		<key>tileSpriteName</key>
 		<string>block_101.png</string>
+		<key>attackRange</key>
+		<string>{10,55}</string>
 	</dict>
 	<key>skill_bigFireBall</key>
 	<dict>
 		<key>tileSpriteName</key>
 		<string>block_105.png</string>
+		<key>attackRange</key>
+		<string>{10,55}</string>
 	</dict>
 	<key>skill_fireBall</key>
 	<dict>
 		<key>tileSpriteName</key>
 		<string>block_102.png</string>
+		<key>attackRange</key>
+		<string>{10,55}</string>
 	</dict>
 </dict>
 </plist>

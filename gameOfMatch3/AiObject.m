@@ -21,7 +21,7 @@
 
 @end
 @interface AiObject()
-@property (strong,nonatomic) AiObject* wantedObject;
+
 
 @end
 
@@ -214,51 +214,7 @@
 }
 -(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
 }
--(void)addLifeBar{
-    //init LifeBar
-    float width=[[self.attributeDict valueForKey:@"lifeBarWidth"] floatValue];
-    float height=[[self.attributeDict valueForKey:@"lifeBarHeight"] floatValue];
 
-    
-    self.lifeBar=[CCSprite spriteWithFile:@"lifeBar.png" ];
-    self.lifeBar.anchorPoint=ccp(0,0);
-    self.lifeBar.scaleX=width/self.lifeBar.contentSize.width;
-    self.lifeBar.scaleY=height/self.lifeBar.contentSize.height;
-    self.lifeBar.visible=NO;
-    
-    [self addChild:self.lifeBar];
-    
-    self.lifeBarBorder=[CCSprite spriteWithFile:@"border.png"];
-    self.lifeBarBorder.anchorPoint=ccp(0,0);
-    self.lifeBarBorder.scaleX=width/self.lifeBarBorder.contentSize.width;
-    self.lifeBarBorder.scaleY=height/self.lifeBarBorder.contentSize.height;
-    self.lifeBarBorder.visible=NO;
-    
-    [self addChild:self.lifeBarBorder];
-    
-    
-    
-}
--(void)updateLifeBar{
-    self.lifeBar.visible=YES;
-    self.lifeBarBorder.visible=YES;
-    
-    float marginHead=[[self.attributeDict valueForKey:@"lifeBarMarginHead"] floatValue];
-    if(!marginHead)marginHead=5;
-    
-    float width=[[self.attributeDict valueForKey:@"lifeBarWidth"] floatValue];
-    //float height=[[self.attributeDict valueForKey:@"top"] floatValue];
-    if(self.curHP<0) self.curHP=0;
-    
-    //updatePosition
-    CGRect rect=[self getBoundingBox];
-    
-    self.lifeBar.position=ccp(self.sprite.position.x-10,self.sprite.position.y+rect.size.height+marginHead);
-    self.lifeBarBorder.position=self.lifeBar.position;
-    
-    self.lifeBar.scaleX=self.curHP/self.maxHP*width/self.lifeBar.contentSize.width;
-    
-}
 -(void)draw{
     if(self.showBoundingBox){
         ccDrawColor4B(255, 0, 0,0);
@@ -274,6 +230,9 @@
 }
 
 -(NSArray*)objectsByTags:(NSArray*)tags from:(NSArray*)objectsArray{
+    if (!tags) {
+        return [NSArray arrayWithArray:objectsArray];
+    }
     NSMutableArray* ret=[[NSMutableArray alloc]init];
     for (NSString* tag in tags) {
         for (AiObject* obj in objectsArray) {
@@ -320,6 +279,9 @@
 
 
 }
+-(void)onEnterFrame{
+//重载用
+};
 -(void)moveToPosition:(CGPoint)pos{
     if(!self.node)return;
     if (isnan(pos.x)||isnan(pos.y)) {
@@ -363,15 +325,15 @@
     
 }
 
--(void)attackingWantedObject{  //不管有没有视线，直接攻击
-    AiObject* obj=self.wantedObject;
-    if (self.collisionObjectsInAttankRange.count>0) {
-        self.aiState=aiState_inAttackRange;
-    }else{
-        self.aiState=aiState_attackWantedObject;
-        [self onAttackWantedButNotInAttackRangeFromObject:obj];
-    }
-}
+//-(void)attackingWantedObject{  //不管有没有视线，直接攻击
+//    AiObject* obj=self.wantedObject;
+//    if (self.collisionObjectsInAttankRange.count>0) {
+//        self.aiState=aiState_inAttackRange;
+//    }else{
+//        self.aiState=aiState_attackWantedObject;
+//        [self onAttackWantedButNotInAttackRangeFromObject:obj];
+//    }
+//}
 
 
 
@@ -415,7 +377,7 @@
     }
     
     //AI主体，视线范围是否找得到符合条件的目标，找得到做什么(移动并攻击)，找不到做什么(英雄站立，小兵移动)
-    
+    [self onEnterFrame];
     
     if(self.wantedObject&&self.wantedObject.alive==NO){ //判断死亡 状态
             self.wantedObject=nil;
@@ -454,7 +416,7 @@
     
 
     //todo lifeBar 之类做在这里
-     if(self.lifeBar){[self updateLifeBar];};
+     //if(self.lifeBar){[self updateLifeBar];};
     
     
     [self setTimeOutWithDelay:delayTime withSelector:@selector(updateForCommon)];

@@ -9,6 +9,8 @@
 #import "Hero.h"
 #import "Projectile.h"
 #import "SkillDelegate.h"
+#import "ProjectileWithTargets.h"
+#import "ProjectileWithTargetPosition.h"
 @interface Hero()
 @property (strong,nonatomic) CCSprite* lifeBar;
 @property (strong,nonatomic) CCSprite* lifeBarBorder;
@@ -99,7 +101,12 @@
     sprite.scaleY=zPersonHeight/sprite.contentSize.height;
     [self addChild:sprite];
     self.sprite=sprite;
-    [self addLifeBar];
+    //[self addLifeBar];
+    BarHelper* barHelper=[[BarHelper alloc]initWithOwner:self];
+    [barHelper addLifeBar];
+    
+    [self addChild:barHelper];
+    
     [self addEnergyBar];
     
     __block AiObject* obj=self;
@@ -236,10 +243,13 @@
 }
 -(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
     NSString* name=magicName;
+    Projectile* projectile;
     if([name isEqualToString:@"skill_bigFireBall"]){
-        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(100,460) byName:name];
+        
+        projectile=[[ProjectileWithTargetPosition alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(100,460) withDestPosition:ccp(zEnemyMarginLeft+zPersonWidth/2,self.sprite.position.y+zPersonHeight/2) byName:name];
+        
         [self addChild:projectile];
-        [projectile attackPosition:ccp(zEnemyMarginLeft+zPersonWidth/2,self.sprite.position.y+zPersonHeight/2)];
+
         
         [[SimpleAudioEngine sharedEngine] playEffect:@"explosion.wav"];
         
@@ -247,34 +257,38 @@
     }
     
     
-    if([name isEqualToString:@"skill_fireBall"]){
-        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth,self.sprite.position.y+zPersonHeight/2) byName:name];
+    else if([name isEqualToString:@"skill_fireBall"]){
+        NSArray* targetArray=[NSArray arrayWithArray:self.collisionObjectsInAttankRange];
+        projectile=[[ProjectileWithTargets alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth,self.sprite.position.y+zPersonHeight/2) withTargets:targetArray byName:name];
+
         [self addChild:projectile];
-        [projectile attackNearest];
+        //[projectile attackNearest];
         
         [[SimpleAudioEngine sharedEngine] playEffect:@"fire_fly.wav"];
         
         
     }
     
-    if([name isEqualToString:@"skill_iceBall"]){
-        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth+5,self.sprite.position.y+zPersonHeight/2-10) byName:name];
+    else if([name isEqualToString:@"skill_iceBall"]){
+                projectile=[[ProjectileWithTargetPosition alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth+5,self.sprite.position.y+zPersonHeight/2-10) withDestPosition:ccp(zEnemyMarginLeft,self.sprite.position.y+zPersonHeight/2-10) byName:name];
+
         [self addChild:projectile];
-        [projectile attackPosition:ccp(zEnemyMarginLeft,self.sprite.position.y+zPersonHeight/2-10)];
         
         [[SimpleAudioEngine sharedEngine] playEffect:@"ice_fly.wav"];
         
     }
     
-    if([name isEqualToString:@"skill_snowBall"]){
+    else if([name isEqualToString:@"skill_snowBall"]){
         float randomX=50+arc4random()%220;
         
-        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(randomX,460) byName:name];
+        projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(randomX,460) byName:name];
         [self addChild:projectile z:5];
         [projectile attackPosition:ccp(0,self.sprite.position.y)];
         
+    }else{
+        return;
     }
-    
+
 }
 
 -(bool)normalAttackTarget:(AiObject*)obj{
@@ -287,7 +301,7 @@
     return YES;
 }
 -(bool)onReadyToAttackTargetInRange{
-    AiObject* obj=self.collisionObjectsInAttankRange[0];
+    self.wantedObject=self.collisionObjectsInAttankRange[0];
     if (self.curEnergy<5) {
         return NO;
     }

@@ -109,7 +109,7 @@
         }
         
         
-        self.particle.visible=NO;
+        //self.particle.visible=NO;
         
         
         
@@ -122,7 +122,7 @@
             [[UIAccelerometer sharedAccelerometer] setDelegate:self];
         }
         
-        [self update];
+        //[self update];
     }
     return self;
     
@@ -142,15 +142,16 @@
 
 
 }
--(CGRect)getBoundingBox{
-    if (self.particle) {
-        CGRect selfRect=self.particle.boundingBox;
-        selfRect.size=self.attackRange;
-        
-        return CGRectMake(selfRect.origin.x-self.attackRange.width/2, selfRect.origin.y-self.attackRange.height/2, self.attackRange.width, self.attackRange.height);
-    }else return CGRectZero;
+//-(CGRect)getBoundingBox{
+//    if (self.particle) {
+//        CGRect selfRect=self.particle.boundingBox;
+//        selfRect.size=self.attackRange;
+//        
+//        return CGRectMake(selfRect.origin.x-self.attackRange.width/2, selfRect.origin.y-self.attackRange.height/2, self.attackRange.width, self.attackRange.height);
+//    }else return CGRectZero;
+//
+//}
 
-}
 -(void)attackPosition:(CGPoint)position{
 
     self.attackPostionIgnoreX=!position.x;
@@ -166,183 +167,199 @@
     self.particle.visible=YES;
     self.attackingNearest=YES;
 }
--(void)move{  //self.moveDestPosition;
-    if (!self.moving) {
-        return;
-    }
-
-    CGPoint pos=self.moveDestPosition;
-    CGPoint position=self.particle.position;
-    float moveDistanceX=self.speedX*self.delayTime;
-    float moveDistanceY=self.speedY*self.delayTime;
-    float xDistance=pos.x-position.x;
-    float yDistance=pos.y-position.y;
-    float xMoveDistance=xDistance>0?moveDistanceX:-moveDistanceX;
-    float yMoveDistance=yDistance>0?moveDistanceY:-moveDistanceY;
-    
-    if (abs(xDistance)>abs(yDistance)){yMoveDistance/=abs(xDistance/yDistance);}
-    else{ xMoveDistance/=abs(yDistance/xDistance);   }
-
-    self.particle.position=ccp( position.x+xMoveDistance,position.y+yMoveDistance);
-    
-    float destMinDistance=max(moveDistanceX,3);
-    if(
-       (abs(xDistance)<destMinDistance||self.speedX==0)&&
-       (abs(yDistance)<destMinDistance||self.speedY==0)
-       ){
-        self.atDest=YES;
-    }
-    
+-(void)dieAction{
+    self.alive=NO;
+    [self.allObjectsArray removeObject:self];
+    [self removeFromParentAndCleanup:YES];
 }
--(void)updateCollisionObjectArray{  //collision.coll.
-    
-    [self.collisionObjects removeAllObjects];
-    for (AiObject* obj in self.allObjectsArray) {
-        if(obj==self)continue;
-        CGRect selfRect=[self getBoundingBox];
-       
-        CGRect objRect=[(id)obj getBoundingBox];
-
-
-        if ([Global rectInsect:objRect :selfRect]) {
-            [self.collisionObjects addObject:obj];
-        }
-    }
-}
--(void)update{
-    self.delayTime=0.04;
-    
-    NSArray* allAttackTargets=[[Global sharedManager] allEnemys];
-    //-------------攻击某个位置
-    float attackPastTime=[[Global sharedManager]gameTime]-self.lastAttackTime;
-    
-    if(self.attackingPostion&&self.particle){
-
-        if (self.attackPostionIgnoreX) self.moveDestPosition=ccp(self.node.position.x,self.moveDestPosition.y);
-        if(self.attackPostionIgnoreY) self.moveDestPosition=ccp(self.moveDestPosition.x,self.node.position.y);
-        
-        if(!self.moving){
-            self.moving=YES;
-        }
-        [self move];
-        
-        
-        //------------攻击cd到后 允许攻击 并检测碰撞 
-        if (attackPastTime>=self.attackCD) {
-            [self updateCollisionObjectArray];
-            for (AiObject* collisionObj in self.collisionObjects) {
-                if(self.attackOnce){
-                    if ([self.attackedObjectsArray containsObject:collisionObj]) {
-                        continue;
-                    }
-                }
-                
-                if (![allAttackTargets containsObject:collisionObj.objectName]) {
-                    continue;
-                }
-                if (!collisionObj.alive) {
-                    continue;
-                }
-                self.lastAttackTime=[[Global sharedManager] gameTime];
-                
-                //hitsound
-                if(self.hitSound){[[SimpleAudioEngine sharedEngine]playEffect:self.hitSound];}
-                    
-                [collisionObj hurtByObject:self];
-                if(self.attackOnce){[self.attackedObjectsArray addObject:collisionObj];}
-                
-            }
-        }
-
-        
-        if (self.atDest) {
-            self.attackingPostion=NO;
-            self.alive=NO;
-            [self.allObjectsArray removeObject:self];
-            [self removeFromParentAndCleanup:YES];
-            return;
-
-        }
-        
-        
-    }
-    
-     //------------------攻击最近目标   
-    if (self.attackingNearest&&self.particle) {
-        
-        CGPoint position=self.particle.position;
-        NSArray* nearestArray=[self sortAllObjectsByDistanceFromPosition:position];
-        AiObject* nearestObj;
-        for (AiObject* obj in nearestArray) {
-            
-            if (obj==self||![allAttackTargets containsObject:obj.objectName]) {
-                continue;
-            }
-            if (obj.alive) {
-                nearestObj=obj;
-                break;
-            }
-        }
-        //-----------找不到目标就销毁
-        if (!nearestObj) {
-            self.attackingNearest=NO;
-            self.alive=NO;
-            [self.allObjectsArray removeObject:self];
-            [self removeFromParentAndCleanup:YES];
-            return;
-        }
-        //------------找到最近目标
-        if (nearestObj) {
-            CGRect rect=[nearestObj getBoundingBox];
-            CGPoint pos=rect.origin;
-            pos.x+=rect.size.width/2;
-            pos.y+=rect.size.height/2;
-            self.moveDestPosition=pos;
-            if(!self.moving){
-                self.moving=YES;
-
-            }
-            [self move];
-            
-            [self updateCollisionObjectArray];
-            for (AiObject* collisionObj in self.collisionObjects) {
-                if(collisionObj==nearestObj){
-                    self.moving=NO;
-                    int enemyCurHP=nearestObj.curHP;
-
-                    //hitSound
-                    if(self.hitSound){[[SimpleAudioEngine sharedEngine]playEffect:self.hitSound];}
-                    
-                    [nearestObj hurtByObject:self];
-                    
-                    if(self.damage<=enemyCurHP||[nearestObj.objectName isEqualToString:@"bossEnemy"]){
-                        
-                        self.attackingNearest=NO;
-                        self.alive=NO;
-                        [self.allObjectsArray removeObject:self];
-                        [self removeFromParentAndCleanup:YES];
-                        return;
-                    }
-                    else{
-                        __block Projectile* obj=self;
-                        [self setTimeOutWithDelay:self.delayTime withBlock:^{
-                            obj.damage-=enemyCurHP;
-                            [obj update];
-                        }];
-                    }
-                    
-                    return;
-                }
-            }
- 
-            
-        }
-        
-    }
-    
-    //----------------------------------
-    [self setTimeOutOfUpdateWithDelay:self.delayTime];
-}
+//-(void)move{  //self.moveDestPosition;
+//    if (!self.moving) {
+//        return;
+//    }
+//
+//    CGPoint pos=self.moveDestPosition;
+//    CGPoint position=self.particle.position;
+//    float moveDistanceX=self.speedX*self.delayTime;
+//    float moveDistanceY=self.speedY*self.delayTime;
+//    float xDistance=pos.x-position.x;
+//    float yDistance=pos.y-position.y;
+//    float xMoveDistance=xDistance>0?moveDistanceX:-moveDistanceX;
+//    float yMoveDistance=yDistance>0?moveDistanceY:-moveDistanceY;
+//    
+//    if (abs(xDistance)>abs(yDistance)){yMoveDistance/=abs(xDistance/yDistance);}
+//    else{ xMoveDistance/=abs(yDistance/xDistance);   }
+//
+//    self.particle.position=ccp( position.x+xMoveDistance,position.y+yMoveDistance);
+//    
+//    float destMinDistance=max(moveDistanceX,3);
+//    if(
+//       (abs(xDistance)<destMinDistance||self.speedX==0)&&
+//       (abs(yDistance)<destMinDistance||self.speedY==0)
+//       ){
+//        self.atDest=YES;
+//    }
+//    
+//}
+//-(void)updateCollisionObjectArray{  //collision.coll.
+//    
+//    [self.collisionObjects removeAllObjects];
+//    for (AiObject* obj in self.allObjectsArray) {
+//        if(obj==self)continue;
+//        CGRect selfRect=[self getBoundingBox];
+//       
+//        CGRect objRect=[(id)obj getBoundingBox];
+//
+//
+//        if ([Global rectInsect:objRect :selfRect]) {
+//            [self.collisionObjects addObject:obj];
+//        }
+//    }
+//}
+//-(void)onNothingInSight{
+//    //assert(self.wantedObject);
+//    [self moveToPosition:[self.wantedObject getCenterPoint]];
+//}
+//-(bool)onReadyToAttackTargetInRange{
+//    [self.wantedObject hurtByObject:self];
+//    self.alive=NO;
+//    [self.allObjectsArray removeObject:self];
+//    [self removeFromParentAndCleanup:YES];
+//    return YES;
+//}
+//-(void)update{
+//    self.delayTime=0.04;
+//    
+//    NSArray* allAttackTargets=[[Global sharedManager] allEnemys];
+//    //-------------攻击某个位置
+//    float attackPastTime=[[Global sharedManager]gameTime]-self.lastAttackTime;
+//    
+//    if(self.attackingPostion&&self.particle){
+//
+//        if (self.attackPostionIgnoreX) self.moveDestPosition=ccp(self.node.position.x,self.moveDestPosition.y);
+//        if(self.attackPostionIgnoreY) self.moveDestPosition=ccp(self.moveDestPosition.x,self.node.position.y);
+//        
+//        if(!self.moving){
+//            self.moving=YES;
+//        }
+//        [self move];
+//        
+//        
+//        //------------攻击cd到后 允许攻击 并检测碰撞 
+//        if (attackPastTime>=self.attackCD) {
+//            [self updateCollisionObjectArray];
+//            for (AiObject* collisionObj in self.collisionObjects) {
+//                if(self.attackOnce){
+//                    if ([self.attackedObjectsArray containsObject:collisionObj]) {
+//                        continue;
+//                    }
+//                }
+//                
+//                if (![allAttackTargets containsObject:collisionObj.objectName]) {
+//                    continue;
+//                }
+//                if (!collisionObj.alive) {
+//                    continue;
+//                }
+//                self.lastAttackTime=[[Global sharedManager] gameTime];
+//                
+//                //hitsound
+//                if(self.hitSound){[[SimpleAudioEngine sharedEngine]playEffect:self.hitSound];}
+//                    
+//                [collisionObj hurtByObject:self];
+//                if(self.attackOnce){[self.attackedObjectsArray addObject:collisionObj];}
+//                
+//            }
+//        }
+//
+//        
+//        if (self.atDest) {
+//            self.attackingPostion=NO;
+//            self.alive=NO;
+//            [self.allObjectsArray removeObject:self];
+//            [self removeFromParentAndCleanup:YES];
+//            return;
+//
+//        }
+//        
+//        
+//    }
+//    
+//     //------------------攻击最近目标   
+//    if (self.attackingNearest&&self.particle) {
+//        
+//        CGPoint position=self.particle.position;
+//        NSArray* nearestArray=[self sortAllObjectsByDistanceFromPosition:position];
+//        AiObject* nearestObj;
+//        for (AiObject* obj in nearestArray) {
+//            
+//            if (obj==self||![allAttackTargets containsObject:obj.objectName]) {
+//                continue;
+//            }
+//            if (obj.alive) {
+//                nearestObj=obj;
+//                break;
+//            }
+//        }
+//        //-----------找不到目标就销毁
+//        if (!nearestObj) {
+//            self.attackingNearest=NO;
+//            self.alive=NO;
+//            [self.allObjectsArray removeObject:self];
+//            [self removeFromParentAndCleanup:YES];
+//            return;
+//        }
+//        //------------找到最近目标
+//        if (nearestObj) {
+//            CGRect rect=[nearestObj getBoundingBox];
+//            CGPoint pos=rect.origin;
+//            pos.x+=rect.size.width/2;
+//            pos.y+=rect.size.height/2;
+//            self.moveDestPosition=pos;
+//            if(!self.moving){
+//                self.moving=YES;
+//
+//            }
+//            [self move];
+//            
+//            [self updateCollisionObjectArray];
+//            for (AiObject* collisionObj in self.collisionObjects) {
+//                if(collisionObj==nearestObj){
+//                    self.moving=NO;
+//                    int enemyCurHP=nearestObj.curHP;
+//
+//                    //hitSound
+//                    if(self.hitSound){[[SimpleAudioEngine sharedEngine]playEffect:self.hitSound];}
+//                    
+//                    [nearestObj hurtByObject:self];
+//                    
+//                    if(self.damage<=enemyCurHP||[nearestObj.objectName isEqualToString:@"bossEnemy"]){
+//                        
+//                        self.attackingNearest=NO;
+//                        self.alive=NO;
+//                        [self.allObjectsArray removeObject:self];
+//                        [self removeFromParentAndCleanup:YES];
+//                        return;
+//                    }
+//                    else{
+//                        __block Projectile* obj=self;
+//                        [self setTimeOutWithDelay:self.delayTime withBlock:^{
+//                            obj.damage-=enemyCurHP;
+//                            [obj update];
+//                        }];
+//                    }
+//                    
+//                    return;
+//                }
+//            }
+// 
+//            
+//        }
+//        
+//    }
+//    
+//    //----------------------------------
+//    [self setTimeOutOfUpdateWithDelay:self.delayTime];
+//}
 
 
 @end

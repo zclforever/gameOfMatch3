@@ -64,6 +64,8 @@
 		0278B13A187C141600A3AECA /* person001.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0278B138187C141600A3AECA /* person001.plist */; };
 		0278B13B187C141600A3AECA /* person001.png in Resources */ = {isa = PBXBuildFile; fileRef = 0278B139187C141600A3AECA /* person001.png */; };
 		0279080417D48C8100CF5ED4 /* Magic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0279080317D48C8100CF5ED4 /* Magic.m */; };
+		028A260E18C70C1A00C71BEA /* ProjectileWithTargets.m in Sources */ = {isa = PBXBuildFile; fileRef = 028A260D18C70C1A00C71BEA /* ProjectileWithTargets.m */; };
+		028A261118C71AF300C71BEA /* BarHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 028A261018C71AF300C71BEA /* BarHelper.m */; };
 		02A18C8617F970D4008D5C33 /* ActionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A18C8517F970D4008D5C33 /* ActionQueue.m */; };
 		02A260151814F36B009F2719 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A260141814F36B009F2719 /* border.png */; };
 		02A260171814F4C1009F2719 /* lifeBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A260161814F4C1009F2719 /* lifeBar.png */; };
@@ -240,6 +242,7 @@
 		02F71A0F1834BC7500F60B1F /* particleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A0E1834BC7500F60B1F /* particleTexture.png */; };
 		02F71A111834CB9A00F60B1F /* rainFall.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A101834CB9A00F60B1F /* rainFall.plist */; };
 		02F71A131834CC6700F60B1F /* stars.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A121834CC6700F60B1F /* stars.plist */; };
+		02F9377218C707D60039F692 /* ProjectileWithTargetPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F9377118C707D60039F692 /* ProjectileWithTargetPosition.m */; };
 		02F9B287185094A80083FDD7 /* bigFireBall.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F9B286185094A80083FDD7 /* bigFireBall.plist */; };
 		02F9B2891850972C0083FDD7 /* bigFireBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F9B2881850972C0083FDD7 /* bigFireBall.png */; };
 		02FA113A1868234C0096C870 /* snowBall.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02FA11391868234C0096C870 /* snowBall.plist */; };
@@ -358,6 +361,10 @@
 		0278B139187C141600A3AECA /* person001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person001.png; sourceTree = "<group>"; };
 		0279080217D48C8100CF5ED4 /* Magic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Magic.h; sourceTree = "<group>"; };
 		0279080317D48C8100CF5ED4 /* Magic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Magic.m; sourceTree = "<group>"; };
+		028A260C18C70C1A00C71BEA /* ProjectileWithTargets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectileWithTargets.h; sourceTree = "<group>"; };
+		028A260D18C70C1A00C71BEA /* ProjectileWithTargets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectileWithTargets.m; sourceTree = "<group>"; };
+		028A260F18C71AF300C71BEA /* BarHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarHelper.h; sourceTree = "<group>"; };
+		028A261018C71AF300C71BEA /* BarHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarHelper.m; sourceTree = "<group>"; };
 		02A18C8417F970D4008D5C33 /* ActionQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionQueue.h; sourceTree = "<group>"; };
 		02A18C8517F970D4008D5C33 /* ActionQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionQueue.m; sourceTree = "<group>"; };
 		02A260141814F36B009F2719 /* border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border.png; sourceTree = "<group>"; };
@@ -694,6 +701,8 @@
 		02F71A0E1834BC7500F60B1F /* particleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particleTexture.png; sourceTree = "<group>"; };
 		02F71A101834CB9A00F60B1F /* rainFall.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = rainFall.plist; sourceTree = "<group>"; };
 		02F71A121834CC6700F60B1F /* stars.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stars.plist; sourceTree = "<group>"; };
+		02F9377018C707D60039F692 /* ProjectileWithTargetPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectileWithTargetPosition.h; sourceTree = "<group>"; };
+		02F9377118C707D60039F692 /* ProjectileWithTargetPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectileWithTargetPosition.m; sourceTree = "<group>"; };
 		02F9B286185094A80083FDD7 /* bigFireBall.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bigFireBall.plist; sourceTree = "<group>"; };
 		02F9B2881850972C0083FDD7 /* bigFireBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bigFireBall.png; sourceTree = "<group>"; };
 		02FA11391868234C0096C870 /* snowBall.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snowBall.plist; sourceTree = "<group>"; };
@@ -974,6 +983,8 @@
 				753731AD17CFAFB800B0BEDF /* Person.m */,
 				752979B117D3ABA7009B8B95 /* StatePanelLayerInBattle.h */,
 				752979B217D3ABA7009B8B95 /* StatePanelLayerInBattle.m */,
+				028A260F18C71AF300C71BEA /* BarHelper.h */,
+				028A261018C71AF300C71BEA /* BarHelper.m */,
 				02F2AA76185FFA4700C4FD14 /* AiObject.h */,
 				02F2AA77185FFA4700C4FD14 /* AiObject.m */,
 				02A58037186033680042C083 /* Player.h */,
@@ -990,6 +1001,10 @@
 				020AB228185BEADD0000BB3E /* SmallEnemy.m */,
 				02A5803A1860577B0042C083 /* Projectile.h */,
 				02A5803B1860577B0042C083 /* Projectile.m */,
+				02F9377018C707D60039F692 /* ProjectileWithTargetPosition.h */,
+				02F9377118C707D60039F692 /* ProjectileWithTargetPosition.m */,
+				028A260C18C70C1A00C71BEA /* ProjectileWithTargets.h */,
+				028A260D18C70C1A00C71BEA /* ProjectileWithTargets.m */,
 				026A18DA17F9297100B05B31 /* Actions.h */,
 				026A18DB17F9297100B05B31 /* Actions.m */,
 				02A18C8417F970D4008D5C33 /* ActionQueue.h */,
@@ -1792,6 +1807,9 @@
 				022AB7FA18A767B500F570BF /* Hero.m in Sources */,
 				02E0BB7518AEFC2600EF2408 /* ItemDelegate.m in Sources */,
 				02E0BB7818AF134500EF2408 /* SkillDelegate.m in Sources */,
+				02F9377218C707D60039F692 /* ProjectileWithTargetPosition.m in Sources */,
+				028A260E18C70C1A00C71BEA /* ProjectileWithTargets.m in Sources */,
+				028A261118C71AF300C71BEA /* BarHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

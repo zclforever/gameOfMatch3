@@ -502,25 +502,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/SmallEnemy.m"
-         timestampString = "413631202.986702"
+         timestampString = "415705526.409501"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "227"
-         endingLineNumber = "227"
+         startingLineNumber = "231"
+         endingLineNumber = "231"
          landmarkName = "-update"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "gameOfMatch3/Projectile.m"
-         timestampString = "411731241.967261"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "151"
-         endingLineNumber = "151"
-         landmarkName = "-getBoundingBox"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -540,32 +527,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "gameOfMatch3/Projectile.m"
-         timestampString = "411731241.967261"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "282"
-         endingLineNumber = "282"
-         landmarkName = "-update"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "gameOfMatch3/Projectile.m"
-         timestampString = "411731241.967261"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "284"
-         endingLineNumber = "284"
-         landmarkName = "-update"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/Player.m"
          timestampString = "412072532.975717"
          startingColumnNumber = "9223372036854775807"
@@ -579,25 +540,12 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "gameOfMatch3/Projectile.m"
-         timestampString = "411731241.967261"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "202"
-         endingLineNumber = "202"
-         landmarkName = "-updateCollisionObjectArray"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/SmallEnemy.m"
-         timestampString = "413631202.986702"
+         timestampString = "415705526.409501"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "102"
-         endingLineNumber = "102"
+         startingLineNumber = "106"
+         endingLineNumber = "106"
          landmarkName = "-dieAction"
          landmarkType = "5">
       </FileBreakpoint>
@@ -606,24 +554,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/SmallEnemy.m"
-         timestampString = "413631202.986702"
+         timestampString = "415705526.409501"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "244"
-         endingLineNumber = "244"
-         landmarkName = "-update"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "gameOfMatch3/Projectile.m"
-         timestampString = "411731241.967261"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "274"
-         endingLineNumber = "274"
+         startingLineNumber = "248"
+         endingLineNumber = "248"
          landmarkName = "-update"
          landmarkType = "5">
       </FileBreakpoint>
@@ -651,47 +586,6 @@
          startingLineNumber = "140"
          endingLineNumber = "140"
          landmarkName = "-sortAllObjectsByDistanceFromPosition:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         condition = "self.particle.position.y&lt;370"
-         continueAfterRunningActions = "No"
-         filePath = "gameOfMatch3/Projectile.m"
-         timestampString = "411731241.967261"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "305"
-         endingLineNumber = "305"
-         landmarkName = "-update"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         condition = "self.particle.position.y&lt;370"
-         continueAfterRunningActions = "No"
-         filePath = "gameOfMatch3/Projectile.m"
-         timestampString = "411731241.967261"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "232"
-         endingLineNumber = "232"
-         landmarkName = "-update"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "gameOfMatch3/AiObject.m"
-         timestampString = "414930718.577871"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "219"
-         endingLineNumber = "219"
-         landmarkName = "-addLifeBar"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -726,11 +620,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/SmallEnemy.m"
-         timestampString = "413631202.986702"
+         timestampString = "415705526.409501"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "72"
-         endingLineNumber = "72"
+         startingLineNumber = "76"
+         endingLineNumber = "76"
          landmarkName = "-getBoundingBox"
          landmarkType = "5">
       </FileBreakpoint>
@@ -756,35 +650,9 @@
          timestampString = "411731241.967261"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "207"
-         endingLineNumber = "207"
-         landmarkName = "-updateCollisionObjectArray"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "gameOfMatch3/Projectile.m"
-         timestampString = "411731241.967261"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
          startingLineNumber = "141"
          endingLineNumber = "141"
          landmarkName = "-accelerometer:didAccelerate:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "gameOfMatch3/Projectile.m"
-         timestampString = "411731241.967261"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "156"
-         endingLineNumber = "156"
-         landmarkName = "-attackPosition:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -974,12 +842,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/AiObject.m"
-         timestampString = "415174929.199417"
+         timestampString = "415705306.515055"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "398"
-         endingLineNumber = "398"
-         landmarkName = "-updateForCommon"
+         startingLineNumber = "361"
+         endingLineNumber = "361"
+         landmarkName = "-doInAttackRange"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -987,12 +855,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/AiObject.m"
-         timestampString = "415174929.199417"
+         timestampString = "415705306.515055"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "404"
-         endingLineNumber = "404"
-         landmarkName = "-updateForCommon"
+         startingLineNumber = "367"
+         endingLineNumber = "367"
+         landmarkName = "-normalAttackTarget:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -1020,19 +888,6 @@
          startingLineNumber = "124"
          endingLineNumber = "124"
          landmarkName = "-updateCollisionObjectArray"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "gameOfMatch3/Hero.m"
-         timestampString = "415174766.279689"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "297"
-         endingLineNumber = "297"
-         landmarkName = "-onReadyToAttackTargetInRange"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
