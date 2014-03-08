@@ -10,8 +10,6 @@
 
 @interface SmallEnemy()
 @property int animatingTag;
-@property (weak,nonatomic) AiObject* attackTarget;
-@property (weak,nonatomic) NSMutableArray* attackTargets;
 @end
 
 
@@ -29,8 +27,8 @@
         self.readyToEnd=NO;
         self.alive=YES;
         self.atDest=NO;
-        self.startMove=NO;
-        
+
+        self.destPosition=ccp(zPlayerMarginLeft,480-zPlayerMarginTop);
         //初始化属性
         self.attributeDict=[[[Global sharedManager]aiObjectsAttributeDict] valueForKey:self.objectName];
         
@@ -55,51 +53,25 @@
 
 
         //self.spriteEntity=self;
-        //[self addLifeBar];
+        //addLifeBar
         BarHelper* barHelper=[[BarHelper alloc]initWithOwner:self];
         [barHelper addLifeBar];
         [self addChild:barHelper];
         
-        [self update];
+        //[self update];
         
         
     }
     return self;
 }
--(CGRect)getBoundingBox{
-    if (!self.sprite) {
-        return CGRectZero;
-    }
-    float width=[[self.attributeDict valueForKey:@"width"] floatValue];
-    float height=[[self.attributeDict valueForKey:@"height"] floatValue];
-    CGRect rect=self.sprite.boundingBox;
-    CGRect ret;
-    float x,y;
-    if (width==0) width=rect.size.width;
-    if (height==0) height=rect.size.height;
-    //boundingBox的origin是在左下角！！！ 这里要根据自定义宽度作调整
-    x=rect.origin.x+ (rect.size.width-width)/2;
-    y=rect.origin.y+ (rect.size.height-height)/2;
-    ret=CGRectMake(x, y, width, height);
-    return ret;
-}
+
 -(void)loadAttributeFromDict{
     
 }
 -(void)appearAtX:(int)x Y:(int)y{
     self.sprite.position=ccp(x,y);
-   
     self.sprite.visible=YES;
-    self.startMove=YES;
         
-}
--(void)attackTarget:(AiObject *)target{
-    self.attackTarget=target;
-    
-}
--(void)attackTargets:(NSMutableArray *)targets{
-    self.attackTargets=targets;
-    
 }
 -(void)dieAction{
    
@@ -117,7 +89,7 @@
     
     self.sprite.anchorPoint=ccp(0.5,0.5);
 
-    
+    __block AiObject* obj=self;
     [self.sprite runAction:[CCSpawn actions:
                                 [CCRotateBy actionWithDuration:delayTime angle:4145],
 
@@ -130,36 +102,16 @@
                                                 //[CCDelayTime actionWithDuration:0.2f],
                                                 [CCCallBlockN actionWithBlock:^(CCNode *node) {
                                                 [node stopAllActions];
-                                                [node removeFromParentAndCleanup:YES];
+                                    obj.readyToEnd=YES;
                                                 }],
                                                 
                                                 nil],
                             
                             nil]];
     
-    self.readyToEnd=YES;
+    
 }
--(void)handleCollision{
-    if (!self.alive) {
-        //[self removeFromParentAndCleanup:YES];
-        return;
-    }
-    for (int i=0; i<self.collisionObjects.count; i++) {
-        __block AiObject* obj=self.collisionObjects[i];
-        __block SmallEnemy* selfObj=self;
-        if([obj.type isEqualToString:@"hero"]&&!self.isAttacking&&!self.state.frozen){
-            self.isAttacking=YES;
-            [self setTimeOutWithDelay:self.attackCD withBlock:^{
-                [selfObj normalAttack:obj];
-            }];
-            
-            //攻击动画
-            //[self.sprite stopAllActions];
-            [self attackAnimation];
-        }
-    }
 
-}
 -(void)hurtByObject:(AiObject *)obj{
     bool needHurt=YES;
     
@@ -193,15 +145,7 @@
     
    if(needHurt) self.curHP-=obj.damage;
 }
--(void)normalAttack:(AiObject*)target{
-   
-        
-        AiObject* obj=target;
-        [obj hurtByObject:self];
-        self.isAttacking=NO;
-    
 
-}
 -(void)moveAnimation{
     [self.sprite stopAllActions];
     self.animatingTag=1;
@@ -224,84 +168,33 @@
     [self.sprite runAction:action ];
     
 }
+-(bool)normalAttackTarget:(AiObject*)obj{
 
-
--(void)update{
-    
-    float delayTime=0.04;
-   
-    
-    //--------------结束标志----------------------
-    if (self.readyToEnd) {
-//        if(self.lifeBar){
-//            [self.lifeBar removeFromParentAndCleanup:YES];
-//            [self.lifeBarBorder removeFromParentAndCleanup:YES];
-//        }
-        return;
-    }
-    
-
-    //-------------是否还活着--------------
-    
-    if (self.startMove) {
-        if (self.curHP<=0) {
-            self.alive=NO;
-            [self.allObjectsArray removeObject:self];
-            [self dieAction];
-            [self setTimeOutOfUpdateWithDelay:delayTime];
-            return;
-        }
-    }
-    if(self.attackTarget){
-        CGRect rect=[self.attackTarget getBoundingBox];
-        CGPoint centerPos=[self.attackTarget getCenterPoint];
-        
-        self.destPos=ccp(centerPos.x,rect.origin.y);
-        
-    }else if(self.attackTargets){
-        for (AiObject* attackTarget in self.attackTargets) {
-            if (attackTarget.curHP>0) {
-                CGRect rect=[attackTarget getBoundingBox];
-                CGPoint centerPos=[attackTarget getCenterPoint];
-                
-                self.destPos=ccp(centerPos.x,rect.origin.y);
-                break;
-            }
-        }
-
-        
-    }
-    
-    
-    //---------------是否开始移动 且未到目的地---------------------
-    float moveSpeed=self.moveSpeed;
-    if (self.startMove&&!self.atDest) {
-        
-        if(self.state.frozen){
-            moveSpeed=0;
-            if ([[Global sharedManager] gameTime]-self.state.frozenStartTime>=15.0f) {
-                self.state.frozen=NO;
-                moveSpeed=self.moveSpeed;
-                [self moveAnimation];
-                [self.sprite runAction:[[CCTintBy actionWithDuration:1 red:-120 green:-120 blue:0] reverse] ];
-            }
-        }
-        
-        if (!self.isAttacking) {
-            CGPoint pos=self.sprite.position;
-            if (pos.x>self.destPos.x) {   //没有到达目的地
-                self.sprite.position=ccp(pos.x-moveSpeed*delayTime,pos.y);
-            }else{
-                self.atDest=YES;
-            }
-        }
-
-       
-    }
-    
-
-
-    [self setTimeOutOfUpdateWithDelay:delayTime];
+    [obj hurtByObject:self];
+    return YES;
 }
 
+-(bool)onReadyToAttackTargetInRange{
+    self.wantedObject=self.collisionObjectsInAttankRange[0];
+    [self normalAttackTarget:self.wantedObject];
+    return YES;
+}
+
+-(void)onInSightButNotInAttackRange{
+    [self moveToPosition:self.destPosition];
+}
+-(void)onNothingInSight{
+    [self moveToPosition:self.destPosition];
+}
+-(void)nothingToDo{
+    [self moveToPosition:self.destPosition];
+}
+-(void)onCurHPIsZero{
+    self.alive=NO;
+    [self.allObjectsArray removeObject:self];
+    [self dieAction];
+    
+}
+
+//[self.sprite runAction:[[CCTintBy actionWithDuration:1 red:-120 green:-120 blue:0] reverse] ];
 @end

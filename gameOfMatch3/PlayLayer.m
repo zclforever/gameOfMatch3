@@ -204,10 +204,10 @@
         [self.smallEnemyArray addObject:smallEnemy];
 
         
-
         [smallEnemy appearAtX:zEnemyMarginLeft Y:480-zPlayerMarginTop];
 
-        [smallEnemy attackTargets:self.heroArray];
+        [smallEnemy start];
+        //[smallEnemy attackTargets:self.heroArray];
         
         //smallEnemy.maxHP=self.enemy.smallEnemyHp;
         //smallEnemy.curHP=smallEnemy.maxHP;
@@ -272,8 +272,6 @@
         return;
     }
     
-    
-    [self updateStatePanel];
     
     if(self.updating)return;
     if (self.updating||!(self.swapCount<=0)) {
@@ -376,22 +374,6 @@
     return;
 }
 
--(void)updateStatePanel{  //.state.updatestate.
-    if (self.player.curHP>self.player.maxHP) {
-        self.player.curHP=self.player.maxHP;
-    }
-
-    if(self.player.curEnergy>self.player.maxEnergy){
-        self.player.curEnergy=self.player.maxEnergy;
-    }
-    if(self.energyBar){self.energyBar.scaleX=zStatePanel_EnegryBarWidth*self.player.curEnergy/self.player.maxEnergy/self.energyBar.contentSize.width;}
-    //self.enegyBar.scaleX=1;
-    [self.stepLabel setString:[NSString stringWithFormat:@"AP %f/%f",self.enemy.curStep,self.enemy.maxStep]];
-    NSString* key=@"poison";
-    float value=[[self.enemy.stateDict valueForKey:key] floatValue];
-    [self.stateLabel setString:[NSString stringWithFormat:@"%@:%f",key,value]];
-    
-}
 
 -(void)computerAIgo{
     //NSLog(@"computerAIgo");
@@ -462,9 +444,6 @@
     self.enemy=nil;
     
     
-    
-    [self updateStatePanel];
-
     self.lockTouch=YES;
 
     self.lockTouch=YES;
@@ -572,7 +551,8 @@
         [self.heroArray addObject:hero];
         [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];
         space+=40.0f;
-        [self addChild:hero z:-1];        
+        [self addChild:hero z:-1];
+        //[hero start];
         
         hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_mage"];
         [self.tileDelegateArray addObject:hero];
@@ -580,6 +560,7 @@
         [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];
         space+=40.0f;
         [self addChild:hero z:-1];
+        //[hero start];
         
         hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_warrior"];
         [self.tileDelegateArray addObject:hero];
@@ -587,6 +568,7 @@
         [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];
         space+=40.0f;
         [self addChild:hero z:-1];
+        //[hero start];
         
         ItemDelegate* item;
         
@@ -610,8 +592,7 @@
     }
     
     
-    
-    [self updateStatePanel];
+
     self.lockTouch=YES;
 	[self lock];
     [box check];
@@ -926,7 +907,9 @@
 
 -(void)checkGameOver{
     if(self.isGameOver)return;
-    if (self.enemy.curHP<=0) {
+    
+    
+    if (self.enemy.curHP<=0||(!self.smallEnemyArray.count&&self.troopsOrder.count==0)) {
         self.isGameOver=YES;
         
         if(self.isSoundEnabled){

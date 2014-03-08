@@ -29,9 +29,13 @@
     self.tileSpriteName=[self.attributeDict valueForKey:@"tileSpriteName"];
 }
 -(NSDictionary*) removeByMount:(int)mount{
-    NSDictionary* result=[[NSMutableDictionary alloc] init];
+    NSMutableDictionary* result=[[NSMutableDictionary alloc] init];
     
     [self.parent magicAttackWithName:self.objectName];
+    [self.parent.skillDelegates removeObject:self];
+    
+    self.readyToRemove=YES;
+    //result[@"newDelegate"]=nil;
     [result setValue:nil forKey:@"newDelegate"];
     
     return result;

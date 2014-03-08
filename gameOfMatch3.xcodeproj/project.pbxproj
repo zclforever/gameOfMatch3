@@ -39,6 +39,10 @@
 		021B545D1883FDD2001D1020 /* smallEnemy_mouse.png in Resources */ = {isa = PBXBuildFile; fileRef = 021B54591883FDD1001D1020 /* smallEnemy_mouse.png */; };
 		021B54621883FE98001D1020 /* smallEnemy_mouseAttack.plist in Resources */ = {isa = PBXBuildFile; fileRef = 021B54601883FE97001D1020 /* smallEnemy_mouseAttack.plist */; };
 		021B54631883FE98001D1020 /* smallEnemy_mouseAttack.png in Resources */ = {isa = PBXBuildFile; fileRef = 021B54611883FE98001D1020 /* smallEnemy_mouseAttack.png */; };
+		021E8AB018CAC94C00CDA673 /* skill_fireBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 021E8AAD18CAC94C00CDA673 /* skill_fireBall.png */; };
+		021E8AB118CAC94C00CDA673 /* skill_bigFireBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 021E8AAE18CAC94C00CDA673 /* skill_bigFireBall.png */; };
+		021E8AB218CAC94C00CDA673 /* skill_iceBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 021E8AAF18CAC94C00CDA673 /* skill_iceBall.png */; };
+		021E8AB518CAEE3C00CDA673 /* ProjectileWithNoTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E8AB418CAEE3C00CDA673 /* ProjectileWithNoTarget.m */; };
 		022AB7FA18A767B500F570BF /* Hero.m in Sources */ = {isa = PBXBuildFile; fileRef = 022AB7F918A767B500F570BF /* Hero.m */; };
 		022AB80018A7841900F570BF /* OLDPlayLayer.h in Resources */ = {isa = PBXBuildFile; fileRef = 022AB7FF18A7841800F570BF /* OLDPlayLayer.h */; };
 		0259BBD717DDB02D0033F345 /* GameLevelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259BBD617DDB02D0033F345 /* GameLevelLayer.m */; };
@@ -331,6 +335,11 @@
 		021B54591883FDD1001D1020 /* smallEnemy_mouse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallEnemy_mouse.png; sourceTree = "<group>"; };
 		021B54601883FE97001D1020 /* smallEnemy_mouseAttack.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = smallEnemy_mouseAttack.plist; sourceTree = "<group>"; };
 		021B54611883FE98001D1020 /* smallEnemy_mouseAttack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallEnemy_mouseAttack.png; sourceTree = "<group>"; };
+		021E8AAD18CAC94C00CDA673 /* skill_fireBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skill_fireBall.png; sourceTree = "<group>"; };
+		021E8AAE18CAC94C00CDA673 /* skill_bigFireBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skill_bigFireBall.png; sourceTree = "<group>"; };
+		021E8AAF18CAC94C00CDA673 /* skill_iceBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skill_iceBall.png; sourceTree = "<group>"; };
+		021E8AB318CAEE3B00CDA673 /* ProjectileWithNoTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectileWithNoTarget.h; sourceTree = "<group>"; };
+		021E8AB418CAEE3C00CDA673 /* ProjectileWithNoTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectileWithNoTarget.m; sourceTree = "<group>"; };
 		022AB7F818A767B400F570BF /* Hero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hero.h; sourceTree = "<group>"; };
 		022AB7F918A767B500F570BF /* Hero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hero.m; sourceTree = "<group>"; };
 		022AB7FD18A783FE00F570BF /* OLDPlayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLDPlayLayer.m; sourceTree = "<group>"; };
@@ -1005,6 +1014,8 @@
 				02F9377118C707D60039F692 /* ProjectileWithTargetPosition.m */,
 				028A260C18C70C1A00C71BEA /* ProjectileWithTargets.h */,
 				028A260D18C70C1A00C71BEA /* ProjectileWithTargets.m */,
+				021E8AB318CAEE3B00CDA673 /* ProjectileWithNoTarget.h */,
+				021E8AB418CAEE3C00CDA673 /* ProjectileWithNoTarget.m */,
 				026A18DA17F9297100B05B31 /* Actions.h */,
 				026A18DB17F9297100B05B31 /* Actions.m */,
 				02A18C8417F970D4008D5C33 /* ActionQueue.h */,
@@ -1043,6 +1054,9 @@
 				7571AE3917E9D3220049D790 /* sound */,
 				0278B119187BEE0F00A3AECA /* tilesColored.png */,
 				753972ED17D5580E008EA3A0 /* AYummyApology.ttf */,
+				021E8AAD18CAC94C00CDA673 /* skill_fireBall.png */,
+				021E8AAE18CAC94C00CDA673 /* skill_bigFireBall.png */,
+				021E8AAF18CAC94C00CDA673 /* skill_iceBall.png */,
 				753972EB17D5557E008EA3A0 /* Paint-Boy.ttf */,
 				02A260141814F36B009F2719 /* border.png */,
 				02D87785188FACC7007F05CA /* border_yellow_gray.png */,
@@ -1658,6 +1672,9 @@
 				021AC90D18B73B9A00FAA3AB /* hunter001_stand.png in Resources */,
 				021AC90F18B7408500FAA3AB /* mage001_stand.png in Resources */,
 				021AC91118B740A900FAA3AB /* warrior001_stand.png in Resources */,
+				021E8AB018CAC94C00CDA673 /* skill_fireBall.png in Resources */,
+				021E8AB118CAC94C00CDA673 /* skill_bigFireBall.png in Resources */,
+				021E8AB218CAC94C00CDA673 /* skill_iceBall.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1810,6 +1827,7 @@
 				02F9377218C707D60039F692 /* ProjectileWithTargetPosition.m in Sources */,
 				028A260E18C70C1A00C71BEA /* ProjectileWithTargets.m in Sources */,
 				028A261118C71AF300C71BEA /* BarHelper.m in Sources */,
+				021E8AB518CAEE3C00CDA673 /* ProjectileWithNoTarget.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

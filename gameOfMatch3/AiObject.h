@@ -51,12 +51,12 @@
 
 
 
-@property float attackType;
+//@property float attackType;
 @property float lastAttackTime;
 @property float moveSpeed;
 @property bool alive;
 @property bool atDest;
-
+@property bool readyToEnd;
 
 
 @property float width;
@@ -78,7 +78,6 @@
 
 //-----------------------------
 @property float delayTime; //update的延时
-@property bool autoUpdateCollision;
 
 //debug
 @property bool showBoundingBox;
@@ -93,6 +92,7 @@
 -(void)moveToPosition:(CGPoint)pos;
 
 -(void)updateCollisionObjectArray;
+-(void)start;//延迟加载
 
 -(void)onInSightButNotInAttackRange;
 -(void)onInAttackRange;
@@ -100,6 +100,7 @@
 -(void)nothingToDo;
 -(void)onNotReadyToAttackTargetInRange;   //攻击CD未到
 -(bool)onReadyToAttackTargetInRange;    //CD OK可以攻击了。
+-(void)onCurHPIsZero; //要死了
 
 
 -(void)setTimeOutOfUpdateWithDelay:(float)timeOut;
@@ -114,5 +115,5 @@
 
 -(CCAnimation* )animationByPlist:(NSString*)name withDelay:(float)delay;
 -(NSArray*)getNameOfFramesFromPlist:(NSString*)name;
--(void)addLifeBar;
+
 @end

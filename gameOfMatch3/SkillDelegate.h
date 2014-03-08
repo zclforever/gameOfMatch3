@@ -19,8 +19,10 @@
 @property (strong,nonatomic) NSString* tileSpriteName;
 @property (strong,nonatomic) NSString* tileType;
 -(NSDictionary*) removeByMount:(int)mount;
+@property bool readyToRemove;
 
 //基本属性
+@property (weak,nonatomic) Tile* tile;
 @property (weak,nonatomic) Hero* parent;
 @property (strong,nonatomic) NSMutableDictionary* attributeDict;
 @property (strong,nonatomic) NSString* objectName;

@@ -23,7 +23,7 @@
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withPostion:(CGPoint)pos byName:(NSString*)name{
     self = [super initWithAllObjectArray:allObjectsArray withName:name];
     if (self) {
-        self.autoUpdateCollision=NO;
+
         
         self.objectName=name;
         Magic* magic=[[Magic alloc]initWithName:name];
@@ -169,6 +169,7 @@
 }
 -(void)dieAction{
     self.alive=NO;
+    self.readyToEnd=YES;
     [self.allObjectsArray removeObject:self];
     [self removeFromParentAndCleanup:YES];
 }

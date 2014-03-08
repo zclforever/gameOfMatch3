@@ -13,21 +13,17 @@
 @interface SmallEnemy : AiObject {
     
 }
-@property bool readyToEnd;
 @property bool readyToDie;  //马上要死了，但可能还要放动画，再减血
 @property bool alive;
-@property bool startMove;
-@property bool isAttacking;
 
 @property (nonatomic,strong) CCSprite* sprite;
 @property (nonatomic,strong) NSString* animationMovePlist;
 
 
-@property CGPoint destPos;
+@property CGPoint destPosition;
 
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withName:(NSString*)name;
--(void)attackTarget:(AiObject*)target;
--(void)attackTargets:(NSMutableArray*)targets;
+
 -(void)appearAtX:(int)x Y:(int)y;
 -(void)dieAction;
 -(void)moveAnimation;

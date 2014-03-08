@@ -19,8 +19,10 @@
 @property (strong,nonatomic) NSString* tileSpriteName;
 @property (strong,nonatomic) NSString* tileType;
 
-
 @property (strong,nonatomic) NSString* spriteName;
+
+@property (strong,nonatomic) NSMutableArray* skillDelegates;//技能球们
+
 @property (strong,nonatomic) NSMutableArray* starsOfLevelArray; //星星数 [0]=level 1的star
 @property (strong,nonatomic) NSMutableDictionary* pointDict;
 @property (strong,nonatomic) NSMutableDictionary* moneyBuyDict;
@@ -28,13 +30,10 @@
 @property (strong,nonatomic) CCProgressTimer* apBar;
 @property float curStep;
 @property float maxStep;
-@property float curEnergy;
-@property float maxEnergy;
 @property CGSize attackRange;
 
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withName:(NSString*)name;
 
 -(void)addPersonSpriteAtPosition:(CGPoint)position;
--(void)addLifeBar;
--(void)addApBar;
+
 @end

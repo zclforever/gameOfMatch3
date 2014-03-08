@@ -27,13 +27,20 @@
 
 
 -(bool)onReadyToAttackTargetInRange{
-    self.wantedObject=self.targetsArray[0];
-    if (![self.collisionObjectsInAttankRange containsObject:self.wantedObject]) {
-        return NO;
+
+    for (AiObject* target in self.targetsArray) {
+        self.wantedObject=target;
+        if (![self.collisionObjectsInAttankRange containsObject:self.wantedObject]) {
+            continue;
+        }
+        [self.wantedObject hurtByObject:self];
+        [self dieAction];
+
+        return YES;
     }
-    [self.wantedObject hurtByObject:self];
-    [self dieAction];
-    return YES;
+
+
+    return NO;
 }
 
 @end

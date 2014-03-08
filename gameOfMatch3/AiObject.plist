@@ -27,7 +27,7 @@
 		<key>attackCD</key>
 		<integer>2</integer>
 		<key>damage</key>
-		<integer>2</integer>
+		<integer>5</integer>
 		<key>spriteScale</key>
 		<integer>2</integer>
 		<key>lifeBarWidth</key>
@@ -39,6 +39,14 @@
 	</dict>
 	<key>smallEnemy_stoneMan</key>
 	<dict>
+		<key>tags</key>
+		<array>
+			<string>enemy</string>
+		</array>
+		<key>targetTags</key>
+		<array>
+			<string>hero</string>
+		</array>
 		<key>width</key>
 		<integer>28</integer>
 		<key>animationMovePlist</key>
@@ -68,6 +76,14 @@
 	</dict>
 	<key>smallEnemy_mouse</key>
 	<dict>
+		<key>tags</key>
+		<array>
+			<string>enemy</string>
+		</array>
+		<key>targetTags</key>
+		<array>
+			<string>hero</string>
+		</array>
 		<key>animationMovePlist</key>
 		<string>smallEnemy_mouse.plist</string>
 		<key>animationMoveDelay</key>
@@ -95,6 +111,10 @@
 	</dict>
 	<key>boss_01</key>
 	<dict>
+		<key>tags</key>
+		<array>
+			<string>enemy</string>
+		</array>
 		<key>sightRange</key>
 		<string>50,5</string>
 		<key>attackRange</key>
@@ -182,7 +202,7 @@
 		<key>skill_0</key>
 		<string>skill_fireBall</string>
 		<key>skill_1</key>
-		<string>skill_iceBall</string>
+		<string>skill_fireBall</string>
 	</dict>
 	<key>hero_hunter</key>
 	<dict>
@@ -230,23 +250,23 @@
 	<key>skill_iceBall</key>
 	<dict>
 		<key>tileSpriteName</key>
-		<string>block_101.png</string>
+		<string>skill_iceBall.png</string>
 		<key>attackRange</key>
-		<string>{10,55}</string>
+		<string>{20,75}</string>
 	</dict>
 	<key>skill_bigFireBall</key>
 	<dict>
 		<key>tileSpriteName</key>
-		<string>block_105.png</string>
+		<string>skill_bigFireBall.png</string>
 		<key>attackRange</key>
-		<string>{10,55}</string>
+		<string>{10,75}</string>
 	</dict>
 	<key>skill_fireBall</key>
 	<dict>
 		<key>tileSpriteName</key>
-		<string>block_102.png</string>
+		<string>skill_fireBall.png</string>
 		<key>attackRange</key>
-		<string>{10,55}</string>
+		<string>{30,75}</string>
 	</dict>
 </dict>
 </plist>

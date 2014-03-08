@@ -11,15 +11,10 @@
 #import "SkillDelegate.h"
 #import "ProjectileWithTargets.h"
 #import "ProjectileWithTargetPosition.h"
+#import "ProjectileWithNoTarget.h"
 @interface Hero()
-@property (strong,nonatomic) CCSprite* lifeBar;
-@property (strong,nonatomic) CCSprite* lifeBarBorder;
-@property (strong,nonatomic) CCSprite* energyBar;
-@property (strong,nonatomic) CCSprite* energyBarBorder;
-@property (strong,nonatomic) CCLabelTTF* HPLabel;
-@property bool readyToEnd;
-@property bool isAttacking;
 @property CGPoint startPosition;
+
 @end
 
 @implementation Hero
@@ -39,9 +34,11 @@
         self.curEnergy+=mount;
     }
     
-    if(mount>3){
+    if(mount>3||[self.objectName isEqualToString:@"hero_warrior"]){
     skillDelegate=[[SkillDelegate alloc]initWithName:skill_big];
-        skillDelegate.parent=self;}
+        skillDelegate.parent=self;
+        [self.skillDelegates addObject:skillDelegate];
+    }
     [result setValue:skillDelegate forKey:@"newDelegate"];
     
     
@@ -55,11 +52,12 @@
         self.attackRange=CGSizeMake(400, 60);
         self.tileType=@"hero";
         self.type=@"hero";
+        
+         self.skillDelegates=[[NSMutableArray alloc] init];
         //self.showBoundingBox=YES;
         //[self updateOfPlayer];
         
         //[self initFromPlist];
-        [self start];
     }
     return self;
 }
@@ -73,7 +71,8 @@
 
 }
 -(void)start{
-    [self updateOfPlayer];
+    [super start];
+    //[self updateOfPlayer];
 }
 
 
@@ -101,13 +100,15 @@
     sprite.scaleY=zPersonHeight/sprite.contentSize.height;
     [self addChild:sprite];
     self.sprite=sprite;
-    //[self addLifeBar];
+
+    //add life bar and energy bar
     BarHelper* barHelper=[[BarHelper alloc]initWithOwner:self];
+    [barHelper addEnergyBar];
     [barHelper addLifeBar];
-    
+    barHelper.visible=NO;
     [self addChild:barHelper];
     
-    [self addEnergyBar];
+
     
     __block AiObject* obj=self;
     [self.sprite runAction:[CCSequence actions:
@@ -115,6 +116,8 @@
                             [CCJumpTo actionWithDuration:0.5 position:position height:30 jumps:1],
                             [CCCallBlock actionWithBlock:^{
         obj.node=obj.sprite;
+        [obj start];
+        barHelper.visible=YES;
     }]
                             ,nil]];
     
@@ -137,102 +140,9 @@
     
     //[self.sprite runAction:[CCJumpTiles3D actionWithDuration:10 size:CGSizeMake(3, 3) jumps:3 amplitude:10]];
 }
--(void)addEnergyBar{
-    //init LifeBar
-    self.energyBar=[CCSprite spriteWithFile:@"bar_yellow.png" ];
-    self.energyBar.anchorPoint=ccp(0,0);
-    self.energyBar.scaleY=zStatePanel_LifeBarHeight/self.energyBar.contentSize.height;
-    self.energyBar.scaleX=zStatePanel_LifeBarWidth/self.energyBar.contentSize.width;
-    
-    self.energyBarBorder=[CCSprite spriteWithFile:@"border_yellow_gray.png"];
-    self.energyBarBorder.anchorPoint=ccp(0,0);
-    self.energyBarBorder.scaleY=zStatePanel_LifeBarHeight/self.energyBarBorder.contentSize.height;
-    self.energyBarBorder.scaleX=zStatePanel_LifeBarWidth/self.energyBarBorder.contentSize.width;
-    
-    [self addChild:self.energyBarBorder];
-    [self addChild:self.energyBar];
-    //init LifeBarLabel
 
-    
-}
--(void)addLifeBar{
-    //init LifeBar
-    self.lifeBar=[CCSprite spriteWithFile:@"lifeBar.png" ];
-    self.lifeBar.anchorPoint=ccp(0,0);
-    self.lifeBar.scaleY=zStatePanel_LifeBarHeight/self.lifeBar.contentSize.height;
-    self.lifeBar.scaleX=zStatePanel_LifeBarWidth/self.lifeBar.contentSize.width;
-    
-    [self addChild:self.lifeBar];
-    
-    self.lifeBarBorder=[CCSprite spriteWithFile:@"border.png"];
-    self.lifeBarBorder.anchorPoint=ccp(0,0);
-    self.lifeBarBorder.scaleY=zStatePanel_LifeBarHeight/self.lifeBarBorder.contentSize.height;
-    self.lifeBarBorder.scaleX=zStatePanel_LifeBarWidth/self.lifeBarBorder.contentSize.width;
-    
-    [self addChild:self.lifeBarBorder];
-    //init LifeBarLabel
-    
-    int fontSize=8;
-    
-    
-    //float lifeBarFixY=self.lifeBar.position.y;//缩放修正过
-    
-    
-    
-    CCLabelTTF * label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:fontSize];
-    label.color = ccc3(255,255,255);
-    //label.anchorPoint=ccp(0,0);
-    
-    [self addChild:label];
-    
-    self.HPLabel=label;
-    
-}
-//-(void)updateCollisionObjectArray{  //collision.coll.
-//    
-//    [self.collisionObjects removeAllObjects];
-//    for (AiObject* obj in self.allObjectsArray) {
-//        if(obj==self)continue;
-//        CGRect selfRect=[self getBoundingBox];
-//        selfRect.size=CGSizeMake(selfRect.size.width+self.attackRange.width, selfRect.size.height+self.attackRange.height);
-//        CGRect objRect=[(id)obj getBoundingBox];
-//        
-//        
-//        if ([Global rectInsect:objRect :selfRect]) {
-//            [self.collisionObjects addObject:obj];
-//        }
-//    }
-//}
-//-(void)handleCollision{
-//    if (!self.alive) {
-//        //[self removeFromParentAndCleanup:YES];
-//        return;
-//    }
-//    for (int i=0; i<self.collisionObjects.count; i++) {
-//        __block AiObject* obj=self.collisionObjects[i];
-//        __block Hero* selfObj=self;
-//        if([[[Global sharedManager]allEnemys] containsObject:[obj objectName]]&&!self.isAttacking&&!self.state.frozen){
-//            if (selfObj.curEnergy<5) {
-//                break;
-//            }
-//            self.isAttacking=YES;
-//            
-//            [self setTimeOutWithDelay:self.attackCD withBlock:^{
-//                selfObj.curEnergy-=5;
-//                
-//                
-//                [selfObj magicAttackWithName:[selfObj.attributeDict valueForKey:@"skill_0"]];
-//                
-//                selfObj.isAttacking=NO;
-//            }];
-//            
-//            //攻击动画
-//            //[self.sprite stopAllActions];
-//            //[self attackAnimation];
-//        }
-//    }
-//    
-//}
+
+
 
 -(void)hurtByObject:(AiObject *)obj{
     [Actions shakeSprite:self.sprite  delay:0];
@@ -244,9 +154,11 @@
 -(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
     NSString* name=magicName;
     Projectile* projectile;
+    CGPoint selfPosition=[self getCenterPoint];
+    
     if([name isEqualToString:@"skill_bigFireBall"]){
         
-        projectile=[[ProjectileWithTargetPosition alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(100,460) withDestPosition:ccp(zEnemyMarginLeft+zPersonWidth/2,self.sprite.position.y+zPersonHeight/2) byName:name];
+        projectile=[[ProjectileWithTargetPosition alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(100,460) withDestPosition:ccp(zEnemyMarginLeft,480-zPlayerMarginTop+zPersonHeight/2) byName:name];
         
         [self addChild:projectile];
 
@@ -259,7 +171,12 @@
     
     else if([name isEqualToString:@"skill_fireBall"]){
         NSArray* targetArray=[NSArray arrayWithArray:self.collisionObjectsInAttankRange];
-        projectile=[[ProjectileWithTargets alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth,self.sprite.position.y+zPersonHeight/2) withTargets:targetArray byName:name];
+        if (targetArray.count==0) {
+            projectile=[[ProjectileWithNoTarget alloc]initWithAllObjectArray:self.allObjectsArray withPostion:selfPosition byName:name];
+        }else{
+            projectile=[[ProjectileWithTargets alloc]initWithAllObjectArray:self.allObjectsArray withPostion:selfPosition withTargets:targetArray byName:name];
+        }
+        
 
         [self addChild:projectile];
         //[projectile attackNearest];
@@ -288,7 +205,8 @@
     }else{
         return;
     }
-
+    projectile.targetTags=self.targetTags;
+    [projectile start];
 }
 
 -(bool)normalAttackTarget:(AiObject*)obj{
@@ -301,6 +219,10 @@
     return YES;
 }
 -(bool)onReadyToAttackTargetInRange{
+    if (!self.alive) {
+        return NO;
+    }
+    
     self.wantedObject=self.collisionObjectsInAttankRange[0];
     if (self.curEnergy<5) {
         return NO;
@@ -336,65 +258,20 @@
     progressBar.scale=2.5f;
 }
 -(void)dieAction{
-    [self.sprite removeFromParentAndCleanup:YES];
+    //[self.sprite removeFromParentAndCleanup:YES];
     
     self.readyToEnd=YES;
 }
--(void)updateOfPlayer{
-    if (self.readyToEnd) {
-        if(self.lifeBar){
-            [self.lifeBar removeFromParentAndCleanup:YES];
-            [self.lifeBarBorder removeFromParentAndCleanup:YES];
-            [self.HPLabel removeFromParentAndCleanup:YES];
-        }
-        if(self.energyBar){
-             [self.energyBar removeFromParentAndCleanup:YES];
-            [self.energyBarBorder removeFromParentAndCleanup:YES];
-        }
-        return;
+-(void)onCurHPIsZero{
+    for (SkillDelegate* skillDelegate in self.skillDelegates) {
+        skillDelegate.readyToRemove=YES;
     }
     
-    if (self.curHP<=0) {
-        self.alive=NO;
-        [self.allObjectsArray removeObject:self];
-        [self dieAction];
-        [self setTimeOutWithDelay:self.delayTime withSelector:@selector(updateOfPlayer)];
-        return;
-    }
-    
-    
-    if(self.energyBar){
-        if(self.curEnergy<0) self.curEnergy=0;
-        //updatePosition
-        self.energyBar.position=ccp(self.sprite.position.x,self.sprite.position.y+self.sprite.boundingBox.size.height);
-        self.energyBarBorder.position=self.energyBar.position;
-        
-        self.energyBar.scaleX=self.curEnergy/self.maxEnergy*zStatePanel_LifeBarWidth/self.energyBar.contentSize.width;
-        
-    
-    }
-    
-    if(self.lifeBar){
-        
-        
-        if(1){
-            if(self.curHP<0) self.curHP=0;
-            //updatePosition
-            self.lifeBar.position=ccp(self.sprite.position.x,self.sprite.position.y+self.sprite.boundingBox.size.height+20);
-            self.lifeBarBorder.position=self.lifeBar.position;
-            float lifeBarFixY=self.lifeBar.position.y+zStatePanel_LifeBarHeight/2;
-            self.HPLabel.position = ccp(self.lifeBar.position.x+zStatePanel_LifeBarWidth/2,lifeBarFixY);
-            
-           
-            [self.HPLabel setString:[NSString stringWithFormat:@"%d/%d",(int)self.curHP,(int)self.maxHP]];
-            
-            self.lifeBar.scaleX=self.curHP/self.maxHP*zStatePanel_LifeBarWidth/self.lifeBar.contentSize.width;
-        }
-    }
-    
-    [self setTimeOutWithDelay:self.delayTime withSelector:@selector(updateOfPlayer)];
-    
+    self.alive=NO;
+    [self.allObjectsArray removeObject:self];
+    [self dieAction];
 }
+
 
 @end
 

@@ -23,6 +23,11 @@
       </ContextState>
       <ContextState
          contextName = "-[AiObject collisionObjectsByRect:]:AiObject.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.allObjectsArray">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[AiObject updateCollisionObjectArray]:AiObject.m">
@@ -56,6 +61,9 @@
                value = "self.attributeDict">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Box checkWith:]:Box.m">
       </ContextState>
       <ContextState
          contextName = "-[Hero nothingToDo]:Hero.m">
@@ -94,6 +102,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.targetTags">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Hero onCurHPIsZero]:Hero.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.skillDelegates">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -167,6 +183,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[Hero dieAction]:Hero.m">
+      </ContextState>
+      <ContextState
          contextName = "-[Projectile updateCollisionObjectArray]:Projectile.m">
          <PersistentStrings>
             <PersistentString
@@ -209,13 +228,13 @@
          contextName = "-[SmallEnemy handleCollision]:SmallEnemy.m">
          <PersistentStrings>
             <PersistentString
+               value = "[self allObjectsArray]">
+            </PersistentString>
+            <PersistentString
                value = "obj.type">
             </PersistentString>
             <PersistentString
                value = "self.collisionObjectArray">
-            </PersistentString>
-            <PersistentString
-               value = "[self allObjectsArray]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -262,10 +281,10 @@
                value = "self.lifeBar">
             </PersistentString>
             <PersistentString
-               value = "self.lifeBar.scaleY">
+               value = "self.lifeBar.scaleX">
             </PersistentString>
             <PersistentString
-               value = "self.lifeBar.scaleX">
+               value = "self.lifeBar.scaleY">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -279,6 +298,9 @@
                value = "self.allObjectsArray">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy onReadyToAttackTargetInRange]:SmallEnemy.m">
       </ContextState>
       <ContextState
          contextName = "-[Player updateCollisionObjectArray]:Player.m">
@@ -311,11 +333,19 @@
          contextName = "-[Projectile update]:Projectile.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.particle.position">
+               value = "self.allObjectsArray">
             </PersistentString>
             <PersistentString
                value = "self.collisionObjectArray">
             </PersistentString>
+            <PersistentString
+               value = "self.particle.position">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy onCurHPIsZero]:SmallEnemy.m">
+         <PersistentStrings>
             <PersistentString
                value = "self.allObjectsArray">
             </PersistentString>

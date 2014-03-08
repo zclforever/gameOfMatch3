@@ -18,4 +18,5 @@
 
 -(id)initWithOwner:(id)owner;
 -(void)addLifeBar;
+-(void)addEnergyBar;
 @end

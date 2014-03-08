@@ -149,8 +149,18 @@
             
             
 			Tile *tile = [self objectAtX:((orient == OrientationHori) ?i :j)  Y:((orient == OrientationHori) ?j :i)];
+            
+            if ([tile.tileDelegate respondsToSelector:@selector(readyToRemove)]) {
+                if (tile.tileDelegate.readyToRemove) {
+                    [readyToRemoveTiles addObject:tile];
+                    first=nil;
+                    continue;
+                }
+            }
+            
             if(tile.value==0){
                 [self.readyToRemoveTiles addObject:tile];
+                first=nil;
                 continue;
             }
             

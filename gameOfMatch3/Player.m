@@ -36,7 +36,7 @@
         self.attackCD=1.0;
         //self.showBoundingBox=YES;
         [self copyFromSharedPerson];
-        [self updateOfPlayer];
+        //[self updateOfPlayer];
     }
     return self;
 }

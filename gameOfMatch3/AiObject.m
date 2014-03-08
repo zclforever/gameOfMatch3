@@ -42,17 +42,18 @@
         [self initFromPlist];
         
         self.aiState=aiState_nothingToDo;
-
-        self.autoUpdateCollision=YES;
         
         self.alive=YES;
         self.state=[[State alloc]init];
         self.collisionObjects=[[NSMutableArray alloc]init];
         self.allObjectsArray=allObjectsArray;
         [self.allObjectsArray addObject:self];
-        [self updateForCommon];
+        
     }
     return self;
+}
+-(void)start{
+    [self updateForCommon];
 }
 -(void)initFromPlist{
     self.attributeDict=[[[Global sharedManager]aiObjectsAttributeDict] valueForKey:self.objectName];
@@ -119,6 +120,9 @@
     
     //update collisionObjectsInSight 
     size=CGSizeFromString([self.attributeDict valueForKey:@"sightRange"]);
+    if (size.height==0&&size.width==0) {
+        size.height=999;size.width=999;   //plist未定义时
+    }
     rect=[self getBoundingBox];
     rect.size=size;   //要把origin转换到左下角
     rect.origin.x=[self getCenterPoint].x-size.width/2;
@@ -274,13 +278,14 @@
    // 重载用
 }
 -(void)nothingToDo{
-
-        self.aiState=aiState_searchingInSight;
-
-
+    //重载用
 }
+-(void)onCurHPIsZero{
+    //重载用
+}
+
 -(void)onEnterFrame{
-//重载用
+    //重载用
 };
 -(void)moveToPosition:(CGPoint)pos{
     if(!self.node)return;
@@ -376,8 +381,19 @@
         return;
     }
     
+    if (self.curHP<=0) {
+        [self onCurHPIsZero];
+    }
+    
+    if(self.readyToEnd){
+        [self removeAllChildrenWithCleanup:YES];
+        [self removeFromParentAndCleanup:YES];
+        [self unschedule:@selector(updateForCommon)];
+        return;
+    }
     //AI主体，视线范围是否找得到符合条件的目标，找得到做什么(移动并攻击)，找不到做什么(英雄站立，小兵移动)
     [self onEnterFrame];
+
     
     if(self.wantedObject&&self.wantedObject.alive==NO){ //判断死亡 状态
             self.wantedObject=nil;
