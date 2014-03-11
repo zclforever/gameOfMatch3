@@ -16,13 +16,16 @@
     return self;
 }
 
+
+-(void)onFindNothing{
+    self.wantedObject=self.targetsArray[0];
+    [self moveToPosition:[self.wantedObject getCenterPoint] ];
+}
 -(void)onEnterFrame{
     if (self.targetsArray.count<=0) {
         [self dieAction];
         return ;
     }
-    self.wantedObject=self.targetsArray[0];
-    [self moveToPosition:[self.wantedObject getCenterPoint] ];
 }
 
 
@@ -30,7 +33,7 @@
 
     for (AiObject* target in self.targetsArray) {
         self.wantedObject=target;
-        if (![self.collisionObjectsInAttankRange containsObject:self.wantedObject]) {
+        if (![self.findTargetsResult[@"attackRadius"] containsObject:self.wantedObject]) {
             continue;
         }
         [self.wantedObject hurtByObject:self];

@@ -175,7 +175,7 @@
 }
 
 -(bool)onReadyToAttackTargetInRange{
-    self.wantedObject=self.collisionObjectsInAttankRange[0];
+    self.wantedObject=self.findTargetsResult[@"attackRadius"][0];
     [self normalAttackTarget:self.wantedObject];
     return YES;
 }
@@ -183,10 +183,10 @@
 -(void)onInSightButNotInAttackRange{
     [self moveToPosition:self.destPosition];
 }
--(void)onNothingInSight{
+-(void)onFindNothing{
     [self moveToPosition:self.destPosition];
 }
--(void)nothingToDo{
+-(void)onNothingToDo{
     [self moveToPosition:self.destPosition];
 }
 -(void)onCurHPIsZero{

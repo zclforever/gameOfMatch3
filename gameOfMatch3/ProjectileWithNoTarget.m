@@ -18,7 +18,7 @@
 
 
 -(bool)onReadyToAttackTargetInRange{
-    self.wantedObject=self.collisionObjectsInAttankRange[0];
+    self.wantedObject=self.findTargetsResult[@"attackRadius"][0];
 
     [self.wantedObject hurtByObject:self];
     [self dieAction];
@@ -26,5 +26,21 @@
     return YES;
 
 }
+-(void)onFindNothing{
+    if (self.owner) {
+        [self moveToPosition:[self.owner getCenterPoint]];
+    }
+}
+-(void)onInSightButNotInAttackRange{
+    int a=1;
+}
+-(void)onFindTargets{
+    [self.owner onFindTargets];
+    
+    
+//    if (self.findTargetsResult[@"sightRadius"]&&!self.findTargetsResult[@"attackRadius"]) {
+//        [self onInSightButNotInAttackRange];
+//    }
 
+}
 @end

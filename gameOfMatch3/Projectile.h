@@ -13,17 +13,12 @@
     
 }
 
-@property CGPoint moveDestPosition;
-@property bool attackingNearest;
-@property bool attackingPostion;
-@property bool moving;
-@property CGSize attackRange;
+@property CGPoint destPosition;
 
 @property (strong,nonatomic) AiObject* owner;
 @property (strong,nonatomic)  CCParticleSystem* particle;
 
--(void)attackPosition:(CGPoint)position;
+
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withPostion:(CGPoint)pos byName:(NSString*)name;
--(void)attackNearest;
 -(void)dieAction;
 @end

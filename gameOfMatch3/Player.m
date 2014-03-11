@@ -131,99 +131,57 @@
     self.HPLabel=label;
     
 }
--(void)updateCollisionObjectArray{  //collision.coll.
-    
-    [self.collisionObjects removeAllObjects];
-    for (AiObject* obj in self.allObjectsArray) {
-        if(obj==self)continue;
-        CGRect selfRect=[self getBoundingBox];
-        selfRect.size=CGSizeMake(selfRect.size.width+self.attackRange.width, selfRect.size.height+self.attackRange.height);
-        CGRect objRect=[(id)obj getBoundingBox];
 
-        
-        if ([Global rectInsect:objRect :selfRect]) {
-            [self.collisionObjects addObject:obj];
-        }
-    }
-}
--(void)handleCollision{
-    if (!self.alive) {
-        //[self removeFromParentAndCleanup:YES];
-        return;
-    }
-    for (int i=0; i<self.collisionObjects.count; i++) {
-        __block AiObject* obj=self.collisionObjects[i];
-        __block Player* selfObj=self;
-        if([[[Global sharedManager]allEnemys] containsObject:[obj objectName]]&&!self.isAttacking&&!self.state.frozen){
-            if (selfObj.curEnergy<5) {
-                break;
-            }
-            self.isAttacking=YES;
-            
-            [self setTimeOutWithDelay:self.attackCD withBlock:^{
-                selfObj.curEnergy-=5;
-                [selfObj magicAttackWithName:@"fireBall"];
-                
-                selfObj.isAttacking=NO;
-            }];
-            
-            //攻击动画
-            //[self.sprite stopAllActions];
-            //[self attackAnimation];
-        }
-    }
-    
-}
 
 -(void)hurtByObject:(AiObject *)obj{
     [Actions shakeSprite:self.sprite  delay:0];
     self.curHP-=obj.damage;
 }
--(void)magicAttackWithName:(NSString *)magicName{
-    [self magicAttackWithName:magicName withParameter:nil];
-}
--(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
-    NSString* name=magicName;
-    if([name isEqualToString:@"bigFireBall"]){
-        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(100,460) byName:name];
-        [self addChild:projectile];
-        [projectile attackPosition:ccp(zEnemyMarginLeft+zPersonWidth/2,self.sprite.position.y+zPersonHeight/2)];
-        
-        [[SimpleAudioEngine sharedEngine] playEffect:@"explosion.wav"];
-        
-        
-    }
-    
-    
-    if([name isEqualToString:@"fireBall"]){
-        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth,self.sprite.position.y+zPersonHeight/2) byName:name];
-        [self addChild:projectile];
-        [projectile attackNearest];
-
-        [[SimpleAudioEngine sharedEngine] playEffect:@"fire_fly.wav"];
-
-        
-    }
-  
-    if([name isEqualToString:@"iceBall"]){
-        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth+5,self.sprite.position.y+zPersonHeight/2-10) byName:name];
-        [self addChild:projectile];
-        [projectile attackPosition:ccp(zEnemyMarginLeft,self.sprite.position.y+zPersonHeight/2-10)];
-        
-        [[SimpleAudioEngine sharedEngine] playEffect:@"ice_fly.wav"];
-        
-    }
-    
-    if([name isEqualToString:@"snowBall"]){
-        float randomX=50+arc4random()%220;
-        
-        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(randomX,460) byName:name];
-        [self addChild:projectile z:5];
-        [projectile attackPosition:ccp(0,self.sprite.position.y)];
-        
-    }
-    
-}
+//-(void)magicAttackWithName:(NSString *)magicName{
+//    [self magicAttackWithName:magicName withParameter:nil];
+//}
+//-(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
+//    NSString* name=magicName;
+//    if([name isEqualToString:@"bigFireBall"]){
+//        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(100,460) byName:name];
+//        [self addChild:projectile];
+//        [projectile attackPosition:ccp(zEnemyMarginLeft+zPersonWidth/2,self.sprite.position.y+zPersonHeight/2)];
+//        
+//        [[SimpleAudioEngine sharedEngine] playEffect:@"explosion.wav"];
+//        
+//        
+//    }
+//    
+//    
+//    if([name isEqualToString:@"fireBall"]){
+//        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth,self.sprite.position.y+zPersonHeight/2) byName:name];
+//        [self addChild:projectile];
+//        [projectile attackNearest];
+//
+//        [[SimpleAudioEngine sharedEngine] playEffect:@"fire_fly.wav"];
+//
+//        
+//    }
+//  
+//    if([name isEqualToString:@"iceBall"]){
+//        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth+5,self.sprite.position.y+zPersonHeight/2-10) byName:name];
+//        [self addChild:projectile];
+//        [projectile attackPosition:ccp(zEnemyMarginLeft,self.sprite.position.y+zPersonHeight/2-10)];
+//        
+//        [[SimpleAudioEngine sharedEngine] playEffect:@"ice_fly.wav"];
+//        
+//    }
+//    
+//    if([name isEqualToString:@"snowBall"]){
+//        float randomX=50+arc4random()%220;
+//        
+//        Projectile* projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(randomX,460) byName:name];
+//        [self addChild:projectile z:5];
+//        [projectile attackPosition:ccp(0,self.sprite.position.y)];
+//        
+//    }
+//    
+//}
 -(void)addApBar{
     
     CCSprite* progressSprite=[CCSprite spriteWithFile:@"circle.png"];

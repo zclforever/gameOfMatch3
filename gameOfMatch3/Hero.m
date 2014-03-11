@@ -34,7 +34,7 @@
         self.curEnergy+=mount;
     }
     
-    if(mount>3||[self.objectName isEqualToString:@"hero_warrior"]){
+    if(mount>=3||[self.objectName isEqualToString:@"hero_warrior"]){
     skillDelegate=[[SkillDelegate alloc]initWithName:skill_big];
         skillDelegate.parent=self;
         [self.skillDelegates addObject:skillDelegate];
@@ -54,6 +54,8 @@
         self.type=@"hero";
         
          self.skillDelegates=[[NSMutableArray alloc] init];
+        
+        [self.findTargetsObserverArray addObject:@"sightRadius"];
         //self.showBoundingBox=YES;
         //[self updateOfPlayer];
         
@@ -170,9 +172,11 @@
     
     
     else if([name isEqualToString:@"skill_fireBall"]){
-        NSArray* targetArray=[NSArray arrayWithArray:self.collisionObjectsInAttankRange];
-        if (targetArray.count==0) {
+        NSArray* targetArray=[NSArray arrayWithArray:self.findTargetsResult[@"attackRadius"]];
+        if (!targetArray||targetArray.count==0) {
             projectile=[[ProjectileWithNoTarget alloc]initWithAllObjectArray:self.allObjectsArray withPostion:selfPosition byName:name];
+            [projectile.findTargetsObserverArray addObject:@"sightRadius"];
+            [projectile.attributeDict setValue:@50.0f forKey:@"sightRadius"];
         }else{
             projectile=[[ProjectileWithTargets alloc]initWithAllObjectArray:self.allObjectsArray withPostion:selfPosition withTargets:targetArray byName:name];
         }
@@ -200,12 +204,13 @@
         
         projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(randomX,460) byName:name];
         [self addChild:projectile z:5];
-        [projectile attackPosition:ccp(0,self.sprite.position.y)];
+        //[projectile attackPosition:ccp(0,self.sprite.position.y)];
         
     }else{
         return;
     }
     projectile.targetTags=self.targetTags;
+    projectile.owner=self;
     [projectile start];
 }
 
@@ -223,7 +228,6 @@
         return NO;
     }
     
-    self.wantedObject=self.collisionObjectsInAttankRange[0];
     if (self.curEnergy<5) {
         return NO;
     }
@@ -234,17 +238,29 @@
 }
 
 -(void)onInSightButNotInAttackRange{
-    AiObject* obj=self.collisionObjectsInSight[0];
+    AiObject* obj=self.findTargetsResult[@"sightRadius"][0];
     [self moveToPosition:obj.node.position];
 }
--(void)onNothingInSight{
+-(void)onFindNothing{
     [self moveToPosition:self.startPosition];
 }
--(void)nothingToDo{
+-(void)onNothingToDo{
     
     //
     
 }
+-(void)onFindTargets{
+    
+    [super onFindTargets];
+
+    if (self.findTargetsResult[@"sightRadius"]&&!self.findTargetsResult[@"attackRadius"]) {
+        [self onInSightButNotInAttackRange];
+    }
+
+    
+}
+
+
 -(void)addApBar{
     
     CCSprite* progressSprite=[CCSprite spriteWithFile:@"circle.png"];

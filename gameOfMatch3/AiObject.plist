@@ -148,10 +148,10 @@
 		<array>
 			<string>enemy</string>
 		</array>
-		<key>sightRange</key>
-		<string>{50,5}</string>
-		<key>attackRange</key>
-		<string>{50,5}</string>
+		<key>sightRadius</key>
+		<integer>30</integer>
+		<key>attackRadius</key>
+		<integer>20</integer>
 		<key>tileSpriteName</key>
 		<string>mage001_stand.png</string>
 		<key>standSpriteName</key>
@@ -181,10 +181,10 @@
 		<array>
 			<string>enemy</string>
 		</array>
-		<key>sightRange</key>
-		<string>{300,55}</string>
-		<key>attackRange</key>
-		<string>{1,55}</string>
+		<key>sightRadius</key>
+		<integer>250</integer>
+		<key>attackRadius</key>
+		<integer>30</integer>
 		<key>tileSpriteName</key>
 		<string>warrior001_stand.png</string>
 		<key>standSpriteName</key>
@@ -214,10 +214,10 @@
 		<array>
 			<string>enemy</string>
 		</array>
-		<key>sightRange</key>
-		<string>{50,5}</string>
-		<key>attackRange</key>
-		<string>{50,5}</string>
+		<key>sightRadius</key>
+		<integer>50</integer>
+		<key>attackRadius</key>
+		<integer>20</integer>
 		<key>tileSpriteName</key>
 		<string>hunter001_stand.png</string>
 		<key>standSpriteName</key>
@@ -251,22 +251,22 @@
 	<dict>
 		<key>tileSpriteName</key>
 		<string>skill_iceBall.png</string>
-		<key>attackRange</key>
-		<string>{20,75}</string>
+		<key>attackRadius</key>
+		<integer>30</integer>
 	</dict>
 	<key>skill_bigFireBall</key>
 	<dict>
 		<key>tileSpriteName</key>
 		<string>skill_bigFireBall.png</string>
-		<key>attackRange</key>
-		<string>{10,75}</string>
+		<key>attackRadius</key>
+		<integer>100</integer>
 	</dict>
 	<key>skill_fireBall</key>
 	<dict>
 		<key>tileSpriteName</key>
 		<string>skill_fireBall.png</string>
-		<key>attackRange</key>
-		<string>{30,75}</string>
+		<key>attackRadius</key>
+		<integer>20</integer>
 	</dict>
 </dict>
 </plist>

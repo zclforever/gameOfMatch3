@@ -28,7 +28,7 @@
 
 
 -(bool)onReadyToAttackTargetInRange{
-    for (AiObject* target in self.collisionObjectsInAttankRange) {
+    for (AiObject* target in self.findTargetsResult[@"attackRadius"]) {
         [target hurtByObject:self];
     }
     

@@ -66,9 +66,9 @@
 @property (nonatomic,strong) CCSprite* sprite;
 @property (nonatomic,strong) CCNode* node;
 @property (nonatomic,weak) NSMutableArray* allObjectsArray;
-@property (nonatomic,strong) NSMutableArray* collisionObjects;
-@property (nonatomic,strong) NSArray* collisionObjectsInSight;
-@property (nonatomic,strong) NSArray* collisionObjectsInAttankRange;
+//@property (nonatomic,strong) NSMutableArray* collisionObjects;
+//@property (nonatomic,strong) NSArray* collisionObjectsInSight;
+//@property (nonatomic,strong) NSArray* collisionObjectsInAttankRange;
 @property (strong,nonatomic) AiObject* wantedObject;
 
 
@@ -96,8 +96,8 @@
 
 -(void)onInSightButNotInAttackRange;
 -(void)onInAttackRange;
--(void)onNothingInSight;
--(void)nothingToDo;
+-(void)onFindNothing;
+-(void)onNothingToDo;
 -(void)onNotReadyToAttackTargetInRange;   //攻击CD未到
 -(bool)onReadyToAttackTargetInRange;    //CD OK可以攻击了。
 -(void)onCurHPIsZero; //要死了
@@ -115,5 +115,13 @@
 
 -(CCAnimation* )animationByPlist:(NSString*)name withDelay:(float)delay;
 -(NSArray*)getNameOfFramesFromPlist:(NSString*)name;
+
+
+@property (strong,nonatomic) NSMutableArray* findTargetsObserverArray;
+-(NSDictionary*)findTargets;
+@property (strong,nonatomic) NSDictionary* findTargetsResult;
+
+-(NSMutableArray*)collisionObjectsByDistance:(float)distance;
+-(void)onFindTargets;
 
 @end

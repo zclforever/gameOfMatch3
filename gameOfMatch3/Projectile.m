@@ -31,7 +31,7 @@
         self.moveSpeed=250.0f;
         self.speedX=self.moveSpeed;
         self.speedY=self.moveSpeed;
-        self.attackRange=CGSizeMake(0, 20);
+
         self.attackOnce=NO;
         
         self.attackedObjectsArray=[[NSMutableArray alloc]init];
@@ -52,7 +52,7 @@
             fire.scale=.4;
             fire.speed=0;
             fire.duration=-1;
-            self.attackRange=CGSizeMake(100, 50);
+//            self.attackRange=CGSizeMake(100, 50);
             self.attackCD=1.0f;
             self.accelerometerEnabled=YES;
             
@@ -89,7 +89,6 @@
             fire.speed=100;
             fire.duration=-1;
             self.attackOnce=YES;
-            self.attackRange=CGSizeMake(0, 10);
             self.hitSound=@"softHit.wav";
         }
         
@@ -102,7 +101,7 @@
             fire.position=pos;
 
             self.attackOnce=YES;
-            self.attackRange=CGSizeMake(100, 20);
+            //self.attackRange=CGSizeMake(100, 20);
             self.hitSound=@"explosion02.mp3";
     
             
@@ -142,31 +141,7 @@
 
 
 }
-//-(CGRect)getBoundingBox{
-//    if (self.particle) {
-//        CGRect selfRect=self.particle.boundingBox;
-//        selfRect.size=self.attackRange;
-//        
-//        return CGRectMake(selfRect.origin.x-self.attackRange.width/2, selfRect.origin.y-self.attackRange.height/2, self.attackRange.width, self.attackRange.height);
-//    }else return CGRectZero;
-//
-//}
 
--(void)attackPosition:(CGPoint)position{
-
-    self.attackPostionIgnoreX=!position.x;
-    self.attackPostionIgnoreY=!position.y;
-    
-    self.attackingPostion=YES;
-    self.particle.visible=YES;
-    self.moveDestPosition=position;
-    self.moving=YES;
-    
-}
--(void)attackNearest{
-    self.particle.visible=YES;
-    self.attackingNearest=YES;
-}
 -(void)dieAction{
     self.alive=NO;
     self.readyToEnd=YES;
@@ -201,21 +176,7 @@
 //    }
 //    
 //}
-//-(void)updateCollisionObjectArray{  //collision.coll.
-//    
-//    [self.collisionObjects removeAllObjects];
-//    for (AiObject* obj in self.allObjectsArray) {
-//        if(obj==self)continue;
-//        CGRect selfRect=[self getBoundingBox];
-//       
-//        CGRect objRect=[(id)obj getBoundingBox];
-//
-//
-//        if ([Global rectInsect:objRect :selfRect]) {
-//            [self.collisionObjects addObject:obj];
-//        }
-//    }
-//}
+
 //-(void)onNothingInSight{
 //    //assert(self.wantedObject);
 //    [self moveToPosition:[self.wantedObject getCenterPoint]];
