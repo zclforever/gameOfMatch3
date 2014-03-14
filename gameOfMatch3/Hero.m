@@ -9,9 +9,9 @@
 #import "Hero.h"
 #import "Projectile.h"
 #import "SkillDelegate.h"
-#import "ProjectileWithTargets.h"
-#import "ProjectileWithTargetPosition.h"
-#import "ProjectileWithNoTarget.h"
+#import "ProjectileAiWithTargets.h"
+#import "ProjectileAiWithTargetPosition.h"
+#import "ProjectileAiWithNoTarget.h"
 @interface Hero()
 @property CGPoint startPosition;
 
@@ -55,7 +55,7 @@
         
          self.skillDelegates=[[NSMutableArray alloc] init];
         
-        [self.findTargetsObserverArray addObject:@"sightRadius"];
+        [self.findTargetsDelegate addObserverWithType:@"sightRadius"];
         //self.showBoundingBox=YES;
         //[self updateOfPlayer];
         
@@ -150,76 +150,14 @@
     [Actions shakeSprite:self.sprite  delay:0];
     self.curHP-=obj.damage;
 }
--(void)magicAttackWithName:(NSString *)magicName{
-    [self magicAttackWithName:magicName withParameter:nil];
-}
--(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
-    NSString* name=magicName;
-    Projectile* projectile;
-    CGPoint selfPosition=[self getCenterPoint];
-    
-    if([name isEqualToString:@"skill_bigFireBall"]){
-        
-        projectile=[[ProjectileWithTargetPosition alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(100,460) withDestPosition:ccp(zEnemyMarginLeft,480-zPlayerMarginTop+zPersonHeight/2) byName:name];
-        
-        [self addChild:projectile];
 
-        
-        [[SimpleAudioEngine sharedEngine] playEffect:@"explosion.wav"];
-        
-        
-    }
-    
-    
-    else if([name isEqualToString:@"skill_fireBall"]){
-        NSArray* targetArray=[NSArray arrayWithArray:self.findTargetsResult[@"attackRadius"]];
-        if (!targetArray||targetArray.count==0) {
-            projectile=[[ProjectileWithNoTarget alloc]initWithAllObjectArray:self.allObjectsArray withPostion:selfPosition byName:name];
-            [projectile.findTargetsObserverArray addObject:@"sightRadius"];
-            [projectile.attributeDict setValue:@50.0f forKey:@"sightRadius"];
-        }else{
-            projectile=[[ProjectileWithTargets alloc]initWithAllObjectArray:self.allObjectsArray withPostion:selfPosition withTargets:targetArray byName:name];
-        }
-        
-
-        [self addChild:projectile];
-        //[projectile attackNearest];
-        
-        [[SimpleAudioEngine sharedEngine] playEffect:@"fire_fly.wav"];
-        
-        
-    }
-    
-    else if([name isEqualToString:@"skill_iceBall"]){
-                projectile=[[ProjectileWithTargetPosition alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(self.sprite.position.x+zPersonWidth+5,self.sprite.position.y+zPersonHeight/2-10) withDestPosition:ccp(zEnemyMarginLeft,self.sprite.position.y+zPersonHeight/2-10) byName:name];
-
-        [self addChild:projectile];
-        
-        [[SimpleAudioEngine sharedEngine] playEffect:@"ice_fly.wav"];
-        
-    }
-    
-    else if([name isEqualToString:@"skill_snowBall"]){
-        float randomX=50+arc4random()%220;
-        
-        projectile=[[Projectile alloc]initWithAllObjectArray:self.allObjectsArray withPostion:ccp(randomX,460) byName:name];
-        [self addChild:projectile z:5];
-        //[projectile attackPosition:ccp(0,self.sprite.position.y)];
-        
-    }else{
-        return;
-    }
-    projectile.targetTags=self.targetTags;
-    projectile.owner=self;
-    [projectile start];
-}
 
 -(bool)normalAttackTarget:(AiObject*)obj{
     if (self.curEnergy<5) {
         return NO;
     }
     NSString* skillName=[self.attributeDict valueForKey:@"skill_0"];
-    [self magicAttackWithName:skillName];
+    [self.magicDelegate magicAttackWithName:skillName];
     self.curEnergy-=5;
     return YES;
 }
@@ -232,7 +170,7 @@
         return NO;
     }
     NSString* skillName=[self.attributeDict valueForKey:@"skill_0"];
-    [self magicAttackWithName:skillName];
+    [self.magicDelegate magicAttackWithName:skillName];
     self.curEnergy-=5;
     return YES;
 }
@@ -247,16 +185,6 @@
 -(void)onNothingToDo{
     
     //
-    
-}
--(void)onFindTargets{
-    
-    [super onFindTargets];
-
-    if (self.findTargetsResult[@"sightRadius"]&&!self.findTargetsResult[@"attackRadius"]) {
-        [self onInSightButNotInAttackRange];
-    }
-
     
 }
 

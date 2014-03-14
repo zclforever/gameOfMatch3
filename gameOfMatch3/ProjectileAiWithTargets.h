@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "Projectile.h"
-@interface ProjectileWithTargets : Projectile {
+#import "ProjectileAI.h"
+@interface ProjectileAiWithTargets : ProjectileAI {
     
 }
--(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withPostion:(CGPoint)pos withTargets:(NSArray*)targetsArray byName:(NSString*)name;
+-(id)initWithTargets:(NSArray*)targetsArray  withOwner:(Projectile*)obj;
+
+ 
 @property (strong,nonatomic) NSArray* targetsArray;
 @end

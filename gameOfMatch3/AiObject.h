@@ -11,6 +11,7 @@
 #import "Actions.h"
 #import "Global.h"
 #import "BarHelper.h"
+#import "AiObjectFindTargetsDelegate.h"
 //@protocol AiObject 
 //@required
 //-(CGRect)getBoundingBox;
@@ -30,7 +31,7 @@
 @property float frozenStartTime;
 
 @end
-@interface AiObject : CCLayer {
+@interface AiObject : CCLayer <FindTargetsProtocol> {
     
 }
 //--------基本属性-----------
@@ -66,15 +67,12 @@
 @property (nonatomic,strong) CCSprite* sprite;
 @property (nonatomic,strong) CCNode* node;
 @property (nonatomic,weak) NSMutableArray* allObjectsArray;
-//@property (nonatomic,strong) NSMutableArray* collisionObjects;
-//@property (nonatomic,strong) NSArray* collisionObjectsInSight;
-//@property (nonatomic,strong) NSArray* collisionObjectsInAttankRange;
+
 @property (strong,nonatomic) AiObject* wantedObject;
 
 
 @property (strong,nonatomic) NSMutableDictionary* stateDict;  //战斗时的状态
 @property (strong,nonatomic) State* state;  //战斗时的状态
-//@property (weak) id <AiObject>	spriteEntity ;
 
 //-----------------------------
 @property float delayTime; //update的延时
@@ -91,16 +89,8 @@
 
 -(void)moveToPosition:(CGPoint)pos;
 
--(void)updateCollisionObjectArray;
+//-(void)updateCollisionObjectArray;
 -(void)start;//延迟加载
-
--(void)onInSightButNotInAttackRange;
--(void)onInAttackRange;
--(void)onFindNothing;
--(void)onNothingToDo;
--(void)onNotReadyToAttackTargetInRange;   //攻击CD未到
--(bool)onReadyToAttackTargetInRange;    //CD OK可以攻击了。
--(void)onCurHPIsZero; //要死了
 
 
 -(void)setTimeOutOfUpdateWithDelay:(float)timeOut;
@@ -108,8 +98,7 @@
 -(void)setTimeOutWithDelay:(float)timeOut withBlock:(void(^)())block;
 
 -(void)hurtByObject:(AiObject*)obj;
--(void)magicAttackWithName:(NSString*)magicName;
--(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict;
+
 
 -(NSArray*)sortAllObjectsByDistanceFromPosition:(CGPoint)position;
 
@@ -117,11 +106,21 @@
 -(NSArray*)getNameOfFramesFromPlist:(NSString*)name;
 
 
-@property (strong,nonatomic) NSMutableArray* findTargetsObserverArray;
--(NSDictionary*)findTargets;
+
+
+//-(NSDictionary*)findTargets;
 @property (strong,nonatomic) NSDictionary* findTargetsResult;
 
 -(NSMutableArray*)collisionObjectsByDistance:(float)distance;
+-(NSArray*)objectsByTags:(NSArray*)tags from:(NSArray*)objectsArray;
+
+@property AiObjectFindTargetsDelegate* findTargetsDelegate;
 -(void)onFindTargets;
+-(void)onInAttackRange;
+-(void)onFindNothing;
+-(void)onNothingToDo;
+-(void)onNotReadyToAttackTargetInRange;   //攻击CD未到
+-(bool)onReadyToAttackTargetInRange;    //CD OK可以攻击了。
+-(void)onCurHPIsZero; //要死了
 
 @end

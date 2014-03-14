@@ -48,8 +48,10 @@
         //self.collisionObjects=[[NSMutableArray alloc]init];
         self.allObjectsArray=allObjectsArray;
         [self.allObjectsArray addObject:self];
-        self.findTargetsObserverArray=[[NSMutableArray alloc]init];
-        [self.findTargetsObserverArray addObject:@"attackRadius"];
+        
+        self.findTargetsDelegate=[[AiObjectFindTargetsDelegate alloc]initWithOwner:self];
+        [self.findTargetsDelegate addObserverWithType:@"attackRadius"];
+
     }
     return self;
 }
@@ -229,11 +231,6 @@
 
 
 
--(void)magicAttackWithName:(NSString *)magicName{
-    [self magicAttackWithName:magicName withParameter:nil];
-}
--(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
-}
 
 -(void)draw{
     if(self.showBoundingBox){
@@ -289,7 +286,9 @@
     
     //重载用
 }
-
+-(void)onFindTargets{
+    // 重载用
+}
 -(void)onFindNothing{
    // 重载用
 }
@@ -348,66 +347,45 @@
 
 
 
--(void)doInAttackRange{
-    //目标在攻击范围内时，攻击目标 近身攻击，看成发出在目标身上即时碰撞的透明放射物。
-    //英雄攻击 能量有时 正常攻击，技能球时，主动放射攻击
-    //小怪 正常攻击，
-    if (self.findTargetsResult[@"attackRadius"]) {
-        float gameTime=[[Global sharedManager] gameTime];
-        if(self.lastAttackTime&&(gameTime-self.lastAttackTime<self.attackCD))
-        {
-            return;
-            
-        }else{
-            if ([self normalAttackTarget:self.wantedObject]) {
-                self.lastAttackTime=gameTime;
-            }
-            
-            
-        }
+//-(void)doInAttackRange{
+//    //目标在攻击范围内时，攻击目标 近身攻击，看成发出在目标身上即时碰撞的透明放射物。
+//    //英雄攻击 能量有时 正常攻击，技能球时，主动放射攻击
+//    //小怪 正常攻击，
+//    if (self.findTargetsResult[@"attackRadius"]) {
+//        float gameTime=[[Global sharedManager] gameTime];
+//        if(self.lastAttackTime&&(gameTime-self.lastAttackTime<self.attackCD))
+//        {
+//            return;
+//            
+//        }else{
+//            if ([self normalAttackTarget:self.wantedObject]) {
+//                self.lastAttackTime=gameTime;
+//            }
+//            
+//            
+//        }
+//
+//    } else{ //目标逃出攻击范围 
+//        
+//      self.aiState=aiState_attackWantedObject;
+//        return;
+//    }
+//
+//
+//    
+//}
+//
+//
+//-(bool)normalAttackTarget:(AiObject*)obj{
+//    return NO;
+//    /*
+//     NSString* skillName=[self.attributeDict valueForKey:@"skill_0"];
+//     [self magicAttackWithName:skillName];
+//     return YES;
+//     */
+//}
 
-    } else{ //目标逃出攻击范围 
-        
-      self.aiState=aiState_attackWantedObject;
-        return;
-    }
 
-
-    
-}
--(bool)normalAttackTarget:(AiObject*)obj{
-    NSString* skillName=[self.attributeDict valueForKey:@"skill_0"];
-    [self magicAttackWithName:skillName];
-    return YES;
-}
--(void)onFindTargets{
-
-    if (self.findTargetsResult[@"attackRadius"]) {
-        [self onInAttackRange];
-    }
-}
-
--(NSDictionary*)findTargets{
-    NSArray* ret;
-    NSMutableDictionary* resultDict=[[NSMutableDictionary alloc]init];
-    
-    float radius;
-    
-    for (NSString* observerRadiusType in self.findTargetsObserverArray) {
-        radius=[self.attributeDict[observerRadiusType] floatValue];
-        ret=[self collisionObjectsByDistance:radius];
-        //过滤不喜欢的目标
-        ret=[self objectsByTags:self.targetTags from:ret];
-        
-        
-        if(ret.count>0){
-            [resultDict setValue:ret forKey:observerRadiusType];
-        }
-    }
-    self.findTargetsResult=resultDict;
-
-    return resultDict;
-}
 -(void)updateForCommon{
     float delayTime=self.delayTime;
     if (!self.node) {
@@ -433,11 +411,7 @@
     
     //找目标
 
-    if ([[self findTargets] allKeys].count==0) {
-        [self onFindNothing];
-    }else{
-        [self onFindTargets];
-    }
+    [self.findTargetsDelegate findTargets];
     
     
 //    [self updateCollisionObjectArray];

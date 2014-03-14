@@ -16,7 +16,7 @@
 @property bool attackPostionIgnoreX;
 @property bool attackPostionIgnoreY;
 @property (strong,nonatomic) NSMutableArray* attackedObjectsArray;
-@property (strong,nonatomic) NSString* hitSound;
+
 @end
 
 @implementation Projectile
@@ -26,6 +26,14 @@
 
         
         self.objectName=name;
+        [self makeNode];
+        self.node.position=pos;
+        [self addChild:self.node z:5];
+        
+        [self.findTargetsDelegate addObserverWithType:@"sightRadius"];
+        
+        
+        
         Magic* magic=[[Magic alloc]initWithName:name];
         self.damage=magic.damage;
         self.moveSpeed=250.0f;
@@ -38,83 +46,19 @@
         
         self.accelerometerEnabled = NO;
 
-        
+
        
         if ([name isEqualToString:@"skill_snowBall"]) {
-            CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"snowBall.plist"];
-            CCParticleSystem* fire=particle_system;
-            self.speedX=0.0f;
-            self.speedY=40.0f;
-            self.anchorPoint=ccp(0,0);
-            self.particle=fire;
-            fire.position=pos;
-            fire.startSize=36;
-            fire.scale=.4;
-            fire.speed=0;
-            fire.duration=-1;
-//            self.attackRange=CGSizeMake(100, 50);
-            self.attackCD=1.0f;
-            self.accelerometerEnabled=YES;
+
             
         }
         
 
-        
-        
-        if ([name isEqualToString:@"skill_fireBall"]) {
-            
-            
-            CCParticleFire *fire = [[CCParticleFire alloc]init];
-            self.particle=fire;
-            
-            fire.anchorPoint=ccp(0,0);
-            int randomVar=(arc4random()%60-30);
-            randomVar=0;
-            fire.position=pos;
-            fire.startSize=81;
-            fire.scale=.2;
-            fire.rotation=-22.5;
-            fire.duration=-1.0f;
-            fire.gravity=ccp(-90,-45);
-            self.hitSound=@"heavyHit.wav";
-             
-        }
-        if ([name isEqualToString:@"skill_iceBall"]) {
-            CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"iceBall.plist"];
-            CCParticleSystem* fire=particle_system;
-            self.particle=fire;
-            fire.position=pos;
-            fire.startSize=36;
-            fire.scale=.6;
-            fire.speed=100;
-            fire.duration=-1;
-            self.attackOnce=YES;
-            self.hitSound=@"softHit.wav";
-        }
-        
-        if ([name isEqualToString:@"skill_bigFireBall"]) {
-            CCParticleSystem* particle_system = [CCParticleSystemQuad particleWithFile:@"bigFireBall.plist"];
-            CCParticleSystem* fire=particle_system;
-            self.moveSpeed=100.0f;
-            fire.blendFunc= (ccBlendFunc) {GL_SRC_ALPHA,GL_DST_ALPHA};
-            self.particle=fire;
-            fire.position=pos;
 
-            self.attackOnce=YES;
-            //self.attackRange=CGSizeMake(100, 20);
-            self.hitSound=@"explosion02.mp3";
-    
-            
-        }
         
         
         //self.particle.visible=NO;
-        
-        
-        
-        [self addChild:self.particle z:5];
-        
-        self.node=self.particle;
+
         
         if (self.accelerometerEnabled) {
             [[UIAccelerometer sharedAccelerometer] setUpdateInterval:1/60];
@@ -125,6 +69,19 @@
     }
     return self;
     
+}
+-(void)makeNode{
+    
+}
+
+-(void)setAiDelegate:(id<ProjectileAiDelegate>)aiDelegate{
+    _aiDelegate=aiDelegate;
+}
+
+-(void)initFromPlist{
+   
+    [super initFromPlist];
+    //self.tileSpriteName=[self.attributeDict valueForKey:@"tileSpriteName"];
 }
 -(void) accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
     float THRESHOLD = 2;
@@ -148,6 +105,45 @@
     [self.allObjectsArray removeObject:self];
     [self removeFromParentAndCleanup:YES];
 }
+
+
+//delegate
+-(void)onEnterFrame{
+    [self.aiDelegate onEnterFrame];
+}
+
+-(void)onFindTargets{
+    [self.aiDelegate onFindTargets];
+}
+-(void)onFindNothing{
+    [self.aiDelegate onFindNothing];
+}
+-(void)onNothingToDo{
+    [self.aiDelegate onNothingToDo];
+}
+
+
+-(void)onInAttackRange{
+    [super onInAttackRange];
+    [self.aiDelegate onInAttackRange];
+}
+
+-(bool)onReadyToAttackTargetInRange{
+
+    return [self.aiDelegate onReadyToAttackTargetInRange];
+}
+-(void)onNotReadyToAttackTargetInRange{
+    [self.aiDelegate onNotReadyToAttackTargetInRange];
+}
+
+-(void)onInSightButNotInAttackRange{
+    [self.aiDelegate onInSightButNotInAttackRange];
+}
+
+
+
+
+
 //-(void)move{  //self.moveDestPosition;
 //    if (!self.moving) {
 //        return;
@@ -177,17 +173,6 @@
 //    
 //}
 
-//-(void)onNothingInSight{
-//    //assert(self.wantedObject);
-//    [self moveToPosition:[self.wantedObject getCenterPoint]];
-//}
-//-(bool)onReadyToAttackTargetInRange{
-//    [self.wantedObject hurtByObject:self];
-//    self.alive=NO;
-//    [self.allObjectsArray removeObject:self];
-//    [self removeFromParentAndCleanup:YES];
-//    return YES;
-//}
 //-(void)update{
 //    self.delayTime=0.04;
 //    

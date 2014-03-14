@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "AiObject.h"
-
-@interface SmallEnemy : AiObject {
+#import "AiObjectWithMagic.h"
+@interface SmallEnemy : AiObjectWithMagic {
     
 }
 @property bool readyToDie;  //马上要死了，但可能还要放动画，再减血

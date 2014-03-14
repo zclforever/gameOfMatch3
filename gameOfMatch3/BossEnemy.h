@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Player.h"
+#import "AiObjectWithMagic.h"
 @interface BossEnemy : Player {
     
 }

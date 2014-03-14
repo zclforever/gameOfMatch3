@@ -11,7 +11,9 @@
 #import "AiObject.h"
 #import "Person.h"
 #import "Tile.h"
-@interface Hero : AiObject <tileDelegate> {
+#import "AiObjectWithMagic.h"
+
+@interface Hero : AiObjectWithMagic <tileDelegate> {
     
 }
 

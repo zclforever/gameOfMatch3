@@ -31,7 +31,7 @@
 -(NSDictionary*) removeByMount:(int)mount{
     NSMutableDictionary* result=[[NSMutableDictionary alloc] init];
     
-    [self.parent magicAttackWithName:self.objectName];
+    [self.parent.magicDelegate magicAttackWithName:self.objectName];
     [self.parent.skillDelegates removeObject:self];
     
     self.readyToRemove=YES;

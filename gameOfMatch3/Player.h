@@ -10,7 +10,8 @@
 #import "cocos2d.h"
 #import "AiObject.h"
 #import "Person.h"
-@interface Player : AiObject {
+#import "AiObjectWithMagic.h"
+@interface Player : AiObjectWithMagic {
     
 }
 
