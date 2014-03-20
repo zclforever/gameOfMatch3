@@ -16,20 +16,21 @@
     return self;
 }
 
+-(bool)checkDie{
+    return   self.projectile.atDest?YES:NO;
+
+}
 -(void)onEnterFrame{
-    
+    [super onEnterFrame];
     [self.projectile moveToPosition:self.destPostion];
     
-    if (self.projectile.atDest) {
-        [self.projectile dieAction];
-        return;
-    }
+
 }
 
 
 -(bool)onReadyToAttackTargetInRange{
     for (AiObject* target in self.projectile.findTargetsResult[@"attackRadius"]) {
-        [target hurtByObject:self.projectile];
+        [self.projectile directAttackTarget:target];
     }
 
     return YES;

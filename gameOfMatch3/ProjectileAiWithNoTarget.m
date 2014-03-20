@@ -19,21 +19,24 @@
 
 -(bool)onReadyToAttackTargetInRange{
     AiObject* obj=self.projectile.findTargetsResult[@"attackRadius"][0];
-
-    [obj hurtByObject:self.projectile];
-    [self.projectile dieAction];
+    [self.projectile directAttackTarget:obj];
+    self.die=YES;
 
     return YES;
 
 }
 -(void)onFindNothing{
     if (self.projectile) {
-        [self.projectile moveToPosition:[self.projectile.owner getCenterPoint]];
+        self.projectile.node.position=[self.projectile.owner getCenterPoint];
     }
 }
 -(void)onInSightButNotInAttackRange{
     AiObject* obj=self.projectile.findTargetsResult[@"sightRadius"][0];
     [self.projectile moveToPosition:[obj getCenterPoint]];
+}
+
+-(bool)checkDie{
+    return self.die?YES:NO;
 }
 
 @end

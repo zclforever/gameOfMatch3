@@ -45,6 +45,7 @@
 		021E8AB518CAEE3C00CDA673 /* ProjectileAiWithNoTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E8AB418CAEE3C00CDA673 /* ProjectileAiWithNoTarget.m */; };
 		022AB7FA18A767B500F570BF /* Hero.m in Sources */ = {isa = PBXBuildFile; fileRef = 022AB7F918A767B500F570BF /* Hero.m */; };
 		022AB80018A7841900F570BF /* OLDPlayLayer.h in Resources */ = {isa = PBXBuildFile; fileRef = 022AB7FF18A7841800F570BF /* OLDPlayLayer.h */; };
+		0241F50018DA865A0081A61E /* PhysicalAttack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0241F4FF18DA86590081A61E /* PhysicalAttack.m */; };
 		0259BBD717DDB02D0033F345 /* GameLevelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259BBD617DDB02D0033F345 /* GameLevelLayer.m */; };
 		0259BBDB17DDB25D0033F345 /* enemy_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD817DDB25D0033F345 /* enemy_1.png */; };
 		0259BBDC17DDB25D0033F345 /* enemy_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD917DDB25D0033F345 /* enemy_2.png */; };
@@ -352,6 +353,8 @@
 		022AB7F918A767B500F570BF /* Hero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hero.m; sourceTree = "<group>"; };
 		022AB7FD18A783FE00F570BF /* OLDPlayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLDPlayLayer.m; sourceTree = "<group>"; };
 		022AB7FF18A7841800F570BF /* OLDPlayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLDPlayLayer.h; sourceTree = "<group>"; };
+		0241F4FE18DA86590081A61E /* PhysicalAttack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalAttack.h; sourceTree = "<group>"; };
+		0241F4FF18DA86590081A61E /* PhysicalAttack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicalAttack.m; sourceTree = "<group>"; };
 		0259BBD517DDB02D0033F345 /* GameLevelLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLevelLayer.h; sourceTree = "<group>"; };
 		0259BBD617DDB02D0033F345 /* GameLevelLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLevelLayer.m; sourceTree = "<group>"; };
 		0259BBD817DDB25D0033F345 /* enemy_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_1.png; sourceTree = "<group>"; };
@@ -1484,6 +1487,8 @@
 				02D6BB8718D2FB45000B3B56 /* IceBall.m */,
 				02D6BB8918D2FC9B000B3B56 /* SnowBall.h */,
 				02D6BB8A18D2FC9B000B3B56 /* SnowBall.m */,
+				0241F4FE18DA86590081A61E /* PhysicalAttack.h */,
+				0241F4FF18DA86590081A61E /* PhysicalAttack.m */,
 				02D6BB8018D2E4A1000B3B56 /* ProjectileAI.h */,
 				02D6BB8118D2E4A1000B3B56 /* ProjectileAI.m */,
 				02F9377018C707D60039F692 /* ProjectileAiWithTargetPosition.h */,
@@ -1884,6 +1889,7 @@
 				02D6BB8818D2FB46000B3B56 /* IceBall.m in Sources */,
 				02D6BB8B18D2FC9B000B3B56 /* SnowBall.m in Sources */,
 				02D6BB8E18D2FEAB000B3B56 /* AiObjectWithMagic.m in Sources */,
+				0241F50018DA865A0081A61E /* PhysicalAttack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

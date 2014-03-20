@@ -20,6 +20,7 @@
 -(bool)onReadyToAttackTargetInRange;    //CD OK可以攻击了。
 -(void)onEnterFrame;
 -(void)onInSightButNotInAttackRange;
+-(bool)checkDie;
 @optional
 
 @end
@@ -30,12 +31,12 @@
 
 @property (strong,nonatomic) id<ProjectileAiDelegate> aiDelegate;
 
-@property CGPoint destPosition;
 
 @property (strong,nonatomic) AiObject* owner;
 
 @property (strong,nonatomic) NSString* hitSound;
 
+@property (strong,nonatomic) NSMutableArray* attackedObjectsArray;
 
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withPostion:(CGPoint)pos byName:(NSString*)name;
 -(void)dieAction;

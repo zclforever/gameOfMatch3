@@ -12,10 +12,7 @@
 @property int count;
 @property float speedX;
 @property float speedY;
-@property bool attackOnce;
-@property bool attackPostionIgnoreX;
-@property bool attackPostionIgnoreY;
-@property (strong,nonatomic) NSMutableArray* attackedObjectsArray;
+
 
 @end
 
@@ -32,31 +29,18 @@
         
         [self.findTargetsDelegate addObserverWithType:@"sightRadius"];
         
-        
+        self.attackedObjectsArray=[[NSMutableArray alloc]init];
         
         Magic* magic=[[Magic alloc]initWithName:name];
         self.damage=magic.damage;
         self.moveSpeed=250.0f;
-        self.speedX=self.moveSpeed;
-        self.speedY=self.moveSpeed;
 
-        self.attackOnce=NO;
-        
-        self.attackedObjectsArray=[[NSMutableArray alloc]init];
-        
+       
+       
         self.accelerometerEnabled = NO;
 
 
-       
-        if ([name isEqualToString:@"skill_snowBall"]) {
-
-            
-        }
-        
-
-
-        
-        
+      
         //self.particle.visible=NO;
 
         
@@ -97,6 +81,21 @@
     self.node.position=ccp(self.node.position.x+acceleration.x*8,self.node.position.y);
 
 
+}
+-(bool)directAttackTarget:(AiObject *)obj{
+    if ([self.attackedObjectsArray containsObject:obj]) {  //攻击一次
+        return NO;
+    }
+    
+    [self.attackedObjectsArray addObject:obj];
+    
+    return [super directAttackTarget:obj];
+}
+-(bool)checkDie{
+    return [self.aiDelegate checkDie];
+}
+-(void)onDie{
+    [self dieAction];
 }
 
 -(void)dieAction{

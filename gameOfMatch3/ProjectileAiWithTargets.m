@@ -21,13 +21,11 @@
     AiObject* obj=self.targetsArray[0];
     [self.projectile moveToPosition:[obj getCenterPoint] ];
 }
--(void)onEnterFrame{
-    if (self.targetsArray.count<=0) {
-        [self.projectile dieAction];
-        return ;
-    }
-}
 
+-(bool)checkDie{
+    return self.targetsArray.count<=0?YES:NO;
+
+}
 
 -(bool)onReadyToAttackTargetInRange{
 
@@ -35,10 +33,11 @@
         if (![self.projectile.findTargetsResult[@"attackRadius"] containsObject:target]) {
             continue;
         }
-        [target hurtByObject:self.projectile];
-        [self.projectile dieAction];
-
-        return YES;
+        if ([self.projectile directAttackTarget:target]) {
+            [self.projectile onDie];
+            
+            return YES;
+        }else return NO;
     }
 
 

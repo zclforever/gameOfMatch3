@@ -13,4 +13,5 @@
     
 }
 -(id)initWithOwner:(Projectile*)obj;
+@property bool die;
 @end

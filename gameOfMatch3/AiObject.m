@@ -36,7 +36,7 @@
         if (!allObjectsArray) {
             return self;
         }
-        self.delayTime=0.04;
+        self.delayTime=0.04f;
         
         self.objectName=name;
         [self initFromPlist];
@@ -301,7 +301,14 @@
 
 -(void)onEnterFrame{
     //重载用
-};
+}
+-(void)onDie{
+    //重载用
+}
+-(bool)checkDie{
+    return NO;
+}
+
 -(void)moveToPosition:(CGPoint)pos{
     if(!self.node)return;
     if (isnan(pos.x)||isnan(pos.y)) {
@@ -334,57 +341,10 @@
     self.node.position=ccp( position.x+xMoveDistance,position.y+yMoveDistance);
 }
 
-
-//-(void)attackingWantedObject{  //不管有没有视线，直接攻击
-//    AiObject* obj=self.wantedObject;
-//    if (self.collisionObjectsInAttankRange.count>0) {
-//        self.aiState=aiState_inAttackRange;
-//    }else{
-//        self.aiState=aiState_attackWantedObject;
-//        [self onAttackWantedButNotInAttackRangeFromObject:obj];
-//    }
-//}
-
-
-
-//-(void)doInAttackRange{
-//    //目标在攻击范围内时，攻击目标 近身攻击，看成发出在目标身上即时碰撞的透明放射物。
-//    //英雄攻击 能量有时 正常攻击，技能球时，主动放射攻击
-//    //小怪 正常攻击，
-//    if (self.findTargetsResult[@"attackRadius"]) {
-//        float gameTime=[[Global sharedManager] gameTime];
-//        if(self.lastAttackTime&&(gameTime-self.lastAttackTime<self.attackCD))
-//        {
-//            return;
-//            
-//        }else{
-//            if ([self normalAttackTarget:self.wantedObject]) {
-//                self.lastAttackTime=gameTime;
-//            }
-//            
-//            
-//        }
-//
-//    } else{ //目标逃出攻击范围 
-//        
-//      self.aiState=aiState_attackWantedObject;
-//        return;
-//    }
-//
-//
-//    
-//}
-//
-//
-//-(bool)normalAttackTarget:(AiObject*)obj{
-//    return NO;
-//    /*
-//     NSString* skillName=[self.attributeDict valueForKey:@"skill_0"];
-//     [self magicAttackWithName:skillName];
-//     return YES;
-//     */
-//}
-
+-(bool)directAttackTarget:(AiObject*)obj{
+    [obj hurtByObject:self];
+    return YES;
+}
 
 -(void)updateForCommon{
     float delayTime=self.delayTime;
@@ -398,6 +358,9 @@
         [self onCurHPIsZero];
     }
     
+    if ([self checkDie]){
+        [self onDie];
+    }
     //检测结束(退出update)
     if(self.readyToEnd){
         [self removeAllChildrenWithCleanup:YES];

@@ -41,9 +41,9 @@
     sprite.scaleY=zPersonHeight/sprite.contentSize.height;
     [self addChild:sprite];
     self.sprite=sprite;
-    BarHelper* barHelper=[[BarHelper alloc]initWithOwner:self];
-    [barHelper addLifeBar];
-    [self addChild:barHelper];
+    //BarHelper* barHelper=[[BarHelper alloc]initWithOwner:self];
+    //[barHelper addLifeBar];
+    //[self addChild:barHelper];
 
     self.node=self.sprite;
     

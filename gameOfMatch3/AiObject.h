@@ -106,13 +106,15 @@
 -(NSArray*)getNameOfFramesFromPlist:(NSString*)name;
 
 
-
+-(bool)directAttackTarget:(AiObject*)obj;
 
 //-(NSDictionary*)findTargets;
 @property (strong,nonatomic) NSDictionary* findTargetsResult;
 
 -(NSMutableArray*)collisionObjectsByDistance:(float)distance;
 -(NSArray*)objectsByTags:(NSArray*)tags from:(NSArray*)objectsArray;
+
+-(bool)checkDie;
 
 @property AiObjectFindTargetsDelegate* findTargetsDelegate;
 -(void)onFindTargets;
@@ -122,5 +124,5 @@
 -(void)onNotReadyToAttackTargetInRange;   //攻击CD未到
 -(bool)onReadyToAttackTargetInRange;    //CD OK可以攻击了。
 -(void)onCurHPIsZero; //要死了
-
+-(void)onDie;
 @end

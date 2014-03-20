@@ -12,9 +12,11 @@
 #import "IceBall.h"
 #import "BigFireBall.h"
 #import "SnowBall.h"
+#import "PhysicalAttack.h"
 #import "ProjectileAiWithTargetPosition.h"
 #import "ProjectileAiWithNoTarget.h"
 #import "ProjectileAiWithTargets.h"
+
 
 @protocol MagicDelegate <NSObject>
 @property (strong,nonatomic) NSDictionary* findTargetsResult;

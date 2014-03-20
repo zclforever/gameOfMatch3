@@ -528,11 +528,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/Projectile.m"
-         timestampString = "411720728.569786"
+         timestampString = "417002010.813509"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "24"
-         endingLineNumber = "24"
+         startingLineNumber = "21"
+         endingLineNumber = "21"
          landmarkName = "-initWithAllObjectArray:withPostion:byName:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -595,11 +595,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "gameOfMatch3/Projectile.m"
-         timestampString = "416482075.82708"
+         timestampString = "417002010.813509"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "97"
-         endingLineNumber = "97"
+         startingLineNumber = "81"
+         endingLineNumber = "81"
          landmarkName = "-accelerometer:didAccelerate:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -874,6 +874,19 @@
          startingLineNumber = "172"
          endingLineNumber = "172"
          landmarkName = "-onReadyToAttackTargetInRange"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "gameOfMatch3/libs/cocos2d/CCScheduler.m"
+         timestampString = "416996528.232686"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "295"
+         endingLineNumber = "295"
+         landmarkName = "-init"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

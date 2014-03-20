@@ -113,7 +113,7 @@
 	<dict>
 		<key>tags</key>
 		<array>
-			<string>enemy</string>
+			<string>none</string>
 		</array>
 		<key>sightRange</key>
 		<string>50,5</string>
@@ -167,9 +167,9 @@
 		<key>maxHP</key>
 		<integer>50</integer>
 		<key>skill_0</key>
-		<string>skill_iceBall</string>
-		<key>skill_1</key>
 		<string>skill_fireBall</string>
+		<key>skill_1</key>
+		<string>skill_bigFireBall</string>
 	</dict>
 	<key>hero_warrior</key>
 	<dict>
@@ -196,11 +196,11 @@
 		<key>moveSpeed</key>
 		<integer>18</integer>
 		<key>maxHP</key>
-		<integer>50</integer>
+		<integer>150</integer>
 		<key>maxEnergy</key>
 		<integer>10</integer>
 		<key>skill_0</key>
-		<string>skill_fireBall</string>
+		<string>skill_physicalAttack</string>
 		<key>skill_1</key>
 		<string>skill_fireBall</string>
 	</dict>
@@ -215,9 +215,9 @@
 			<string>enemy</string>
 		</array>
 		<key>sightRadius</key>
-		<integer>10</integer>
+		<integer>100</integer>
 		<key>attackRadius</key>
-		<integer>50</integer>
+		<integer>100</integer>
 		<key>tileSpriteName</key>
 		<string>hunter001_stand.png</string>
 		<key>standSpriteName</key>
@@ -233,9 +233,9 @@
 		<key>maxEnergy</key>
 		<integer>20</integer>
 		<key>skill_0</key>
-		<string>skill_iceBall</string>
+		<string>skill_fireBall</string>
 		<key>skill_1</key>
-		<string>skill_bigFireBall</string>
+		<string>skill_iceBall</string>
 	</dict>
 	<key>item_hp</key>
 	<dict>
@@ -246,6 +246,13 @@
 	<dict>
 		<key>tileSpriteName</key>
 		<string>block_4.png</string>
+	</dict>
+	<key>skill_physicalAttack</key>
+	<dict>
+		<key>tileSpriteName</key>
+		<string>skill_iceBall.png</string>
+		<key>attackRadius</key>
+		<integer>100</integer>
 	</dict>
 	<key>skill_iceBall</key>
 	<dict>

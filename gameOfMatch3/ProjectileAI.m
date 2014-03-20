@@ -18,7 +18,7 @@
 }
 
 -(void)onEnterFrame{
-
+    
 }
 
 -(void)onFindTargets{
@@ -47,6 +47,8 @@
 -(void)onInSightButNotInAttackRange{
     
 }
-
+-(bool)checkDie{
+    return NO;
+}
 
 @end

@@ -70,7 +70,7 @@
     sprite.scaleY=zPersonHeight/sprite.contentSize.height;
     [self addChild:sprite];
     self.sprite=sprite;
-    [self addLifeBar];
+    //[self addLifeBar];
     
     self.node=self.sprite;
     [self.sprite runAction:[CCSequence actions:

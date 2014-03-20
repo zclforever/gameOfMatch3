@@ -24,7 +24,23 @@
 				<key>name</key>
 				<string>smallEnemy_mouse</string>
 				<key>mount</key>
-				<integer>20</integer>
+				<integer>5</integer>
+				<key>interval</key>
+				<integer>1</integer>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>smallEnemy_knight</string>
+				<key>mount</key>
+				<integer>5</integer>
+				<key>interval</key>
+				<integer>2</integer>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>smallEnemy_mouse</string>
+				<key>mount</key>
+				<integer>15</integer>
 				<key>interval</key>
 				<integer>1</integer>
 			</dict>
@@ -38,9 +54,9 @@
 				<key>name</key>
 				<string>smallEnemy_stoneMan</string>
 				<key>mount</key>
-				<integer>3</integer>
-				<key>interval</key>
 				<integer>5</integer>
+				<key>interval</key>
+				<integer>4</integer>
 			</dict>
 		</array>
 	</dict>

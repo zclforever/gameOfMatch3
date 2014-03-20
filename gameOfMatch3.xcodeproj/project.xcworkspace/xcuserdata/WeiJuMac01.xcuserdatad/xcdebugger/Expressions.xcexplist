@@ -271,16 +271,27 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[ProjectileAiWithNoTarget onFindNothing]:ProjectileAiWithNoTarget.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self.projectile.owner getCenterPoint]">
+            </PersistentString>
+            <PersistentString
+               value = "self.projectile.position">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[SmallEnemy handleCollision]:SmallEnemy.m">
          <PersistentStrings>
             <PersistentString
-               value = "[self allObjectsArray]">
+               value = "obj.type">
             </PersistentString>
             <PersistentString
                value = "self.collisionObjectArray">
             </PersistentString>
             <PersistentString
-               value = "obj.type">
+               value = "[self allObjectsArray]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -327,10 +338,10 @@
                value = "self.lifeBar">
             </PersistentString>
             <PersistentString
-               value = "self.lifeBar.scaleX">
+               value = "self.lifeBar.scaleY">
             </PersistentString>
             <PersistentString
-               value = "self.lifeBar.scaleY">
+               value = "self.lifeBar.scaleX">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -393,13 +404,13 @@
          contextName = "-[Projectile update]:Projectile.m">
          <PersistentStrings>
             <PersistentString
+               value = "self.particle.position">
+            </PersistentString>
+            <PersistentString
                value = "self.collisionObjectArray">
             </PersistentString>
             <PersistentString
                value = "self.allObjectsArray">
-            </PersistentString>
-            <PersistentString
-               value = "self.particle.position">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

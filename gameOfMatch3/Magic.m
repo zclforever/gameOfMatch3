@@ -13,7 +13,7 @@
 +(NSMutableArray*)allMagicNameList{  //决定优先权
     return [
             [NSMutableArray alloc]initWithObjects:
-            @"skill_bigFireBall",@"skill_snowBall",@"skill_firedClear",@"skill_hammer",
+            @"skill_physicalAttack",@"skill_bigFireBall",@"skill_snowBall",@"skill_firedClear",@"skill_hammer",
             @"skill_iceBall",@"skill_fireBall",@"skill_bloodAbsorb",@"skill_poison",
             
             
@@ -151,8 +151,17 @@
                               [NSArray arrayWithObjects:@0,@3,@0, nil],@"requirePoint",
                               [NSArray arrayWithObjects:@0,@1,@0,@0, nil],@"cost",
                               nil],@"skill_bigFireBall",
-
                              
+                             @{
+                                @"name": @"skill_physicalAttack",
+                                @"showName":@"近身攻击",
+                                @"damage":@20.0,
+                                @"requirePoint":[NSArray arrayWithObjects:@0,@3,@0, nil],
+                                @"cost": [NSArray arrayWithObjects:@0,@1,@0,@0, nil],
+                                
+                             },@"skill_physicalAttack",
+
+    
                              [NSDictionary dictionaryWithObjectsAndKeys:
                               @"skill_fireBall",@"name",
                               @"火球",@"showName",

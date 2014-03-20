@@ -908,8 +908,8 @@
 -(void)checkGameOver{
     if(self.isGameOver)return;
     
-    
-    if (self.enemy.curHP<=0||(!self.smallEnemyArray.count&&self.troopsOrder.count==0)) {
+    //self.enemy.curHP<=0||
+    if ((!self.smallEnemyArray.count&&self.troopsOrder.count==0)) {
         self.isGameOver=YES;
         
         if(self.isSoundEnabled){

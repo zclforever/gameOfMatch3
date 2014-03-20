@@ -23,7 +23,10 @@
     node.rotation=-22.5;
     node.duration=-1.0f;
     node.gravity=ccp(-90,-45);
+    
     self.hitSound=@"heavyHit.wav";
+    self.moveSpeed=80.0f;
+    
     self.node=node;
 
 }
