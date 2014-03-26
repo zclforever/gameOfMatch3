@@ -112,7 +112,8 @@
     
 }
 
--(void)hurtByObject:(AiObject *)obj{
+-(void)hurtByObject:(InteractionData*)data{
+    obj=data;
     bool needHurt=YES;
     
     if ([obj.objectName isEqualToString:@"snowBall"]) {

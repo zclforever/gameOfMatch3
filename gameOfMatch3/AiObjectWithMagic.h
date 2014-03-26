@@ -10,10 +10,13 @@
 #import "cocos2d.h"
 #import "AiObject.h"
 #import "AiObjectMagicDelegate.h"
-@interface AiObjectWithMagic : AiObject<MagicDelegate> {
+#import "BuffHelper.h"
+
+@interface AiObjectWithMagic : AiObject<MagicProtocol,BuffHelperProtocol> {
     
 }
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withName:(NSString*)name;
 
 @property AiObjectMagicDelegate* magicDelegate;
+@property BuffHelper* buffHelper;
 @end

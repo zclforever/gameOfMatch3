@@ -102,18 +102,23 @@
     CCAnimation* animation=[CCAnimation animationWithSpriteFrames:frames delay:delay];
     return animation;
 }
--(NSMutableArray*)collisionObjectsByDistance:(float)distance{
+-(NSMutableArray*)collisionObjectsByDistance:(float)distance withObjectsArray:(NSArray*)objectsArray{
     NSMutableArray* ret=[[NSMutableArray alloc]init];
-    for (AiObject* obj in self.allObjectsArray) {
+    for (AiObject* obj in objectsArray) {
         if(obj==self)continue;
-
+        
         if (ccpDistance([self getCenterPoint], [obj getCenterPoint])<=distance) {
             [ret addObject:obj];
         }
         
     }
     return ret;
+    
 }
+-(NSMutableArray*)collisionObjectsByDistance:(float)distance{
+    return [self collisionObjectsByDistance:distance withObjectsArray:self.allObjectsArray];
+}
+
 -(NSMutableArray*)collisionObjectsByRect:(CGRect)rect{
     NSMutableArray* ret=[[NSMutableArray alloc]init];
     CGRect selfRect=rect;
@@ -182,9 +187,7 @@
 -(void)handleCollision{
     //NSLog(@"in the collisionHandler");
 }
--(void)hurtByObject:(AiObject*)obj{
-    
-}
+
 -(CGRect)getBoundingBox{
     if (!self.node) {
         return CGRectZero;
@@ -342,8 +345,11 @@
 }
 
 -(bool)directAttackTarget:(AiObject*)obj{
-    [obj hurtByObject:self];
+    [obj hurtByObject:[AiObjectDataInteraction makeDataWith:self]];
     return YES;
+}
+-(void)hurtByObject:(InteractionData*)data{  //一些关于 受到冰伤变色之类的也可以在interaction里设状态 然后aiobject专门有一块来做动画更新
+    [AiObjectDataInteraction attackFrom:data to:[AiObjectDataInteraction makeDataWith:self]];
 }
 
 -(void)updateForCommon{

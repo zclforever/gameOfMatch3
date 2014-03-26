@@ -13,8 +13,9 @@
     @property (strong,nonatomic) NSDictionary* findTargetsResult;
     @property (strong,nonatomic) NSMutableDictionary* attributeDict;
     @property (strong,nonatomic) NSMutableArray* targetTags;
+    @property (nonatomic,weak) NSMutableArray* allObjectsArray;
 
-    -(NSMutableArray*)collisionObjectsByDistance:(float)distance;
+    -(NSMutableArray*)collisionObjectsByDistance:(float)distance withObjectsArray:(NSArray*)objectsArray;
     -(NSArray*)objectsByTags:(NSArray*)tags from:(NSArray*)objectsArray;
 
     -(void)onInAttackRange;

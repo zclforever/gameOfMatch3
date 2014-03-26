@@ -38,6 +38,8 @@
 
 @property (strong,nonatomic) NSMutableArray* attackedObjectsArray;
 
+@property (strong,nonatomic) InteractionData* interactionData;
+
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withPostion:(CGPoint)pos byName:(NSString*)name;
 -(void)dieAction;
 -(void)makeNode;

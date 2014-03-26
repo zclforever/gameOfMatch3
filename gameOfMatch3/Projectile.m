@@ -89,7 +89,8 @@
     
     [self.attackedObjectsArray addObject:obj];
     
-    return [super directAttackTarget:obj];
+    [obj hurtByObject:self.interactionData];
+    return YES;
 }
 -(bool)checkDie{
     return [self.aiDelegate checkDie];

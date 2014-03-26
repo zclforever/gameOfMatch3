@@ -75,7 +75,12 @@ enum Orientation{
 };
 typedef enum Orientation Orientation;
 
-
+enum BuffType {
+    reset,
+    plus,
+    stackable
+};
+typedef enum BuffType BuffType;
 #endif
 
 

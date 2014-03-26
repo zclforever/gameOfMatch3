@@ -12,6 +12,7 @@
 #import "Global.h"
 #import "BarHelper.h"
 #import "AiObjectFindTargetsDelegate.h"
+#import "AiObjectDataInteraction.h"
 //@protocol AiObject 
 //@required
 //-(CGRect)getBoundingBox;
@@ -23,6 +24,8 @@
 #define aiState_inSight 4
 #define aiState_attackWantedObject 8
 #define aiState_inAttackRange 16
+
+
 
 @interface State : NSObject{
     
@@ -97,8 +100,9 @@
 -(void)setTimeOutWithDelay:(float)timeOut withSelector:(SEL)selector;
 -(void)setTimeOutWithDelay:(float)timeOut withBlock:(void(^)())block;
 
--(void)hurtByObject:(AiObject*)obj;
-
+//攻击防守
+-(void)hurtByObject:(InteractionData*)data; 
+-(bool)directAttackTarget:(AiObject*)obj;
 
 -(NSArray*)sortAllObjectsByDistanceFromPosition:(CGPoint)position;
 
@@ -106,12 +110,13 @@
 -(NSArray*)getNameOfFramesFromPlist:(NSString*)name;
 
 
--(bool)directAttackTarget:(AiObject*)obj;
+
 
 //-(NSDictionary*)findTargets;
 @property (strong,nonatomic) NSDictionary* findTargetsResult;
 
 -(NSMutableArray*)collisionObjectsByDistance:(float)distance;
+-(NSMutableArray*)collisionObjectsByDistance:(float)distance withObjectsArray:(NSArray*)objectsArray;
 -(NSArray*)objectsByTags:(NSArray*)tags from:(NSArray*)objectsArray;
 
 -(bool)checkDie;
@@ -126,3 +131,4 @@
 -(void)onCurHPIsZero; //要死了
 -(void)onDie;
 @end
+

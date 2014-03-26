@@ -18,14 +18,16 @@
 #import "ProjectileAiWithTargets.h"
 
 
-@protocol MagicDelegate <NSObject>
-@property (strong,nonatomic) NSDictionary* findTargetsResult;
-@property (nonatomic,weak) NSMutableArray* allObjectsArray;
-@property (strong,nonatomic) NSMutableArray* targetTags;
+@protocol MagicProtocol <NSObject>
+
+    @property (strong,nonatomic) NSDictionary* findTargetsResult;
+    @property (nonatomic,weak) NSMutableArray* allObjectsArray;
+    @property (strong,nonatomic) NSMutableArray* targetTags;
+
 -(void) addChild: (CCNode*) child;
 -(CGPoint)getCenterPoint;
-
-
+-(bool)directAttackTarget:(AiObject*)obj;
+-(void)hurtByObject:(InteractionData*)data; 
 
 @optional
 
@@ -35,9 +37,9 @@
 @interface AiObjectMagicDelegate : NSObject {
     
 }
-    @property id<MagicDelegate> owner;
+    @property id<MagicProtocol> owner;
 
-    -(id)initWithOwner:(id<MagicDelegate>) obj;
+    -(id)initWithOwner:(id<MagicProtocol>) obj;
 
     -(void)magicAttackWithName:(NSString*)magicName;
     -(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict;

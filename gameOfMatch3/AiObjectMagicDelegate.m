@@ -10,7 +10,7 @@
 
 
 @implementation AiObjectMagicDelegate
--(id)initWithOwner:(id<MagicDelegate>) obj{
+-(id)initWithOwner:(id<MagicProtocol>) obj{
     self=[super init];
     self.owner=obj;
 
@@ -29,11 +29,25 @@
     bool noTarget=(!targetsArray||targetsArray.count==0)?YES:NO;
     AiObject* target;
     if (!noTarget) {target=targetsArray[0];}
+    InteractionData* attackerData=[[InteractionData alloc]init];
+    InteractionData* defenserData=[AiObjectDataInteraction makeDataWith:(AiObject*)self.owner];
+    
     
     if ([name isEqualToString:@"skill_physicalAttack"]) {
-        projectile=[[PhysicalAttack alloc]initWithAllObjectArray:self.owner.allObjectsArray withPostion:[target getCenterPoint] byName:name];
-        projectileAi=[[ProjectileAiWithTargets alloc] initWithTargets:targetsArray withOwner:projectile];
+            //        projectile=[[PhysicalAttack alloc]initWithAllObjectArray:self.owner.allObjectsArray withPostion:[target getCenterPoint] byName:name];
+            //        projectileAi=[[ProjectileAiWithTargets alloc] initWithTargets:targetsArray withOwner:projectile];
+        if (target) {
+            [self.owner directAttackTarget:target];
+        }
     }
+    
+    else if ([name isEqualToString:@"skill_fury"]){
+            attackerData.owner=(AiObject*)self.owner;
+            [attackerData makeBuffData:name];
+            [AiObjectDataInteraction addBufferFrom:attackerData to:defenserData];
+
+    }
+    
     else if([name isEqualToString:@"skill_bigFireBall"]){
         projectile=[[BigFireBall alloc]initWithAllObjectArray:self.owner.allObjectsArray withPostion:ccp(100,460) byName:name];
         projectileAi=[[ProjectileAiWithTargetPosition alloc] initWithDestPosition:ccp(zEnemyMarginLeft,480-zPlayerMarginTop+zPersonHeight/2) withOwner:projectile] ;
@@ -76,11 +90,14 @@
         return;
     }
     
-    projectile.targetTags=self.owner.targetTags; //放到projectile里去做，自己定义 未必全是父的 有可能是BUFF //不好意思 buff不应该是 projectile
-    projectile.owner=(AiObject*)self.owner;
-    [self.owner addChild:projectile];
-    [projectile setAiDelegate:projectileAi];
-    [projectile start];
+    if (projectile) {
+        projectile.targetTags=self.owner.targetTags; //放到projectile里去做，自己定义 未必全是父的 有可能是BUFF //不好意思 buff不应该是 projectile
+        projectile.owner=(AiObject*)self.owner;
+        [self.owner addChild:projectile];
+        [projectile setAiDelegate:projectileAi];
+        [projectile start];
+    }
+
 }
 
 @end

@@ -146,9 +146,9 @@
 
 
 
--(void)hurtByObject:(AiObject *)obj{
+-(void)hurtByObject:(InteractionData*)data{
     [Actions shakeSprite:self.sprite  delay:0];
-    self.curHP-=obj.damage;
+    [super hurtByObject:data];
 }
 
 

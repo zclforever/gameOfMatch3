@@ -31,6 +31,10 @@
         [self.owner onInSightButNotInAttackRange];
     }
 }
+-(NSArray*)findTargetsByDistance:(float)Distance withObjectsArray:(NSArray*)objectsArray{
+    return [self.owner collisionObjectsByDistance:Distance withObjectsArray:objectsArray];
+}
+
 -(NSDictionary *)findTargets{
     NSArray* ret;
     NSMutableDictionary* resultDict=[[NSMutableDictionary alloc]init];
@@ -39,7 +43,7 @@
     
     for (NSString* observerRadiusType in self.findTargetsObserverArray) {
         radius=[self.owner.attributeDict[observerRadiusType] floatValue];
-        ret=[self.owner collisionObjectsByDistance:radius];
+        ret=[self findTargetsByDistance:radius withObjectsArray:self.owner.allObjectsArray];
         //过滤不喜欢的目标
         ret=[self.owner objectsByTags:self.owner.targetTags from:ret];
         

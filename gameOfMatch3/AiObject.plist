@@ -202,7 +202,7 @@
 		<key>skill_0</key>
 		<string>skill_physicalAttack</string>
 		<key>skill_1</key>
-		<string>skill_fireBall</string>
+		<string>skill_fury</string>
 	</dict>
 	<key>hero_hunter</key>
 	<dict>
