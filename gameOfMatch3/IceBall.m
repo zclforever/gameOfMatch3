@@ -19,4 +19,8 @@
     self.hitSound=@"softHit.wav";
     self.node=node;
 }
+-(void)onDirectAttatckTarget:(AiObject *)obj{
+    [AiObjectInteraction addBufferTo:[InteractionData dataFromAiObject:obj] withName:@"slow"];
+    obj.node.position=ccp(obj.node.position.x+10,obj.node.position.y);
+}
 @end

@@ -112,40 +112,7 @@
     
 }
 
--(void)hurtByObject:(InteractionData*)data{
-    obj=data;
-    bool needHurt=YES;
-    
-    if ([obj.objectName isEqualToString:@"snowBall"]) {
-        if(!self.state.frozen){
-            self.state.frozen=YES;
-            [self.sprite stopAllActions];
-            self.state.frozenStartTime=[[Global sharedManager] gameTime];
-            [self.sprite runAction:[CCTintBy actionWithDuration:1 red:-120 green:-120 blue:0]];
-        }
-        else{  //如果已经冻结;
-            needHurt=NO;
-        }
 
-    }
-    
-
-    if ([obj.objectName isEqualToString:@"iceBall"]) {
-        if(self.moveSpeed>1){
-            self.moveSpeed-=1;
-            [self.sprite runAction:[CCTintBy actionWithDuration:1 red:-45 green:-45 blue:0]];
-
-        }
-            
-        self.sprite.position=ccp(self.sprite.position.x+10,self.sprite.position.y);
-        
-                //[self.sprite runAction:[CCTintTo actionWithDuration:3 red:160 green:160 blue:255]];
-    
-    }
-    
-    
-   if(needHurt) self.curHP-=obj.damage;
-}
 
 -(void)moveAnimation{
     [self.sprite stopAllActions];
@@ -171,8 +138,7 @@
 }
 -(bool)normalAttackTarget:(AiObject*)obj{
 
-    [obj hurtByObject:self];
-    return YES;
+    return [self directAttackTarget:obj];
 }
 
 -(bool)onReadyToAttackTargetInRange{

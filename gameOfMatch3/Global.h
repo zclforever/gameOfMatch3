@@ -77,10 +77,17 @@ typedef enum Orientation Orientation;
 
 enum BuffType {
     reset,
-    plus,
+    prolong,
     stackable
 };
 typedef enum BuffType BuffType;
+
+struct AiObjectAttribute {
+    float damage;
+    float moveSpeed;
+    
+};
+typedef struct AiObjectAttribute AiObjectAttribute;
 #endif
 
 

@@ -82,10 +82,15 @@
 
 
 }
+-(void)onDirectAttatckTarget:(AiObject*)obj{ //重载 用来做攻击效果 比如冰冻给BUFF
+    
+}
+
 -(bool)directAttackTarget:(AiObject *)obj{
     if ([self.attackedObjectsArray containsObject:obj]) {  //攻击一次
         return NO;
     }
+    [self onDirectAttatckTarget:obj];
     
     [self.attackedObjectsArray addObject:obj];
     

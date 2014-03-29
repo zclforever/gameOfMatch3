@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "AiObject.h"
+
+
 @protocol ProjectileAiDelegate<NSObject>
 
 
@@ -43,4 +45,5 @@
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withPostion:(CGPoint)pos byName:(NSString*)name;
 -(void)dieAction;
 -(void)makeNode;
+-(void)onDirectAttatckTarget:(AiObject*)obj;
 @end

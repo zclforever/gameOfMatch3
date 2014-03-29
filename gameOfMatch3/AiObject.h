@@ -12,7 +12,8 @@
 #import "Global.h"
 #import "BarHelper.h"
 #import "AiObjectFindTargetsDelegate.h"
-#import "AiObjectDataInteraction.h"
+#import "AiObjectInteraction.h"
+
 //@protocol AiObject 
 //@required
 //-(CGRect)getBoundingBox;

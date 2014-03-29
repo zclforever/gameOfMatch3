@@ -6,6 +6,8 @@
 //  Copyright 2014年 Wei Ju. All rights reserved.
 //
 
+//magic类 知道自己的对象是谁 群攻还是单攻
+
 #import "AiObjectMagicDelegate.h"
 
 
@@ -30,7 +32,7 @@
     AiObject* target;
     if (!noTarget) {target=targetsArray[0];}
     InteractionData* attackerData=[[InteractionData alloc]init];
-    InteractionData* defenserData=[AiObjectDataInteraction makeDataWith:(AiObject*)self.owner];
+    InteractionData* defenserData=[InteractionData dataFromAiObject:(AiObject*)self.owner];
     
     
     if ([name isEqualToString:@"skill_physicalAttack"]) {
@@ -43,9 +45,8 @@
     
     else if ([name isEqualToString:@"skill_fury"]){
             attackerData.owner=(AiObject*)self.owner;
-            [attackerData makeBuffData:name];
-            [AiObjectDataInteraction addBufferFrom:attackerData to:defenserData];
-
+            [AiObjectInteraction addBufferTo:defenserData withName:@"fury"];
+            return;
     }
     
     else if([name isEqualToString:@"skill_bigFireBall"]){

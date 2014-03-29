@@ -318,10 +318,12 @@
         return;
     }
     
+    float speed=[AiObjectInteraction getFinalMoveSpeed:self];
+    
     CGPoint position=self.node.position;
 
-    float moveDistanceX=self.moveSpeed*self.delayTime;
-    float moveDistanceY=self.moveSpeed*self.delayTime;
+    float moveDistanceX=speed*self.delayTime;
+    float moveDistanceY=speed*self.delayTime;
     float xDistance=pos.x-position.x;
     float yDistance=pos.y-position.y;
     float xMoveDistance=xDistance==0?0:(xDistance>0?moveDistanceX:-moveDistanceX);
@@ -334,22 +336,31 @@
     
     float destMinDistance=max(moveDistanceX,3);
     if(
-       (abs(xDistance)<destMinDistance||self.moveSpeed==0)&&
-       (abs(yDistance)<destMinDistance||self.moveSpeed==0)
+       (abs(xDistance)<destMinDistance)&&
+       (abs(yDistance)<destMinDistance)
        ){
         self.atDest=YES;
         return;
     }
     
+//    if(
+//       (abs(xDistance)<destMinDistance||speed==0)&&
+//       (abs(yDistance)<destMinDistance||speed==0)
+//       ){
+//        self.atDest=YES;
+//        return;
+//    }
+    
     self.node.position=ccp( position.x+xMoveDistance,position.y+yMoveDistance);
 }
 
 -(bool)directAttackTarget:(AiObject*)obj{
-    [obj hurtByObject:[AiObjectDataInteraction makeDataWith:self]];
+    [obj hurtByObject:[InteractionData dataFromAiObject:self]];
     return YES;
 }
--(void)hurtByObject:(InteractionData*)data{  //一些关于 受到冰伤变色之类的也可以在interaction里设状态 然后aiobject专门有一块来做动画更新
-    [AiObjectDataInteraction attackFrom:data to:[AiObjectDataInteraction makeDataWith:self]];
+-(void)hurtByObject:(InteractionData*)data{  //一些关于 受到冰伤变色之类的也可以在interaction里设状态 然后aiobject专门有一块来做动画更新//要不由buff来做先
+    float damage=[AiObjectInteraction attackFrom:data to:[InteractionData dataFromAiObject:self]];
+    self.curHP-=damage;
 }
 
 -(void)updateForCommon{

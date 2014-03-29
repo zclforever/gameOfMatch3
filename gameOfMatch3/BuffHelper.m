@@ -6,11 +6,13 @@
 //  Copyright 2014年 Wei Ju. All rights reserved.
 //
 
+//只负责在增减 BUFF 队列 至于BUFF 做什么 不管
+
 #import "BuffHelper.h"
 
 
-@implementation BuffHelper  //只负责在增减 BUFF 队列 至于BUFF 做什么 不管
 
+@implementation BuffHelper  
 
 -(id)initWithOwner:(id<BuffHelperProtocol>)owner{
     self=[super init];
@@ -19,15 +21,41 @@
     [self schedule:@selector(update)];
     return self;
 }
-
-+(void)addBuffWithName:(NSString*)name type:(BuffType)type to:(id<BuffHelperProtocol>)object{
-    if (type==reset) {
-        
-    }
-   
-}
-
 -(void)update{
-    AiObject* owner=self.owner;
+    //AiObjectWithMagic* owner=self.owner;
 }
+
+-(void)addBuffWith:(Buff*)buff{
+    //是否存在BUFF如果有则根据类型作叠加重置等 如果没有则添加
+    if ([self hasBuff:buff.name]) {
+        if (buff.type==reset) { //重置
+            
+        }else if(buff.type==stackable){  //好几层BUFF
+            
+        }else if(buff.type==prolong){  //延长
+            
+        }
+        
+        
+    }else{
+        self.buffDict[buff.name]=@{@"buff": buff}; //todo 这里还没想好 也许不需要用dict
+        [buff start];
+        [self addChild:buff];
+    }
+
+    
+    //
+}
+-(void)removeBuffWith:(Buff*)buff{
+    
+}
+
+-(bool)hasBuff:(NSString*)name{
+    
+    return NO;
+}
+
+
+
+
 @end

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		02015D5F188A618C00C77FBE /* levelData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02015D5E188A618C00C77FBE /* levelData.plist */; };
-		0205285518E276EB009C76FA /* AiObjectDataInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0205285418E276EB009C76FA /* AiObjectDataInteraction.m */; };
+		0205285518E276EB009C76FA /* AiObjectInteraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 0205285418E276EB009C76FA /* AiObjectInteraction.m */; };
 		0205285818E2CAB0009C76FA /* BuffHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0205285718E2CAB0009C76FA /* BuffHelper.m */; };
 		0209D2531820DFF200FAFD26 /* iceBall.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2521820DFF200FAFD26 /* iceBall.plist */; };
 		0209D2551820E81100FAFD26 /* poison.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0209D2541820E81100FAFD26 /* poison.plist */; };
@@ -47,6 +47,7 @@
 		021E8AB518CAEE3C00CDA673 /* ProjectileAiWithNoTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E8AB418CAEE3C00CDA673 /* ProjectileAiWithNoTarget.m */; };
 		022AB7FA18A767B500F570BF /* Hero.m in Sources */ = {isa = PBXBuildFile; fileRef = 022AB7F918A767B500F570BF /* Hero.m */; };
 		022AB80018A7841900F570BF /* OLDPlayLayer.h in Resources */ = {isa = PBXBuildFile; fileRef = 022AB7FF18A7841800F570BF /* OLDPlayLayer.h */; };
+		02336D3718E6B5D900E0E6CE /* BuffSlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 02336D3618E6B5D900E0E6CE /* BuffSlow.m */; };
 		0241F50018DA865A0081A61E /* PhysicalAttack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0241F4FF18DA86590081A61E /* PhysicalAttack.m */; };
 		0259BBD717DDB02D0033F345 /* GameLevelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259BBD617DDB02D0033F345 /* GameLevelLayer.m */; };
 		0259BBDB17DDB25D0033F345 /* enemy_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD817DDB25D0033F345 /* enemy_1.png */; };
@@ -250,6 +251,7 @@
 		02E0BB7818AF134500EF2408 /* SkillDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E0BB7718AF134500EF2408 /* SkillDelegate.m */; };
 		02F05A8D1831EED900676308 /* singleHammer.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F05A8C1831EED900676308 /* singleHammer.plist */; };
 		02F05A8F1831FDB700676308 /* hammer_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F05A8E1831FDB700676308 /* hammer_yellow.png */; };
+		02F1BFBA18E697C500294B2C /* Buff.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F1BFB918E697C500294B2C /* Buff.m */; };
 		02F2AA78185FFA4700C4FD14 /* AiObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2AA77185FFA4700C4FD14 /* AiObject.m */; };
 		02F71A0918348BDF00F60B1F /* explosion.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A0818348BDF00F60B1F /* explosion.plist */; };
 		02F71A0B18349E6D00F60B1F /* fired.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A0A18349E6D00F60B1F /* fired.plist */; };
@@ -313,8 +315,8 @@
 
 /* Begin PBXFileReference section */
 		02015D5E188A618C00C77FBE /* levelData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = levelData.plist; sourceTree = "<group>"; };
-		0205285318E276EB009C76FA /* AiObjectDataInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiObjectDataInteraction.h; sourceTree = "<group>"; };
-		0205285418E276EB009C76FA /* AiObjectDataInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiObjectDataInteraction.m; sourceTree = "<group>"; };
+		0205285318E276EB009C76FA /* AiObjectInteraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiObjectInteraction.h; sourceTree = "<group>"; };
+		0205285418E276EB009C76FA /* AiObjectInteraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiObjectInteraction.m; sourceTree = "<group>"; };
 		0205285618E2CAB0009C76FA /* BuffHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuffHelper.h; sourceTree = "<group>"; };
 		0205285718E2CAB0009C76FA /* BuffHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuffHelper.m; sourceTree = "<group>"; };
 		0209D2521820DFF200FAFD26 /* iceBall.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iceBall.plist; sourceTree = "<group>"; };
@@ -359,6 +361,8 @@
 		022AB7F918A767B500F570BF /* Hero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hero.m; sourceTree = "<group>"; };
 		022AB7FD18A783FE00F570BF /* OLDPlayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLDPlayLayer.m; sourceTree = "<group>"; };
 		022AB7FF18A7841800F570BF /* OLDPlayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLDPlayLayer.h; sourceTree = "<group>"; };
+		02336D3518E6B5D900E0E6CE /* BuffSlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuffSlow.h; sourceTree = "<group>"; };
+		02336D3618E6B5D900E0E6CE /* BuffSlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuffSlow.m; sourceTree = "<group>"; };
 		0241F4FE18DA86590081A61E /* PhysicalAttack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicalAttack.h; sourceTree = "<group>"; };
 		0241F4FF18DA86590081A61E /* PhysicalAttack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhysicalAttack.m; sourceTree = "<group>"; };
 		0259BBD517DDB02D0033F345 /* GameLevelLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLevelLayer.h; sourceTree = "<group>"; };
@@ -735,6 +739,8 @@
 		02E0BB7718AF134500EF2408 /* SkillDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkillDelegate.m; sourceTree = "<group>"; };
 		02F05A8C1831EED900676308 /* singleHammer.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = singleHammer.plist; sourceTree = "<group>"; };
 		02F05A8E1831FDB700676308 /* hammer_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer_yellow.png; sourceTree = "<group>"; };
+		02F1BFB818E697C400294B2C /* Buff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buff.h; sourceTree = "<group>"; };
+		02F1BFB918E697C500294B2C /* Buff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Buff.m; sourceTree = "<group>"; };
 		02F2AA76185FFA4700C4FD14 /* AiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiObject.h; sourceTree = "<group>"; };
 		02F2AA77185FFA4700C4FD14 /* AiObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiObject.m; sourceTree = "<group>"; };
 		02F71A0818348BDF00F60B1F /* explosion.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = explosion.plist; sourceTree = "<group>"; };
@@ -1031,26 +1037,14 @@
 				752979B217D3ABA7009B8B95 /* StatePanelLayerInBattle.m */,
 				028A260F18C71AF300C71BEA /* BarHelper.h */,
 				028A261018C71AF300C71BEA /* BarHelper.m */,
-				0205285618E2CAB0009C76FA /* BuffHelper.h */,
-				0205285718E2CAB0009C76FA /* BuffHelper.m */,
-				02F2AA76185FFA4700C4FD14 /* AiObject.h */,
-				02F2AA77185FFA4700C4FD14 /* AiObject.m */,
-				0205285318E276EB009C76FA /* AiObjectDataInteraction.h */,
-				0205285418E276EB009C76FA /* AiObjectDataInteraction.m */,
+				02F1BFBC18E69FD600294B2C /* Buff */,
+				02F1BFBB18E6980D00294B2C /* AiObject */,
+				0205285318E276EB009C76FA /* AiObjectInteraction.h */,
+				0205285418E276EB009C76FA /* AiObjectInteraction.m */,
 				02D6BB7618D29A37000B3B56 /* AiObjectFindTargetsDelegate.h */,
 				02D6BB7718D29A37000B3B56 /* AiObjectFindTargetsDelegate.m */,
 				02D6BB7918D2D43A000B3B56 /* AiObjectMagicDelegate.h */,
 				02D6BB7A18D2D43A000B3B56 /* AiObjectMagicDelegate.m */,
-				02A58037186033680042C083 /* Player.h */,
-				02A58038186033680042C083 /* Player.m */,
-				02D6BB8C18D2FEAA000B3B56 /* AiObjectWithMagic.h */,
-				02D6BB8D18D2FEAA000B3B56 /* AiObjectWithMagic.m */,
-				022AB7F818A767B400F570BF /* Hero.h */,
-				022AB7F918A767B500F570BF /* Hero.m */,
-				02A5803D186070A30042C083 /* BossEnemy.h */,
-				02A5803E186070A40042C083 /* BossEnemy.m */,
-				020AB227185BEADD0000BB3E /* SmallEnemy.h */,
-				020AB228185BEADD0000BB3E /* SmallEnemy.m */,
 				02D6BB7C18D2DB77000B3B56 /* Projectile */,
 				026A18DA17F9297100B05B31 /* Actions.h */,
 				026A18DB17F9297100B05B31 /* Actions.m */,
@@ -1511,6 +1505,38 @@
 			name = Projectile;
 			sourceTree = "<group>";
 		};
+		02F1BFBB18E6980D00294B2C /* AiObject */ = {
+			isa = PBXGroup;
+			children = (
+				02F2AA76185FFA4700C4FD14 /* AiObject.h */,
+				02F2AA77185FFA4700C4FD14 /* AiObject.m */,
+				02D6BB8C18D2FEAA000B3B56 /* AiObjectWithMagic.h */,
+				02D6BB8D18D2FEAA000B3B56 /* AiObjectWithMagic.m */,
+				02A58037186033680042C083 /* Player.h */,
+				02A58038186033680042C083 /* Player.m */,
+				022AB7F818A767B400F570BF /* Hero.h */,
+				022AB7F918A767B500F570BF /* Hero.m */,
+				02A5803D186070A30042C083 /* BossEnemy.h */,
+				02A5803E186070A40042C083 /* BossEnemy.m */,
+				020AB227185BEADD0000BB3E /* SmallEnemy.h */,
+				020AB228185BEADD0000BB3E /* SmallEnemy.m */,
+			);
+			name = AiObject;
+			sourceTree = "<group>";
+		};
+		02F1BFBC18E69FD600294B2C /* Buff */ = {
+			isa = PBXGroup;
+			children = (
+				0205285618E2CAB0009C76FA /* BuffHelper.h */,
+				0205285718E2CAB0009C76FA /* BuffHelper.m */,
+				02F1BFB818E697C400294B2C /* Buff.h */,
+				02F1BFB918E697C500294B2C /* Buff.m */,
+				02336D3518E6B5D900E0E6CE /* BuffSlow.h */,
+				02336D3618E6B5D900E0E6CE /* BuffSlow.m */,
+			);
+			name = Buff;
+			sourceTree = "<group>";
+		};
 		7571AE3917E9D3220049D790 /* sound */ = {
 			isa = PBXGroup;
 			children = (
@@ -1900,8 +1926,10 @@
 				02D6BB8B18D2FC9B000B3B56 /* SnowBall.m in Sources */,
 				02D6BB8E18D2FEAB000B3B56 /* AiObjectWithMagic.m in Sources */,
 				0241F50018DA865A0081A61E /* PhysicalAttack.m in Sources */,
-				0205285518E276EB009C76FA /* AiObjectDataInteraction.m in Sources */,
+				0205285518E276EB009C76FA /* AiObjectInteraction.m in Sources */,
 				0205285818E2CAB0009C76FA /* BuffHelper.m in Sources */,
+				02F1BFBA18E697C500294B2C /* Buff.m in Sources */,
+				02336D3718E6B5D900E0E6CE /* BuffSlow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
