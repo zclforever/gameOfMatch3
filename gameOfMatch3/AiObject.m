@@ -318,7 +318,7 @@
         return;
     }
     
-    float speed=[AiObjectInteraction getFinalMoveSpeed:self];
+    float speed=[AiObjectInteraction finalMoveSpeed:self];
     
     CGPoint position=self.node.position;
 
@@ -359,7 +359,7 @@
     return YES;
 }
 -(void)hurtByObject:(InteractionData*)data{  //一些关于 受到冰伤变色之类的也可以在interaction里设状态 然后aiobject专门有一块来做动画更新//要不由buff来做先
-    float damage=[AiObjectInteraction attackFrom:data to:[InteractionData dataFromAiObject:self]];
+    float damage=[AiObjectInteraction finalDamageFrom:data to:[InteractionData dataFromAiObject:self]];
     self.curHP-=damage;
 }
 

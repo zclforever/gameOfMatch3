@@ -53,9 +53,15 @@
     
 }
 
-+(float)attackFrom:(InteractionData *)attackerData to:(InteractionData *)defenderData{
++(float)finalDamageFrom:(InteractionData *)attackerData to:(InteractionData *)defenderData{
     float damage;
-    damage=attackerData.attribute.damage;  //todo calc damage
+    if (attackerData.damageType==physicalDamage) {
+        damage=[attackerData.baseAttributeDict[@"damage"] floatValue];
+    }else if (attackerData.damageType==magicDamage){
+        damage=[attackerData.magicAttributeDict[@"damage"] floatValue];
+    }
+    
+     //todo calc damage
     return damage;
 }
 
@@ -63,18 +69,17 @@
     
 }
 
-+(AiObjectAttribute)getFinalAttributeFromData:(InteractionData*)data{
++(NSDictionary*)getFinalAttributeFromData:(InteractionData*)data{
     AiObjectWithMagic* obj=data.owner ;
     BuffHelper* buffHelper=obj.buffHelper;
-    AiObjectAttribute attribute=data.attribute;
     StateValue value;
-    
-    AiObjectAttribute ret;
+    NSMutableDictionary* retDict=[[NSMutableDictionary alloc]init];
+
     
     Buff* buff;
 
     //moveSpeed
-    float moveSpeed=attribute.moveSpeed;
+    float moveSpeed=[data.baseAttributeDict[@"moveSpeed"] floatValue];
     
     buff=[buffHelper getBuffByName:@"slow"];
     if(buff){
@@ -85,7 +90,7 @@
     
     return ret;
 }
-+(float)getFinalMoveSpeed:(AiObject*)obj{
++(float)finalMoveSpeed:(AiObject*)obj{
     return [self getFinalAttributeFromData:[InteractionData dataFromAiObject:obj]].moveSpeed;
        
 }

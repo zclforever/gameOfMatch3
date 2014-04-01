@@ -16,12 +16,20 @@
 @interface InteractionData : NSObject{
     
 }
-    @property (weak,nonatomic)id owner;
-    @property  AiObjectAttribute attribute;
+
+
+
+@property (weak,nonatomic)id owner;
+@property (strong,nonatomic) NSMutableDictionary* baseAttributeDict;
+@property (strong,nonatomic) NSMutableDictionary* magicAttributeDict;
+@property (strong,nonatomic) NSMutableDictionary* buffDict;
+@property DamageType damageType;
 
 +(InteractionData*)dataFromAiObject:(AiObject*)aiObject;
 
 -(void)makeBuffData:(NSString *)buffName;
+
+
 
 @end
 
@@ -31,7 +39,7 @@
 @interface AiObjectInteraction : NSObject {
     
 }
-+(float)attackFrom:(InteractionData*)attackerData to:(InteractionData*)defenderData;
++(float)finalDamageFrom:(InteractionData*)attackerData to:(InteractionData*)defenderData;
 
 +(void)addBufferTo:(InteractionData *)defenderData withName:(NSString*)name;
 
@@ -39,7 +47,7 @@
 
 
 
-+(float)getFinalMoveSpeed:(AiObject*)obj;
++(float)finalMoveSpeed:(AiObject*)obj;
 
 
 

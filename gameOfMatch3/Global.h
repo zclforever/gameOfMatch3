@@ -82,12 +82,12 @@ enum BuffType {
 };
 typedef enum BuffType BuffType;
 
-struct AiObjectAttribute {
-    float damage;
-    float moveSpeed;
+enum DamageType {
+    physicalDamage,
+    magicDamage
     
 };
-typedef struct AiObjectAttribute AiObjectAttribute;
+typedef enum DamageType DamageType;
 #endif
 
 
