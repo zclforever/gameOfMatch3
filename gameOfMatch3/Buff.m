@@ -24,10 +24,13 @@
 @implementation Buff
 -(id)init{
     self=[super init];
-    
-    self.state=[[NSMutableDictionary alloc]init];
+    [self makeBuff];
+
     
     return self;
+}
+-(void)makeBuff{
+    
 }
 -(void)start{
     self.startTime=[[Global sharedManager]gameTime];
@@ -55,13 +58,17 @@
     
 }
 
--(StateValue)getStateByName:(NSString*)name{
-    NSDictionary* dict=self.state[name];
-    struct StateValue ret;
-    ret.p=[dict[@"p"] floatValue];
-    ret.n=[dict[@"n"] floatValue];
-    return ret;
+-(void)recalcAttributeToOwner{
+    
 }
+
+//-(StateValue)getStateByName:(NSString*)name{
+//    NSDictionary* dict=self.state[name];
+//    struct StateValue ret;
+//    ret.p=[dict[@"p"] floatValue];
+//    ret.n=[dict[@"n"] floatValue];
+//    return ret;
+//}
 
 
 -(void)frozon{

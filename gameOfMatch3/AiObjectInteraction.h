@@ -9,45 +9,39 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Global.h"
+#import "Attribute.h"
 @class AiObjectWithMagic;
 @class AiObject;
 
 
-@interface InteractionData : NSObject{
+
+
+
+@interface DamageData : NSObject{
     
 }
 
 
-
 @property (weak,nonatomic)id owner;
-@property (strong,nonatomic) NSMutableDictionary* baseAttributeDict;
-@property (strong,nonatomic) NSMutableDictionary* magicAttributeDict;
-@property (strong,nonatomic) NSMutableDictionary* buffDict;
-@property DamageType damageType;
-
-+(InteractionData*)dataFromAiObject:(AiObject*)aiObject;
-
--(void)makeBuffData:(NSString *)buffName;
-
-
+@property float phsicalDamage;
+@property float magicalDamage;
+//@property (strong,nonatomic) NSMutableDictionary* baseAttributeDict;
 
 @end
-
 
 
 
 @interface AiObjectInteraction : NSObject {
     
 }
-+(float)finalDamageFrom:(InteractionData*)attackerData to:(InteractionData*)defenderData;
-
-+(void)addBufferTo:(InteractionData *)defenderData withName:(NSString*)name;
-
++(DamageData*)physicalDamageBy:(AiObject*)attacker;
++(DamageData*)magicalDamageBy:(AiObject*)attacker;
 
 
++(NSDictionary*)finalDamageOn:(AiObject*)defenser withData:(DamageData*)damageData;
 
-
-+(float)finalMoveSpeed:(AiObject*)obj;
+//
+//+(float)finalMoveSpeed:(AiObject*)obj;
 
 
 

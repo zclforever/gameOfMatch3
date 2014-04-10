@@ -12,7 +12,7 @@
 #import "AiObjectMagicDelegate.h"
 #import "BuffHelper.h"
 
-@interface AiObjectWithMagic : AiObject <MagicProtocol,BuffHelperProtocol> {
+@interface AiObjectWithMagic : AiObject <MagicProtocol> {
     
 }
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withName:(NSString*)name;

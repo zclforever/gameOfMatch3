@@ -132,11 +132,11 @@
         float width=[dict[@"width"] floatValue];
         if( [dict[@"type"] isEqualToString:@"life"]){
             cur=owner.curHP;
-            max=owner.maxHP;
+            max=[owner.maxHP finalValue];
         }
         if( [dict[@"type"] isEqualToString:@"energy"]){
             cur=owner.curEnergy;
-            max=owner.maxEnergy;
+            max=[owner.maxEnergy finalValue];
         }
         if(cur<0) cur=0;
         if(cur>max)cur=max;

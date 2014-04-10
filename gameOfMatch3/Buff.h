@@ -9,13 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Global.h"
+#import "Attribute.h"
 @class BuffHelper;
 
-struct StateValue {
-    float n;
-    float p;
-};
-typedef struct StateValue StateValue;
 
 
 @interface Buff : CCLayer {
@@ -28,12 +24,12 @@ typedef struct StateValue StateValue;
 @property BuffHelper* buffHelper;
 @property BuffType type;
 @property (strong,nonatomic) NSString* name;
-@property (strong,nonatomic) NSMutableDictionary* state;
 
 -(void)onTimeExpire;
 -(void)onEnterFrame;
 
--(StateValue)getStateByName:(NSString*)name;
-
+//-(StateValue)getStateByName:(NSString*)name;
+-(void)makeBuff;
+-(void)recalcAttributeToOwner;
 -(void)start;
 @end

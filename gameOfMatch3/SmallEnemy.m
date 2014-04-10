@@ -34,11 +34,11 @@
         
         
         self.animationMovePlist=[self.attributeDict valueForKey:@"animationMovePlist"];
-        self.damage=[[self.attributeDict valueForKey:@"damage"] floatValue];
-        self.attackCD=[[self.attributeDict valueForKey:@"attackCD"] floatValue];
-        self.moveSpeed=[[self.attributeDict valueForKey:@"moveSpeed"] floatValue];
-        self.maxHP=[[self.attributeDict valueForKey:@"maxHP"] floatValue];
-        self.curHP=self.maxHP;
+//        self.damage=[[self.attributeDict valueForKey:@"damage"] floatValue];
+//        self.attackCD=[[self.attributeDict valueForKey:@"attackCD"] floatValue];
+//        self.moveSpeed=[[self.attributeDict valueForKey:@"moveSpeed"] floatValue];
+//        self.maxHP=[[self.attributeDict valueForKey:@"maxHP"] floatValue];
+//        self.curHP=self.maxHP;
         
         float scale=[[self.attributeDict valueForKey:@"spriteScale"] floatValue];
         

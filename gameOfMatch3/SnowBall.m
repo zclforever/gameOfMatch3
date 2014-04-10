@@ -13,7 +13,7 @@
 -(void)makeNode{
     CCParticleSystem* node = [CCParticleSystemQuad particleWithFile:@"snowBall.plist"];
 
-    self.moveSpeed=40.0f;
+    self.moveSpeed=[Attribute initWithValue:40.0f];
     node.anchorPoint=ccp(0,0);
     node.startSize=36;
     node.scale=.4;

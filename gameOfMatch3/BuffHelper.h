@@ -10,15 +10,12 @@
 #import "cocos2d.h"
 #import "Global.h"
 #import "Buff.h"
+#import "BuffEnhance.h"
 #import "BuffSlow.h"
-@class AiObjectWithMagic;
 
 
 
 
-@protocol BuffHelperProtocol <NSObject>
-@property (strong,nonatomic) CCNode* node;
-@end
 
 
 
@@ -26,15 +23,17 @@
 @interface BuffHelper : CCLayer {
     
 }
-@property id<BuffHelperProtocol> owner;
+@property id owner;
 
 @property (strong,nonatomic) NSMutableDictionary* buffDict;
+@property (strong,nonatomic) NSMutableArray* buffArray;
 
--(id)initWithOwner:(id<BuffHelperProtocol>)owner;
+-(id)initWithOwner:(id)owner;
 
 -(void)addBuffWith:(Buff*)buff;
 -(void)removeBuffWith:(Buff*)buff;
 -(bool)hasBuff:(NSString*)name;
--(Buff*)getBuffByName:(NSString*)name;
-
+//-(Buff*)getBuffByName:(NSString*)name;
+-(void)recalcAttribute;
+-(void)onEnterFrame;
 @end

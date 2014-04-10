@@ -146,9 +146,11 @@
 
 
 
--(void)hurtByObject:(InteractionData*)data{
+-(void)hurtByObject:(DamageData*)data{
     [Actions shakeSprite:self.sprite  delay:0];
-    [super hurtByObject:data];
+    NSDictionary* finalDamage=[AiObjectInteraction finalDamageOn:self withData:data];
+    self.curHP+=[finalDamage[@"hp"] floatValue];
+    self.curEnergy+=[finalDamage[@"energy"] floatValue];
 }
 
 

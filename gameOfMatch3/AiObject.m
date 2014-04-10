@@ -64,12 +64,14 @@
     
     //self.animationMovePlist=[self.attributeDict valueForKey:@"animationMovePlist"];
     //    self.damage=[[self.attributeDict valueForKey:@"damage"] floatValue];
-    self.attackCD=[[self.attributeDict valueForKey:@"attackCD"] floatValue];
-    self.moveSpeed=[[self.attributeDict valueForKey:@"moveSpeed"] floatValue];
-    self.maxHP=[[self.attributeDict valueForKey:@"maxHP"] floatValue];
-    self.curHP=self.maxHP;
+    [self loadAttributeFromDict];
+    self.attackCD=[[Attribute alloc]init];
+    self.moveSpeed=[[Attribute alloc]init];
+    self.maxHP=[[Attribute alloc]init];
+    self.maxEnergy=[[Attribute alloc]init];
+    
+    self.curHP=[self.maxHP finalValue];
     self.curEnergy=0;
-    self.maxEnergy=[[self.attributeDict valueForKey:@"maxEnergy"] floatValue];
     self.targetTags=[self.attributeDict valueForKey:@"targetTags"];
     self.selfTags=[self.attributeDict valueForKey:@"tags"];
 
@@ -77,6 +79,17 @@
         [self.attributeDict setValue:@20 forKey:@"attackRadius"];
     }
 }
+
+-(void)loadAttributeFromDict{
+    [self.attackCD loadWithKey:@"attackCD" fromDict:self.attributeDict];
+    [self.moveSpeed loadWithKey:@"moveSpeed" fromDict:self.attributeDict];
+    [self.maxHP loadWithKey:@"maxHP" fromDict:self.attributeDict];
+    [self.maxEnergy loadWithKey:@"maxEnergy" fromDict:self.attributeDict];
+}
+
+
+
+
 -(NSArray*)getNameOfFramesFromPlist:(NSString*)name{
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:name];
     NSString *path = [[CCFileUtils sharedFileUtils] fullPathForFilename:name];
@@ -274,7 +287,7 @@
 }
 -(void)onInAttackRange{
     float gameTime=[[Global sharedManager] gameTime];
-    if(self.lastAttackTime&&(gameTime-self.lastAttackTime<self.attackCD))
+    if(self.lastAttackTime&&(gameTime-self.lastAttackTime<[self.attackCD finalValue]))
     {
         [self onNotReadyToAttackTargetInRange];
         return;
@@ -318,7 +331,7 @@
         return;
     }
     
-    float speed=[AiObjectInteraction finalMoveSpeed:self];
+    float speed=[self.moveSpeed finalValue];
     
     CGPoint position=self.node.position;
 
@@ -355,14 +368,17 @@
 }
 
 -(bool)directAttackTarget:(AiObject*)obj{
-    [obj hurtByObject:[InteractionData dataFromAiObject:self]];
+    DamageData* damageData=[AiObjectInteraction physicalDamageBy:obj];
+    [obj hurtByObject:damageData];
     return YES;
 }
--(void)hurtByObject:(InteractionData*)data{  //一些关于 受到冰伤变色之类的也可以在interaction里设状态 然后aiobject专门有一块来做动画更新//要不由buff来做先
-    float damage=[AiObjectInteraction finalDamageFrom:data to:[InteractionData dataFromAiObject:self]];
-    self.curHP-=damage;
+-(void)hurtByObject:(DamageData*)data{  //一些关于 受到冰伤变色之类的也可以在interaction里设状态 然后aiobject专门有一块来做动画更新//要不由buff来做先
+    NSDictionary* finalDamage=[AiObjectInteraction finalDamageOn:self withData:data];
+    self.curHP+=[finalDamage[@"hp"] floatValue];
 }
-
+-(void)onRecalcAttribute{
+    [self loadAttributeFromDict];
+}
 -(void)updateForCommon{
     float delayTime=self.delayTime;
     if (!self.node) {
@@ -386,9 +402,11 @@
         return;
     }
     
+    //重算属性
+    [self onRecalcAttribute];
     //进入帧
     [self onEnterFrame];
-    
+
     //找目标
 
     [self.findTargetsDelegate findTargets];

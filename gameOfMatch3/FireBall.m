@@ -25,7 +25,7 @@
     node.gravity=ccp(-90,-45);
     
     self.hitSound=@"heavyHit.wav";
-    self.moveSpeed=80.0f;
+    self.moveSpeed=[Attribute initWithValue:80.0f];
     
     self.node=node;
 

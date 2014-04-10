@@ -16,4 +16,12 @@
     self.buffHelper=[[BuffHelper alloc]initWithOwner:self];
     return self;
 }
+-(void)onRecalcAttribute{
+    [super onRecalcAttribute];
+    [self.buffHelper recalcAttribute];
+}
+-(void)onEnterFrame{
+    [super onEnterFrame];
+    [self.buffHelper onEnterFrame];
+}
 @end

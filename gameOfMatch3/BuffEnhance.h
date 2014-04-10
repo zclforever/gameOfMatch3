@@ -1,16 +1,17 @@
 //
-//  BuffSlow.h
+//  BuffEnhance.h
 //  gameOfMatch3
 //
-//  Created by Wei Ju on 14-3-29.
+//  Created by Wei Ju on 14-4-10.
 //  Copyright 2014年 Wei Ju. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Buff.h"
-@interface BuffSlow : Buff {
+@interface BuffEnhance : Buff {
     
 }
-@property (strong,nonatomic) Attribute* moveSpeed;
+-(id)initWithBuffName:(NSString*)name;
+
 @end

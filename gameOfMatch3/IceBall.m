@@ -7,7 +7,7 @@
 //
 
 #import "IceBall.h"
-
+#import "AiObjectWithMagic.h"
 
 @implementation IceBall
 -(void)makeNode{
@@ -19,8 +19,12 @@
     self.hitSound=@"softHit.wav";
     self.node=node;
 }
--(void)onDirectAttatckTarget:(AiObject *)obj{
-    [AiObjectInteraction addBufferTo:[InteractionData dataFromAiObject:obj] withName:@"slow"];
-    obj.node.position=ccp(obj.node.position.x+10,obj.node.position.y);
+-(void)onDirectAttatckTarget:(id)target{
+        AiObjectWithMagic* obj=target;
+        Buff* buff=[[BuffSlow alloc]init];
+      
+        [obj.buffHelper addBuffWith:buff];
+
+        obj.node.position=ccp(obj.node.position.x+10,obj.node.position.y);
 }
 @end

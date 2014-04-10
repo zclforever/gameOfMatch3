@@ -8,6 +8,8 @@
 
 #import "Projectile.h"
 #import "Magic.h"
+
+
 @interface Projectile()
 @property int count;
 @property float speedX;
@@ -33,7 +35,7 @@
         
         Magic* magic=[[Magic alloc]initWithName:name];
         self.damage=magic.damage;
-        self.moveSpeed=250.0f;
+        self.moveSpeed=[Attribute initWithValue:250.0f];
 
        
        
@@ -94,7 +96,7 @@
     
     [self.attackedObjectsArray addObject:obj];
     
-    [obj hurtByObject:self.interactionData];
+    [obj hurtByObject:self.damageData];
     return YES;
 }
 -(bool)checkDie{

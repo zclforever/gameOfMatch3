@@ -27,7 +27,6 @@
 -(void) addChild: (CCNode*) child;
 -(CGPoint)getCenterPoint;
 -(bool)directAttackTarget:(AiObject*)obj;
--(void)hurtByObject:(InteractionData*)data; 
 
 @optional
 

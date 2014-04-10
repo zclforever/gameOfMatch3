@@ -14,7 +14,7 @@
 
 -(void)makeNode{
     CCParticleSystem* node = [CCParticleSystemQuad particleWithFile:@"bigFireBall.plist"];
-    self.moveSpeed=100.0f;
+    self.moveSpeed=[Attribute initWithValue:100.0f];
     node.blendFunc= (ccBlendFunc) {GL_SRC_ALPHA,GL_DST_ALPHA};
 
     self.hitSound=@"explosion02.mp3";

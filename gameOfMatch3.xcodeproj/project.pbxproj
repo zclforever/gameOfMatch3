@@ -48,7 +48,6 @@
 		022AB7FA18A767B500F570BF /* Hero.m in Sources */ = {isa = PBXBuildFile; fileRef = 022AB7F918A767B500F570BF /* Hero.m */; };
 		022AB80018A7841900F570BF /* OLDPlayLayer.h in Resources */ = {isa = PBXBuildFile; fileRef = 022AB7FF18A7841800F570BF /* OLDPlayLayer.h */; };
 		02336D3718E6B5D900E0E6CE /* BuffSlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 02336D3618E6B5D900E0E6CE /* BuffSlow.m */; };
-		0241F50018DA865A0081A61E /* PhysicalAttack.m in Sources */ = {isa = PBXBuildFile; fileRef = 0241F4FF18DA86590081A61E /* PhysicalAttack.m */; };
 		0259BBD717DDB02D0033F345 /* GameLevelLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259BBD617DDB02D0033F345 /* GameLevelLayer.m */; };
 		0259BBDB17DDB25D0033F345 /* enemy_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD817DDB25D0033F345 /* enemy_1.png */; };
 		0259BBDC17DDB25D0033F345 /* enemy_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0259BBD917DDB25D0033F345 /* enemy_2.png */; };
@@ -80,9 +79,7 @@
 		02A2601918150450009F2719 /* apBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2601818150450009F2719 /* apBar.png */; };
 		02A2601B18151232009F2719 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A2601A18151232009F2719 /* circle.png */; };
 		02A2601D18151777009F2719 /* snowstorm.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02A2601C18151777009F2719 /* snowstorm.plist */; };
-		02A58039186033680042C083 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A58038186033680042C083 /* Player.m */; };
 		02A5803C1860577B0042C083 /* Projectile.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A5803B1860577B0042C083 /* Projectile.m */; };
-		02A5803F186070A40042C083 /* BossEnemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A5803E186070A40042C083 /* BossEnemy.m */; };
 		02A65451180D250800A932F9 /* block_103.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A6544D180D250800A932F9 /* block_103.png */; };
 		02A65452180D250800A932F9 /* block_105.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A6544E180D250800A932F9 /* block_105.png */; };
 		02A65453180D250800A932F9 /* block_102.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A6544F180D250800A932F9 /* block_102.png */; };
@@ -251,6 +248,8 @@
 		02E0BB7818AF134500EF2408 /* SkillDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E0BB7718AF134500EF2408 /* SkillDelegate.m */; };
 		02F05A8D1831EED900676308 /* singleHammer.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F05A8C1831EED900676308 /* singleHammer.plist */; };
 		02F05A8F1831FDB700676308 /* hammer_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F05A8E1831FDB700676308 /* hammer_yellow.png */; };
+		02F1265418F6815C005EE6C8 /* BuffEnhance.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F1265318F6815C005EE6C8 /* BuffEnhance.m */; };
+		02F1265718F6847E005EE6C8 /* Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F1265618F6847E005EE6C8 /* Attribute.m */; };
 		02F1BFBA18E697C500294B2C /* Buff.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F1BFB918E697C500294B2C /* Buff.m */; };
 		02F2AA78185FFA4700C4FD14 /* AiObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2AA77185FFA4700C4FD14 /* AiObject.m */; };
 		02F71A0918348BDF00F60B1F /* explosion.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A0818348BDF00F60B1F /* explosion.plist */; };
@@ -402,12 +401,8 @@
 		02A2601818150450009F2719 /* apBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apBar.png; sourceTree = "<group>"; };
 		02A2601A18151232009F2719 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
 		02A2601C18151777009F2719 /* snowstorm.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snowstorm.plist; sourceTree = "<group>"; };
-		02A58037186033680042C083 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
-		02A58038186033680042C083 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		02A5803A1860577B0042C083 /* Projectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Projectile.h; sourceTree = "<group>"; };
 		02A5803B1860577B0042C083 /* Projectile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Projectile.m; sourceTree = "<group>"; };
-		02A5803D186070A30042C083 /* BossEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BossEnemy.h; sourceTree = "<group>"; };
-		02A5803E186070A40042C083 /* BossEnemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BossEnemy.m; sourceTree = "<group>"; };
 		02A6544D180D250800A932F9 /* block_103.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_103.png; sourceTree = "<group>"; };
 		02A6544E180D250800A932F9 /* block_105.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_105.png; sourceTree = "<group>"; };
 		02A6544F180D250800A932F9 /* block_102.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = block_102.png; sourceTree = "<group>"; };
@@ -739,6 +734,10 @@
 		02E0BB7718AF134500EF2408 /* SkillDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkillDelegate.m; sourceTree = "<group>"; };
 		02F05A8C1831EED900676308 /* singleHammer.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = singleHammer.plist; sourceTree = "<group>"; };
 		02F05A8E1831FDB700676308 /* hammer_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer_yellow.png; sourceTree = "<group>"; };
+		02F1265218F6815C005EE6C8 /* BuffEnhance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuffEnhance.h; sourceTree = "<group>"; };
+		02F1265318F6815C005EE6C8 /* BuffEnhance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuffEnhance.m; sourceTree = "<group>"; };
+		02F1265518F6847E005EE6C8 /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
+		02F1265618F6847E005EE6C8 /* Attribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attribute.m; sourceTree = "<group>"; };
 		02F1BFB818E697C400294B2C /* Buff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buff.h; sourceTree = "<group>"; };
 		02F1BFB918E697C500294B2C /* Buff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Buff.m; sourceTree = "<group>"; };
 		02F2AA76185FFA4700C4FD14 /* AiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiObject.h; sourceTree = "<group>"; };
@@ -1508,16 +1507,14 @@
 		02F1BFBB18E6980D00294B2C /* AiObject */ = {
 			isa = PBXGroup;
 			children = (
+				02F1265518F6847E005EE6C8 /* Attribute.h */,
+				02F1265618F6847E005EE6C8 /* Attribute.m */,
 				02F2AA76185FFA4700C4FD14 /* AiObject.h */,
 				02F2AA77185FFA4700C4FD14 /* AiObject.m */,
 				02D6BB8C18D2FEAA000B3B56 /* AiObjectWithMagic.h */,
 				02D6BB8D18D2FEAA000B3B56 /* AiObjectWithMagic.m */,
-				02A58037186033680042C083 /* Player.h */,
-				02A58038186033680042C083 /* Player.m */,
 				022AB7F818A767B400F570BF /* Hero.h */,
 				022AB7F918A767B500F570BF /* Hero.m */,
-				02A5803D186070A30042C083 /* BossEnemy.h */,
-				02A5803E186070A40042C083 /* BossEnemy.m */,
 				020AB227185BEADD0000BB3E /* SmallEnemy.h */,
 				020AB228185BEADD0000BB3E /* SmallEnemy.m */,
 			);
@@ -1531,6 +1528,8 @@
 				0205285718E2CAB0009C76FA /* BuffHelper.m */,
 				02F1BFB818E697C400294B2C /* Buff.h */,
 				02F1BFB918E697C500294B2C /* Buff.m */,
+				02F1265218F6815C005EE6C8 /* BuffEnhance.h */,
+				02F1265318F6815C005EE6C8 /* BuffEnhance.m */,
 				02336D3518E6B5D900E0E6CE /* BuffSlow.h */,
 				02336D3618E6B5D900E0E6CE /* BuffSlow.m */,
 			);
@@ -1907,9 +1906,7 @@
 				0214C9C0184C6FC2001ADFBD /* GameMoneyBuyLayer.m in Sources */,
 				020AB229185BEADD0000BB3E /* SmallEnemy.m in Sources */,
 				02F2AA78185FFA4700C4FD14 /* AiObject.m in Sources */,
-				02A58039186033680042C083 /* Player.m in Sources */,
 				02A5803C1860577B0042C083 /* Projectile.m in Sources */,
-				02A5803F186070A40042C083 /* BossEnemy.m in Sources */,
 				022AB7FA18A767B500F570BF /* Hero.m in Sources */,
 				02E0BB7518AEFC2600EF2408 /* ItemDelegate.m in Sources */,
 				02E0BB7818AF134500EF2408 /* SkillDelegate.m in Sources */,
@@ -1925,11 +1922,12 @@
 				02D6BB8818D2FB46000B3B56 /* IceBall.m in Sources */,
 				02D6BB8B18D2FC9B000B3B56 /* SnowBall.m in Sources */,
 				02D6BB8E18D2FEAB000B3B56 /* AiObjectWithMagic.m in Sources */,
-				0241F50018DA865A0081A61E /* PhysicalAttack.m in Sources */,
 				0205285518E276EB009C76FA /* AiObjectInteraction.m in Sources */,
 				0205285818E2CAB0009C76FA /* BuffHelper.m in Sources */,
 				02F1BFBA18E697C500294B2C /* Buff.m in Sources */,
 				02336D3718E6B5D900E0E6CE /* BuffSlow.m in Sources */,
+				02F1265418F6815C005EE6C8 /* BuffEnhance.m in Sources */,
+				02F1265718F6847E005EE6C8 /* Attribute.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -277,5 +277,17 @@
 		<key>sightRadius</key>
 		<integer>50</integer>
 	</dict>
+	<key>buff_fury</key>
+	<dict>
+		<key>attackRate</key>
+		<dict>
+			<key>value</key>
+			<integer>0</integer>
+			<key>n</key>
+			<real>1</real>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
 </dict>
 </plist>

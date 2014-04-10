@@ -9,7 +9,7 @@
 //magic类 知道自己的对象是谁 群攻还是单攻
 
 #import "AiObjectMagicDelegate.h"
-
+#import "AiObjectWithMagic.h"
 
 @implementation AiObjectMagicDelegate
 -(id)initWithOwner:(id<MagicProtocol>) obj{
@@ -31,8 +31,8 @@
     bool noTarget=(!targetsArray||targetsArray.count==0)?YES:NO;
     AiObject* target;
     if (!noTarget) {target=targetsArray[0];}
-    InteractionData* attackerData=[[InteractionData alloc]init];
-    InteractionData* defenserData=[InteractionData dataFromAiObject:(AiObject*)self.owner];
+    DamageData* damageData=[[DamageData alloc]init];
+    
     
     
     if ([name isEqualToString:@"skill_physicalAttack"]) {
@@ -44,8 +44,11 @@
     }
     
     else if ([name isEqualToString:@"skill_fury"]){
-            attackerData.owner=(AiObject*)self.owner;
-            [AiObjectInteraction addBufferTo:defenserData withName:@"fury"];
+
+            AiObjectWithMagic* obj=(AiObjectWithMagic*)self.owner;
+            Buff* buff=[[BuffEnhance alloc]initWithBuffName:@"fury"];
+            [obj.buffHelper addBuffWith:buff];
+
             return;
     }
     
@@ -76,6 +79,8 @@
         projectile=[[IceBall alloc]initWithAllObjectArray:self.owner.allObjectsArray withPostion:ccp(selfPosition.x+zPersonWidth+5,selfPosition.y+zPersonHeight/2-10) byName:name];
         projectileAi=[[ProjectileAiWithTargetPosition alloc] initWithDestPosition:ccp(zEnemyMarginLeft,selfPosition.y+zPersonHeight/2-10) withOwner:projectile] ;
         
+        damageData.magicalDamage=2.0f;
+        
         [[SimpleAudioEngine sharedEngine] playEffect:@"ice_fly.wav"];
         
     }
@@ -92,7 +97,8 @@
     }
     
     if (projectile) {
-        projectile.targetTags=self.owner.targetTags; //放到projectile里去做，自己定义 未必全是父的 有可能是BUFF //不好意思 buff不应该是 projectile
+        projectile.targetTags=self.owner.targetTags; //buff不应该是 projectile
+        projectile.damageData=damageData;
         projectile.owner=(AiObject*)self.owner;
         [self.owner addChild:projectile];
         [projectile setAiDelegate:projectileAi];

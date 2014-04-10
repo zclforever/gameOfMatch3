@@ -14,8 +14,7 @@
 #import "GameOverLayer.h"
 #import "Person.h"
 #import "ManaLayer.h"
-#import "Player.h"
-#import "BossEnemy.h"
+
 @interface MyPoint:NSObject{
     
 }
@@ -34,7 +33,7 @@
 //@property (strong,nonatomic) StatePanelLayerInBattle* statePanelLayerPlayer;
 //@property (strong,nonatomic) StatePanelLayerInBattle* statePanelLayerEnemy;
 @property (strong,nonatomic) Person* player;
-@property (strong,nonatomic) BossEnemy* enemy;
+//@property (strong,nonatomic) BossEnemy* enemy;
 @property (strong,nonatomic) NSMutableArray* tileDelegateArray;
 @property (strong,nonatomic) NSMutableArray* heroArray;
 @property int gameLevel; //第几关

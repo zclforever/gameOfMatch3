@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "AiObject.h"
-
+#import "BuffHelper.h"
 
 @protocol ProjectileAiDelegate<NSObject>
 
@@ -40,7 +40,7 @@
 
 @property (strong,nonatomic) NSMutableArray* attackedObjectsArray;
 
-@property (strong,nonatomic) InteractionData* interactionData;
+@property (strong,nonatomic) DamageData* damageData;
 
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withPostion:(CGPoint)pos byName:(NSString*)name;
 -(void)dieAction;

@@ -13,7 +13,7 @@
 #import "BarHelper.h"
 #import "AiObjectFindTargetsDelegate.h"
 #import "AiObjectInteraction.h"
-
+#import "Attribute.h"
 //@protocol AiObject 
 //@required
 //-(CGRect)getBoundingBox;
@@ -48,17 +48,19 @@
 
 
 @property float curHP;
-@property float maxHP;
 @property float curEnergy;
-@property float maxEnergy;
 @property float damage;
-@property float attackCD;
+
+@property (strong,nonatomic) Attribute* maxHP;
+@property (strong,nonatomic) Attribute* maxEnergy;
+@property (strong,nonatomic) Attribute* moveSpeed;
+@property (strong,nonatomic) Attribute* attackCD;
 
 
 
 //@property float attackType;
 @property float lastAttackTime;
-@property float moveSpeed;
+
 @property bool alive;
 @property bool atDest;
 @property bool readyToEnd;
@@ -102,7 +104,7 @@
 -(void)setTimeOutWithDelay:(float)timeOut withBlock:(void(^)())block;
 
 //攻击防守
--(void)hurtByObject:(InteractionData*)data; 
+-(void)hurtByObject:(DamageData*)data; 
 -(bool)directAttackTarget:(AiObject*)obj;
 
 -(NSArray*)sortAllObjectsByDistanceFromPosition:(CGPoint)position;
@@ -131,5 +133,7 @@
 -(bool)onReadyToAttackTargetInRange;    //CD OK可以攻击了。
 -(void)onCurHPIsZero; //要死了
 -(void)onDie;
+
+-(void)onRecalcAttribute;
 @end
 

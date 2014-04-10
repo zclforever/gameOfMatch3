@@ -96,7 +96,6 @@
     [[[Global sharedManager] setTimeOut] removeFromParent];
 
     self.player=nil;
-    self.enemy=nil;
     self.testLabel=nil;
     self.stepLabel=nil;
     self.turnOfPersons=nil;
@@ -441,7 +440,7 @@
     
    
     self.player=nil;
-    self.enemy=nil;
+
     
     
     self.lockTouch=YES;
@@ -586,10 +585,7 @@
         [self addChild:box z:-21];
         
     }
-    if (!self.enemy) {
-        self.enemy=[[BossEnemy alloc]initWithAllObjectArray:self.allObjectsArray withLevel:self.level with:@"boss_01"];
-        [self addChild:self.enemy z:-1];
-    }
+
     
     
 
@@ -629,10 +625,6 @@
     
     
     
-    [self.enemy addPersonSpriteAtPosition:ccp(zEnemyMarginLeft,winSize.height-zPlayerMarginTop)];
-    [self.enemy addApBar];
-    box.lockedEnemy=self.enemy.sprite;
-    self.enemy.curStep=20;  //配合返回
 
     
     
@@ -882,7 +874,7 @@
 
 -(void)endingZoom{
     self.lockTouch=YES;
-    CGPoint pos=self.enemy.sprite.position;
+    CGPoint pos=ccp(160, 200);
     [self runAction:[CCSpawn actions:
                      [CCScaleTo actionWithDuration:3.0 scale:1.5],
                      [CCMoveTo actionWithDuration:2.0 position:ccp(-100,-120)],
@@ -891,7 +883,7 @@
     for (int i=0; i<18; i++) {
         int randomX=-25+arc4random()%50;
         int randomY=-25+arc4random()%50;
-        [Actions shakeSprite:self.enemy.sprite delay:i*0.5];
+        //[Actions shakeSprite:self.enemy.sprite delay:i*0.5];
         [Actions explosionAtPosition:ccp(pos.x+zPersonWidth/2+randomX,pos.y+zPersonHeight/2+randomY) withDelay:i*0.2 withFinishedBlock:^{
 
             
@@ -908,7 +900,7 @@
 -(void)checkGameOver{
     if(self.isGameOver)return;
     
-    //self.enemy.curHP<=0||
+
     if ((!self.smallEnemyArray.count&&self.troopsOrder.count==0)) {
         self.isGameOver=YES;
         
@@ -956,8 +948,8 @@
         //if(self.player.curHP>=self.player.maxHP/2) star++;   //半血加星
         if(self.gameTime<=needTime) star++;   //小于needTime加星
         
-        if(star>[person.starsOfLevelArray[self.enemy.level-1] intValue]){
-            person.starsOfLevelArray[self.enemy.level-1]=[NSNumber numberWithInt:star]; //更新得星数
+        if(star>[person.starsOfLevelArray[self.level-1] intValue]){
+            person.starsOfLevelArray[self.level-1]=[NSNumber numberWithInt:star]; //更新得星数
             
         }
         
@@ -979,7 +971,7 @@
     [self checkGameOver];
     
     
-    self.enemy.curStep=0;
+
     self.lockTouch=NO;
 
 }

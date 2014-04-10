@@ -14,14 +14,14 @@
 
 @implementation BuffHelper  
 
--(id)initWithOwner:(id<BuffHelperProtocol>)owner{
+-(id)initWithOwner:(id)owner{
     self=[super init];
     self.owner=owner;
     
-    [self schedule:@selector(update)];
+    //[self schedule:@selector(update)];
     return self;
 }
--(void)update{
+-(void)onEnterFrame{
     //AiObjectWithMagic* owner=self.owner;
 }
 
@@ -39,6 +39,8 @@
         
     }else{
         self.buffDict[buff.name]=@{@"buff": buff}; //todo 这里还没想好 也许不需要用dict
+        [self.buffArray addObject:buff];
+        buff.buffHelper=self;
         [buff start];
         [self addChild:buff];
     }
@@ -55,7 +57,11 @@
     return NO;
 }
 
-
+-(void)recalcAttribute{
+    for (Buff* buff in self.buffArray) {
+        [buff recalcAttributeToOwner];
+    }
+}
 
 
 @end
