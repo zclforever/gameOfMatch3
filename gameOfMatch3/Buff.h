@@ -14,9 +14,12 @@
 
 
 
-@interface Buff : CCLayer {
+@interface Buff : NSObject {
     
 }
+-(id)initWithBuffHelper:(BuffHelper*)buffHelper;
+
+@property (strong,nonatomic) NSDictionary* attributeDict;
 @property float liveTime;
 @property float startTime;
 
@@ -32,4 +35,5 @@
 -(void)makeBuff;
 -(void)recalcAttributeToOwner;
 -(void)start;
+-(void)add;
 @end

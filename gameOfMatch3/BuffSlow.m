@@ -18,19 +18,23 @@
     [super onTimeExpire];
 }
 -(void)makeBuff{
-    AiObject* owner=self.buffHelper.owner;
+    self.name=@"buff_slow";
     self.liveTime=10.0;
+
     self.moveSpeed=[[Attribute alloc]init];
     self.moveSpeed.value=0;
     self.moveSpeed.addition=0;
     self.moveSpeed.percentage=-0.5;
-    
-    [owner.node runAction:[CCTintBy actionWithDuration:1 red:-45 green:-45 blue:0]];
-    
+   
     
     //[self.sprite runAction:[CCTintTo actionWithDuration:3 red:160 green:160 blue:255]];
+    //[super start];
+    [super makeBuff];    
+}
+-(void)start{
+    AiObject* owner=self.buffHelper.owner;
+    [owner.node runAction:[CCTintBy actionWithDuration:1 red:-45 green:-45 blue:0]];
     [super start];
-    
 }
 -(void)recalcAttributeToOwner{
     AiObject* owner=self.buffHelper.owner;

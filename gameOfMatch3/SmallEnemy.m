@@ -66,7 +66,7 @@
 }
 
 -(void)loadAttributeFromDict{
-    
+    [super loadAttributeFromDict];
 }
 -(void)appearAtX:(int)x Y:(int)y{
     self.sprite.position=ccp(x,y);

@@ -19,8 +19,10 @@
 -(float)finalValue;
 -(void)loadWithKey:(NSString*)key fromDict:(NSDictionary*)dict;
 -(void)resetWithValue:(float)value;
+-(void)resetWithValue:(float)value withAddition:(float)addition withPercentage:(float)percentage;
 
 +(Attribute*)initWithValue:(float)value;
++(Attribute*)initWithValue:(float)value withAddition:(float)addition withPercentage:(float)percentage;
 +(Attribute*)initWithKey:(NSString*)key fromDict:(NSDictionary*)dict;
 
 @end

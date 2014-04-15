@@ -27,13 +27,13 @@
 
 +(DamageData*)physicalDamageBy:(AiObject*)attacker{
     DamageData* damageData=[[DamageData alloc]init];
-    damageData.phsicalDamage=attacker.damage;
+    damageData.phsicalDamage=[attacker.damage finalValue];
     return damageData;
     
 }
 +(DamageData*)magicalDamageBy:(AiObject*)attacker{  
     DamageData* damageData=[[DamageData alloc]init];
-    damageData.magicalDamage=attacker.damage;
+    damageData.magicalDamage=[attacker.damage finalValue];
     return damageData;
 }
 +(NSDictionary*)finalDamageOn:(AiObject*)defenser withData:(DamageData*)damageData{

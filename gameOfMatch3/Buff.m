@@ -29,34 +29,38 @@
     
     return self;
 }
+-(id)initWithBuffHelper:(BuffHelper*)buffHelper{
+    self=[super init];
+    self.buffHelper=buffHelper;
+    [self makeBuff];
+    
+    
+    return self;
+}
 -(void)makeBuff{
     
 }
+
+-(void)add{
+    self.attributeDict=[[[Global sharedManager]aiObjectsAttributeDict] valueForKey:self.name];
+    [self.buffHelper addBuffWith:self];
+}
 -(void)start{
     self.startTime=[[Global sharedManager]gameTime];
-    [self schedule:@selector(update:)];
 }
 
 -(void)onTimeExpire{
     [self.buffHelper removeBuffWith:self];
+
 }
 
 -(void)onEnterFrame{
-    
-}
-
--(void)update:(ccTime)delta{
-    
     if ([[Global sharedManager]gameTime]-self.startTime>self.liveTime) {
         [self onTimeExpire];
         return;
     }
-    
-    [self onEnterFrame];
-
-    
-    
 }
+
 
 -(void)recalcAttributeToOwner{
     

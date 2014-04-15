@@ -464,7 +464,6 @@
     self.swapCount=0;
     self.lockUpdate=NO;
     self.moveSuccessReady=NO;
-    [self schedule:@selector(update:) interval:0 repeat:kCCRepeatForever delay:3];
     
     //system=[CCParticleRain node];
     
@@ -663,7 +662,7 @@
     [self setTimeOut:0.0f withSelect:@selector(addBackLayer)];
     
     
-    
+    [self schedule:@selector(update:) interval:0 repeat:kCCRepeatForever delay:3];
     
     
 }

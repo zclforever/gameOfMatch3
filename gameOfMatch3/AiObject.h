@@ -49,8 +49,9 @@
 
 @property float curHP;
 @property float curEnergy;
-@property float damage;
+//@property float damage;
 
+@property (strong,nonatomic) Attribute* damage;
 @property (strong,nonatomic) Attribute* maxHP;
 @property (strong,nonatomic) Attribute* maxEnergy;
 @property (strong,nonatomic) Attribute* moveSpeed;
@@ -92,6 +93,7 @@
 -(CGPoint)getCenterPoint;
 -(id)initWithAllObjectArray:(NSMutableArray*)allObjectsArray withName:(NSString*)name;
 -(void)initFromPlist;
+-(void)loadAttributeFromDict;
 
 -(void)moveToPosition:(CGPoint)pos;
 

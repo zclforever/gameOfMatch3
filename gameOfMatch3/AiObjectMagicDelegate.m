@@ -46,9 +46,8 @@
     else if ([name isEqualToString:@"skill_fury"]){
 
             AiObjectWithMagic* obj=(AiObjectWithMagic*)self.owner;
-            Buff* buff=[[BuffEnhance alloc]initWithBuffName:@"fury"];
-            [obj.buffHelper addBuffWith:buff];
-
+            Buff* buff=[[BuffFury alloc]initWithBuffHelper:obj.buffHelper];
+            [buff add];
             return;
     }
     

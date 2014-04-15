@@ -21,10 +21,10 @@
 }
 -(void)onDirectAttatckTarget:(id)target{
         AiObjectWithMagic* obj=target;
-        Buff* buff=[[BuffSlow alloc]init];
+        Buff* buff=[[BuffSlow alloc]initWithBuffHelper:obj.buffHelper];
       
-        [obj.buffHelper addBuffWith:buff];
+        [buff add];
 
-        obj.node.position=ccp(obj.node.position.x+10,obj.node.position.y);
+        obj.node.position=ccp(obj.node.position.x+100,obj.node.position.y);
 }
 @end

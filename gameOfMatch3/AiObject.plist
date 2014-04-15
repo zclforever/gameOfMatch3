@@ -21,13 +21,41 @@
 		<key>animationAttackDelay</key>
 		<real>0.2</real>
 		<key>moveSpeed</key>
-		<integer>30</integer>
-		<key>maxHP</key>
-		<integer>3</integer>
+		<dict>
+			<key>value</key>
+			<integer>30</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
 		<key>attackCD</key>
-		<integer>2</integer>
+		<dict>
+			<key>value</key>
+			<integer>2</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>maxHP</key>
+		<dict>
+			<key>value</key>
+			<integer>3</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
 		<key>damage</key>
-		<integer>5</integer>
+		<dict>
+			<key>value</key>
+			<integer>5</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
 		<key>spriteScale</key>
 		<integer>2</integer>
 		<key>lifeBarWidth</key>
@@ -57,14 +85,42 @@
 		<string>smallEnemy_stoneManAttack.plist</string>
 		<key>animationAttackDelay</key>
 		<real>0.2</real>
-		<key>attackCD</key>
-		<real>2.5</real>
-		<key>maxHP</key>
-		<integer>60</integer>
-		<key>moveSpeed</key>
-		<integer>5</integer>
 		<key>damage</key>
-		<integer>10</integer>
+		<dict>
+			<key>value</key>
+			<integer>10</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>moveSpeed</key>
+		<dict>
+			<key>value</key>
+			<integer>5</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>attackCD</key>
+		<dict>
+			<key>value</key>
+			<real>2.5</real>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>maxHP</key>
+		<dict>
+			<key>value</key>
+			<integer>60</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
 		<key>spriteScale</key>
 		<integer>2</integer>
 		<key>lifeBarWidth</key>
@@ -92,14 +148,42 @@
 		<string>smallEnemy_mouseAttack.plist</string>
 		<key>animationAttackDelay</key>
 		<real>0.1</real>
-		<key>attackCD</key>
-		<integer>1</integer>
-		<key>maxHP</key>
-		<integer>1</integer>
-		<key>moveSpeed</key>
-		<integer>20</integer>
 		<key>damage</key>
-		<integer>1</integer>
+		<dict>
+			<key>value</key>
+			<integer>1</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>attackCD</key>
+		<dict>
+			<key>value</key>
+			<integer>1</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>maxHP</key>
+		<dict>
+			<key>value</key>
+			<integer>1</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>moveSpeed</key>
+		<dict>
+			<key>value</key>
+			<integer>20</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
 		<key>spriteScale</key>
 		<integer>1</integer>
 		<key>lifeBarWidth</key>
@@ -124,7 +208,50 @@
 		<key>standSpriteName</key>
 		<string>mage001_stand.png</string>
 		<key>damage</key>
-		<integer>3</integer>
+		<dict>
+			<key>value</key>
+			<integer>3</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>damage - 2</key>
+		<dict>
+			<key>value</key>
+			<integer>3</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>damage - 3</key>
+		<dict>
+			<key>value</key>
+			<integer>3</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>damage - 4</key>
+		<dict>
+			<key>value</key>
+			<integer>3</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>damage - 5</key>
+		<dict>
+			<key>value</key>
+			<integer>3</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
 		<key>attackCD</key>
 		<integer>2</integer>
 		<key>moveSpeed</key>
@@ -156,53 +283,55 @@
 		<string>mage001_stand.png</string>
 		<key>standSpriteName</key>
 		<string>mage001_stand.png</string>
-		<key>damage</key>
-		<integer>3</integer>
-		<key>attackCD</key>
-		<integer>2</integer>
-		<key>moveSpeed</key>
-		<integer>14</integer>
-		<key>maxEnergy</key>
-		<integer>40</integer>
-		<key>maxHP</key>
-		<integer>50</integer>
 		<key>skill_0</key>
 		<string>skill_fireBall</string>
 		<key>skill_1</key>
 		<string>skill_bigFireBall</string>
-	</dict>
-	<key>hero_warrior</key>
-	<dict>
-		<key>tags</key>
-		<array>
-			<string>hero</string>
-		</array>
-		<key>targetTags</key>
-		<array>
-			<string>enemy</string>
-		</array>
-		<key>sightRadius</key>
-		<integer>250</integer>
-		<key>attackRadius</key>
-		<integer>30</integer>
-		<key>tileSpriteName</key>
-		<string>warrior001_stand.png</string>
-		<key>standSpriteName</key>
-		<string>warrior001_stand.png</string>
 		<key>damage</key>
-		<integer>3</integer>
+		<dict>
+			<key>value</key>
+			<integer>3</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
 		<key>attackCD</key>
-		<integer>2</integer>
+		<dict>
+			<key>value</key>
+			<integer>2</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
 		<key>moveSpeed</key>
-		<integer>18</integer>
-		<key>maxHP</key>
-		<integer>150</integer>
+		<dict>
+			<key>value</key>
+			<integer>14</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
 		<key>maxEnergy</key>
-		<integer>10</integer>
-		<key>skill_0</key>
-		<string>skill_physicalAttack</string>
-		<key>skill_1</key>
-		<string>skill_fury</string>
+		<dict>
+			<key>value</key>
+			<integer>40</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>maxHP</key>
+		<dict>
+			<key>value</key>
+			<integer>50</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
 	</dict>
 	<key>hero_hunter</key>
 	<dict>
@@ -214,6 +343,55 @@
 		<array>
 			<string>enemy</string>
 		</array>
+		<key>skill_0</key>
+		<string>skill_fireBall</string>
+		<key>skill_1</key>
+		<string>skill_iceBall</string>
+		<key>damage</key>
+		<dict>
+			<key>value</key>
+			<integer>3</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>attackCD</key>
+		<dict>
+			<key>value</key>
+			<integer>2</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>moveSpeed</key>
+		<dict>
+			<key>value</key>
+			<integer>14</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>maxEnergy</key>
+		<dict>
+			<key>value</key>
+			<integer>40</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>maxHP</key>
+		<dict>
+			<key>value</key>
+			<integer>50</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
 		<key>sightRadius</key>
 		<integer>100</integer>
 		<key>attackRadius</key>
@@ -222,20 +400,74 @@
 		<string>hunter001_stand.png</string>
 		<key>standSpriteName</key>
 		<string>hunter001_stand.png</string>
-		<key>damage</key>
-		<integer>3</integer>
-		<key>attackCD</key>
-		<integer>2</integer>
-		<key>moveSpeed</key>
-		<integer>14</integer>
-		<key>maxHP</key>
-		<integer>50</integer>
-		<key>maxEnergy</key>
-		<integer>20</integer>
+	</dict>
+	<key>hero_warrior</key>
+	<dict>
+		<key>tags</key>
+		<array>
+			<string>hero</string>
+		</array>
+		<key>targetTags</key>
+		<array>
+			<string>enemy</string>
+		</array>
 		<key>skill_0</key>
-		<string>skill_fireBall</string>
+		<string>skill_physicalAttack</string>
 		<key>skill_1</key>
-		<string>skill_iceBall</string>
+		<string>skill_fury</string>
+		<key>damage</key>
+		<dict>
+			<key>value</key>
+			<integer>1</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>attackCD</key>
+		<dict>
+			<key>value</key>
+			<integer>2</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>moveSpeed</key>
+		<dict>
+			<key>value</key>
+			<integer>18</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>maxEnergy</key>
+		<dict>
+			<key>value</key>
+			<integer>10</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>maxHP</key>
+		<dict>
+			<key>value</key>
+			<integer>150</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+		<key>sightRadius</key>
+		<integer>250</integer>
+		<key>attackRadius</key>
+		<integer>30</integer>
+		<key>tileSpriteName</key>
+		<string>warrior001_stand.png</string>
+		<key>standSpriteName</key>
+		<string>warrior001_stand.png</string>
 	</dict>
 	<key>item_hp</key>
 	<dict>
@@ -260,6 +492,15 @@
 		<string>skill_iceBall.png</string>
 		<key>attackRadius</key>
 		<integer>30</integer>
+		<key>moveSpeed</key>
+		<dict>
+			<key>value</key>
+			<integer>250</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
 	</dict>
 	<key>skill_bigFireBall</key>
 	<dict>
@@ -267,8 +508,35 @@
 		<string>skill_bigFireBall.png</string>
 		<key>attackRadius</key>
 		<integer>100</integer>
+		<key>moveSpeed</key>
+		<dict>
+			<key>value</key>
+			<integer>250</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
 	</dict>
 	<key>skill_fireBall</key>
+	<dict>
+		<key>tileSpriteName</key>
+		<string>skill_fireBall.png</string>
+		<key>attackRadius</key>
+		<integer>20</integer>
+		<key>sightRadius</key>
+		<integer>50</integer>
+		<key>moveSpeed</key>
+		<dict>
+			<key>value</key>
+			<integer>250</integer>
+			<key>n</key>
+			<integer>0</integer>
+			<key>p</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>skill_fury</key>
 	<dict>
 		<key>tileSpriteName</key>
 		<string>skill_fireBall.png</string>

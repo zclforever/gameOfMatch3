@@ -12,6 +12,7 @@
 #import "Buff.h"
 #import "BuffEnhance.h"
 #import "BuffSlow.h"
+#import "BuffFury.h"
 
 
 

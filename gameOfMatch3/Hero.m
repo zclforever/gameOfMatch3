@@ -82,7 +82,7 @@
     self.startPosition=position;
     
     NSString* standSpriteName=[self.attributeDict valueForKey:@"standSpriteName"];
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"person003.plist"];
+    //[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"person003.plist"];
     
     //CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"person003.png"];
     CCSprite *sprite;
@@ -91,7 +91,7 @@
 
     }else{
 
-        sprite = [CCSprite spriteWithSpriteFrameName:@"person03_000.gif"];
+        //sprite = [CCSprite spriteWithSpriteFrameName:@"person03_000.gif"];
     }
     
 

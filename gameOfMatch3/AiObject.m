@@ -64,11 +64,12 @@
     
     //self.animationMovePlist=[self.attributeDict valueForKey:@"animationMovePlist"];
     //    self.damage=[[self.attributeDict valueForKey:@"damage"] floatValue];
-    [self loadAttributeFromDict];
     self.attackCD=[[Attribute alloc]init];
     self.moveSpeed=[[Attribute alloc]init];
     self.maxHP=[[Attribute alloc]init];
     self.maxEnergy=[[Attribute alloc]init];
+    self.damage=[[Attribute alloc]init];
+    [self loadAttributeFromDict];
     
     self.curHP=[self.maxHP finalValue];
     self.curEnergy=0;
@@ -85,6 +86,7 @@
     [self.moveSpeed loadWithKey:@"moveSpeed" fromDict:self.attributeDict];
     [self.maxHP loadWithKey:@"maxHP" fromDict:self.attributeDict];
     [self.maxEnergy loadWithKey:@"maxEnergy" fromDict:self.attributeDict];
+    [self.damage loadWithKey:@"damage" fromDict:self.attributeDict];
 }
 
 
@@ -146,36 +148,7 @@
     }
     return ret;
 }
-//-(void)updateCollisionObjectArray{
-//    CGRect rect;
-//    CGSize size;
-//
-//    [self.collisionObjects removeAllObjects];
-//    rect=[self getBoundingBox];
-//    self.collisionObjects=[self collisionObjectsByRect:rect];
-//    
-//    //update collisionObjectsInSight 
-//    size=CGSizeFromString([self.attributeDict valueForKey:@"sightRange"]);
-//    if (size.height==0&&size.width==0) {
-//        size.height=999;size.width=999;   //plist未定义时
-//    }
-//    rect=[self getBoundingBox];
-//    rect.size=size;   //要把origin转换到左下角
-//    rect.origin.x=[self getCenterPoint].x-size.width/2;
-//    rect.origin.y=[self getCenterPoint].y-size.height/2;
-//    self.collisionObjectsInSight=[self objectsByTags:self.targetTags from:[self collisionObjectsByRect:rect]];
-//    
-//    
-//    //update collisionObjectsInAttankRange
-//    size=CGSizeFromString([self.attributeDict valueForKey:@"attackRange"]);
-//    rect=[self getBoundingBox];
-//    rect.size=size;
-//    rect.origin.x=[self getCenterPoint].x-size.width/2;
-//    rect.origin.y=[self getCenterPoint].y-size.height/2;
-//    self.collisionObjectsInAttankRange=[self objectsByTags:self.targetTags from:[self collisionObjectsByRect:rect]];
-//    
-//    
-//}
+
 -(NSArray*)sortAllObjectsByDistanceFromPosition:(CGPoint)position{
     NSMutableArray* ret=[NSMutableArray arrayWithArray:self.allObjectsArray];
 
@@ -368,7 +341,7 @@
 }
 
 -(bool)directAttackTarget:(AiObject*)obj{
-    DamageData* damageData=[AiObjectInteraction physicalDamageBy:obj];
+    DamageData* damageData=[AiObjectInteraction physicalDamageBy:self];
     [obj hurtByObject:damageData];
     return YES;
 }

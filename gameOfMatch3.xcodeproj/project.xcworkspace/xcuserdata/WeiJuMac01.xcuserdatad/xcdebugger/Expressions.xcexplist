@@ -3,6 +3,39 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[AiObject updateLifeBar]:AiObject.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.lifeBar.contentSize.height*self.lifeBar.scaleY">
+            </PersistentString>
+            <PersistentString
+               value = "self.lifeBar.contentSize.width*self.lifeBar.scaleX">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Projectile attackPosition:]:Projectile.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.attackPositionIgnoreX">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Hero dieAction]:Hero.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[AiObject updateForCommon]:AiObject.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.aiState">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[Global initialize]:Global.m">
+      </ContextState>
+      <ContextState
          contextName = "-[Player handleCollision]:Player.m">
          <PersistentStrings>
             <PersistentString
@@ -11,24 +44,32 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[Box checkWith:]:Box.m">
+         contextName = "+[AiObjectInteraction physicalDamageBy:]:AiObjectInteraction.m">
       </ContextState>
       <ContextState
-         contextName = "-[SmallEnemy moveAnimation]:SmallEnemy.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[Player magicAttackByName:withParameter:]:Player.m">
+         contextName = "-[Player updateCollisionObjectArray]:Player.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.sprite.position">
+               value = "self.attackRange.width">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[Hero onFindTargets]:Hero.m">
+         contextName = "-[Hero nothingToDo]:Hero.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.findTargetsResult">
+               value = "self.startPosition">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Player initWithAllObjectArray:]:Player.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Hero onCurHPIsZero]:Hero.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.skillDelegates">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -50,10 +91,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[Hero magicAttackWithName:withParameter:]:Hero.m">
+         contextName = "-[Hero hurtByObject:]:Hero.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Hero onReadyToAttackTargetInRange]:Hero.m">
          <PersistentStrings>
             <PersistentString
-               value = "projectile.findTargetsObserverArray">
+               value = "self.curEnergy">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer handleTimeOut]:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.enemyMountOfThisWave">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -66,10 +118,71 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[SmallEnemy updateLifeBar]:SmallEnemy.m">
+         contextName = "-[SmallEnemy addLifeBar]:SmallEnemy.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.lifeBar.position">
+               value = "self.lifeBar">
+            </PersistentString>
+            <PersistentString
+               value = "self.lifeBar.scaleX">
+            </PersistentString>
+            <PersistentString
+               value = "self.lifeBar.scaleY">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BuffSlow recalcAttributeToOwner]:BuffSlow.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[owner.moveSpeed finalValue]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AiObject onInAttackRange]:AiObject.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.lastAttackTime">
+            </PersistentString>
+            <PersistentString
+               value = "self.attackCD">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ProjectileWithNoTarget onFindNothing]:ProjectileWithNoTarget.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[AiObject findTargets]:AiObject.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Projectile update]:Projectile.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.allObjectsArray">
+            </PersistentString>
+            <PersistentString
+               value = "self.collisionObjectArray">
+            </PersistentString>
+            <PersistentString
+               value = "self.particle.position">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Player magicAttackByName:withParameter:]:Player.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.sprite.position">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy dieAction]:SmallEnemy.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.allObjectsArray">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -82,15 +195,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[Hero nothingToDo]:Hero.m">
+         contextName = "-[AiObject initFromPlist]:AiObject.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.startPosition">
+               value = "self.maxHP">
+            </PersistentString>
+            <PersistentString
+               value = "self.curHP">
+            </PersistentString>
+            <PersistentString
+               value = "self.targetTags">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[AiObject sortAllObjectsByDistanceFromPosition:]:AiObject.m">
+         contextName = "-[SmallEnemy update]:SmallEnemy.m">
          <PersistentStrings>
             <PersistentString
                value = "self.allObjectsArray">
@@ -98,34 +217,61 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[Projectile attackPosition:]:Projectile.m">
+         contextName = "-[SmallEnemy onCurHPIsZero]:SmallEnemy.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.attackPositionIgnoreX">
+               value = "self.allObjectsArray">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "+[Global rectInsect::]:Global.m">
+         contextName = "-[Attribute finalValue]:Attribute.m">
          <PersistentStrings>
             <PersistentString
-               value = "abs(distanceX)">
+               value = "self.value">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[Hero onCurHPIsZero]:Hero.m">
+         contextName = "-[Tile initWithX:Y:delegate:]:Tile.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.skillDelegates">
+               value = "tileDelegate.tileSpriteName">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[AiObject initFromPlist]:AiObject.m">
+         contextName = "-[Projectile accelerometer:didAccelerate:]:Projectile.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[Projectile onNothingInSight]:Projectile.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.targetTags">
+               value = "self.wantedObject">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AiObject initWithAllObjectArray:]:AiObject.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "allObjectsArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AiObject onFindTargets]:AiObject.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.findTargetsResult">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy updateLifeBar]:SmallEnemy.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.lifeBar.position">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -147,6 +293,34 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[ProjectileAiWithNoTarget onFindNothing]:ProjectileAiWithNoTarget.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self.projectile.owner getCenterPoint]">
+            </PersistentString>
+            <PersistentString
+               value = "self.projectile.position">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BuffHelper recalcAttribute]:BuffHelper.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy handleCollision]:SmallEnemy.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self allObjectsArray]">
+            </PersistentString>
+            <PersistentString
+               value = "obj.type">
+            </PersistentString>
+            <PersistentString
+               value = "self.collisionObjectArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[AiObject getBoundingBox]:AiObject.m">
          <PersistentStrings>
             <PersistentString
@@ -155,71 +329,33 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[AiObject updateLifeBar]:AiObject.m">
+         contextName = "-[Box checkWith:]:Box.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[AiObject moveToPosition:]:AiObject.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.lifeBar.contentSize.height*self.lifeBar.scaleY">
+               value = "self.node">
             </PersistentString>
             <PersistentString
-               value = "self.lifeBar.contentSize.width*self.lifeBar.scaleX">
+               value = "pos">
+            </PersistentString>
+            <PersistentString
+               value = "self.node.position">
+            </PersistentString>
+            <PersistentString
+               value = "abs(xDistance)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[PlayLayer handleTimeOut]:PlayLayer.m">
+         contextName = "-[AiObject collisionObjectsByDistance:]:AiObject.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.enemyMountOfThisWave">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[Projectile initWithAllObjectArray:withPostion:byName:]:Projectile.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.objectName">
+               value = "[obj getCenterPoint]">
             </PersistentString>
             <PersistentString
-               value = "self.particle.position">
-            </PersistentString>
-            <PersistentString
-               value = "self.allObjectsArray">
-            </PersistentString>
-            <PersistentString
-               value = "self.particle.boundingBox">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[ProjectileWithNoTarget onFindNothing]:ProjectileWithNoTarget.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[Tile initWithX:Y:delegate:]:Tile.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "tileDelegate.tileSpriteName">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[AiObject onInAttackRange]:AiObject.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.lastAttackTime">
-            </PersistentString>
-            <PersistentString
-               value = "self.attackCD">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[Hero dieAction]:Hero.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[Hero onReadyToAttackTargetInRange]:Hero.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.curEnergy">
+               value = "[self getCenterPoint]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -244,181 +380,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[Projectile accelerometer:didAccelerate:]:Projectile.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[SmallEnemy update]:SmallEnemy.m">
+         contextName = "-[Hero magicAttackWithName:withParameter:]:Hero.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.allObjectsArray">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[Projectile onNothingInSight]:Projectile.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.wantedObject">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[AiObject onFindTargets]:AiObject.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.findTargetsResult">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[ProjectileAiWithNoTarget onFindNothing]:ProjectileAiWithNoTarget.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "[self.projectile.owner getCenterPoint]">
-            </PersistentString>
-            <PersistentString
-               value = "self.projectile.position">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[SmallEnemy handleCollision]:SmallEnemy.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "obj.type">
-            </PersistentString>
-            <PersistentString
-               value = "self.collisionObjectArray">
-            </PersistentString>
-            <PersistentString
-               value = "[self allObjectsArray]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[Player initWithAllObjectArray:]:Player.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[AiObject moveToPosition:]:AiObject.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.node">
-            </PersistentString>
-            <PersistentString
-               value = "pos">
-            </PersistentString>
-            <PersistentString
-               value = "self.node.position">
-            </PersistentString>
-            <PersistentString
-               value = "abs(xDistance)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[AiObject initWithAllObjectArray:]:AiObject.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "allObjectsArray">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[AiObject updateForCommon]:AiObject.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.aiState">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[SmallEnemy addLifeBar]:SmallEnemy.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.lifeBar">
-            </PersistentString>
-            <PersistentString
-               value = "self.lifeBar.scaleY">
-            </PersistentString>
-            <PersistentString
-               value = "self.lifeBar.scaleX">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "+[Global initialize]:Global.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[SmallEnemy dieAction]:SmallEnemy.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.allObjectsArray">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[SmallEnemy onReadyToAttackTargetInRange]:SmallEnemy.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[AiObject findTargets]:AiObject.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[Player updateCollisionObjectArray]:Player.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.attackRange.width">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[PlayLayer update:]:PlayLayer.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "sword.position">
-            </PersistentString>
-            <PersistentString
-               value = "sword.scaleX">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[PlayLayer initWithLevel:]:PlayLayer.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "[[Global sharedManager] levelDataDict]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[AiObject collisionObjectsByDistance:]:AiObject.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "[obj getCenterPoint]">
-            </PersistentString>
-            <PersistentString
-               value = "[self getCenterPoint]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[Projectile update]:Projectile.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.particle.position">
-            </PersistentString>
-            <PersistentString
-               value = "self.collisionObjectArray">
-            </PersistentString>
-            <PersistentString
-               value = "self.allObjectsArray">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[SmallEnemy onCurHPIsZero]:SmallEnemy.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.allObjectsArray">
+               value = "projectile.findTargetsObserverArray">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -438,6 +403,80 @@
                value = "self.tileSpriteName">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer initWithLevel:]:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[[Global sharedManager] levelDataDict]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Projectile initWithAllObjectArray:withPostion:byName:]:Projectile.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.objectName">
+            </PersistentString>
+            <PersistentString
+               value = "self.particle.position">
+            </PersistentString>
+            <PersistentString
+               value = "self.allObjectsArray">
+            </PersistentString>
+            <PersistentString
+               value = "self.particle.boundingBox">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Hero onFindTargets]:Hero.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.findTargetsResult">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[Global rectInsect::]:Global.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "abs(distanceX)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy moveAnimation]:SmallEnemy.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer update:]:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "sword.position">
+            </PersistentString>
+            <PersistentString
+               value = "sword.scaleX">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AiObject sortAllObjectsByDistanceFromPosition:]:AiObject.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.allObjectsArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer checkGameOver]:PlayLayer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.tileDelegateArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[SmallEnemy onReadyToAttackTargetInRange]:SmallEnemy.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

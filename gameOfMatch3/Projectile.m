@@ -34,7 +34,7 @@
         self.attackedObjectsArray=[[NSMutableArray alloc]init];
         
         Magic* magic=[[Magic alloc]initWithName:name];
-        self.damage=magic.damage;
+        [self.damage resetWithValue:magic.damage];
         self.moveSpeed=[Attribute initWithValue:250.0f];
 
        
