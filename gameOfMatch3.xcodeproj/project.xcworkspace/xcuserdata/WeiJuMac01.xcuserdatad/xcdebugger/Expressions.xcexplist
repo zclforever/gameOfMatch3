@@ -102,10 +102,24 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[Attribute addWithAttribute:]:Attribute.m">
+      </ContextState>
+      <ContextState
          contextName = "-[PlayLayer handleTimeOut]:PlayLayer.m">
          <PersistentStrings>
             <PersistentString
                value = "self.enemyMountOfThisWave">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BuffFury recalcAttributeToOwner]:BuffFury.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "owner.damage">
+            </PersistentString>
+            <PersistentString
+               value = "attribute.addition">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -118,24 +132,24 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[BuffSlow recalcAttributeToOwner]:BuffSlow.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[owner.moveSpeed finalValue]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[SmallEnemy addLifeBar]:SmallEnemy.m">
          <PersistentStrings>
             <PersistentString
                value = "self.lifeBar">
             </PersistentString>
             <PersistentString
-               value = "self.lifeBar.scaleX">
-            </PersistentString>
-            <PersistentString
                value = "self.lifeBar.scaleY">
             </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[BuffSlow recalcAttributeToOwner]:BuffSlow.m">
-         <PersistentStrings>
             <PersistentString
-               value = "[owner.moveSpeed finalValue]">
+               value = "self.lifeBar.scaleX">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -160,13 +174,13 @@
          contextName = "-[Projectile update]:Projectile.m">
          <PersistentStrings>
             <PersistentString
+               value = "self.particle.position">
+            </PersistentString>
+            <PersistentString
                value = "self.allObjectsArray">
             </PersistentString>
             <PersistentString
                value = "self.collisionObjectArray">
-            </PersistentString>
-            <PersistentString
-               value = "self.particle.position">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -241,6 +255,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[Buff recalcAttributeToOwner]:Buff.m">
+      </ContextState>
+      <ContextState
          contextName = "-[Projectile accelerometer:didAccelerate:]:Projectile.m">
       </ContextState>
       <ContextState
@@ -266,6 +283,9 @@
                value = "self.findTargetsResult">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BuffHelper recalcAttribute]:BuffHelper.m">
       </ContextState>
       <ContextState
          contextName = "-[SmallEnemy updateLifeBar]:SmallEnemy.m">
@@ -304,19 +324,16 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[BuffHelper recalcAttribute]:BuffHelper.m">
-      </ContextState>
-      <ContextState
          contextName = "-[SmallEnemy handleCollision]:SmallEnemy.m">
          <PersistentStrings>
             <PersistentString
-               value = "[self allObjectsArray]">
+               value = "self.collisionObjectArray">
             </PersistentString>
             <PersistentString
                value = "obj.type">
             </PersistentString>
             <PersistentString
-               value = "self.collisionObjectArray">
+               value = "[self allObjectsArray]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -380,6 +397,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[Buff pushAttributeDictWithKeyArray:]:Buff.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.attributeDictForRecalculate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[Hero magicAttackWithName:withParameter:]:Hero.m">
          <PersistentStrings>
             <PersistentString
@@ -409,6 +434,14 @@
          <PersistentStrings>
             <PersistentString
                value = "[[Global sharedManager] levelDataDict]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Buff makeBuff]:Buff.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.attributeDatabase">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

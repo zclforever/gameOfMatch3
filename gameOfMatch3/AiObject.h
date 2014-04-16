@@ -39,7 +39,7 @@
     
 }
 //--------基本属性-----------
-@property (strong,nonatomic) NSMutableDictionary* attributeDict;
+@property (strong,nonatomic) NSMutableDictionary* attributeDatabase;
 @property int aiState;
 @property (strong,nonatomic) NSMutableArray* targetTags;
 @property (strong,nonatomic) NSMutableArray* selfTags;
@@ -56,7 +56,7 @@
 @property (strong,nonatomic) Attribute* maxEnergy;
 @property (strong,nonatomic) Attribute* moveSpeed;
 @property (strong,nonatomic) Attribute* attackCD;
-
+-(Attribute*)attributeByName:(NSString*)name;
 
 
 //@property float attackType;

@@ -30,17 +30,12 @@
 
         self.destPosition=ccp(zPlayerMarginLeft,480-zPlayerMarginTop);
         //初始化属性
-        self.attributeDict=[[[Global sharedManager]aiObjectsAttributeDict] valueForKey:self.objectName];
+        self.attributeDatabase=[[[Global sharedManager]aiObjectsAttributeDatabase] valueForKey:self.objectName];
         
         
-        self.animationMovePlist=[self.attributeDict valueForKey:@"animationMovePlist"];
-//        self.damage=[[self.attributeDict valueForKey:@"damage"] floatValue];
-//        self.attackCD=[[self.attributeDict valueForKey:@"attackCD"] floatValue];
-//        self.moveSpeed=[[self.attributeDict valueForKey:@"moveSpeed"] floatValue];
-//        self.maxHP=[[self.attributeDict valueForKey:@"maxHP"] floatValue];
-//        self.curHP=self.maxHP;
+        self.animationMovePlist=[self.attributeDatabase valueForKey:@"animationMovePlist"];
         
-        float scale=[[self.attributeDict valueForKey:@"spriteScale"] floatValue];
+        float scale=[[self.attributeDatabase valueForKey:@"spriteScale"] floatValue];
         
         self.sprite=[CCSprite spriteWithFile:@"transparent.png"];
         self.sprite.anchorPoint=ccp(0.5,0);
@@ -65,9 +60,7 @@
     return self;
 }
 
--(void)loadAttributeFromDict{
-    [super loadAttributeFromDict];
-}
+
 -(void)appearAtX:(int)x Y:(int)y{
     self.sprite.position=ccp(x,y);
     self.sprite.visible=YES;
@@ -117,7 +110,7 @@
 -(void)moveAnimation{
     [self.sprite stopAllActions];
     self.animatingTag=1;
-    float delay=[[self.attributeDict valueForKey:@"animationMoveDelay"] floatValue];
+    float delay=[[self.attributeDatabase valueForKey:@"animationMoveDelay"] floatValue];
 
     CCAnimation* animation=[self animationByPlist:self.animationMovePlist withDelay:delay];
     CCAction* action=[CCRepeatForever actionWithAction:[CCAnimate actionWithAnimation:animation]];
@@ -129,8 +122,8 @@
     [self.sprite stopAllActions];
     self.animatingTag=2;
 
-    float delay=[[self.attributeDict valueForKey:@"animationAttackDelay"] floatValue];
-    CCAnimation* animation=[self animationByPlist:[self.attributeDict valueForKey:@"animationAttackPlist"] withDelay:delay];
+    float delay=[[self.attributeDatabase valueForKey:@"animationAttackDelay"] floatValue];
+    CCAnimation* animation=[self animationByPlist:[self.attributeDatabase valueForKey:@"animationAttackPlist"] withDelay:delay];
 
     CCAction* action=[CCAnimate actionWithAnimation:animation];
     [self.sprite runAction:action ];

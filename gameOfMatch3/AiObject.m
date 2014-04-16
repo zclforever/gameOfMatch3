@@ -48,6 +48,8 @@
         //self.collisionObjects=[[NSMutableArray alloc]init];
         self.allObjectsArray=allObjectsArray;
         [self.allObjectsArray addObject:self];
+
+        
         
         self.findTargetsDelegate=[[AiObjectFindTargetsDelegate alloc]initWithOwner:self];
         [self.findTargetsDelegate addObserverWithType:@"attackRadius"];
@@ -55,15 +57,19 @@
     }
     return self;
 }
+-(Attribute*)attributeByName:(NSString*)name{
+    Attribute* attribute=(Attribute*)[self performSelector:NSSelectorFromString(name)];
+    return attribute;
+}
 -(void)start{
     [self updateForCommon];
 }
 -(void)initFromPlist{
-    self.attributeDict=[[[Global sharedManager]aiObjectsAttributeDict] valueForKey:self.objectName];
+    self.attributeDatabase=[[[Global sharedManager]aiObjectsAttributeDatabase] valueForKey:self.objectName];
     
     
     //self.animationMovePlist=[self.attributeDict valueForKey:@"animationMovePlist"];
-    //    self.damage=[[self.attributeDict valueForKey:@"damage"] floatValue];
+
     self.attackCD=[[Attribute alloc]init];
     self.moveSpeed=[[Attribute alloc]init];
     self.maxHP=[[Attribute alloc]init];
@@ -72,21 +78,21 @@
     [self loadAttributeFromDict];
     
     self.curHP=[self.maxHP finalValue];
-    self.curEnergy=0;
-    self.targetTags=[self.attributeDict valueForKey:@"targetTags"];
-    self.selfTags=[self.attributeDict valueForKey:@"tags"];
+    self.curEnergy=100;
+    self.targetTags=[self.attributeDatabase valueForKey:@"targetTags"];
+    self.selfTags=[self.attributeDatabase valueForKey:@"tags"];
 
-    if (!self.attributeDict[@"attackRadius"]) {
-        [self.attributeDict setValue:@20 forKey:@"attackRadius"];
+    if (!self.attributeDatabase[@"attackRadius"]) {
+        [self.attributeDatabase setValue:@20 forKey:@"attackRadius"];
     }
 }
 
 -(void)loadAttributeFromDict{
-    [self.attackCD loadWithKey:@"attackCD" fromDict:self.attributeDict];
-    [self.moveSpeed loadWithKey:@"moveSpeed" fromDict:self.attributeDict];
-    [self.maxHP loadWithKey:@"maxHP" fromDict:self.attributeDict];
-    [self.maxEnergy loadWithKey:@"maxEnergy" fromDict:self.attributeDict];
-    [self.damage loadWithKey:@"damage" fromDict:self.attributeDict];
+    [self.attackCD loadWithDict:self.attributeDatabase[@"attackCD"]];
+    [self.moveSpeed loadWithDict:self.attributeDatabase[@"moveSpeed"]];
+    [self.maxHP loadWithDict:self.attributeDatabase[@"maxHP"]];
+    [self.maxEnergy loadWithDict:self.attributeDatabase[@"maxEnergy"]];
+    [self.damage loadWithDict:self.attributeDatabase[@"damage"]];
 }
 
 
@@ -178,8 +184,8 @@
     if (!self.node) {
         return CGRectZero;
     }
-    float width=[[self.attributeDict valueForKey:@"width"] floatValue];
-    float height=[[self.attributeDict valueForKey:@"height"] floatValue];
+    float width=[[self.attributeDatabase valueForKey:@"width"] floatValue];
+    float height=[[self.attributeDatabase valueForKey:@"height"] floatValue];
     CGRect rect=self.node.boundingBox;
     CGRect ret;
     float x,y;

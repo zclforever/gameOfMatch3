@@ -18,17 +18,8 @@
 }
 -(void)makeBuff{
     
-    self.name=@"buff_slow";
-    self.liveTime=10.0;
- 
-    self.damage=[[Attribute alloc]init];
-    self.damage.value=0;
-    self.damage.addition=100;
-    self.damage.percentage=0;
-    
+    self.name=@"buff_fury"; //name 要先加 用来初始化attributeDatabase
     [super makeBuff];
-    //[self.sprite runAction:[CCTintTo actionWithDuration:3 red:160 green:160 blue:255]];
-    //[super start];
     
 }
 -(void)start{
@@ -37,12 +28,5 @@
     owner.curHP+=1000;
     [super start];
 }
--(void)recalcAttributeToOwner{
-    AiObject* owner=self.buffHelper.owner;
-    owner.damage.value+=self.damage.value;
-    owner.damage.addition+=self.damage.addition;
-    owner.damage.percentage+=self.damage.percentage;
-    
-    owner.attackCD.addition+=-1.5;
-}
+
 @end

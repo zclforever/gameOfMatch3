@@ -17,12 +17,15 @@
 @property float percentage;
 
 -(float)finalValue;
--(void)loadWithKey:(NSString*)key fromDict:(NSDictionary*)dict;
+-(void)loadWithDict:(NSDictionary*)dict; //[value n p] to attribute
+
 -(void)resetWithValue:(float)value;
 -(void)resetWithValue:(float)value withAddition:(float)addition withPercentage:(float)percentage;
 
 +(Attribute*)initWithValue:(float)value;
 +(Attribute*)initWithValue:(float)value withAddition:(float)addition withPercentage:(float)percentage;
-+(Attribute*)initWithKey:(NSString*)key fromDict:(NSDictionary*)dict;
 
++(Attribute*)attributeFromDict:(NSDictionary*)dict;
+
+-(void)addWithAttribute:(Attribute*)attribute;
 @end

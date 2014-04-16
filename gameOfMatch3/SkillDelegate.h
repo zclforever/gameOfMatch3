@@ -24,7 +24,7 @@
 //基本属性
 @property (weak,nonatomic) Tile* tile;
 @property (weak,nonatomic) Hero* parent;
-@property (strong,nonatomic) NSMutableDictionary* attributeDict;
+@property (strong,nonatomic) NSMutableDictionary* attributeDatabase;
 @property (strong,nonatomic) NSString* objectName;
 
 -(id)initWithName:(NSString*)name;

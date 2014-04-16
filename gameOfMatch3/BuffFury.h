@@ -13,5 +13,5 @@
 @interface BuffFury : Buff {
     
 }
-@property (strong,nonatomic) Attribute* damage;
+
 @end

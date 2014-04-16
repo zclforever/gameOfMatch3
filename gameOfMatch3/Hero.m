@@ -21,7 +21,7 @@
 
 -(NSDictionary *)removeByMount:(int)mount{
     NSDictionary* result=[[NSMutableDictionary alloc] init];
-    NSString* skill_big=[self.attributeDict valueForKey:@"skill_1"];
+    NSString* skill_big=[self.attributeDatabase valueForKey:@"skill_1"];
     SkillDelegate* skillDelegate=nil;
 
     if (!self.alive) {
@@ -68,7 +68,7 @@
         
     
     [super initFromPlist];
-    self.tileSpriteName=[self.attributeDict valueForKey:@"tileSpriteName"];
+    self.tileSpriteName=[self.attributeDatabase valueForKey:@"tileSpriteName"];
 
 
 }
@@ -81,7 +81,7 @@
 -(void)addPersonSpriteAtPosition:(CGPoint)position{
     self.startPosition=position;
     
-    NSString* standSpriteName=[self.attributeDict valueForKey:@"standSpriteName"];
+    NSString* standSpriteName=[self.attributeDatabase valueForKey:@"standSpriteName"];
     //[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"person003.plist"];
     
     //CCSpriteBatchNode *batchNode = [CCSpriteBatchNode batchNodeWithFile:@"person003.png"];
@@ -158,7 +158,7 @@
     if (self.curEnergy<5) {
         return NO;
     }
-    NSString* skillName=[self.attributeDict valueForKey:@"skill_0"];
+    NSString* skillName=[self.attributeDatabase valueForKey:@"skill_0"];
     [self.magicDelegate magicAttackWithName:skillName];
     self.curEnergy-=5;
     return YES;
@@ -171,7 +171,7 @@
     if (self.curEnergy<5) {
         return NO;
     }
-    NSString* skillName=[self.attributeDict valueForKey:@"skill_0"];
+    NSString* skillName=[self.attributeDatabase valueForKey:@"skill_0"];
     [self.magicDelegate magicAttackWithName:skillName];
     self.curEnergy-=5;
     return YES;

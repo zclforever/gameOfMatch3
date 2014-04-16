@@ -284,7 +284,7 @@
 		<key>standSpriteName</key>
 		<string>mage001_stand.png</string>
 		<key>skill_0</key>
-		<string>skill_fireBall</string>
+		<string>skill_bigFireBall</string>
 		<key>skill_1</key>
 		<string>skill_bigFireBall</string>
 		<key>damage</key>
@@ -412,7 +412,7 @@
 			<string>enemy</string>
 		</array>
 		<key>skill_0</key>
-		<string>skill_physicalAttack</string>
+		<string>skill_iceBall</string>
 		<key>skill_1</key>
 		<string>skill_fury</string>
 		<key>damage</key>
@@ -547,14 +547,45 @@
 	</dict>
 	<key>buff_fury</key>
 	<dict>
-		<key>attackRate</key>
+		<key>liveTime</key>
+		<integer>10</integer>
+		<key>recalcAttributes</key>
 		<dict>
-			<key>value</key>
-			<integer>0</integer>
-			<key>n</key>
-			<real>1</real>
-			<key>p</key>
-			<integer>0</integer>
+			<key>damage</key>
+			<dict>
+				<key>value</key>
+				<integer>0</integer>
+				<key>n</key>
+				<integer>100</integer>
+				<key>p</key>
+				<integer>0</integer>
+			</dict>
+			<key>attackCD</key>
+			<dict>
+				<key>value</key>
+				<integer>0</integer>
+				<key>n</key>
+				<real>-1.5</real>
+				<key>p</key>
+				<integer>0</integer>
+			</dict>
+		</dict>
+	</dict>
+	<key>buff_slow</key>
+	<dict>
+		<key>liveTime</key>
+		<integer>10</integer>
+		<key>recalcAttributes</key>
+		<dict>
+			<key>moveSpeed</key>
+			<dict>
+				<key>value</key>
+				<integer>0</integer>
+				<key>n</key>
+				<integer>0</integer>
+				<key>p</key>
+				<real>-0.5</real>
+			</dict>
 		</dict>
 	</dict>
 </dict>

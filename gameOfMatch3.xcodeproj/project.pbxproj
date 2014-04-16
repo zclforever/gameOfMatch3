@@ -248,7 +248,6 @@
 		02E0BB7818AF134500EF2408 /* SkillDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E0BB7718AF134500EF2408 /* SkillDelegate.m */; };
 		02F05A8D1831EED900676308 /* singleHammer.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F05A8C1831EED900676308 /* singleHammer.plist */; };
 		02F05A8F1831FDB700676308 /* hammer_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F05A8E1831FDB700676308 /* hammer_yellow.png */; };
-		02F1265418F6815C005EE6C8 /* BuffEnhance.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F1265318F6815C005EE6C8 /* BuffEnhance.m */; };
 		02F1265718F6847E005EE6C8 /* Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F1265618F6847E005EE6C8 /* Attribute.m */; };
 		02F1BFBA18E697C500294B2C /* Buff.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F1BFB918E697C500294B2C /* Buff.m */; };
 		02F2AA78185FFA4700C4FD14 /* AiObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F2AA77185FFA4700C4FD14 /* AiObject.m */; };
@@ -735,8 +734,6 @@
 		02E0BB7718AF134500EF2408 /* SkillDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkillDelegate.m; sourceTree = "<group>"; };
 		02F05A8C1831EED900676308 /* singleHammer.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = singleHammer.plist; sourceTree = "<group>"; };
 		02F05A8E1831FDB700676308 /* hammer_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer_yellow.png; sourceTree = "<group>"; };
-		02F1265218F6815C005EE6C8 /* BuffEnhance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuffEnhance.h; sourceTree = "<group>"; };
-		02F1265318F6815C005EE6C8 /* BuffEnhance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuffEnhance.m; sourceTree = "<group>"; };
 		02F1265518F6847E005EE6C8 /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
 		02F1265618F6847E005EE6C8 /* Attribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attribute.m; sourceTree = "<group>"; };
 		02F1BFB818E697C400294B2C /* Buff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buff.h; sourceTree = "<group>"; };
@@ -1531,8 +1528,6 @@
 				0205285718E2CAB0009C76FA /* BuffHelper.m */,
 				02F1BFB818E697C400294B2C /* Buff.h */,
 				02F1BFB918E697C500294B2C /* Buff.m */,
-				02F1265218F6815C005EE6C8 /* BuffEnhance.h */,
-				02F1265318F6815C005EE6C8 /* BuffEnhance.m */,
 				02336D3518E6B5D900E0E6CE /* BuffSlow.h */,
 				02336D3618E6B5D900E0E6CE /* BuffSlow.m */,
 				02F6C37F18FD268F00F27F02 /* BuffFury.h */,
@@ -1931,7 +1926,6 @@
 				0205285818E2CAB0009C76FA /* BuffHelper.m in Sources */,
 				02F1BFBA18E697C500294B2C /* Buff.m in Sources */,
 				02336D3718E6B5D900E0E6CE /* BuffSlow.m in Sources */,
-				02F1265418F6815C005EE6C8 /* BuffEnhance.m in Sources */,
 				02F1265718F6847E005EE6C8 /* Attribute.m in Sources */,
 				02F6C38118FD268F00F27F02 /* BuffFury.m in Sources */,
 			);

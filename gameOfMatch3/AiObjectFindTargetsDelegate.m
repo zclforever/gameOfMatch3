@@ -42,7 +42,7 @@
     float radius;
     
     for (NSString* observerRadiusType in self.findTargetsObserverArray) {
-        radius=[self.owner.attributeDict[observerRadiusType] floatValue];
+        radius=[self.owner.attributeDatabase[observerRadiusType] floatValue];
         ret=[self findTargetsByDistance:radius withObjectsArray:self.owner.allObjectsArray];
         //过滤不喜欢的目标
         ret=[self.owner objectsByTags:self.owner.targetTags from:ret];

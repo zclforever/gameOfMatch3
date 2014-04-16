@@ -12,5 +12,4 @@
 @interface BuffSlow : Buff {
     
 }
-@property (strong,nonatomic) Attribute* moveSpeed;
 @end

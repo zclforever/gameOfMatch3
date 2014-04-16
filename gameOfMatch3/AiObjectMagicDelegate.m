@@ -76,6 +76,15 @@
     
     else if([name isEqualToString:@"skill_iceBall"]){
         projectile=[[IceBall alloc]initWithAllObjectArray:self.owner.allObjectsArray withPostion:ccp(selfPosition.x+zPersonWidth+5,selfPosition.y+zPersonHeight/2-10) byName:name];
+        projectileAi=[[ProjectileAiWithTargets alloc] initWithTargets:targetsArray withOwner:projectile];;
+        
+        damageData.magicalDamage=12.0f;
+        
+        [[SimpleAudioEngine sharedEngine] playEffect:@"ice_fly.wav"];
+        
+    }
+    else if([name isEqualToString:@"skill_iceBall_through"]){
+        projectile=[[IceBall alloc]initWithAllObjectArray:self.owner.allObjectsArray withPostion:ccp(selfPosition.x+zPersonWidth+5,selfPosition.y+zPersonHeight/2-10) byName:name];
         projectileAi=[[ProjectileAiWithTargetPosition alloc] initWithDestPosition:ccp(zEnemyMarginLeft,selfPosition.y+zPersonHeight/2-10) withOwner:projectile] ;
         
         damageData.magicalDamage=2.0f;
@@ -83,7 +92,6 @@
         [[SimpleAudioEngine sharedEngine] playEffect:@"ice_fly.wav"];
         
     }
-    
     else if([name isEqualToString:@"skill_snowBall"]){
         float randomX=50+arc4random()%220;
         projectile=[[SnowBall alloc]initWithAllObjectArray:self.owner.allObjectsArray withPostion:ccp(randomX,460) byName:name];

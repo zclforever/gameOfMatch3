@@ -18,7 +18,7 @@
 
 #import "Buff.h"
 #import "BuffHelper.h"
-
+#import "AiObjectWithMagic.h"
 
 
 @implementation Buff
@@ -33,16 +33,22 @@
     self=[super init];
     self.buffHelper=buffHelper;
     [self makeBuff];
-    
-    
+
     return self;
 }
+-(void)pushAttributeDictFromDatabase:(NSDictionary*)dict{
+    for (NSString* key in dict.allKeys) {
+        self.attributeDictForRecalculate[key]=[Attribute attributeFromDict:dict[key]];
+    }
+}
 -(void)makeBuff{
-    
+    self.attributeDatabase=[[[Global sharedManager]aiObjectsAttributeDatabase] valueForKey:self.name];
+    self.attributeDictForRecalculate=[[NSMutableDictionary alloc]init];
+    self.liveTime=[self.attributeDatabase[@"liveTime"] floatValue];
+    [self pushAttributeDictFromDatabase:self.attributeDatabase[@"recalcAttributes"]];
 }
 
 -(void)add{
-    self.attributeDict=[[[Global sharedManager]aiObjectsAttributeDict] valueForKey:self.name];
     [self.buffHelper addBuffWith:self];
 }
 -(void)start{
@@ -63,6 +69,11 @@
 
 
 -(void)recalcAttributeToOwner{
+    AiObject* owner=self.buffHelper.owner;
+    for (NSString* key in [self.attributeDictForRecalculate allKeys]) {
+        Attribute* ownerAttrbute=[owner attributeByName:key];
+        [ownerAttrbute addWithAttribute:self.attributeDictForRecalculate[key]];
+    }
     
 }
 

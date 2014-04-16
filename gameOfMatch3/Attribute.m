@@ -28,8 +28,8 @@
     self.percentage=percentage;
 }
 
--(void)loadWithKey:(NSString*)key fromDict:(NSDictionary*)dict{
-    [self resetWithValue:[dict[key][@"value"] floatValue] withAddition:[dict[key][@"n"] floatValue] withPercentage:[dict[key][@"p"] floatValue]];
+-(void)loadWithDict:(NSDictionary*)dict{
+    [self resetWithValue:[dict[@"value"] floatValue] withAddition:[dict[@"n"] floatValue] withPercentage:[dict[@"p"] floatValue]];
 }
 
 +(Attribute*)initWithValue:(float)value{
@@ -42,7 +42,13 @@
     [attribute resetWithValue:value withAddition:addition withPercentage:percentage];
     return attribute;
 }
-+(Attribute*)initWithKey:(NSString*)key fromDict:(NSDictionary*)dict{
-    return [Attribute initWithValue:[dict[key][@"value"] floatValue] withAddition:[dict[key][@"n"] floatValue] withPercentage:[dict[key][@"p"] floatValue] ];
+
++(Attribute*)attributeFromDict:(NSDictionary*)dict{
+        return [Attribute initWithValue:[dict[@"value"] floatValue] withAddition:[dict[@"n"] floatValue] withPercentage:[dict[@"p"] floatValue] ];
+}
+-(void)addWithAttribute:(Attribute*)attribute{
+    self.value+=attribute.value;
+    self.addition+=attribute.addition;
+    self.percentage+=attribute.percentage;
 }
 @end

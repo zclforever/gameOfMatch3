@@ -11,7 +11,7 @@
 
 @protocol FindTargetsProtocol <NSObject>
     @property (strong,nonatomic) NSDictionary* findTargetsResult;
-    @property (strong,nonatomic) NSMutableDictionary* attributeDict;
+    @property (strong,nonatomic) NSMutableDictionary* attributeDatabase;
     @property (strong,nonatomic) NSMutableArray* targetTags;
     @property (nonatomic,weak) NSMutableArray* allObjectsArray;
 

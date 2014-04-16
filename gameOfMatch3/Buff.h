@@ -19,7 +19,8 @@
 }
 -(id)initWithBuffHelper:(BuffHelper*)buffHelper;
 
-@property (strong,nonatomic) NSDictionary* attributeDict;
+@property (strong,nonatomic) NSDictionary* attributeDatabase;//原始数据
+@property (strong,nonatomic) NSMutableDictionary* attributeDictForRecalculate; //里面装attribute Class
 @property float liveTime;
 @property float startTime;
 
@@ -36,4 +37,6 @@
 -(void)recalcAttributeToOwner;
 -(void)start;
 -(void)add;
+
+-(void)pushAttributeDictFromDatabase:(NSDictionary*)dict;
 @end

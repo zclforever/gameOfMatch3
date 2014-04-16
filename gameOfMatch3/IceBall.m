@@ -22,7 +22,6 @@
 -(void)onDirectAttatckTarget:(id)target{
         AiObjectWithMagic* obj=target;
         Buff* buff=[[BuffSlow alloc]initWithBuffHelper:obj.buffHelper];
-      
         [buff add];
 
         obj.node.position=ccp(obj.node.position.x+100,obj.node.position.y);
