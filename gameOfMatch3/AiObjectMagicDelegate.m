@@ -25,7 +25,7 @@
 -(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
     NSString* name=magicName;
     Projectile* projectile;
-    ProjectileAI* projectileAi;
+    AiBehavior* projectileAi;
     CGPoint selfPosition=[self.owner getCenterPoint];
     NSArray* targetsArray=[NSArray arrayWithArray:self.owner.findTargetsResult[@"attackRadius"]];
     bool noTarget=(!targetsArray||targetsArray.count==0)?YES:NO;
@@ -76,7 +76,8 @@
     
     else if([name isEqualToString:@"skill_iceBall"]){
         projectile=[[IceBall alloc]initWithAllObjectArray:self.owner.allObjectsArray withPostion:ccp(selfPosition.x+zPersonWidth+5,selfPosition.y+zPersonHeight/2-10) byName:name];
-        projectileAi=[[ProjectileAiWithTargets alloc] initWithTargets:targetsArray withOwner:projectile];;
+        projectileAi=[[AiLinearMoveToPosition alloc]initWithOwner:projectile withPosition:ccp(zEnemyMarginLeft,selfPosition.y+zPersonHeight/2-10)];
+        [projectile pushAiBeharvior:projectileAi];
         
         damageData.magicalDamage=12.0f;
         

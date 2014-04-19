@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "ProjectileAI.h"
-@interface ProjectileAiWithNoTarget : ProjectileAI {
+#import "AiBehavior.h"
+@interface ProjectileAiWithNoTarget : AiBehavior {
     
 }
 -(id)initWithOwner:(Projectile*)obj;

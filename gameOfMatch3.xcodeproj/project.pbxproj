@@ -236,7 +236,7 @@
 		02D6BB7818D29A37000B3B56 /* AiObjectFindTargetsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D6BB7718D29A37000B3B56 /* AiObjectFindTargetsDelegate.m */; };
 		02D6BB7B18D2D43B000B3B56 /* AiObjectMagicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D6BB7A18D2D43A000B3B56 /* AiObjectMagicDelegate.m */; };
 		02D6BB7F18D2DBEA000B3B56 /* FireBall.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D6BB7E18D2DBEA000B3B56 /* FireBall.m */; };
-		02D6BB8218D2E4A1000B3B56 /* ProjectileAI.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D6BB8118D2E4A1000B3B56 /* ProjectileAI.m */; };
+		02D6BB8218D2E4A1000B3B56 /* AiBehavior.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D6BB8118D2E4A1000B3B56 /* AiBehavior.m */; };
 		02D6BB8518D2FA56000B3B56 /* BigFireBall.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D6BB8418D2FA56000B3B56 /* BigFireBall.m */; };
 		02D6BB8818D2FB46000B3B56 /* IceBall.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D6BB8718D2FB45000B3B56 /* IceBall.m */; };
 		02D6BB8B18D2FC9B000B3B56 /* SnowBall.m in Sources */ = {isa = PBXBuildFile; fileRef = 02D6BB8A18D2FC9B000B3B56 /* SnowBall.m */; };
@@ -715,8 +715,8 @@
 		02D6BB7A18D2D43A000B3B56 /* AiObjectMagicDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiObjectMagicDelegate.m; sourceTree = "<group>"; };
 		02D6BB7D18D2DBEA000B3B56 /* FireBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FireBall.h; sourceTree = "<group>"; };
 		02D6BB7E18D2DBEA000B3B56 /* FireBall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FireBall.m; sourceTree = "<group>"; };
-		02D6BB8018D2E4A1000B3B56 /* ProjectileAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectileAI.h; sourceTree = "<group>"; };
-		02D6BB8118D2E4A1000B3B56 /* ProjectileAI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectileAI.m; sourceTree = "<group>"; };
+		02D6BB8018D2E4A1000B3B56 /* AiBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AiBehavior.h; sourceTree = "<group>"; };
+		02D6BB8118D2E4A1000B3B56 /* AiBehavior.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AiBehavior.m; sourceTree = "<group>"; };
 		02D6BB8318D2FA56000B3B56 /* BigFireBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigFireBall.h; sourceTree = "<group>"; };
 		02D6BB8418D2FA56000B3B56 /* BigFireBall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigFireBall.m; sourceTree = "<group>"; };
 		02D6BB8618D2FB45000B3B56 /* IceBall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IceBall.h; sourceTree = "<group>"; };
@@ -1492,8 +1492,8 @@
 				02D6BB8A18D2FC9B000B3B56 /* SnowBall.m */,
 				0241F4FE18DA86590081A61E /* PhysicalAttack.h */,
 				0241F4FF18DA86590081A61E /* PhysicalAttack.m */,
-				02D6BB8018D2E4A1000B3B56 /* ProjectileAI.h */,
-				02D6BB8118D2E4A1000B3B56 /* ProjectileAI.m */,
+				02D6BB8018D2E4A1000B3B56 /* AiBehavior.h */,
+				02D6BB8118D2E4A1000B3B56 /* AiBehavior.m */,
 				02F9377018C707D60039F692 /* ProjectileAiWithTargetPosition.h */,
 				02F9377118C707D60039F692 /* ProjectileAiWithTargetPosition.m */,
 				028A260C18C70C1A00C71BEA /* ProjectileAiWithTargets.h */,
@@ -1917,7 +1917,7 @@
 				02D6BB7818D29A37000B3B56 /* AiObjectFindTargetsDelegate.m in Sources */,
 				02D6BB7B18D2D43B000B3B56 /* AiObjectMagicDelegate.m in Sources */,
 				02D6BB7F18D2DBEA000B3B56 /* FireBall.m in Sources */,
-				02D6BB8218D2E4A1000B3B56 /* ProjectileAI.m in Sources */,
+				02D6BB8218D2E4A1000B3B56 /* AiBehavior.m in Sources */,
 				02D6BB8518D2FA56000B3B56 /* BigFireBall.m in Sources */,
 				02D6BB8818D2FB46000B3B56 /* IceBall.m in Sources */,
 				02D6BB8B18D2FC9B000B3B56 /* SnowBall.m in Sources */,

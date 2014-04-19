@@ -13,16 +13,8 @@
 
 @protocol ProjectileAiDelegate<NSObject>
 
-
--(void)onFindTargets;
--(void)onInAttackRange;
--(void)onFindNothing;
--(void)onNothingToDo;
--(void)onNotReadyToAttackTargetInRange;   //攻击CD未到
--(bool)onReadyToAttackTargetInRange;    //CD OK可以攻击了。
 -(void)onEnterFrame;
--(void)onInSightButNotInAttackRange;
--(bool)checkDie;
+
 @optional
 
 @end
@@ -31,8 +23,8 @@
     
 }
 
-@property (strong,nonatomic) id<ProjectileAiDelegate> aiDelegate;
-
+@property (strong,nonatomic) NSMutableArray* aiBeharviorsArray;
+-(void)pushAiBeharvior:(id)aiBeharvior;
 
 @property (strong,nonatomic) AiObject* owner;
 

@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
-#import "ProjectileAI.h"
-@interface ProjectileAiWithTargetPosition : ProjectileAI {
+#import "AiBehavior.h"
+@interface ProjectileAiWithTargetPosition : AiBehavior {
     
 }
 @property CGPoint destPostion;
