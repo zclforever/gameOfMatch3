@@ -34,3 +34,10 @@
 @end
 
 
+@implementation AiInstantRangeAttack
+
+-(void)onEnterFrame{
+    
+}
+
+@end

@@ -258,6 +258,9 @@
 		02F71A0F1834BC7500F60B1F /* particleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A0E1834BC7500F60B1F /* particleTexture.png */; };
 		02F71A111834CB9A00F60B1F /* rainFall.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A101834CB9A00F60B1F /* rainFall.plist */; };
 		02F71A131834CC6700F60B1F /* stars.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A121834CC6700F60B1F /* stars.plist */; };
+		02F917A71906056300C7DAC3 /* AiBeharvierText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02F917A61906056300C7DAC3 /* AiBeharvierText.strings */; };
+		02F917A91906066700C7DAC3 /* AiBeharviorImplentment.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02F917A81906066700C7DAC3 /* AiBeharviorImplentment.strings */; };
+		02F917AE1906408E00C7DAC3 /* YamlToPlist.py in Resources */ = {isa = PBXBuildFile; fileRef = 02F917AD1906408E00C7DAC3 /* YamlToPlist.py */; };
 		02F9377218C707D60039F692 /* ProjectileAiWithTargetPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F9377118C707D60039F692 /* ProjectileAiWithTargetPosition.m */; };
 		02F9B287185094A80083FDD7 /* bigFireBall.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F9B286185094A80083FDD7 /* bigFireBall.plist */; };
 		02F9B2891850972C0083FDD7 /* bigFireBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F9B2881850972C0083FDD7 /* bigFireBall.png */; };
@@ -748,6 +751,9 @@
 		02F71A0E1834BC7500F60B1F /* particleTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particleTexture.png; sourceTree = "<group>"; };
 		02F71A101834CB9A00F60B1F /* rainFall.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = rainFall.plist; sourceTree = "<group>"; };
 		02F71A121834CC6700F60B1F /* stars.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stars.plist; sourceTree = "<group>"; };
+		02F917A61906056300C7DAC3 /* AiBeharvierText.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = AiBeharvierText.strings; sourceTree = "<group>"; };
+		02F917A81906066700C7DAC3 /* AiBeharviorImplentment.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = AiBeharviorImplentment.strings; sourceTree = "<group>"; };
+		02F917AD1906408E00C7DAC3 /* YamlToPlist.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = YamlToPlist.py; sourceTree = "<group>"; };
 		02F9377018C707D60039F692 /* ProjectileAiWithTargetPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectileAiWithTargetPosition.h; sourceTree = "<group>"; };
 		02F9377118C707D60039F692 /* ProjectileAiWithTargetPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectileAiWithTargetPosition.m; sourceTree = "<group>"; };
 		02F9B286185094A80083FDD7 /* bigFireBall.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bigFireBall.plist; sourceTree = "<group>"; };
@@ -1077,6 +1083,7 @@
 		02B1741C17C5C6D60057DA00 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				02F917AD1906408E00C7DAC3 /* YamlToPlist.py */,
 				021B544E1883C206001D1020 /* AiObject.plist */,
 				02015D5E188A618C00C77FBE /* levelData.plist */,
 				0278B0C2187B98CB00A3AECA /* animations */,
@@ -1492,6 +1499,8 @@
 				02D6BB8A18D2FC9B000B3B56 /* SnowBall.m */,
 				0241F4FE18DA86590081A61E /* PhysicalAttack.h */,
 				0241F4FF18DA86590081A61E /* PhysicalAttack.m */,
+				02F917A61906056300C7DAC3 /* AiBeharvierText.strings */,
+				02F917A81906066700C7DAC3 /* AiBeharviorImplentment.strings */,
 				02D6BB8018D2E4A1000B3B56 /* AiBehavior.h */,
 				02D6BB8118D2E4A1000B3B56 /* AiBehavior.m */,
 				02F9377018C707D60039F692 /* ProjectileAiWithTargetPosition.h */,
@@ -1763,6 +1772,9 @@
 				021E8AB018CAC94C00CDA673 /* skill_fireBall.png in Resources */,
 				021E8AB118CAC94C00CDA673 /* skill_bigFireBall.png in Resources */,
 				021E8AB218CAC94C00CDA673 /* skill_iceBall.png in Resources */,
+				02F917A71906056300C7DAC3 /* AiBeharvierText.strings in Resources */,
+				02F917A91906066700C7DAC3 /* AiBeharviorImplentment.strings in Resources */,
+				02F917AE1906408E00C7DAC3 /* YamlToPlist.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

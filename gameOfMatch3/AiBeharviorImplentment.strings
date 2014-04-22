@@ -1,0 +1,13 @@
+Projectile(){
+    -(void)createBuff(name)  //name 应该通过buff helper 来上
+    -(void)createSkill(name) // projecitle.owner.magicShootByName(name)
+    -(void)pushBehavior(aiBehavior)
+    
+    EventHelper* eventHelper;
+}
+
+
+AiBehavior(){
+    
+    -emitToOwner() -> [self,signalName,paraDict]
+}

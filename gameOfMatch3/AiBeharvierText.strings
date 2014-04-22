@@ -1,0 +1,36 @@
+
+法师：
+    减速冰弹（打一个）
+    火陨石:从天上掉下来，途中遇到怪造成持续伤害
+弓箭手：
+    普通弓箭（打一个）
+    穿透箭
+
+。减速冰弹：
+    LinearMoveToPosition()
+        ->'position arrive'
+    InstantRangeAttack(max_hit=1)
+        ->'hit finished'
+    Buff(name=ice)
+    DieWhen('hit')
+
+.火陨石:
+    LinearMoveToPosition()
+        ->'position arrive'
+    ContinualAttack()
+    DieWhen('position arrive')
+
+.普通弓箭:
+    LinearMoveToPosition()
+        ->'position arrive'
+    InstantRangeAttack(total_hit=1)
+        ->'hit'
+    DieWhen('hit')
+
+.穿透箭
+    LinearMoveToPosition()
+        ->'position arrive'
+    InstantRangeAttack(max_hit_per_entity=1)
+        ->'hit'
+    DieWhen('positon arrive')
+

@@ -501,6 +501,31 @@
 			<key>p</key>
 			<integer>0</integer>
 		</dict>
+		<key>AiBehaviors</key>
+		<array>
+			<dict>
+				<key>type</key>
+				<string>LinearMoveToPosition</string>
+			</dict>
+			<dict>
+				<key>type</key>
+				<string>InstantRangeAttack</string>
+				<key>max_hit</key>
+				<integer>1</integer>
+			</dict>
+			<dict>
+				<key>type</key>
+				<string>Buff</string>
+				<key>buffName</key>
+				<string>ice</string>
+			</dict>
+			<dict>
+				<key>type</key>
+				<string>DieWhen</string>
+				<key>when</key>
+				<array/>
+			</dict>
+		</array>
 	</dict>
 	<key>skill_bigFireBall</key>
 	<dict>

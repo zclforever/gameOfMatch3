@@ -29,4 +29,9 @@
 -(id)initWithOwner:(Projectile *)obj withPosition:(CGPoint)position;
 @end
 
-
+//InstantRangeAttasck
+@interface AiInstantRangeAttack:AiBehavior{
+    
+}
+-(id)initWithOwner:(Projectile *)obj totalHit:(int)totalHit maxHitPerEntity:(int)maxHitPerEntity;
+@end
