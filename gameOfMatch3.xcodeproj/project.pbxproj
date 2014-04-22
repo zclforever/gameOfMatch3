@@ -260,7 +260,10 @@
 		02F71A131834CC6700F60B1F /* stars.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A121834CC6700F60B1F /* stars.plist */; };
 		02F917A71906056300C7DAC3 /* AiBeharvierText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02F917A61906056300C7DAC3 /* AiBeharvierText.strings */; };
 		02F917A91906066700C7DAC3 /* AiBeharviorImplentment.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02F917A81906066700C7DAC3 /* AiBeharviorImplentment.strings */; };
-		02F917AE1906408E00C7DAC3 /* YamlToPlist.py in Resources */ = {isa = PBXBuildFile; fileRef = 02F917AD1906408E00C7DAC3 /* YamlToPlist.py */; };
+		02F917B019065AD300C7DAC3 /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F917AF19065AD300C7DAC3 /* test.plist */; };
+		02F917B619066F7600C7DAC3 /* skill.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F917B519066F7600C7DAC3 /* skill.plist */; };
+		02F917B919066FBA00C7DAC3 /* skill.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 02F917B719066FBA00C7DAC3 /* skill.yaml */; };
+		02F917BA19066FBA00C7DAC3 /* test.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 02F917B819066FBA00C7DAC3 /* test.yaml */; };
 		02F9377218C707D60039F692 /* ProjectileAiWithTargetPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F9377118C707D60039F692 /* ProjectileAiWithTargetPosition.m */; };
 		02F9B287185094A80083FDD7 /* bigFireBall.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F9B286185094A80083FDD7 /* bigFireBall.plist */; };
 		02F9B2891850972C0083FDD7 /* bigFireBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F9B2881850972C0083FDD7 /* bigFireBall.png */; };
@@ -753,7 +756,10 @@
 		02F71A121834CC6700F60B1F /* stars.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stars.plist; sourceTree = "<group>"; };
 		02F917A61906056300C7DAC3 /* AiBeharvierText.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = AiBeharvierText.strings; sourceTree = "<group>"; };
 		02F917A81906066700C7DAC3 /* AiBeharviorImplentment.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = AiBeharviorImplentment.strings; sourceTree = "<group>"; };
-		02F917AD1906408E00C7DAC3 /* YamlToPlist.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = YamlToPlist.py; sourceTree = "<group>"; };
+		02F917AF19065AD300C7DAC3 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = test.plist; sourceTree = "<group>"; };
+		02F917B519066F7600C7DAC3 /* skill.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = skill.plist; sourceTree = "<group>"; };
+		02F917B719066FBA00C7DAC3 /* skill.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skill.yaml; sourceTree = "<group>"; };
+		02F917B819066FBA00C7DAC3 /* test.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.yaml; sourceTree = "<group>"; };
 		02F9377018C707D60039F692 /* ProjectileAiWithTargetPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectileAiWithTargetPosition.h; sourceTree = "<group>"; };
 		02F9377118C707D60039F692 /* ProjectileAiWithTargetPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectileAiWithTargetPosition.m; sourceTree = "<group>"; };
 		02F9B286185094A80083FDD7 /* bigFireBall.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bigFireBall.plist; sourceTree = "<group>"; };
@@ -923,7 +929,8 @@
 				0278B0C3187B98D900A3AECA /* smallEnemy */,
 			);
 			name = animations;
-			sourceTree = "<group>";
+			path = gameOfMatch3/Resources/animations;
+			sourceTree = SOURCE_ROOT;
 		};
 		0278B0C3187B98D900A3AECA /* smallEnemy */ = {
 			isa = PBXGroup;
@@ -1083,39 +1090,12 @@
 		02B1741C17C5C6D60057DA00 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				02F917AD1906408E00C7DAC3 /* YamlToPlist.py */,
-				021B544E1883C206001D1020 /* AiObject.plist */,
-				02015D5E188A618C00C77FBE /* levelData.plist */,
+				02F917B4190663A900C7DAC3 /* plist */,
+				02F917B31906639A00C7DAC3 /* ttf */,
 				0278B0C2187B98CB00A3AECA /* animations */,
 				7571AE3917E9D3220049D790 /* sound */,
-				0278B119187BEE0F00A3AECA /* tilesColored.png */,
-				753972ED17D5580E008EA3A0 /* AYummyApology.ttf */,
-				021E8AAD18CAC94C00CDA673 /* skill_fireBall.png */,
-				021E8AAE18CAC94C00CDA673 /* skill_bigFireBall.png */,
-				021E8AAF18CAC94C00CDA673 /* skill_iceBall.png */,
-				753972EB17D5557E008EA3A0 /* Paint-Boy.ttf */,
-				02A260141814F36B009F2719 /* border.png */,
-				02D87785188FACC7007F05CA /* border_yellow_gray.png */,
-				02D87781188FA5B5007F05CA /* bar_yellow.png */,
-				02D87782188FA5B5007F05CA /* border_yellow.png */,
-				02A260161814F4C1009F2719 /* lifeBar.png */,
-				02A2601818150450009F2719 /* apBar.png */,
-				02A2601A18151232009F2719 /* circle.png */,
-				757FFF8517F5CBA5007A8F59 /* borderColumn.png */,
-				757FFF8717F5CD99007A8F59 /* blueRow.png */,
-				757FFF8817F5CD99007A8F59 /* redRow.png */,
-				75B4245A17F59B0C00BE0955 /* redColumn.png */,
-				75B4245E17F5C9A800BE0955 /* blueColumn.png */,
-				75B4245F17F5C9A900BE0955 /* greenColumn.png */,
-				75B4246017F5C9A900BE0955 /* yellowColumn.png */,
-				75B4245C17F5B3F500BE0955 /* checkMark.png */,
-				02FEF451182CD647001DBEE6 /* checkMark_White.png */,
-				753731AA17CFACED00B0BEDF /* lifeBar-mine.png */,
-				75B4245817F59AEC00BE0955 /* transparent.png */,
+				02F917B2190661BC00C7DAC3 /* pic */,
 				0212EC60187FB61E00F8A633 /* cocos */,
-				0212EC5F187FB5D600F8A633 /* block */,
-				0259BBDE17DDB28C0033F345 /* persons */,
-				0209D24B1820DD1C00FAFD26 /* particle */,
 				02B1743117C5C6D60057DA00 /* Info.plist */,
 				02B1743217C5C6D60057DA00 /* iTunesArtwork */,
 			);
@@ -1545,6 +1525,62 @@
 			name = Buff;
 			sourceTree = "<group>";
 		};
+		02F917B2190661BC00C7DAC3 /* pic */ = {
+			isa = PBXGroup;
+			children = (
+				0212EC5F187FB5D600F8A633 /* block */,
+				0209D24B1820DD1C00FAFD26 /* particle */,
+				0259BBDE17DDB28C0033F345 /* persons */,
+				0278B119187BEE0F00A3AECA /* tilesColored.png */,
+				021E8AAD18CAC94C00CDA673 /* skill_fireBall.png */,
+				021E8AAE18CAC94C00CDA673 /* skill_bigFireBall.png */,
+				021E8AAF18CAC94C00CDA673 /* skill_iceBall.png */,
+				02A260141814F36B009F2719 /* border.png */,
+				02D87785188FACC7007F05CA /* border_yellow_gray.png */,
+				02D87781188FA5B5007F05CA /* bar_yellow.png */,
+				02D87782188FA5B5007F05CA /* border_yellow.png */,
+				02A260161814F4C1009F2719 /* lifeBar.png */,
+				02A2601818150450009F2719 /* apBar.png */,
+				02A2601A18151232009F2719 /* circle.png */,
+				757FFF8517F5CBA5007A8F59 /* borderColumn.png */,
+				757FFF8717F5CD99007A8F59 /* blueRow.png */,
+				757FFF8817F5CD99007A8F59 /* redRow.png */,
+				75B4245A17F59B0C00BE0955 /* redColumn.png */,
+				75B4245E17F5C9A800BE0955 /* blueColumn.png */,
+				75B4245F17F5C9A900BE0955 /* greenColumn.png */,
+				75B4246017F5C9A900BE0955 /* yellowColumn.png */,
+				75B4245C17F5B3F500BE0955 /* checkMark.png */,
+				02FEF451182CD647001DBEE6 /* checkMark_White.png */,
+				753731AA17CFACED00B0BEDF /* lifeBar-mine.png */,
+				75B4245817F59AEC00BE0955 /* transparent.png */,
+			);
+			name = pic;
+			path = Resources/pic;
+			sourceTree = "<group>";
+		};
+		02F917B31906639A00C7DAC3 /* ttf */ = {
+			isa = PBXGroup;
+			children = (
+				753972ED17D5580E008EA3A0 /* AYummyApology.ttf */,
+				753972EB17D5557E008EA3A0 /* Paint-Boy.ttf */,
+			);
+			name = ttf;
+			sourceTree = "<group>";
+		};
+		02F917B4190663A900C7DAC3 /* plist */ = {
+			isa = PBXGroup;
+			children = (
+				02F917B719066FBA00C7DAC3 /* skill.yaml */,
+				02F917B819066FBA00C7DAC3 /* test.yaml */,
+				02F917B519066F7600C7DAC3 /* skill.plist */,
+				02F917AF19065AD300C7DAC3 /* test.plist */,
+				021B544E1883C206001D1020 /* AiObject.plist */,
+				02015D5E188A618C00C77FBE /* levelData.plist */,
+			);
+			name = plist;
+			path = Resources/plist;
+			sourceTree = "<group>";
+		};
 		7571AE3917E9D3220049D790 /* sound */ = {
 			isa = PBXGroup;
 			children = (
@@ -1581,6 +1617,7 @@
 				7571AE3B17E9D5CE0049D790 /* background.caf */,
 			);
 			name = sound;
+			path = Resources/sound;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1774,7 +1811,10 @@
 				021E8AB218CAC94C00CDA673 /* skill_iceBall.png in Resources */,
 				02F917A71906056300C7DAC3 /* AiBeharvierText.strings in Resources */,
 				02F917A91906066700C7DAC3 /* AiBeharviorImplentment.strings in Resources */,
-				02F917AE1906408E00C7DAC3 /* YamlToPlist.py in Resources */,
+				02F917B019065AD300C7DAC3 /* test.plist in Resources */,
+				02F917B619066F7600C7DAC3 /* skill.plist in Resources */,
+				02F917B919066FBA00C7DAC3 /* skill.yaml in Resources */,
+				02F917BA19066FBA00C7DAC3 /* test.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -89,7 +89,13 @@ enum DamageType {
 };
 typedef enum DamageType DamageType;
 #endif
+@interface DataBase:NSObject
+@property (strong,nonatomic) NSMutableDictionary* skills;
+@property (strong,nonatomic) NSMutableDictionary* heros;
+@property (strong,nonatomic) NSMutableDictionary* levelData;
+@property (strong,nonatomic) NSMutableDictionary* enemys;
 
+@end
 
 @interface Global :CCLayer
 
@@ -101,12 +107,14 @@ typedef enum DamageType DamageType;
 @property (strong,nonatomic) NSString* lastSelectedString;
 @property (strong,nonatomic) NSMutableArray* nameOfGameLevelArray;
 @property (strong,nonatomic) CCSprite* setTimeOut;
-@property (strong,nonatomic) NSMutableDictionary* aiObjectsAttributeDatabase;
+@property (strong,nonatomic) DataBase* dataBase;
 @property (strong,nonatomic) NSMutableDictionary* levelDataDict;
 @property (strong,nonatomic) NSMutableArray* allEnemys;
 
 + (id)sharedManager;
 +(id)menuOfBackTo:(CCScene*)scene;
 +(bool)rectInsect:(CGRect)rect1 :(CGRect)rect2;
++(NSArray*)arrayFromPlist:(NSString*)plistName;
++(NSMutableDictionary*)arrayToDictUsingNameForKey:(NSArray*)array;
 @end
 

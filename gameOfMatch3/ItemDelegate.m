@@ -21,7 +21,7 @@
     return self;
 }
 -(void)initFromPlist{
-    self.attributeDict=[[[Global sharedManager]aiObjectsAttributeDatabase] valueForKey:self.objectName];
+    self.attributeDict=[[[Global sharedManager]dataBase] valueForKey:self.objectName];
     
     
     //self.animationMovePlist=[self.attributeDict valueForKey:@"animationMovePlist"];

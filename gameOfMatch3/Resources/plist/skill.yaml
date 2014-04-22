@@ -1,0 +1,29 @@
+    - name: iceBall
+      cnName: 减速冰弹
+      behaviors:
+        - name: LinearMoveToPosition
+        - name: InstantRangeAttack
+          maxHit: 1
+        - name: Buff
+          buffName: ice
+        - name: DieWhen
+          when: hit
+            
+    - name: bigFireBall
+      cnName: 火流星
+      behaviors: 
+        - name: LinearMoveToPosition
+        - name: ContinualAttack
+        - name: Buff
+          buffName: ice
+        - name: DieWhen
+          when: position    arrive
+            
+    - name: arrow
+      cnName: 狙击弓箭
+      behaviors: 
+        - name: LinearMoveToPosition
+        - name: InstantRangeAttack
+          maxHit: 1
+        - name: DieWhen
+          when: hit

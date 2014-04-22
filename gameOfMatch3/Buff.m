@@ -42,7 +42,7 @@
     }
 }
 -(void)makeBuff{
-    self.attributeDatabase=[[[Global sharedManager]aiObjectsAttributeDatabase] valueForKey:self.name];
+    self.attributeDatabase=[[[Global sharedManager]dataBase] valueForKey:self.name];
     self.attributeDictForRecalculate=[[NSMutableDictionary alloc]init];
     self.liveTime=[self.attributeDatabase[@"liveTime"] floatValue];
     [self pushAttributeDictFromDatabase:self.attributeDatabase[@"recalcAttributes"]];

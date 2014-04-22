@@ -24,6 +24,10 @@
 
 #import "Global.h"
 
+@implementation DataBase
+
+@end
+
 /* 线程安全的实现 */
 @implementation Global
 
@@ -32,8 +36,15 @@ static id sharedManager = nil;
 + (void)initialize {
     if (self == [Global class]) {
         sharedManager = [[self alloc] init];
-        [sharedManager setAiObjectsAttributeDatabase:[NSMutableDictionary dictionaryWithContentsOfFile:[[CCFileUtils sharedFileUtils] fullPathForFilename:@"AiObject.plist"]]];
-        [sharedManager setLevelDataDict:[NSMutableDictionary dictionaryWithContentsOfFile:[[CCFileUtils sharedFileUtils] fullPathForFilename:@"levelData.plist"]]];
+        DataBase* dataBase=[[DataBase alloc]init];
+        dataBase.skills=[sharedManager arrayToDictUsingNameForKey:[sharedManager arrayFromPlist:@"skill.plist"]];
+        dataBase.heros=[sharedManager arrayToDictUsingNameForKey:[sharedManager arrayFromPlist:@"hero.plist"]];
+        dataBase.enemys=[sharedManager arrayToDictUsingNameForKey:[sharedManager arrayFromPlist:@"enemy.plist"]];
+        dataBase.levelData=[sharedManager arrayToDictUsingNameForKey:[sharedManager arrayFromPlist:@"levelData.plist"]];
+        
+        
+        [sharedManager setDataBase:dataBase];
+
         
         
         [sharedManager setAllEnemys:[NSMutableArray arrayWithObjects:@"smallEnemy_mouse",@"smallEnemy_knight",@"smallEnemy_stoneMan", @"bossEnemy",nil]];
@@ -54,6 +65,13 @@ static id sharedManager = nil;
 
     return ret;
     
+}
+
++(NSArray*)arrayFromPlist:(NSString*)plistName{
+        return [NSMutableArray arrayWithContentsOfFile:[[CCFileUtils sharedFileUtils] fullPathForFilename:plistName]];
+}
++(NSMutableDictionary*)arrayToDictUsingNameForKey:(NSArray*)array{
+
 }
 +(id)menuOfBackTo:(CCScene*)scene{
 

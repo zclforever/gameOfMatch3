@@ -30,7 +30,7 @@
 
         self.destPosition=ccp(zPlayerMarginLeft,480-zPlayerMarginTop);
         //初始化属性
-        self.attributeDatabase=[[[Global sharedManager]aiObjectsAttributeDatabase] valueForKey:self.objectName];
+        self.attributeDatabase=[[[Global sharedManager]dataBase] valueForKey:self.objectName];
         
         
         self.animationMovePlist=[self.attributeDatabase valueForKey:@"animationMovePlist"];
