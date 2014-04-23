@@ -18,6 +18,9 @@
 
     return self;
 }
+-(NSDictionary*)magicByName:(NSString *)name{
+    return [Global searchArray:[[Global sharedManager] skills] whereKey:@"name" isEqualToValue:name];
+}
 -(void)magicAttackWithName:(NSString *)magicName{
     [self magicAttackWithName:magicName withParameter:nil];
 }
@@ -79,17 +82,41 @@
         CGPoint destPosition=ccp(zEnemyMarginLeft,selfPosition.y+zPersonHeight/2-10);
         
         projectile=[[IceBall alloc] initWithAllObjectArray:self.owner.allObjectsArray
-                    withPostion:startPosition
-                    byName:name];
+                                               withPostion:startPosition
+                                                    byName:name];
         
-        projectileAi=[[AiLinearMoveToPosition alloc]initWithOwner:projectile
-                      withPosition:destPosition];
-        [projectile pushAiBeharvior:projectileAi];
         
-        projectileAi=[[AiInstantRangeAttack alloc]initWithOwner:projectile
-                                                       totalHit:1 maxHitPerEntity:-1];
-        [projectile pushAiBeharvior:projectileAi];
-        
+        NSDictionary* iceBallData=[self magicByName:name];
+        AiBehavior* aiBehavior;
+        for (NSDictionary* behaviorData in iceBallData[@"behaviors"]) {
+            NSString* behaviorType=behaviorData[@"type"];
+            if ([behaviorType isEqualToString:@"LinearMoveToPosition"]) {
+                aiBehavior=[[AiLinearMoveToPosition alloc]initWithOwner:projectile withPosition:startPosition];
+                [projectile pushAiBeharvior:aiBehavior];
+            }
+            
+            else if ([behaviorType isEqualToString:@"InstantRangeAttack"]){
+                int maxHit=[behaviorData[@"max_hit"] intValue];
+                int maxHitPerEntity=[behaviorData[@"max_hit_per_entity"] intValue];
+                aiBehavior=[[AiInstantRangeAttack alloc]initWithOwner:projectile totalHit:maxHit maxHitPerEntity:maxHitPerEntity];
+                [projectile pushAiBeharvior:aiBehavior];
+            }
+          
+            
+            else if ([behaviorType isEqualToString:@"DieWhen"]){
+                aiBehavior=[[AiLinearMoveToPosition alloc]initWithOwner:projectile withPosition:startPosition];
+                [projectile pushAiBeharvior:aiBehavior];
+            }
+            
+            else if ([behaviorType isEqualToString:@"ContinualAttack"]){
+                //aiBehavior=[[ alloc]initWithOwner:projectile withPosition:startPosition];
+                //[projectile pushAiBeharvior:aiBehavior];
+            }
+            else if ([behaviorType isEqualToString:@"Buff"]){
+                
+            }
+        }
+
         damageData.magicalDamage=12.0f;
         
         [[SimpleAudioEngine sharedEngine] playEffect:@"ice_fly.wav"];

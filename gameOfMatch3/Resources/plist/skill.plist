@@ -3,26 +3,28 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>attackRadius</key>
+		<integer>10</integer>
 		<key>behaviors</key>
 		<array>
 			<dict>
-				<key>name</key>
+				<key>type</key>
 				<string>LinearMoveToPosition</string>
 			</dict>
 			<dict>
 				<key>maxHit</key>
 				<integer>1</integer>
-				<key>name</key>
+				<key>type</key>
 				<string>InstantRangeAttack</string>
 			</dict>
 			<dict>
 				<key>buffName</key>
 				<string>ice</string>
-				<key>name</key>
+				<key>type</key>
 				<string>Buff</string>
 			</dict>
 			<dict>
-				<key>name</key>
+				<key>type</key>
 				<string>DieWhen</string>
 				<key>when</key>
 				<string>hit</string>
@@ -31,52 +33,56 @@
 		<key>cnName</key>
 		<string>减速冰弹</string>
 		<key>name</key>
-		<string>iceBall</string>
+		<string>skill_iceBall</string>
 	</dict>
 	<dict>
+		<key>attackRadius</key>
+		<integer>10</integer>
 		<key>behaviors</key>
 		<array>
 			<dict>
-				<key>name</key>
+				<key>type</key>
 				<string>LinearMoveToPosition</string>
 			</dict>
 			<dict>
-				<key>name</key>
+				<key>type</key>
 				<string>ContinualAttack</string>
 			</dict>
 			<dict>
-				<key>buffName</key>
+				<key>buffType</key>
 				<string>ice</string>
-				<key>name</key>
+				<key>type</key>
 				<string>Buff</string>
 			</dict>
 			<dict>
-				<key>name</key>
+				<key>type</key>
 				<string>DieWhen</string>
 				<key>when</key>
-				<string>position    arrive</string>
+				<string>position_arrive</string>
 			</dict>
 		</array>
 		<key>cnName</key>
 		<string>火流星</string>
 		<key>name</key>
-		<string>bigFireBall</string>
+		<string>skill_bigFireBall</string>
 	</dict>
 	<dict>
+		<key>attackRadius</key>
+		<integer>10</integer>
 		<key>behaviors</key>
 		<array>
 			<dict>
-				<key>name</key>
+				<key>type</key>
 				<string>LinearMoveToPosition</string>
 			</dict>
 			<dict>
 				<key>maxHit</key>
 				<integer>1</integer>
-				<key>name</key>
+				<key>type</key>
 				<string>InstantRangeAttack</string>
 			</dict>
 			<dict>
-				<key>name</key>
+				<key>type</key>
 				<string>DieWhen</string>
 				<key>when</key>
 				<string>hit</string>
@@ -85,7 +91,7 @@
 		<key>cnName</key>
 		<string>狙击弓箭</string>
 		<key>name</key>
-		<string>arrow</string>
+		<string>skill_arrow</string>
 	</dict>
 </array>
 </plist>

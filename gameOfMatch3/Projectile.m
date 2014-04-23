@@ -8,7 +8,7 @@
 
 #import "Projectile.h"
 #import "Magic.h"
-
+#import "AiBehavior.h"
 
 @interface Projectile()
 @property int count;
@@ -33,6 +33,9 @@
         
         self.attackedObjectsArray=[[NSMutableArray alloc]init];
         self.aiBeharviorsArray=[[NSMutableArray alloc]init];
+        
+        self.attributeDatabase=[Global searchArray:[[Global sharedManager] skills] whereKey:@"name" isEqualToValue:name];
+        
         
         Magic* magic=[[Magic alloc]initWithName:name];
         [self.damage resetWithValue:magic.damage];
@@ -84,6 +87,12 @@
     self.node.position=ccp(self.node.position.x+acceleration.x*8,self.node.position.y);
 
 
+}
+-(void)start{
+    for (AiBehavior* aiBehavior in self.aiBeharviorsArray) {
+        [aiBehavior start];
+    }
+    [super start];
 }
 -(void)onDirectAttatckTarget:(AiObject*)obj{ //重载 用来做攻击效果 比如冰冻给BUFF
     

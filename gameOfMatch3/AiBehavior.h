@@ -9,14 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "Projectile.h"
-
+#import "AiObject.h"
 
 @interface AiBehavior : NSObject<ProjectileAiDelegate> {
     
 }
--(id)initWithOwner:(Projectile*)obj;
-
-@property Projectile* projectile;
+-(id)initWithOwner:(AiObject*)obj;
+-(void)start;
+@property bool started;
+@property (nonatomic,weak) AiObject* owner;
+@property (nonatomic,strong) NSString* name;
 @end
 
 
@@ -26,12 +28,28 @@
 @interface AiLinearMoveToPosition:AiBehavior{
     
 }
--(id)initWithOwner:(Projectile *)obj withPosition:(CGPoint)position;
+-(id)initWithOwner:(AiObject *)obj withPosition:(CGPoint)position;
+@property CGPoint destPostion;
 @end
+
+
 
 //InstantRangeAttasck
 @interface AiInstantRangeAttack:AiBehavior{
     
 }
--(id)initWithOwner:(Projectile *)obj totalHit:(int)totalHit maxHitPerEntity:(int)maxHitPerEntity;
+-(id)initWithOwner:(AiObject *)obj totalHit:(int)totalHit maxHitPerEntity:(int)maxHitPerEntity;
+@property int totalHit;
+@property int hitCount;
+@property int maxHitPerEntity;
+@end
+
+
+
+//DieWhen
+@interface AiDieWhen:AiBehavior{
+    
+}
+@property (nonatomic,strong) NSMutableArray* messageArray;
+@property (nonatomic,strong) NSMutableDictionary* messageArrived;
 @end

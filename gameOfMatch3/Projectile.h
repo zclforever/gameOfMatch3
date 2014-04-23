@@ -10,7 +10,7 @@
 #import "cocos2d.h"
 #import "AiObject.h"
 #import "BuffHelper.h"
-
+@class  AiBehavior;
 @protocol ProjectileAiDelegate<NSObject>
 
 -(void)onEnterFrame;
@@ -24,7 +24,7 @@
 }
 
 @property (strong,nonatomic) NSMutableArray* aiBeharviorsArray;
--(void)pushAiBeharvior:(id)aiBeharvior;
+-(void)pushAiBeharvior:(AiBehavior*)aiBeharvior;
 
 @property (strong,nonatomic) AiObject* owner;
 
@@ -38,4 +38,5 @@
 -(void)dieAction;
 -(void)makeNode;
 -(void)onDirectAttatckTarget:(AiObject*)obj;
+-(void)onDie;
 @end

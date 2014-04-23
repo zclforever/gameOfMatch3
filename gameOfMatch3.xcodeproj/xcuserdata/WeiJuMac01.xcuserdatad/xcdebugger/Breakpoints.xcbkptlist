@@ -534,7 +534,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "55"
          endingLineNumber = "55"
-         landmarkName = "+rectInsect::"
+         landmarkName = "+sharedManager"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -548,8 +548,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "53"
          endingLineNumber = "53"
-         landmarkName = "+rectInsect::"
-         landmarkType = "5">
+         landmarkName = "@implementation Global"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -952,19 +952,6 @@
          startingLineNumber = "32"
          endingLineNumber = "32"
          landmarkName = "-loadWithDict:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "gameOfMatch3/AiObjectMagicDelegate.m"
-         timestampString = "419322297.621302"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "78"
-         endingLineNumber = "78"
-         landmarkName = "-magicAttackWithName:withParameter:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -1,29 +1,33 @@
-    - name: iceBall
+    - name: skill_iceBall
       cnName: 减速冰弹
+      attackRadius: 10
+      magicDamage: 20
       behaviors:
-        - name: LinearMoveToPosition
-        - name: InstantRangeAttack
+        - type: LinearMoveToPosition
+        - type: InstantRangeAttack
           maxHit: 1
-        - name: Buff
+        - type: Buff
           buffName: ice
-        - name: DieWhen
+        - type: DieWhen
           when: hit
             
-    - name: bigFireBall
+    - name: skill_bigFireBall
       cnName: 火流星
+      attackRadius: 10
       behaviors: 
-        - name: LinearMoveToPosition
-        - name: ContinualAttack
-        - name: Buff
-          buffName: ice
-        - name: DieWhen
-          when: position    arrive
+        - type: LinearMoveToPosition
+        - type: ContinualAttack
+        - type: Buff
+          buffType: ice
+        - type: DieWhen
+          when: position_arrive
             
-    - name: arrow
+    - name: skill_arrow
       cnName: 狙击弓箭
+      attackRadius: 10
       behaviors: 
-        - name: LinearMoveToPosition
-        - name: InstantRangeAttack
+        - type: LinearMoveToPosition
+        - type: InstantRangeAttack
           maxHit: 1
-        - name: DieWhen
+        - type: DieWhen
           when: hit

@@ -39,7 +39,7 @@
     
 }
 //--------基本属性-----------
-@property (strong,nonatomic) NSMutableDictionary* attributeDatabase;
+@property (strong,nonatomic) NSDictionary* attributeDatabase;
 @property int aiState;
 @property (strong,nonatomic) NSMutableArray* targetTags;
 @property (strong,nonatomic) NSMutableArray* selfTags;

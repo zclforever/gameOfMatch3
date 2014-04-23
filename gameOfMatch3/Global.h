@@ -90,10 +90,10 @@ enum DamageType {
 typedef enum DamageType DamageType;
 #endif
 @interface DataBase:NSObject
-@property (strong,nonatomic) NSMutableDictionary* skills;
-@property (strong,nonatomic) NSMutableDictionary* heros;
-@property (strong,nonatomic) NSMutableDictionary* levelData;
-@property (strong,nonatomic) NSMutableDictionary* enemys;
+@property (strong,nonatomic) NSArray* skills;
+@property (strong,nonatomic) NSArray* heros;
+@property (strong,nonatomic) NSArray* levelData;
+@property (strong,nonatomic) NSArray* enemys;
 
 @end
 
@@ -115,6 +115,6 @@ typedef enum DamageType DamageType;
 +(id)menuOfBackTo:(CCScene*)scene;
 +(bool)rectInsect:(CGRect)rect1 :(CGRect)rect2;
 +(NSArray*)arrayFromPlist:(NSString*)plistName;
-+(NSMutableDictionary*)arrayToDictUsingNameForKey:(NSArray*)array;
++(NSDictionary*)searchArray:(NSArray*)array whereKey:(NSString*)key isEqualToValue:(NSString*)value;
 @end
 

@@ -42,5 +42,6 @@
 
     -(void)magicAttackWithName:(NSString*)magicName;
     -(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict;
+-(NSDictionary*)magicByName:(NSString*)name;
 
 @end
