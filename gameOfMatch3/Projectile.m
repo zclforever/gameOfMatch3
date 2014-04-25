@@ -34,12 +34,11 @@
         self.attackedObjectsArray=[[NSMutableArray alloc]init];
         self.aiBeharviorsArray=[[NSMutableArray alloc]init];
         
-        self.attributeDatabase=[Global searchArray:[[Global sharedManager] skills] whereKey:@"name" isEqualToValue:name];
+        self.attributeDatabase=[Global searchArray:[[[Global sharedManager]dataBase] skills] whereKey:@"name" isEqualToValue:name][0];
         
         
-        Magic* magic=[[Magic alloc]initWithName:name];
-        [self.damage resetWithValue:magic.damage];
-        self.moveSpeed=[Attribute initWithValue:250.0f];
+
+        self.moveSpeed=[Attribute initWithValue:150.0f];
 
        
        
@@ -64,8 +63,8 @@
     
 }
 
--(void)setAiDelegate:(id<ProjectileAiDelegate>)aiDelegate{
-    _aiDelegate=aiDelegate;
+-(void)pushAiBeharvior:(AiBehavior*)aiBeharvior{
+    [self.aiBeharviorsArray addObject:aiBeharvior];
 }
 
 -(void)initFromPlist{
@@ -98,19 +97,16 @@
     
 }
 
--(bool)directAttackTarget:(AiObject *)obj{
-    if ([self.attackedObjectsArray containsObject:obj]) {  //攻击一次
-        return NO;
-    }
+-(void)directAttackTarget:(AiObject *)obj{
+
+
+
+}
+-(bool)attackTarget:(AiObject *)obj{
     [self onDirectAttatckTarget:obj];
-    
-    [self.attackedObjectsArray addObject:obj];
     
     [obj hurtByObject:self.damageData];
     return YES;
-}
--(bool)checkDie{
-    return [self.aiDelegate checkDie];
 }
 -(void)onDie{
     [self dieAction];

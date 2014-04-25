@@ -21,7 +21,7 @@
     return self;
 }
 -(void)initFromPlist{
-    self.attributeDatabase=[[[Global sharedManager]dataBase] valueForKey:self.objectName];
+    self.attributeDatabase=[Global searchArray:[[[Global sharedManager]dataBase] skills]  whereKey:@"name" isEqualToValue:self.objectName][0];
     
     
     //self.animationMovePlist=[self.attributeDict valueForKey:@"animationMovePlist"];

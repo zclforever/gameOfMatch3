@@ -22,6 +22,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "+[Global searchArray:whereKey:isEqualToValue:]:Global.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "array[0][@&quot;name&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[Hero dieAction]:Hero.m">
       </ContextState>
       <ContextState
@@ -51,6 +59,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.attackRange.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[SkillDelegate initFromPlist]:SkillDelegate.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.objectName">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -113,6 +129,20 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[AiObject loadAttributeFromDict]:AiObject.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.attackRate">
+            </PersistentString>
+            <PersistentString
+               value = "self.damage">
+            </PersistentString>
+            <PersistentString
+               value = "self.moveSpeed">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[BuffFury recalcAttributeToOwner]:BuffFury.m">
          <PersistentStrings>
             <PersistentString
@@ -146,10 +176,10 @@
                value = "self.lifeBar">
             </PersistentString>
             <PersistentString
-               value = "self.lifeBar.scaleY">
+               value = "self.lifeBar.scaleX">
             </PersistentString>
             <PersistentString
-               value = "self.lifeBar.scaleX">
+               value = "self.lifeBar.scaleY">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -169,18 +199,26 @@
       </ContextState>
       <ContextState
          contextName = "-[AiObject findTargets]:AiObject.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+            <PersistentString
+               value = "self.targetTags[0]">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[Projectile update]:Projectile.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.particle.position">
+               value = "self.collisionObjectArray">
             </PersistentString>
             <PersistentString
                value = "self.allObjectsArray">
             </PersistentString>
             <PersistentString
-               value = "self.collisionObjectArray">
+               value = "self.particle.position">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -201,6 +239,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[AiObject objectsByTags:from:]:AiObject.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "obj.objectName">
+            </PersistentString>
+            <PersistentString
+               value = "obj.selfTags[0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[SmallEnemy initWithAllObjectArray:withType:]:SmallEnemy.m">
          <PersistentStrings>
             <PersistentString
@@ -212,13 +261,16 @@
          contextName = "-[AiObject initFromPlist]:AiObject.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.maxHP">
-            </PersistentString>
-            <PersistentString
                value = "self.curHP">
             </PersistentString>
             <PersistentString
+               value = "self.maxHP">
+            </PersistentString>
+            <PersistentString
                value = "self.targetTags">
+            </PersistentString>
+            <PersistentString
+               value = "self.attributeDict">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -247,6 +299,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[Buff recalcAttributeToOwner]:Buff.m">
+      </ContextState>
+      <ContextState
          contextName = "-[Tile initWithX:Y:delegate:]:Tile.m">
          <PersistentStrings>
             <PersistentString
@@ -255,7 +310,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[Buff recalcAttributeToOwner]:Buff.m">
+         contextName = "-[ItemDelegate initFromPlist]:ItemDelegate.m">
       </ContextState>
       <ContextState
          contextName = "-[Projectile accelerometer:didAccelerate:]:Projectile.m">
@@ -327,15 +382,18 @@
          contextName = "-[SmallEnemy handleCollision]:SmallEnemy.m">
          <PersistentStrings>
             <PersistentString
+               value = "[self allObjectsArray]">
+            </PersistentString>
+            <PersistentString
                value = "self.collisionObjectArray">
             </PersistentString>
             <PersistentString
                value = "obj.type">
             </PersistentString>
-            <PersistentString
-               value = "[self allObjectsArray]">
-            </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlayLayer onEnterTransitionDidFinish]:PlayLayer.m">
       </ContextState>
       <ContextState
          contextName = "-[AiObject getBoundingBox]:AiObject.m">
@@ -452,6 +510,9 @@
                value = "self.objectName">
             </PersistentString>
             <PersistentString
+               value = "self.moveSpeed">
+            </PersistentString>
+            <PersistentString
                value = "self.particle.position">
             </PersistentString>
             <PersistentString
@@ -510,6 +571,9 @@
       </ContextState>
       <ContextState
          contextName = "-[SmallEnemy onReadyToAttackTargetInRange]:SmallEnemy.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[AiObjectMagicDelegate magicAttackWithName:withParameter:]:AiObjectMagicDelegate.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

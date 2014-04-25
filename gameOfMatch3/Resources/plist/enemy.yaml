@@ -1,0 +1,86 @@
+    - name: smallEnemy_knight
+      cnName: 骑士
+      animationMovePlist: smallEnemyMove.plist
+      animationMoveDelay: 0
+      animationAttackPlist: smallEnemyAttack.plist
+      animationAttackDelay: 0.2
+      spriteScale: 2
+      lifeBarWidth: 20
+      lifeBarHeight: 5
+      lifeBarMarginHead: 3
+      tags:
+        - enemy
+      targetTags:
+        - hero
+      skills:
+        - name: skill_physicalAttack
+          damage: 
+              physicalDamage: 3
+      normalAttack: skill_physicalAttack
+      magicAttack: skill_physicalAttack
+      sightRadius: 10
+      attackRadius: 10
+      attackRate: 
+          value: 1.2
+      moveSpeed: 
+          value: 80
+      maxHP:
+          value: 3
+     
+    - name: smallEnemy_mouse
+      cnName: 骑士
+      animationMovePlist: smallEnemy_mouse.plist
+      animationMoveDelay: 0
+      animationAttackPlist: smallEnemy_mouseAttack.plist
+      animationAttackDelay: 0.2
+      spriteScale: 2
+      lifeBarWidth: 20
+      lifeBarHeight: 5
+      lifeBarMarginHead: 3
+      tags:
+        - enemy
+      targetTags:
+        - hero
+      skills:
+        - name: skill_physicalAttack
+          damage: 
+              physicalDamage: 5
+      normalAttack: skill_physicalAttack
+      magicAttack: skill_physicalAttack
+      sightRadius: 10
+      attackRadius: 10
+      attackRate: 
+          value: 1.2
+      moveSpeed: 
+          value: 30
+      maxHP:
+          value: 3
+          
+    - name: smallEnemy_stoneMan
+      cnName: 骑士
+      animationMovePlist: smallEnemy_stoneMan.plist
+      animationMoveDelay: 0
+      animationAttackPlist: smallEnemy_stoneManAttack.plist
+      animationAttackDelay: 0.2
+      spriteScale: 2
+      lifeBarWidth: 20
+      lifeBarHeight: 5
+      lifeBarMarginHead: 3
+      tags:
+        - enemy
+      targetTags:
+        - hero
+      skills:
+        - name: skill_physicalAttack
+          damage: 
+              physicalDamage: 5
+      normalAttack: skill_physicalAttack
+      magicAttack: skill_physicalAttack
+      sightRadius: 10
+      attackRadius: 10
+      attackRate: 
+          value: 1.2
+      moveSpeed: 
+          value: 30
+      maxHP:
+          value: 3     

@@ -51,11 +51,13 @@
 @property float curEnergy;
 //@property float damage;
 
-@property (strong,nonatomic) Attribute* damage;
+
 @property (strong,nonatomic) Attribute* maxHP;
 @property (strong,nonatomic) Attribute* maxEnergy;
 @property (strong,nonatomic) Attribute* moveSpeed;
-@property (strong,nonatomic) Attribute* attackCD;
+@property (strong,nonatomic) Attribute* attackRate;
+@property (strong,nonatomic) Attribute* physicalDamage;
+@property (strong,nonatomic) Attribute* magicalDamage;
 -(Attribute*)attributeByName:(NSString*)name;
 
 
@@ -107,17 +109,19 @@
 
 //攻击防守
 -(void)hurtByObject:(DamageData*)data; 
--(bool)directAttackTarget:(AiObject*)obj;
+//-(void)directAttackTarget:(AiObject*)obj;
+
+-(bool)attackTarget:(AiObject*)obj; //判断是否该攻击
 
 -(NSArray*)sortAllObjectsByDistanceFromPosition:(CGPoint)position;
 
 -(CCAnimation* )animationByPlist:(NSString*)name withDelay:(float)delay;
 -(NSArray*)getNameOfFramesFromPlist:(NSString*)name;
 
+@property (nonatomic,strong) NSString* stringID;
 
 
-
-//-(NSDictionary*)findTargets;
+-(NSArray*)findTargets;
 @property (strong,nonatomic) NSDictionary* findTargetsResult;
 
 -(NSMutableArray*)collisionObjectsByDistance:(float)distance;

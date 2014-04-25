@@ -42,7 +42,9 @@
     }
 }
 -(void)makeBuff{
-    self.attributeDatabase=[[[Global sharedManager]dataBase] valueForKey:self.name];
+    self.attributeDatabase=[Global searchArray:[[[Global sharedManager] dataBase] buffs]
+                                      whereKey:@"name"
+                                isEqualToValue:self.name][0]; //todo
     self.attributeDictForRecalculate=[[NSMutableDictionary alloc]init];
     self.liveTime=[self.attributeDatabase[@"liveTime"] floatValue];
     [self pushAttributeDictFromDatabase:self.attributeDatabase[@"recalcAttributes"]];

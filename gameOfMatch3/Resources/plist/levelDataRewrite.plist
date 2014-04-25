@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>level</key>
-		<integer>11</integer>
+		<string>11</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -35,7 +35,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>10</integer>
+		<string>10</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -66,7 +66,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>13</integer>
+		<string>13</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -97,7 +97,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>12</integer>
+		<string>12</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -128,7 +128,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>15</integer>
+		<string>15</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -159,7 +159,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>14</integer>
+		<string>14</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -190,7 +190,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>17</integer>
+		<string>17</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -221,7 +221,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>16</integer>
+		<string>16</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -252,7 +252,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>18</integer>
+		<string>18</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -283,7 +283,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>1</integer>
+		<string>1</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -298,7 +298,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>3</integer>
+		<string>3</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -313,7 +313,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>2</integer>
+		<string>2</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -344,7 +344,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>5</integer>
+		<string>5</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -375,7 +375,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>4</integer>
+		<string>4</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -406,7 +406,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>7</integer>
+		<string>7</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -437,7 +437,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>6</integer>
+		<string>6</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -468,7 +468,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>9</integer>
+		<string>9</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>
@@ -499,7 +499,7 @@
 	</dict>
 	<dict>
 		<key>level</key>
-		<integer>8</integer>
+		<string>8</string>
 		<key>troopsOrder</key>
 		<array>
 			<dict>

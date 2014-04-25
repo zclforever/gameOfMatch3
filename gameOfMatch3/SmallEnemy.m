@@ -30,7 +30,6 @@
 
         self.destPosition=ccp(zPlayerMarginLeft,480-zPlayerMarginTop);
         //初始化属性
-        self.attributeDatabase=[[[Global sharedManager]dataBase] valueForKey:self.objectName];
         
         
         self.animationMovePlist=[self.attributeDatabase valueForKey:@"animationMovePlist"];
@@ -59,7 +58,12 @@
     }
     return self;
 }
-
+-(void)initFromPlist{
+    self.attributeDatabase=[Global searchArray:[[[Global sharedManager] dataBase] enemys]
+                                      whereKey:@"name"
+                                isEqualToValue:self.objectName][0];
+    [super initFromPlist];
+}
 
 -(void)appearAtX:(int)x Y:(int)y{
     self.sprite.position=ccp(x,y);
@@ -129,14 +133,11 @@
     [self.sprite runAction:action ];
     
 }
--(bool)normalAttackTarget:(AiObject*)obj{
 
-    return [self directAttackTarget:obj];
-}
 
 -(bool)onReadyToAttackTargetInRange{
     self.wantedObject=self.findTargetsResult[@"attackRadius"][0];
-    [self normalAttackTarget:self.wantedObject];
+    [self.magicDelegate magicAttackWithName:self.attributeDatabase[@"normalAttack"]];
     return YES;
 }
 

@@ -9,9 +9,7 @@
 #import "Hero.h"
 #import "Projectile.h"
 #import "SkillDelegate.h"
-#import "ProjectileAiWithTargets.h"
-#import "ProjectileAiWithTargetPosition.h"
-#import "ProjectileAiWithNoTarget.h"
+
 @interface Hero()
 @property CGPoint startPosition;
 
@@ -21,7 +19,7 @@
 
 -(NSDictionary *)removeByMount:(int)mount{
     NSDictionary* result=[[NSMutableDictionary alloc] init];
-    NSString* skill_big=[self.attributeDatabase valueForKey:@"skill_1"];
+    NSString* skill_big=[self.attributeDatabase valueForKey:@"magicAttack"];
     SkillDelegate* skillDelegate=nil;
 
     if (!self.alive) {
@@ -65,7 +63,9 @@
 }
 
 -(void)initFromPlist{
-        
+    self.attributeDatabase=[Global searchArray:[[[Global sharedManager] dataBase] heros]
+                                      whereKey:@"name"
+                                isEqualToValue:self.objectName][0];
     
     [super initFromPlist];
     self.tileSpriteName=[self.attributeDatabase valueForKey:@"tileSpriteName"];
@@ -154,15 +154,7 @@
 }
 
 
--(bool)normalAttackTarget:(AiObject*)obj{
-    if (self.curEnergy<5) {
-        return NO;
-    }
-    NSString* skillName=[self.attributeDatabase valueForKey:@"skill_0"];
-    [self.magicDelegate magicAttackWithName:skillName];
-    self.curEnergy-=5;
-    return YES;
-}
+
 -(bool)onReadyToAttackTargetInRange{
     if (!self.alive) {
         return NO;
@@ -171,7 +163,7 @@
     if (self.curEnergy<5) {
         return NO;
     }
-    NSString* skillName=[self.attributeDatabase valueForKey:@"skill_0"];
+    NSString* skillName=self.attributeDatabase[@"normalAttack"];
     [self.magicDelegate magicAttackWithName:skillName];
     self.curEnergy-=5;
     return YES;

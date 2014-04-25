@@ -37,12 +37,12 @@ static id sharedManager = nil;
     if (self == [Global class]) {
         sharedManager = [[self alloc] init];
         DataBase* dataBase=[[DataBase alloc]init];
-        dataBase.skills=[sharedManager arrayFromPlist:@"skill.plist"];
-        dataBase.heros=[sharedManager arrayFromPlist:@"hero.plist"];
-        dataBase.enemys=[sharedManager arrayFromPlist:@"enemy.plist"];
-        dataBase.levelData=[sharedManager arrayFromPlist:@"levelData.plist"];
-        
-        
+        dataBase.skills=[Global arrayFromPlist:@"skill.plist"];
+        dataBase.heros=[Global arrayFromPlist:@"hero.plist"];
+        dataBase.enemys=[Global arrayFromPlist:@"enemy.plist"];
+        dataBase.levelData=[Global arrayFromPlist:@"levelData.plist"];
+        dataBase.itemDelegate=[Global arrayFromPlist:@"itemDelegate.plist"];
+        dataBase.buffs=[Global arrayFromPlist:@"buff.plist"];
         [sharedManager setDataBase:dataBase];
 
         
@@ -66,13 +66,20 @@ static id sharedManager = nil;
     return ret;
     
 }
-
++(NSString*) stringID:(id)object{
+    return [NSString stringWithFormat:@"%d",(int)object];
+}
 +(NSArray*)arrayFromPlist:(NSString*)plistName{
         return [NSMutableArray arrayWithContentsOfFile:[[CCFileUtils sharedFileUtils] fullPathForFilename:plistName]];
 }
-+(NSDictionary*)searchArray:(NSArray*)array whereKey:(NSString*)key isEqualToValue:(NSString*)value{
++(NSArray*)searchArray:(NSArray*)array whereKey:(NSString*)key isEqualToValue:(id)value{
     NSPredicate* predicate=[NSPredicate predicateWithFormat:@"%K == %@",key,value];
-    return [array filteredArrayUsingPredicate:predicate][0];
+    NSArray* ret= [array filteredArrayUsingPredicate:predicate];
+    if(ret.count==0){
+        NSString* show=[value isKindOfClass:[NSString class]]?value:[NSString stringWithFormat:@"%d",[(NSNumber*)value intValue]];
+        NSLog(@"%@",show);
+    }
+    return ret;
     
 }
 +(id)menuOfBackTo:(CCScene*)scene{

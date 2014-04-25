@@ -12,6 +12,7 @@
 @implementation Attribute
 -(id)init{
     self=[super init];
+
     return self;
 }
 -(float)finalValue{

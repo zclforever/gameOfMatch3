@@ -39,6 +39,10 @@
         self.delayTime=0.04f;
         
         self.objectName=name;
+        
+        self.stringID=[Global stringID:self];
+       
+        
         [self initFromPlist];
         
         self.aiState=aiState_nothingToDo;
@@ -64,17 +68,21 @@
 -(void)start{
     [self updateForCommon];
 }
+
 -(void)initFromPlist{
-    self.attributeDatabase=[[[Global sharedManager]dataBase] valueForKey:self.objectName];
+
     
     
     //self.animationMovePlist=[self.attributeDict valueForKey:@"animationMovePlist"];
 
-    self.attackCD=[[Attribute alloc]init];
+    self.attackRate=[[Attribute alloc]init];
     self.moveSpeed=[[Attribute alloc]init];
     self.maxHP=[[Attribute alloc]init];
     self.maxEnergy=[[Attribute alloc]init];
-    self.damage=[[Attribute alloc]init];
+    self.physicalDamage=[[Attribute alloc]init];
+    self.magicalDamage=[[Attribute alloc]init];
+    //self.damage=[[Attribute alloc]init];
+    
     [self loadAttributeFromDict];
     
     self.curHP=[self.maxHP finalValue];
@@ -88,11 +96,13 @@
 }
 
 -(void)loadAttributeFromDict{
-    [self.attackCD loadWithDict:self.attributeDatabase[@"attackCD"]];
+    [self.attackRate loadWithDict:self.attributeDatabase[@"attackRate"]];
     [self.moveSpeed loadWithDict:self.attributeDatabase[@"moveSpeed"]];
     [self.maxHP loadWithDict:self.attributeDatabase[@"maxHP"]];
     [self.maxEnergy loadWithDict:self.attributeDatabase[@"maxEnergy"]];
-    [self.damage loadWithDict:self.attributeDatabase[@"damage"]];
+    [self.physicalDamage loadWithDict:self.attributeDatabase[@"phsicalDamage"]];
+    [self.magicalDamage loadWithDict:self.attributeDatabase[@"magicalDamage"]];
+
 }
 
 
@@ -266,7 +276,8 @@
 }
 -(void)onInAttackRange{
     float gameTime=[[Global sharedManager] gameTime];
-    if(self.lastAttackTime&&(gameTime-self.lastAttackTime<[self.attackCD finalValue]))
+    float attackCD=1/[self.attackRate finalValue];
+    if(self.lastAttackTime&&(gameTime-self.lastAttackTime<attackCD))
     {
         [self onNotReadyToAttackTargetInRange];
         return;
@@ -302,6 +313,16 @@
 }
 -(bool)checkDie{
     return NO;
+}
+
+-(NSArray *)findTargets{
+    NSArray* ret;
+    float radius=[self.attributeDatabase[@"attackRadius"] floatValue];
+    ret=[self collisionObjectsByDistance:radius withObjectsArray:self.allObjectsArray];
+    
+    //过滤不喜欢的目标
+    ret=[self objectsByTags:self.targetTags from:ret];
+    return ret;
 }
 
 -(void)moveToPosition:(CGPoint)pos{
@@ -345,12 +366,15 @@
     
     self.node.position=ccp( position.x+xMoveDistance,position.y+yMoveDistance);
 }
-
--(bool)directAttackTarget:(AiObject*)obj{
-    DamageData* damageData=[AiObjectInteraction physicalDamageBy:self];
-    [obj hurtByObject:damageData];
-    return YES;
+-(bool)attackTarget:(AiObject*)obj{
+    
+    return NO;
 }
+//-(void)directAttackTarget:(AiObject*)obj{
+//    DamageData* damageData=[AiObjectInteraction physicalDamageBy:self];
+//    [obj hurtByObject:damageData];
+//
+//}
 -(void)hurtByObject:(DamageData*)data{  //一些关于 受到冰伤变色之类的也可以在interaction里设状态 然后aiobject专门有一块来做动画更新//要不由buff来做先
     NSDictionary* finalDamage=[AiObjectInteraction finalDamageOn:self withData:data];
     self.curHP+=[finalDamage[@"hp"] floatValue];

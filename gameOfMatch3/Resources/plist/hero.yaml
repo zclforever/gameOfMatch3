@@ -1,0 +1,78 @@
+    - name: hero_mage
+      cnName: 法师
+      tags:
+        - hero
+      targetTags:
+        - enemy
+      tileSpriteName: mage001_stand.png
+      standSpriteName: mage001_stand.png
+      skills:
+        - name: skill_iceBall
+          damage: 
+              magicalDamage: 30
+      normalAttack: skill_iceBall
+      magicAttack: skill_iceBall
+      sightRadius: 10
+      attackRadius: 10
+      attackRate: 
+          value: 1.2
+      moveSpeed: 
+          value: 100
+      maxEnergy:
+          value: 40
+      maxHP:
+          value: 50
+          
+    - name: hero_hunter
+      cnName: 弓箭手
+      tags:
+        - hero
+      targetTags:
+        - enemy
+      tileSpriteName: hunter001_stand.png
+      standSpriteName: hunter001_stand.png
+      skills:
+        - name: skill_iceBall
+          damage: 
+              magicalDamage: 30
+      normalAttack: skill_iceBall
+      magicAttack: skill_iceBall
+      sightRadius: 10
+      attackRadius: 10
+      attackRate: 
+          value: 1.2
+      moveSpeed: 
+          value: 100
+      maxEnergy:
+          value: 40
+      maxHP:
+          value: 50
+          
+    - name: hero_warrior
+      cnName: 战士
+      tags:
+        - hero
+      targetTags:
+        - enemy
+      tileSpriteName: warrior001_stand.png
+      standSpriteName: warrior001_stand.png
+      skills:
+        - name: skill_physicalAttack
+          damage: 
+              physicalDamage: 1
+        - name: skill_iceBall
+          damage: 
+              magicalDamage: 30
+      normalAttack: skill_iceBall
+      magicAttack: skill_iceBall
+      sightRadius: 10
+      attackRadius: 100
+      attackRate: 
+          value: 1.2
+      moveSpeed: 
+          value: 100
+      maxEnergy:
+          value: 40
+      maxHP:
+          value: 1000
+                  

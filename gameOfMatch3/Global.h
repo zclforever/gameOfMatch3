@@ -89,13 +89,24 @@ enum DamageType {
 };
 typedef enum DamageType DamageType;
 #endif
+
+
+
+//Database
 @interface DataBase:NSObject
+
 @property (strong,nonatomic) NSArray* skills;
 @property (strong,nonatomic) NSArray* heros;
 @property (strong,nonatomic) NSArray* levelData;
 @property (strong,nonatomic) NSArray* enemys;
-
+@property (strong,nonatomic) NSArray* itemDelegate;
+@property (strong,nonatomic) NSArray* buffs;
 @end
+
+
+
+
+
 
 @interface Global :CCLayer
 
@@ -115,6 +126,7 @@ typedef enum DamageType DamageType;
 +(id)menuOfBackTo:(CCScene*)scene;
 +(bool)rectInsect:(CGRect)rect1 :(CGRect)rect2;
 +(NSArray*)arrayFromPlist:(NSString*)plistName;
-+(NSDictionary*)searchArray:(NSArray*)array whereKey:(NSString*)key isEqualToValue:(NSString*)value;
++(NSArray*)searchArray:(NSArray*)array whereKey:(NSString*)key isEqualToValue:(id)value;
++(NSString*) stringID:(id)object;
 @end
 

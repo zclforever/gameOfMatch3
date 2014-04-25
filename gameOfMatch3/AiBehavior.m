@@ -66,12 +66,15 @@
     }
     
     
-    self.owner.position=ccp( position.x+xMoveDistance,position.y+yMoveDistance);
+    self.owner.node.position=ccp( position.x+xMoveDistance,position.y+yMoveDistance);
     
 
     if (atDest) {
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"position_arrived" object:self.owner userInfo:@{@"behaviorName":self.name}];
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"position_arrived"
+         object:self.owner
+         userInfo:@{@"behaviorName":self.name}];
     }
 }
 
@@ -82,8 +85,9 @@
 -(id)initWithOwner:(AiObject *)obj totalHit:(int)totalHit maxHitPerEntity:(int)maxHitPerEntity{
     self=[super initWithOwner:obj];
     
-    self.totalHit=totalHit;
+    self.totalHit=totalHit;  //defaunt 0
     self.maxHitPerEntity=maxHitPerEntity;
+    self.attackedTargetDict=[[NSMutableDictionary alloc]init];
     return self;
 }
 -(void)onEnterFrame{
@@ -91,30 +95,41 @@
         return;
     }
     
-    NSArray* ret;
-    float radius=[self.owner.attributeDatabase[@"attackRadius"] floatValue];
-    ret=[self.owner collisionObjectsByDistance:radius withObjectsArray:self.owner.allObjectsArray];
-
-    //过滤不喜欢的目标
-    ret=[self.owner objectsByTags:self.owner.targetTags from:ret];
+    NSArray* foundTargets=[self.owner findTargets];
     
     bool hit;    
-    if(ret.count>0&&(self.hitCount<self.totalHit||!self.totalHit)){
-        hit=YES;
-        [self.owner directAttackTarget:ret[0]];
-        self.hitCount++;
-    }
-    
-    
-    
+    if(foundTargets.count>0){
+        for (AiObject* target in foundTargets) {
+            if (self.totalHit&&self.hitCount>=self.totalHit) { //hit count is attacked count
+                break;
+            }
+            
+            if (self.maxHitPerEntity&&self.maxHitPerEntity<=[self.attackedTargetDict[target.stringID] intValue]) {
+                continue;
+            }
+            
+            if([self.owner attackTarget:target]){
+                hit=YES;
+                self.hitCount++;
+                self.attackedTargetDict[target.stringID]=@([self.attackedTargetDict[target.stringID] intValue]+1);
 
-    if(hit)
-    {
+                
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:@"hit"
                  object:self.owner
                  userInfo:@{@"behaviorName":self.name}];
+            }
+        }
+        if(hit){
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"hit finished"
+             object:self.owner
+             userInfo:@{@"behaviorName":self.name}];
+        }
+        
+
     }
+
 }
 
 @end
@@ -145,8 +160,8 @@
 
     return self;
 }
--(void)onNotificationArrive:(id)sender{
-    NSString* messageName=[sender message];
+-(void)onNotificationArrive:(NSNotification*)sender{
+    NSString* messageName=[sender name] ;
     //NSString* senderName=[sender userInfo][@"behaviorName"];
     self.messageArrived[messageName]=@YES;
 }

@@ -21,12 +21,10 @@
     return self;
 }
 -(void)initFromPlist{
-    self.attributeDict=[[[Global sharedManager]dataBase] valueForKey:self.objectName];
-    
-    
-    //self.animationMovePlist=[self.attributeDict valueForKey:@"animationMovePlist"];
-    //    self.damage=[[self.attributeDict valueForKey:@"damage"] floatValue];
+    self.attributeDict=[Global searchArray:[[[Global sharedManager]dataBase] itemDelegate] whereKey:@"name" isEqualToValue:self.objectName][0];
+
     self.tileSpriteName=[self.attributeDict valueForKey:@"tileSpriteName"];
+    
 }
 -(NSDictionary*) removeByMount:(int)mount{
     NSDictionary* result=[[NSMutableDictionary alloc] init];

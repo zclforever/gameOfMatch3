@@ -42,6 +42,7 @@
 @property int totalHit;
 @property int hitCount;
 @property int maxHitPerEntity;
+@property (strong,nonatomic) NSMutableDictionary* attackedTargetDict;
 @end
 
 
@@ -50,6 +51,7 @@
 @interface AiDieWhen:AiBehavior{
     
 }
+-(id)initWithOwner:(Projectile *)obj when:(id)when;
 @property (nonatomic,strong) NSMutableArray* messageArray;
 @property (nonatomic,strong) NSMutableDictionary* messageArrived;
 @end

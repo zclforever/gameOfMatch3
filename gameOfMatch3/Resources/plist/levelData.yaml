@@ -1,0 +1,86 @@
+  - level: 11
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}
+  - level: 10
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}
+  - level: 13
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}
+  - level: 12
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}
+  - level: 15
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}
+  - level: 14
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}
+  - level: 17
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}
+  - level: 16
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}
+  - level: 18
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}
+  - level: 1
+    troopsOrder:
+         - {interval: 1, mount: 5, name: smallEnemy_knight}
+  - level: 3
+    troopsOrder:
+         - {interval: 4, mount: 5, name: smallEnemy_stoneMan}
+  - level: 2
+    troopsOrder:
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 2, mount: 5, name: smallEnemy_knight}
+         - {interval: 1, mount: 15, name: smallEnemy_mouse}
+  - level: 5
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}
+  - level: 4
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}
+  - level: 7
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}
+  - level: 6
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}
+  - level: 9
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}
+  - level: 8
+    troopsOrder:
+         - {interval: 2, mount: 4, name: smallEnemy_knight}
+         - {interval: 1, mount: 5, name: smallEnemy_mouse}
+         - {interval: 1, mount: 1, name: smallEnemy_stoneMan}

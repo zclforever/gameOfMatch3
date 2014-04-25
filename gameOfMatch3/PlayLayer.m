@@ -408,7 +408,7 @@
     [self addChild:[[Global sharedManager] setTimeOut]];
     
     
-    self.levelDataDict=[NSMutableDictionary dictionaryWithDictionary:[[[Global sharedManager] levelDataDict] valueForKey:[NSString stringWithFormat:@"%d",self.level]]];
+    self.levelDataDict=[Global searchArray:[[[Global sharedManager] dataBase] levelData] whereKey:@"level" isEqualToValue:[NSNumber numberWithInt:self.level]][0];
     self.troopsOrder=[NSMutableArray arrayWithArray:[self.levelDataDict valueForKey:@"troopsOrder"]];
     
     self.actionHandler=[[ActionQueue alloc]init];
@@ -544,7 +544,7 @@
         float space=0;
         
         
-        hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_hunter"];
+        hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_mage"];
         [self.tileDelegateArray addObject:hero];
         [self.heroArray addObject:hero];
         [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];
@@ -552,7 +552,7 @@
         [self addChild:hero z:-1];
         //[hero start];
         
-        hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_mage"];
+        hero=[[Hero alloc] initWithAllObjectArray:self.allObjectsArray withName:@"hero_hunter"];
         [self.tileDelegateArray addObject:hero];
         [self.heroArray addObject:hero];
         [hero addPersonSpriteAtPosition:ccp(zPlayerMarginLeft+space,winSize.height-zPlayerMarginTop)];

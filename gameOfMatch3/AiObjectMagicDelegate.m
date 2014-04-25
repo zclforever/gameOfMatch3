@@ -18,31 +18,42 @@
 
     return self;
 }
--(NSDictionary*)magicByName:(NSString *)name{
-    return [Global searchArray:[[Global sharedManager] skills] whereKey:@"name" isEqualToValue:name];
+-(NSDictionary*)magicDataByName:(NSString *)name{
+    return [Global searchArray:[[[Global sharedManager]dataBase] skills] whereKey:@"name" isEqualToValue:name][0];
+}
+-(NSDictionary*)skillDataFromOwnerByName:(NSString*)name{
+    return [Global searchArray:self.owner.attributeDatabase[@"skills"] whereKey:@"name" isEqualToValue:name][0];
 }
 -(void)magicAttackWithName:(NSString *)magicName{
     [self magicAttackWithName:magicName withParameter:nil];
 }
 
 -(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict{
+
     NSString* name=magicName;
     Projectile* projectile;
-    AiBehavior* projectileAi;
+    //AiBehavior* projectileAi;
     CGPoint selfPosition=[self.owner getCenterPoint];
     NSArray* targetsArray=[NSArray arrayWithArray:self.owner.findTargetsResult[@"attackRadius"]];
     bool noTarget=(!targetsArray||targetsArray.count==0)?YES:NO;
     AiObject* target;
     if (!noTarget) {target=targetsArray[0];}
+    
     DamageData* damageData=[[DamageData alloc]init];
+    NSDictionary* skillDamageDict=[self skillDataFromOwnerByName:name][@"damage"];
     
+    Attribute* physicalDamage=[[Attribute alloc]init];
+    physicalDamage.value=[skillDamageDict[@"physicalDamage"] floatValue];
+    [physicalDamage addWithAttribute:self.owner.physicalDamage];
     
+    Attribute* magicalDamage=[[Attribute alloc]init];
+    magicalDamage.value=[skillDamageDict[@"magicalDamage"] floatValue];
+    [magicalDamage addWithAttribute:self.owner.magicalDamage];
     
     if ([name isEqualToString:@"skill_physicalAttack"]) {
-            //        projectile=[[PhysicalAttack alloc]initWithAllObjectArray:self.owner.allObjectsArray withPostion:[target getCenterPoint] byName:name];
-            //        projectileAi=[[ProjectileAiWithTargets alloc] initWithTargets:targetsArray withOwner:projectile];
         if (target) {
-            [self.owner directAttackTarget:target];
+            damageData.phsicalDamage=[physicalDamage finalValue];
+            [target hurtByObject:damageData];
         }
     }
     
@@ -56,7 +67,7 @@
     
     else if([name isEqualToString:@"skill_bigFireBall"]){
         projectile=[[BigFireBall alloc]initWithAllObjectArray:self.owner.allObjectsArray withPostion:ccp(100,460) byName:name];
-        projectileAi=[[ProjectileAiWithTargetPosition alloc] initWithDestPosition:ccp(zEnemyMarginLeft,480-zPlayerMarginTop+zPersonHeight/2) withOwner:projectile] ;
+        //projectileAi=[[ProjectileAiWithTargetPosition alloc] initWithDestPosition:ccp(zEnemyMarginLeft,480-zPlayerMarginTop+zPersonHeight/2) withOwner:projectile] ;
          
         [[SimpleAudioEngine sharedEngine] playEffect:@"explosion.wav"];
         
@@ -67,10 +78,10 @@
         projectile=[[FireBall alloc]initWithAllObjectArray:self.owner.allObjectsArray withPostion:selfPosition byName:name];
         
         if (noTarget) {
-            projectileAi=[[ProjectileAiWithNoTarget alloc]initWithOwner:projectile];
+            //projectileAi=[[ProjectileAiWithNoTarget alloc]initWithOwner:projectile];
            
         }else{
-            projectileAi=[[ProjectileAiWithTargets alloc] initWithTargets:targetsArray withOwner:projectile];
+            //projectileAi=[[ProjectileAiWithTargets alloc] initWithTargets:targetsArray withOwner:projectile];
         }
 
         [[SimpleAudioEngine sharedEngine] playEffect:@"fire_fly.wav"];
@@ -86,12 +97,12 @@
                                                     byName:name];
         
         
-        NSDictionary* iceBallData=[self magicByName:name];
+        NSDictionary* iceBallData=[self magicDataByName:name];
         AiBehavior* aiBehavior;
         for (NSDictionary* behaviorData in iceBallData[@"behaviors"]) {
             NSString* behaviorType=behaviorData[@"type"];
             if ([behaviorType isEqualToString:@"LinearMoveToPosition"]) {
-                aiBehavior=[[AiLinearMoveToPosition alloc]initWithOwner:projectile withPosition:startPosition];
+                aiBehavior=[[AiLinearMoveToPosition alloc]initWithOwner:projectile withPosition:destPosition];
                 [projectile pushAiBeharvior:aiBehavior];
             }
             
@@ -104,7 +115,8 @@
           
             
             else if ([behaviorType isEqualToString:@"DieWhen"]){
-                aiBehavior=[[AiLinearMoveToPosition alloc]initWithOwner:projectile withPosition:startPosition];
+                id when=behaviorData[@"when"];
+                aiBehavior=[[AiDieWhen alloc]initWithOwner:projectile when:when];
                 [projectile pushAiBeharvior:aiBehavior];
             }
             
@@ -117,14 +129,14 @@
             }
         }
 
-        damageData.magicalDamage=12.0f;
+        damageData.magicalDamage=[magicalDamage finalValue];
         
         [[SimpleAudioEngine sharedEngine] playEffect:@"ice_fly.wav"];
         
     }
     else if([name isEqualToString:@"skill_iceBall_through"]){
         projectile=[[IceBall alloc]initWithAllObjectArray:self.owner.allObjectsArray withPostion:ccp(selfPosition.x+zPersonWidth+5,selfPosition.y+zPersonHeight/2-10) byName:name];
-        projectileAi=[[ProjectileAiWithTargetPosition alloc] initWithDestPosition:ccp(zEnemyMarginLeft,selfPosition.y+zPersonHeight/2-10) withOwner:projectile] ;
+        //projectileAi=[[ProjectileAiWithTargetPosition alloc] initWithDestPosition:ccp(zEnemyMarginLeft,selfPosition.y+zPersonHeight/2-10) withOwner:projectile] ;
         
         damageData.magicalDamage=2.0f;
         
@@ -134,7 +146,7 @@
     else if([name isEqualToString:@"skill_snowBall"]){
         float randomX=50+arc4random()%220;
         projectile=[[SnowBall alloc]initWithAllObjectArray:self.owner.allObjectsArray withPostion:ccp(randomX,460) byName:name];
-        projectileAi=[[ProjectileAiWithTargetPosition alloc] initWithDestPosition:ccp(zEnemyMarginLeft,480-zPlayerMarginTop+zPersonHeight/2) withOwner:projectile] ;
+        //projectileAi=[[ProjectileAiWithTargetPosition alloc] initWithDestPosition:ccp(zEnemyMarginLeft,480-zPlayerMarginTop+zPersonHeight/2) withOwner:projectile] ;
         
         //[projectile attackPosition:ccp(0,self.sprite.position.y)];
         
@@ -147,7 +159,6 @@
         projectile.damageData=damageData;
         projectile.owner=(AiObject*)self.owner;
         [self.owner addChild:projectile];
-        [projectile setAiDelegate:projectileAi];
         [projectile start];
     }
 

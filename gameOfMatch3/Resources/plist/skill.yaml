@@ -1,7 +1,9 @@
     - name: skill_iceBall
       cnName: 减速冰弹
-      attackRadius: 10
-      magicDamage: 20
+      tileSpriteName: skill_iceBall.png
+      attackRadius: 20
+      moveSpeed: 
+          value: 150
       behaviors:
         - type: LinearMoveToPosition
         - type: InstantRangeAttack
@@ -12,6 +14,7 @@
           when: hit
             
     - name: skill_bigFireBall
+      tileSpriteName: skill_bigFireBall.png
       cnName: 火流星
       attackRadius: 10
       behaviors: 

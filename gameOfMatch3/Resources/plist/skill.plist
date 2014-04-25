@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>attackRadius</key>
-		<integer>10</integer>
+		<integer>20</integer>
 		<key>behaviors</key>
 		<array>
 			<dict>
@@ -32,8 +32,15 @@
 		</array>
 		<key>cnName</key>
 		<string>减速冰弹</string>
+		<key>moveSpeed</key>
+		<dict>
+			<key>value</key>
+			<integer>150</integer>
+		</dict>
 		<key>name</key>
 		<string>skill_iceBall</string>
+		<key>tileSpriteName</key>
+		<string>skill_iceBall.png</string>
 	</dict>
 	<dict>
 		<key>attackRadius</key>
@@ -65,6 +72,8 @@
 		<string>火流星</string>
 		<key>name</key>
 		<string>skill_bigFireBall</string>
+		<key>tileSpriteName</key>
+		<string>skill_bigFireBall.png</string>
 	</dict>
 	<dict>
 		<key>attackRadius</key>

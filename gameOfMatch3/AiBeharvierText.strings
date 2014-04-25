@@ -9,10 +9,10 @@
 。减速冰弹：
     LinearMoveToPosition()
         ->'position arrive'
-    InstantRangeAttack(max_hit=1)
+    InstantRangeAttack(total_hit=1)
         ->'hit finished'
     Buff(name=ice)
-    DieWhen('hit')
+    DieWhen('hit finished')
 
 .火陨石:
     LinearMoveToPosition()
@@ -24,13 +24,13 @@
     LinearMoveToPosition()
         ->'position arrive'
     InstantRangeAttack(total_hit=1)
-        ->'hit'
-    DieWhen('hit')
+        ->'hit finished'
+    DieWhen('hit finished')
 
 .穿透箭
     LinearMoveToPosition()
         ->'position arrive'
     InstantRangeAttack(max_hit_per_entity=1)
-        ->'hit'
+        ->'hit finished'
     DieWhen('positon arrive')
 

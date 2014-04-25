@@ -13,9 +13,7 @@
 #import "BigFireBall.h"
 #import "SnowBall.h"
 #import "PhysicalAttack.h"
-#import "ProjectileAiWithTargetPosition.h"
-#import "ProjectileAiWithNoTarget.h"
-#import "ProjectileAiWithTargets.h"
+#import "AiBehavior.h"
 
 
 @protocol MagicProtocol <NSObject>
@@ -23,10 +21,12 @@
     @property (strong,nonatomic) NSDictionary* findTargetsResult;
     @property (nonatomic,weak) NSMutableArray* allObjectsArray;
     @property (strong,nonatomic) NSMutableArray* targetTags;
-
+    @property (strong,nonatomic) NSDictionary* attributeDatabase;
+    @property (strong,nonatomic) Attribute* physicalDamage;
+    @property (strong,nonatomic) Attribute* magicalDamage;
 -(void) addChild: (CCNode*) child;
 -(CGPoint)getCenterPoint;
--(bool)directAttackTarget:(AiObject*)obj;
+
 
 @optional
 
@@ -42,6 +42,6 @@
 
     -(void)magicAttackWithName:(NSString*)magicName;
     -(void)magicAttackWithName:(NSString*)magicName withParameter:(NSMutableDictionary*)paraDict;
--(NSDictionary*)magicByName:(NSString*)name;
+-(NSDictionary*)magicDataByName:(NSString*)name;
 
 @end

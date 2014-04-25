@@ -1,0 +1,7 @@
+    - name: item_money
+      cnName: 钱
+      tileSpriteName: block_4.png
+      
+    - name: item_hp
+      cnName: 钱
+      tileSpriteName: block_7.png

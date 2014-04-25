@@ -32,7 +32,6 @@
 		021AC90D18B73B9A00FAA3AB /* hunter001_stand.png in Resources */ = {isa = PBXBuildFile; fileRef = 021AC90C18B73B9900FAA3AB /* hunter001_stand.png */; };
 		021AC90F18B7408500FAA3AB /* mage001_stand.png in Resources */ = {isa = PBXBuildFile; fileRef = 021AC90E18B7408500FAA3AB /* mage001_stand.png */; };
 		021AC91118B740A900FAA3AB /* warrior001_stand.png in Resources */ = {isa = PBXBuildFile; fileRef = 021AC91018B740A900FAA3AB /* warrior001_stand.png */; };
-		021B544F1883C206001D1020 /* AiObject.plist in Resources */ = {isa = PBXBuildFile; fileRef = 021B544E1883C206001D1020 /* AiObject.plist */; };
 		021B54521883D770001D1020 /* smallEnemy_stoneMan.plist in Resources */ = {isa = PBXBuildFile; fileRef = 021B54501883D770001D1020 /* smallEnemy_stoneMan.plist */; };
 		021B54531883D770001D1020 /* smallEnemy_stoneMan.png in Resources */ = {isa = PBXBuildFile; fileRef = 021B54511883D770001D1020 /* smallEnemy_stoneMan.png */; };
 		021B54561883D800001D1020 /* smallEnemy_stoneManAttack.plist in Resources */ = {isa = PBXBuildFile; fileRef = 021B54541883D800001D1020 /* smallEnemy_stoneManAttack.plist */; };
@@ -44,7 +43,6 @@
 		021E8AB018CAC94C00CDA673 /* skill_fireBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 021E8AAD18CAC94C00CDA673 /* skill_fireBall.png */; };
 		021E8AB118CAC94C00CDA673 /* skill_bigFireBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 021E8AAE18CAC94C00CDA673 /* skill_bigFireBall.png */; };
 		021E8AB218CAC94C00CDA673 /* skill_iceBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 021E8AAF18CAC94C00CDA673 /* skill_iceBall.png */; };
-		021E8AB518CAEE3C00CDA673 /* ProjectileAiWithNoTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 021E8AB418CAEE3C00CDA673 /* ProjectileAiWithNoTarget.m */; };
 		022AB7FA18A767B500F570BF /* Hero.m in Sources */ = {isa = PBXBuildFile; fileRef = 022AB7F918A767B500F570BF /* Hero.m */; };
 		022AB80018A7841900F570BF /* OLDPlayLayer.h in Resources */ = {isa = PBXBuildFile; fileRef = 022AB7FF18A7841800F570BF /* OLDPlayLayer.h */; };
 		02336D3718E6B5D900E0E6CE /* BuffSlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 02336D3618E6B5D900E0E6CE /* BuffSlow.m */; };
@@ -71,7 +69,6 @@
 		0278B13A187C141600A3AECA /* person001.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0278B138187C141600A3AECA /* person001.plist */; };
 		0278B13B187C141600A3AECA /* person001.png in Resources */ = {isa = PBXBuildFile; fileRef = 0278B139187C141600A3AECA /* person001.png */; };
 		0279080417D48C8100CF5ED4 /* Magic.m in Sources */ = {isa = PBXBuildFile; fileRef = 0279080317D48C8100CF5ED4 /* Magic.m */; };
-		028A260E18C70C1A00C71BEA /* ProjectileAiWithTargets.m in Sources */ = {isa = PBXBuildFile; fileRef = 028A260D18C70C1A00C71BEA /* ProjectileAiWithTargets.m */; };
 		028A261118C71AF300C71BEA /* BarHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 028A261018C71AF300C71BEA /* BarHelper.m */; };
 		02A18C8617F970D4008D5C33 /* ActionQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A18C8517F970D4008D5C33 /* ActionQueue.m */; };
 		02A260151814F36B009F2719 /* border.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A260141814F36B009F2719 /* border.png */; };
@@ -246,6 +243,9 @@
 		02D87786188FACC8007F05CA /* border_yellow_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 02D87785188FACC7007F05CA /* border_yellow_gray.png */; };
 		02E0BB7518AEFC2600EF2408 /* ItemDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E0BB7418AEFC2600EF2408 /* ItemDelegate.m */; };
 		02E0BB7818AF134500EF2408 /* SkillDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02E0BB7718AF134500EF2408 /* SkillDelegate.m */; };
+		02E9CC75190A56DF008C75F0 /* hero.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02E9CC74190A56DF008C75F0 /* hero.plist */; };
+		02E9CC77190A6DDE008C75F0 /* enemy.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02E9CC76190A6DDE008C75F0 /* enemy.plist */; };
+		02E9CC79190A730A008C75F0 /* itemDelegate.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02E9CC78190A730A008C75F0 /* itemDelegate.plist */; };
 		02F05A8D1831EED900676308 /* singleHammer.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F05A8C1831EED900676308 /* singleHammer.plist */; };
 		02F05A8F1831FDB700676308 /* hammer_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F05A8E1831FDB700676308 /* hammer_yellow.png */; };
 		02F1265718F6847E005EE6C8 /* Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F1265618F6847E005EE6C8 /* Attribute.m */; };
@@ -258,13 +258,7 @@
 		02F71A0F1834BC7500F60B1F /* particleTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A0E1834BC7500F60B1F /* particleTexture.png */; };
 		02F71A111834CB9A00F60B1F /* rainFall.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A101834CB9A00F60B1F /* rainFall.plist */; };
 		02F71A131834CC6700F60B1F /* stars.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F71A121834CC6700F60B1F /* stars.plist */; };
-		02F917A71906056300C7DAC3 /* AiBeharvierText.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02F917A61906056300C7DAC3 /* AiBeharvierText.strings */; };
-		02F917A91906066700C7DAC3 /* AiBeharviorImplentment.strings in Resources */ = {isa = PBXBuildFile; fileRef = 02F917A81906066700C7DAC3 /* AiBeharviorImplentment.strings */; };
-		02F917B019065AD300C7DAC3 /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F917AF19065AD300C7DAC3 /* test.plist */; };
 		02F917B619066F7600C7DAC3 /* skill.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F917B519066F7600C7DAC3 /* skill.plist */; };
-		02F917B919066FBA00C7DAC3 /* skill.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 02F917B719066FBA00C7DAC3 /* skill.yaml */; };
-		02F917BA19066FBA00C7DAC3 /* test.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 02F917B819066FBA00C7DAC3 /* test.yaml */; };
-		02F9377218C707D60039F692 /* ProjectileAiWithTargetPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = 02F9377118C707D60039F692 /* ProjectileAiWithTargetPosition.m */; };
 		02F9B287185094A80083FDD7 /* bigFireBall.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02F9B286185094A80083FDD7 /* bigFireBall.plist */; };
 		02F9B2891850972C0083FDD7 /* bigFireBall.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F9B2881850972C0083FDD7 /* bigFireBall.png */; };
 		02FA113A1868234C0096C870 /* snowBall.plist in Resources */ = {isa = PBXBuildFile; fileRef = 02FA11391868234C0096C870 /* snowBall.plist */; };
@@ -348,7 +342,6 @@
 		021AC90C18B73B9900FAA3AB /* hunter001_stand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hunter001_stand.png; sourceTree = "<group>"; };
 		021AC90E18B7408500FAA3AB /* mage001_stand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mage001_stand.png; sourceTree = "<group>"; };
 		021AC91018B740A900FAA3AB /* warrior001_stand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warrior001_stand.png; sourceTree = "<group>"; };
-		021B544E1883C206001D1020 /* AiObject.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AiObject.plist; sourceTree = "<group>"; };
 		021B54501883D770001D1020 /* smallEnemy_stoneMan.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = smallEnemy_stoneMan.plist; sourceTree = "<group>"; };
 		021B54511883D770001D1020 /* smallEnemy_stoneMan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallEnemy_stoneMan.png; sourceTree = "<group>"; };
 		021B54541883D800001D1020 /* smallEnemy_stoneManAttack.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = smallEnemy_stoneManAttack.plist; sourceTree = "<group>"; };
@@ -360,8 +353,6 @@
 		021E8AAD18CAC94C00CDA673 /* skill_fireBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skill_fireBall.png; sourceTree = "<group>"; };
 		021E8AAE18CAC94C00CDA673 /* skill_bigFireBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skill_bigFireBall.png; sourceTree = "<group>"; };
 		021E8AAF18CAC94C00CDA673 /* skill_iceBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skill_iceBall.png; sourceTree = "<group>"; };
-		021E8AB318CAEE3B00CDA673 /* ProjectileAiWithNoTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectileAiWithNoTarget.h; sourceTree = "<group>"; };
-		021E8AB418CAEE3C00CDA673 /* ProjectileAiWithNoTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectileAiWithNoTarget.m; sourceTree = "<group>"; };
 		022AB7F818A767B400F570BF /* Hero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hero.h; sourceTree = "<group>"; };
 		022AB7F918A767B500F570BF /* Hero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hero.m; sourceTree = "<group>"; };
 		022AB7FD18A783FE00F570BF /* OLDPlayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLDPlayLayer.m; sourceTree = "<group>"; };
@@ -396,8 +387,6 @@
 		0278B139187C141600A3AECA /* person001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person001.png; sourceTree = "<group>"; };
 		0279080217D48C8100CF5ED4 /* Magic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Magic.h; sourceTree = "<group>"; };
 		0279080317D48C8100CF5ED4 /* Magic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Magic.m; sourceTree = "<group>"; };
-		028A260C18C70C1A00C71BEA /* ProjectileAiWithTargets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectileAiWithTargets.h; sourceTree = "<group>"; };
-		028A260D18C70C1A00C71BEA /* ProjectileAiWithTargets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectileAiWithTargets.m; sourceTree = "<group>"; };
 		028A260F18C71AF300C71BEA /* BarHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarHelper.h; sourceTree = "<group>"; };
 		028A261018C71AF300C71BEA /* BarHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarHelper.m; sourceTree = "<group>"; };
 		02A18C8417F970D4008D5C33 /* ActionQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionQueue.h; sourceTree = "<group>"; };
@@ -738,6 +727,9 @@
 		02E0BB7418AEFC2600EF2408 /* ItemDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemDelegate.m; sourceTree = "<group>"; };
 		02E0BB7618AF134500EF2408 /* SkillDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkillDelegate.h; sourceTree = "<group>"; };
 		02E0BB7718AF134500EF2408 /* SkillDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkillDelegate.m; sourceTree = "<group>"; };
+		02E9CC74190A56DF008C75F0 /* hero.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = hero.plist; sourceTree = "<group>"; };
+		02E9CC76190A6DDE008C75F0 /* enemy.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = enemy.plist; sourceTree = "<group>"; };
+		02E9CC78190A730A008C75F0 /* itemDelegate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = itemDelegate.plist; sourceTree = "<group>"; };
 		02F05A8C1831EED900676308 /* singleHammer.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = singleHammer.plist; sourceTree = "<group>"; };
 		02F05A8E1831FDB700676308 /* hammer_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hammer_yellow.png; sourceTree = "<group>"; };
 		02F1265518F6847E005EE6C8 /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
@@ -756,12 +748,7 @@
 		02F71A121834CC6700F60B1F /* stars.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = stars.plist; sourceTree = "<group>"; };
 		02F917A61906056300C7DAC3 /* AiBeharvierText.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = AiBeharvierText.strings; sourceTree = "<group>"; };
 		02F917A81906066700C7DAC3 /* AiBeharviorImplentment.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = AiBeharviorImplentment.strings; sourceTree = "<group>"; };
-		02F917AF19065AD300C7DAC3 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = test.plist; sourceTree = "<group>"; };
 		02F917B519066F7600C7DAC3 /* skill.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = skill.plist; sourceTree = "<group>"; };
-		02F917B719066FBA00C7DAC3 /* skill.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = skill.yaml; sourceTree = "<group>"; };
-		02F917B819066FBA00C7DAC3 /* test.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.yaml; sourceTree = "<group>"; };
-		02F9377018C707D60039F692 /* ProjectileAiWithTargetPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectileAiWithTargetPosition.h; sourceTree = "<group>"; };
-		02F9377118C707D60039F692 /* ProjectileAiWithTargetPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectileAiWithTargetPosition.m; sourceTree = "<group>"; };
 		02F9B286185094A80083FDD7 /* bigFireBall.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bigFireBall.plist; sourceTree = "<group>"; };
 		02F9B2881850972C0083FDD7 /* bigFireBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bigFireBall.png; sourceTree = "<group>"; };
 		02FA11391868234C0096C870 /* snowBall.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = snowBall.plist; sourceTree = "<group>"; };
@@ -1483,12 +1470,6 @@
 				02F917A81906066700C7DAC3 /* AiBeharviorImplentment.strings */,
 				02D6BB8018D2E4A1000B3B56 /* AiBehavior.h */,
 				02D6BB8118D2E4A1000B3B56 /* AiBehavior.m */,
-				02F9377018C707D60039F692 /* ProjectileAiWithTargetPosition.h */,
-				02F9377118C707D60039F692 /* ProjectileAiWithTargetPosition.m */,
-				028A260C18C70C1A00C71BEA /* ProjectileAiWithTargets.h */,
-				028A260D18C70C1A00C71BEA /* ProjectileAiWithTargets.m */,
-				021E8AB318CAEE3B00CDA673 /* ProjectileAiWithNoTarget.h */,
-				021E8AB418CAEE3C00CDA673 /* ProjectileAiWithNoTarget.m */,
 			);
 			name = Projectile;
 			sourceTree = "<group>";
@@ -1570,11 +1551,10 @@
 		02F917B4190663A900C7DAC3 /* plist */ = {
 			isa = PBXGroup;
 			children = (
-				02F917B719066FBA00C7DAC3 /* skill.yaml */,
-				02F917B819066FBA00C7DAC3 /* test.yaml */,
+				02E9CC78190A730A008C75F0 /* itemDelegate.plist */,
+				02E9CC76190A6DDE008C75F0 /* enemy.plist */,
 				02F917B519066F7600C7DAC3 /* skill.plist */,
-				02F917AF19065AD300C7DAC3 /* test.plist */,
-				021B544E1883C206001D1020 /* AiObject.plist */,
+				02E9CC74190A56DF008C75F0 /* hero.plist */,
 				02015D5E188A618C00C77FBE /* levelData.plist */,
 			);
 			name = plist;
@@ -1787,7 +1767,6 @@
 				02AF55A618801A8D0065999C /* explosion02.mp3 in Resources */,
 				02AF55A9188021030065999C /* person003.plist in Resources */,
 				02AF55AA188021030065999C /* person003.png in Resources */,
-				021B544F1883C206001D1020 /* AiObject.plist in Resources */,
 				021B54521883D770001D1020 /* smallEnemy_stoneMan.plist in Resources */,
 				021B54531883D770001D1020 /* smallEnemy_stoneMan.png in Resources */,
 				021B54561883D800001D1020 /* smallEnemy_stoneManAttack.plist in Resources */,
@@ -1809,12 +1788,10 @@
 				021E8AB018CAC94C00CDA673 /* skill_fireBall.png in Resources */,
 				021E8AB118CAC94C00CDA673 /* skill_bigFireBall.png in Resources */,
 				021E8AB218CAC94C00CDA673 /* skill_iceBall.png in Resources */,
-				02F917A71906056300C7DAC3 /* AiBeharvierText.strings in Resources */,
-				02F917A91906066700C7DAC3 /* AiBeharviorImplentment.strings in Resources */,
-				02F917B019065AD300C7DAC3 /* test.plist in Resources */,
 				02F917B619066F7600C7DAC3 /* skill.plist in Resources */,
-				02F917B919066FBA00C7DAC3 /* skill.yaml in Resources */,
-				02F917BA19066FBA00C7DAC3 /* test.yaml in Resources */,
+				02E9CC75190A56DF008C75F0 /* hero.plist in Resources */,
+				02E9CC77190A6DDE008C75F0 /* enemy.plist in Resources */,
+				02E9CC79190A730A008C75F0 /* itemDelegate.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1962,10 +1939,7 @@
 				022AB7FA18A767B500F570BF /* Hero.m in Sources */,
 				02E0BB7518AEFC2600EF2408 /* ItemDelegate.m in Sources */,
 				02E0BB7818AF134500EF2408 /* SkillDelegate.m in Sources */,
-				02F9377218C707D60039F692 /* ProjectileAiWithTargetPosition.m in Sources */,
-				028A260E18C70C1A00C71BEA /* ProjectileAiWithTargets.m in Sources */,
 				028A261118C71AF300C71BEA /* BarHelper.m in Sources */,
-				021E8AB518CAEE3C00CDA673 /* ProjectileAiWithNoTarget.m in Sources */,
 				02D6BB7818D29A37000B3B56 /* AiObjectFindTargetsDelegate.m in Sources */,
 				02D6BB7B18D2D43B000B3B56 /* AiObjectMagicDelegate.m in Sources */,
 				02D6BB7F18D2DBEA000B3B56 /* FireBall.m in Sources */,
